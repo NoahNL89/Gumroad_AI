@@ -124,6 +124,9 @@ python3 bot/mastodon_bot.py post "Check out my new product! https://schephenk.gu
 
 # Auto-select a properly priced product and promote it
 python3 bot/mastodon_bot.py promote
+
+# Autonomously engage with the community to build organic reach (favorites, boosts, follows)
+python3 bot/mastodon_bot.py engage
 ```
 
 ---
