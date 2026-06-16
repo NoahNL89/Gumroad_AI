@@ -141,6 +141,15 @@ def init_db(con):
         synced_at       TEXT
     );
 
+    CREATE TABLE IF NOT EXISTS promotions (
+        id              INTEGER PRIMARY KEY AUTOINCREMENT,
+        platform        TEXT,
+        product_id      TEXT,
+        url             TEXT,
+        content         TEXT,
+        posted_at       TEXT
+    );
+
     CREATE TABLE IF NOT EXISTS sync_log (
         id              INTEGER PRIMARY KEY AUTOINCREMENT,
         synced_at       TEXT,
