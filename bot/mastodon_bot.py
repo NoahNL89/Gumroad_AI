@@ -23,9 +23,6 @@ ENV_PATH = os.path.join(os.path.dirname(__file__), "../.env")
 DB_PATH = os.path.join(os.path.dirname(__file__), "../db/store.db")
 BOT_DIR = os.path.dirname(__file__)
 
-CLIENT_CRED_PATH = os.path.join(BOT_DIR, ".mastodon_clientcred.secret")
-USER_CRED_PATH = os.path.join(BOT_DIR, ".mastodon_usercred.secret")
-
 MAX_POSTS_PER_DAY = 3
 
 def load_env():
@@ -41,35 +38,16 @@ def load_env():
 
 def get_client():
     load_env()
-    user = os.environ.get("MASTODON_USERNAME")
-    pw = os.environ.get("MASTODON_PASSWORD")
+    access_token = os.environ.get("MASTODON_ACCESS_TOKEN")
     instance = os.environ.get("MASTODON_INSTANCE", "https://mastodon.social")
     
-    if not user or not pw:
-        print("❌ MASTODON_USERNAME or MASTODON_PASSWORD not set in .env")
+    if not access_token:
+        print("❌ MASTODON_ACCESS_TOKEN not set in .env")
+        print("   Mastodon 4.4.0+ requires Access Tokens instead of username/password.")
+        print("   Get one at: Preferences -> Development -> New Application")
         sys.exit(1)
     
-    # 1. Register app if not done yet
-    if not os.path.exists(CLIENT_CRED_PATH):
-        print(f"🔄 Registering app on {instance}...")
-        Mastodon.create_app(
-            'Gumroad_AI_Agent',
-            api_base_url=instance,
-            to_file=CLIENT_CRED_PATH
-        )
-    
-    # 2. Login to get user credentials if not done yet
-    mastodon = Mastodon(client_id=CLIENT_CRED_PATH)
-    if not os.path.exists(USER_CRED_PATH):
-        print(f"🔄 Logging in to Mastodon as {user}...")
-        mastodon.log_in(
-            user,
-            pw,
-            to_file=USER_CRED_PATH
-        )
-    
-    # 3. Create client instance
-    client = Mastodon(access_token=USER_CRED_PATH)
+    client = Mastodon(access_token=access_token, api_base_url=instance)
     return client
 
 def log_promotion(platform, product_id, url, content):
