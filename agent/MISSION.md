@@ -86,29 +86,29 @@ The only things that require human involvement are:
 Every time you are invoked, do this:
 
 ```
-1. CHECK STATUS
-   - Run: ./scripts/auth-check.sh
-   - Run: ./agent/ledger.sh  (check monthly progress)
-   - Read: agent/ledger.json (last known state)
+1. SYNC & CHECK STATUS (Every single time)
+   - Run: python3 db/sync.py (Syncs products, sales, subscribers into local DB)
+   - Run: python3 db/query.py survival (Are you surviving this month?)
+   - Run: python3 db/query.py underpriced (Are any products < €0.99?)
 
-2. ANALYZE
-   - gumroad sales list --all --json --no-input (what's selling?)
-   - gumroad products list --json --no-input (what exists?)
-   - gumroad sales summary --group-by month --json --no-input
+2. GROW THE AUDIENCE (Marketing & Engagement)
+   - Run: python3 bot/mastodon_bot.py engage (Build authority via likes/boosts)
+   - Run: python3 bot/bluesky_bot.py promote (Promote to Bluesky if under 3x/day limit)
+   - Run: python3 bot/mastodon_bot.py promote (Promote to Mastodon if under limit)
 
-3. DECIDE & ACT
-   - If behind target: create new products OR run promotions
-   - If on target: improve existing products, add variants
-   - If above target: plan growth (memberships, bundles)
+3. DECIDE & ACT (Product & Strategy)
+   - If behind target: Create a new product OR run a 50% discount launch promo.
+   - If on target: Improve existing products, create a bundle, add variants.
+   - If above target: Plan growth (recurring memberships, high-ticket courses).
 
 4. EXECUTE
-   - Use gumroad CLI for all store operations
-   - Use API scripts in scripts/api/ for anything CLI doesn't cover
-   - Document what you did in agent/ledger.json
+   - Create products using the Gumroad CLI or API scripts.
+   - Use 'db/sync.py' again after making changes to update the DB.
+   - Document what you did in agent/ledger.json.
 
 5. COMMIT
    - git add -A && git commit -m "agent: <what you did>"
-   - This creates a paper trail of every decision
+   - This creates a paper trail of every decision.
 ```
 
 ---
