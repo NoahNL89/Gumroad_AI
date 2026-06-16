@@ -1,4 +1,4 @@
-# Privacy Policy for Schep Digital Pinterest App
+# Privacy Policy for Schep_Digital Pinterest App
 
 **Last Updated:** June 16, 2026
 
