@@ -11,10 +11,10 @@
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
 | 1 | Exploration & Verification | Sync database, verify connection, locate download assets | None | DONE |
-| 2 | Strategy & Copy Optimization | Design copy structure, generate optimized descriptions in dry-run | M1 | IN_PROGRESS |
-| 3 | Gumroad Publishing Execution | Programmatically update product descriptions using API/CLI (dry-run/real depending on demo mode) | M2 | PLANNED |
-| 4 | Cover Asset Quality Audit | Evaluate downloaded covers in `downloads/`, generate audit report | M1 | PLANNED |
-| 5 | End-to-End Verification & Audit | Validate all updates, run final integrity audit checks, compile summary | M3, M4 | PLANNED |
+| 2 | Strategy & Copy Optimization | Design copy structure, generate optimized descriptions in dry-run | M1 | DONE |
+| 3 | Gumroad Publishing Execution | Programmatically update product descriptions using API/CLI (dry-run/real depending on demo mode) | M2 | DONE |
+| 4 | Cover Asset Quality Audit | Evaluate downloaded covers in `downloads/`, generate audit report | M1 | DONE |
+| 5 | End-to-End Verification & Audit | Validate all updates, run final integrity audit checks, compile summary | M3, M4 | DONE |
 
 ## Interface Contracts
 - API Scripts/CLI require valid GUMROAD_ACCESS_TOKEN.
