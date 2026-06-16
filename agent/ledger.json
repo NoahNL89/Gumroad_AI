@@ -1,0 +1,50 @@
+{
+  "_comment": "AI Agent Revenue Ledger — updated after each agent session",
+  "store": "schephenk.gumroad.com",
+  "currency": "EUR",
+  "targets": {
+    "monthly_minimum_eur": 58,
+    "monthly_growth_eur": 150,
+    "description": "Min covers AI subscriptions. Growth threshold unlocks dedicated machine."
+  },
+  "subscriptions": {
+    "antigravity_cli": { "monthly_eur": 20, "active": true },
+    "claude_code": { "monthly_eur": 18, "active": true },
+    "codex_cli": { "monthly_eur": 20, "active": true }
+  },
+  "sessions": [
+    {
+      "date": "2026-06-16",
+      "agent": "Antigravity CLI",
+      "actions": [
+        "Analyzed store: 10 products all at €0.99, 0 sales — critical underpricing",
+        "Repriced all 10 products to market rates (€5.99 – €14.99)",
+        "Created flagship bundle: The Complete AI Creator Toolkit 2026 (€29.99)",
+        "Published bundle at https://schephenk.gumroad.com/l/usfdum",
+        "Created LAUNCH30 discount codes (30% off) on top 2 products",
+        "Created BUNDLE20 discount code (20% off) on bundle",
+        "Deleted duplicate draft bundle"
+      ],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Store was critically underpriced. Now positioned to convert. Need traffic/promotion."
+    }
+  ],
+  "current_month_revenue_eur": 0,
+  "lifetime_revenue_eur": 0,
+  "last_updated": "2026-06-16T10:04:00Z",
+  "status": "store_optimized_awaiting_sales",
+  "catalog": {
+    "bundle": { "id": "ws-l3GFbvznUmNYUgBwUGA==", "price_eur": 29.99, "url": "https://schephenk.gumroad.com/l/usfdum" },
+    "local_llm_guide": { "id": "gIXM0JN3NDuI1-2BadEVNg==", "price_eur": 14.99 },
+    "blender_mastery": { "id": "KA9cbFaDhhCoh94TTuZ4pA==", "price_eur": 14.99 },
+    "inner_circle": { "id": "I9qlMBYv_lfoN4eDQskBcg==", "price_eur": 12.99 },
+    "gemini_architecture": { "id": "pkAOT6Z7J6HXSLS0_a0NcQ==", "price_eur": 9.99 },
+    "prompt_vault": { "id": "cgrMuZIqz_IvAUjX0q404w==", "price_eur": 9.99 },
+    "gemini_mega_pack": { "id": "QQQhvnq-IJb5fxi-eywkWQ==", "price_eur": 9.99 },
+    "midjourney_2026": { "id": "dQhOuA5T5rE6RC1hQ2Y5pw==", "price_eur": 7.99 },
+    "midjourney_editorial": { "id": "LunWD_5niwqmTtPvImj2aw==", "price_eur": 7.99 },
+    "power_prompts": { "id": "Tv95wemLl_bfeX_hBvp-2A==", "price_eur": 7.99 },
+    "viral_hooks": { "id": "Ooxbre7qZzU85P1n-wOgMA==", "price_eur": 5.99 }
+  }
+}

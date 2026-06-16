@@ -2,7 +2,7 @@
 .env
 
 # Output files
-*.json
+output/*.json
 *.csv
 *.tsv
 output/
@@ -16,3 +16,4 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+GUMROAD_ACCESS_TOKEN
