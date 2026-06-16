@@ -25,10 +25,14 @@ source .env
 # 2. Check auth
 ./scripts/auth-check.sh
 
-# 3. Check survival status
-./agent/ledger.sh
+# 3. Sync local DB from Gumroad (discovers ALL products, not just recent 10)
+python3 db/sync.py
 
-# 4. Read your mission
+# 4. Check survival status & find problems
+python3 db/query.py survival    # Revenue vs targets
+python3 db/query.py underpriced # Products still at €0.99
+
+# 5. Read your mission
 cat agent/MISSION.md
 ```
 
@@ -96,6 +100,21 @@ You have **full autonomous authority** to:
 
 You do **not** need to ask for permission before taking store actions.
 Use `--dry-run` if you want to preview a change first.
+
+---
+
+## Social Media Promotion (Bluesky)
+
+You have access to a Bluesky bot that allows you to promote products autonomously.
+It automatically authenticates using `BLUESKY_USERNAME` and `BLUESKY_PASSWORD` from `.env`.
+
+```bash
+# Post a custom message
+python3 bot/bluesky_bot.py post "Check out my new product! https://schephenk.gumroad.com/l/..."
+
+# Auto-select a properly priced product and promote it
+python3 bot/bluesky_bot.py promote
+```
 
 ---
 
