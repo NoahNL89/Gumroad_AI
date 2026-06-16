@@ -7,7 +7,7 @@ set -euo pipefail
 echo "=== Gumroad Auth Check ==="
 echo ""
 
-if ! gumroad auth status --json --no-input 2>/dev/null | jq -e '.seller' > /dev/null 2>&1; then
+if ! gumroad auth status --json --no-input 2>/dev/null | jq -e '.user' > /dev/null 2>&1; then
   echo "❌ Not authenticated."
   echo ""
   echo "To authenticate:"
