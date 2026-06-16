@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # oauth-exchange.sh — Exchange OAuth authorization code for access token
-# Usage: ./scripts/oauth-exchange.sh "http://localhost:3000/endpoint?code=XXXX"
+# Usage: ./scripts/oauth-exchange.sh "http://localhost:3003/endpoint?code=XXXX"
 # Or:    ./scripts/oauth-exchange.sh "XXXX"  (just the code itself)
 
 set -euo pipefail
@@ -21,7 +21,7 @@ echo ""
 
 CLIENT_ID="${GUMROAD_CLIENT_ID:-lrTDL-2m1VyDQt9clyMOeZ5NuyjBrB3a9TW_t0OAiOE}"
 CLIENT_SECRET="${GUMROAD_CLIENT_SECRET:-KlPgzjxVAuiiq33JyCo4b_tuTKLdyFnoZ4XaHBDr9KM}"
-REDIRECT_URI="${GUMROAD_REDIRECT_URI:-http://localhost:3000/endpoint}"
+REDIRECT_URI="${GUMROAD_REDIRECT_URI:-http://localhost:3003/endpoint}"
 
 RESPONSE=$(curl -s -X POST "https://api.gumroad.com/oauth/token" \
   -H "Content-Type: application/x-www-form-urlencoded" \
