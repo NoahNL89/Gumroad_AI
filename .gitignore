@@ -17,3 +17,4 @@ Thumbs.db
 *.swp
 *.swo
 GUMROAD_ACCESS_TOKEN
+*.secret

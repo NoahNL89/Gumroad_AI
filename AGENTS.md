@@ -103,17 +103,27 @@ Use `--dry-run` if you want to preview a change first.
 
 ---
 
-## Social Media Promotion (Bluesky)
+## Social Media Promotion (Bluesky & Mastodon)
 
-You have access to a Bluesky bot that allows you to promote products autonomously.
-It automatically authenticates using `BLUESKY_USERNAME` and `BLUESKY_PASSWORD` from `.env`.
+You have access to bots that allow you to promote products autonomously.
+They automatically authenticate using `BLUESKY_USERNAME` / `MASTODON_USERNAME` and their respective passwords from `.env`.
 
+**Bluesky:**
 ```bash
 # Post a custom message
 python3 bot/bluesky_bot.py post "Check out my new product! https://schephenk.gumroad.com/l/..."
 
 # Auto-select a properly priced product and promote it
 python3 bot/bluesky_bot.py promote
+```
+
+**Mastodon:**
+```bash
+# Post a custom message
+python3 bot/mastodon_bot.py post "Check out my new product! https://schephenk.gumroad.com/l/..."
+
+# Auto-select a properly priced product and promote it
+python3 bot/mastodon_bot.py promote
 ```
 
 ---
