@@ -161,6 +161,9 @@ def init_db(con):
     CREATE INDEX IF NOT EXISTS idx_sales_product ON sales(product_id);
     CREATE INDEX IF NOT EXISTS idx_sales_email   ON sales(email);
     CREATE INDEX IF NOT EXISTS idx_subs_product  ON subscribers(product_id);
+    CREATE INDEX IF NOT EXISTS idx_sales_timestamp ON sales(sale_timestamp);
+    CREATE INDEX IF NOT EXISTS idx_products_published ON products(published);
+    CREATE INDEX IF NOT EXISTS idx_promotions_platform ON promotions(platform, posted_at);
     """)
     con.commit()
 
@@ -172,11 +175,19 @@ def sync_products(con):
 
     # Step 1: Get known products from /products endpoint
     data = api_get("products")
+    if data.get("success") is False:
+        print(f"   ⚠️  API error fetching products: {data.get('error', 'unknown')}")
+        return []
     products = data.get("products", [])
 
     # Step 2: Get all product permalinks from user.links
     user_data = api_get("user")
-    permalinks = user_data.get("user", {}).get("links", [])
+    if user_data.get("success") is False:
+        print(f"   ⚠️  API error fetching user links: {user_data.get('error', 'unknown')}")
+        print(f"   Continuing with {len(products)} products from /products endpoint only.")
+        permalinks = []
+    else:
+        permalinks = user_data.get("user", {}).get("links", [])
     print(f"   /products API returned: {len(products)}")
     print(f"   User links (all permalinks): {len(permalinks)}")
 
@@ -269,6 +280,9 @@ def sync_sales(con):
             params["page_key"] = page_key
 
         data = api_get("sales", params)
+        if data.get("success") is False:
+            print(f"   ⚠️  API error fetching sales page {page}: {data.get('error', 'unknown')}")
+            break
         sales = data.get("sales", [])
         if not sales:
             break
@@ -336,6 +350,9 @@ def sync_subscribers(con):
                 params["page_key"] = page_key
 
             data = api_get(f"products/{prod_id}/subscribers", params)
+            if data.get("success") is False:
+                print(f"   ⚠️  API error fetching subscribers for {prod_id}: {data.get('error', 'unknown')}")
+                break
             subs = data.get("subscribers", [])
             if not subs:
                 break
@@ -379,6 +396,9 @@ def sync_payouts(con):
     print("\n💳 Syncing payouts...")
 
     data = api_get("payouts")
+    if data.get("success") is False:
+        print(f"   ⚠️  API error fetching payouts: {data.get('error', 'unknown')}")
+        return
     payouts = data.get("payouts", [])
 
     for p in payouts:
@@ -413,6 +433,9 @@ def sync_offer_codes(con):
     for prod in products:
         prod_id = prod["id"]
         data = api_get(f"products/{prod_id}/offer_codes")
+        if data.get("success") is False:
+            print(f"   ⚠️  API error fetching offer codes for {prod_id}: {data.get('error', 'unknown')}")
+            continue
         codes = data.get("offer_codes", [])
 
         for c in codes:
@@ -500,7 +523,7 @@ def print_report(con):
     print(f"  👥 Subscribers: {sub_count} active")
 
     # Survival status
-    target = 58.00
+    target = float(os.environ.get('AGENT_MONTHLY_TARGET_EUR', '58'))
     print(f"\n  🎯 Survival target:  €{target:.2f}/month")
     print(f"  💵 Net revenue:      €{net_eur:.2f}")
     if net_eur >= target:

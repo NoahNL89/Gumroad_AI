@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-# Auto-generated API wrapper — see scripts/api/_base.sh
+# GET /v2/sales/:id — Get a single sale by ID
+# Usage: ./get-sale.sh SALE_ID
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$DIR/_base.sh"
 [ -f "$DIR/../../.env" ] && source "$DIR/../../.env"
+source "$DIR/_base.sh"
+
+SALE_ID="${1:?Usage: get-sale.sh SALE_ID}"
+gumroad_get "sales/$SALE_ID" | jq .

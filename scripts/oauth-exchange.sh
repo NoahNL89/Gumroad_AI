@@ -19,8 +19,8 @@ echo "=== Gumroad OAuth Token Exchange ==="
 echo "Code: ${CODE:0:12}..."
 echo ""
 
-CLIENT_ID="${GUMROAD_CLIENT_ID:-lrTDL-2m1VyDQt9clyMOeZ5NuyjBrB3a9TW_t0OAiOE}"
-CLIENT_SECRET="${GUMROAD_CLIENT_SECRET:-KlPgzjxVAuiiq33JyCo4b_tuTKLdyFnoZ4XaHBDr9KM}"
+CLIENT_ID="${GUMROAD_CLIENT_ID:?Set GUMROAD_CLIENT_ID in .env}"
+CLIENT_SECRET="${GUMROAD_CLIENT_SECRET:?Set GUMROAD_CLIENT_SECRET in .env}"
 REDIRECT_URI="${GUMROAD_REDIRECT_URI:-http://localhost:3003/endpoint}"
 
 RESPONSE=$(curl -s -X POST "https://api.gumroad.com/oauth/token" \

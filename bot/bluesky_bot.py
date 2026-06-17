@@ -50,33 +50,37 @@ def get_client():
     
     print(f"🔄 Logging in to Bluesky as {user}...")
     client = Client()
-    client.login(user, pw)
+    try:
+        client.login(user, pw)
+    except Exception as e:
+        print(f"❌ Failed to log in to Bluesky: {e}")
+        sys.exit(1)
     return client
 
 def log_promotion(platform, product_id, url, content):
     """Log the promotion to the SQLite DB."""
     if not os.path.exists(DB_PATH):
+        print(f"⚠️ Warning: Database not found at {DB_PATH}. Promotion not logged.")
         return
-    con = sqlite3.connect(DB_PATH)
-    con.execute("""
-        INSERT INTO promotions (platform, product_id, url, content, posted_at)
-        VALUES (?, ?, ?, ?, ?)
-    """, (platform, product_id, url, content, datetime.now(timezone.utc).isoformat()))
-    con.commit()
-    con.close()
+    with sqlite3.connect(DB_PATH) as con:
+        con.execute("""
+            INSERT INTO promotions (platform, product_id, url, content, posted_at)
+            VALUES (?, ?, ?, ?, ?)
+        """, (platform, product_id, url, content, datetime.now(timezone.utc).isoformat()))
+        con.commit()
 
 def check_rate_limits():
     """Check if we have exceeded our daily posting limit (Max 3/day)."""
     if not os.path.exists(DB_PATH):
-        return True # Can't check
+        print(f"⚠️ Warning: Database not found at {DB_PATH}. Refusing to post (fail-closed).")
+        return False
     
-    con = sqlite3.connect(DB_PATH)
-    twenty_four_hours_ago = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
-    count = con.execute(
-        "SELECT COUNT(*) FROM promotions WHERE platform='bluesky' AND posted_at >= ?", 
-        (twenty_four_hours_ago,)
-    ).fetchone()[0]
-    con.close()
+    with sqlite3.connect(DB_PATH) as con:
+        twenty_four_hours_ago = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
+        count = con.execute(
+            "SELECT COUNT(*) FROM promotions WHERE platform='bluesky' AND posted_at >= ?", 
+            (twenty_four_hours_ago,)
+        ).fetchone()[0]
     
     if count >= MAX_POSTS_PER_DAY:
         print(f"⚠️ RATE LIMIT REACHED: Already posted {count} times in the last 24 hours.")
@@ -84,13 +88,25 @@ def check_rate_limits():
         return False
     return True
 
+BLUESKY_CHAR_LIMIT = 300
+
 def post_message(text, product_id=None, url=None):
     if not check_rate_limits():
         sys.exit(0)
+    
+    # Enforce Bluesky character limit (300 chars)
+    if len(text) > BLUESKY_CHAR_LIMIT:
+        suffix = f"... {url}" if url else "..."
+        text = text[:BLUESKY_CHAR_LIMIT - len(suffix)] + suffix
+        print(f"⚠️ Text truncated to {BLUESKY_CHAR_LIMIT} characters.")
         
     client = get_client()
     print(f"📝 Posting:\n{text}\n")
-    post = client.send_post(text)
+    try:
+        post = client.send_post(text)
+    except Exception as e:
+        print(f"❌ Failed to post to Bluesky: {e}")
+        sys.exit(1)
     
     log_promotion("bluesky", product_id, url, text)
     print(f"✅ Successfully posted to Bluesky! Post URI: {post.uri}")
@@ -100,14 +116,13 @@ def promote_random_product():
         print("❌ Database not found. Run: python3 db/sync.py")
         sys.exit(1)
         
-    con = sqlite3.connect(DB_PATH)
-    con.row_factory = sqlite3.Row
-    # Get a published product that is properly priced (> €0.99)
-    products = con.execute("SELECT id, name, formatted_price, short_url FROM products WHERE published=1 AND price_cents > 99").fetchall()
+    with sqlite3.connect(DB_PATH) as con:
+        con.row_factory = sqlite3.Row
+        # Get a published product that is properly priced (> €0.99)
+        products = con.execute("SELECT id, name, formatted_price, short_url FROM products WHERE published=1 AND price_cents > 99").fetchall()
     
-    # Let's avoid promoting the EXACT same product we promoted last time if possible
-    last_promo = con.execute("SELECT product_id FROM promotions ORDER BY posted_at DESC LIMIT 1").fetchone()
-    con.close()
+        # Let's avoid promoting the EXACT same product we promoted last time if possible
+        last_promo = con.execute("SELECT product_id FROM promotions WHERE platform='bluesky' ORDER BY posted_at DESC LIMIT 1").fetchone()
     
     if not products:
         print("❌ No properly priced published products found to promote.")

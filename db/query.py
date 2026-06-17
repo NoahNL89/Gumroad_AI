@@ -101,7 +101,7 @@ def cmd_survival(con):
     """, (month,)).fetchone()
 
     net_eur = (row["net_cents"] or 0) / 100
-    target = 58.0
+    target = float(os.environ.get('AGENT_MONTHLY_TARGET_EUR', '58'))
     growth = 150.0
 
     print(f"\n╔══════════════════════════════════════╗")

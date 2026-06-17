@@ -18,3 +18,21 @@ Thumbs.db
 *.swo
 GUMROAD_ACCESS_TOKEN
 *.secret
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Database (generated, not tracked)
+db/store.db
+
+# Downloaded assets (large binaries)
+downloads/
+
+# Agent working state (ephemeral)
+.agents/
+
+# Test/temp outputs
+test_image.jpg
+test.jpg

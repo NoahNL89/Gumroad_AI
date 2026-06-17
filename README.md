@@ -246,17 +246,44 @@ gumroad skill  # interactive installer
 ```
 GumRoad_AI/
 ├── README.md                  # Full command reference (this file)
+├── AGENTS.md                  # AI agent configuration (Antigravity/Codex)
+├── CLAUDE.md                  # AI agent configuration (Claude Code)
+├── PROJECT.md                 # Project overview and goals
+├── SchepDigital-Privacy-Policy.md  # Privacy policy (Pinterest API)
 ├── .env.example               # Environment variable template
 ├── .env                       # Your secrets (gitignored)
-├── .gitignore                 # Ignores .env and common artifacts
+├── .gitignore                 # Ignores secrets, DB, and build artifacts
+├── requirements.txt           # Python dependencies
+├── agent/
+│   ├── MISSION.md             # AI agent mandate and survival targets
+│   ├── ledger.json            # Session log of all agent actions
+│   ├── ledger.sh              # Quick ledger viewer
+│   └── reports/               # Archived audit reports
+├── bot/
+│   ├── bluesky_bot.py         # Bluesky promotion + posting bot
+│   ├── mastodon_bot.py        # Mastodon promotion, posting + engagement bot
+│   └── update_profile.py      # Mastodon profile updater
+├── db/
+│   ├── sync.py                # Gumroad → SQLite sync (products, sales, subs)
+│   ├── query.py               # CLI for querying store data + survival status
+│   └── store.db               # SQLite database (gitignored, generated)
+├── scripts/
+│   ├── auth-check.sh          # Quick auth status check
+│   ├── oauth-exchange.sh      # OAuth code → token exchange
+│   ├── download_files.py      # Download product cover assets
+│   ├── upload_cover.py        # Upload cover images via API
+│   ├── upload_thumbnails.py   # Batch upload thumbnails via GitHub URLs
+│   └── api/                   # Direct Gumroad API wrappers (16 scripts)
+│       ├── _base.sh           # Shared helpers (gumroad_get/post/put/delete)
+│       ├── get-user.sh        # GET /v2/user
+│       ├── list-products.sh   # GET /v2/products
+│       ├── list-sales.sh      # GET /v2/sales
+│       └── ...                # create-product, update-product, etc.
+├── assets/
+│   └── thumbnails/            # AI-generated product thumbnails
 ├── skills/
 │   └── gumroad/
 │       └── SKILL.md           # AI agent skill definition
-├── scripts/
-│   ├── auth-check.sh          # Quick auth status check
-│   ├── sales-report.sh        # Monthly sales report
-│   ├── bulk-discount.sh       # Bulk offer code creation
-│   └── export-buyers.sh       # Export buyer email list
 └── examples/
     ├── jq-recipes.md          # Useful jq filter recipes
     └── automation.md          # Common automation patterns

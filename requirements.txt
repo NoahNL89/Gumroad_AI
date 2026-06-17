@@ -1,0 +1,4 @@
+# Python dependencies for GumRoad_AI workspace
+requests>=2.31.0
+Mastodon.py>=1.8.0
+atproto>=0.0.46

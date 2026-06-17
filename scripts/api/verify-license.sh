@@ -3,8 +3,8 @@
 # Usage: ./verify-license.sh <product_id> <license_key> [increment_uses_count]
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$DIR/_base.sh"
 [ -f "$DIR/../../.env" ] && source "$DIR/../../.env"
+source "$DIR/_base.sh"
 PRODUCT_ID="${1:?Provide product_id (permalink)}"
 LICENSE_KEY="${2:?Provide license_key}"
 INCREMENT="${3:-false}"
