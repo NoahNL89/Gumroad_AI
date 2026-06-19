@@ -20,5 +20,15 @@ We do not share any data with third parties, as no user data is ever collected o
 ## 5. Security
 All authentication with the Pinterest API is handled securely via standard OAuth 2.0 protocols. API keys and secrets are stored in secure environment variables and are never exposed publicly.
 
-## 6. Contact Us
-If you have any questions or concerns about this Privacy Policy, please contact the developer via the associated GitHub repository or Gumroad store contact forms.
+## 6. Data Deletion
+Although we do not collect or store any personal data from Pinterest users, if you wish to revoke our App's access or request that any hypothetical data be deleted, you can:
+1. Disconnect the App directly from your Pinterest Account settings.
+2. Email our Data Protection Officer at the email listed below with the subject line "Data Deletion Request". We will confirm that no data is held or delete any data found within 30 days.
+
+## 7. Contact Us
+For any questions, concerns, or data requests regarding this Privacy Policy or the App, please contact us directly:
+
+**Company Name:** Schep Digital  
+**Email:** schephenk198@gmail.com  
+**Website:** https://schephenk.gumroad.com  
+**Address:** Provided upon formal request via email.
