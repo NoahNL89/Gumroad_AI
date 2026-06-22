@@ -1,0 +1,178 @@
+{
+  "01_75_power_prompts_content_creators": {
+    "creem_id": "prod_7NWGiCsSAZstyNk1FvrWR0",
+    "product_url": "https://creem.io/test/product/prod_7NWGiCsSAZstyNk1FvrWR0",
+    "name": "75 Power Prompts for Content Creators: 2026 Edition",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "02_ai_prompt_vault_2026": {
+    "creem_id": "prod_3xnSBmRtjHqEDUKCXGuZsl",
+    "product_url": "https://creem.io/test/product/prod_3xnSBmRtjHqEDUKCXGuZsl",
+    "name": "AI Prompt Vault 2026: 200+ Blueprint Prompts",
+    "price_eur": 9.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "03_gemini_mega_prompt_pack": {
+    "creem_id": "prod_68QZi7Z7MLHOWWLZ0gK8LB",
+    "product_url": "https://creem.io/test/product/prod_68QZi7Z7MLHOWWLZ0gK8LB",
+    "name": "Gemini Mega Prompt Pack: The 10M Token No-Chunk Protocol",
+    "price_eur": 9.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "04_gemini_15_pro_high_context": {
+    "creem_id": "prod_1LChNp3hj3uvSJvradGef",
+    "product_url": "https://creem.io/test/product/prod_1LChNp3hj3uvSJvradGef",
+    "name": "Gemini 1.5 Pro: High-Context Architecture Guide",
+    "price_eur": 9.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "05_local_llm_guide": {
+    "creem_id": "prod_5KebaOH8cpbx2dkwZRUoSb",
+    "product_url": "https://creem.io/test/product/prod_5KebaOH8cpbx2dkwZRUoSb",
+    "name": "Local LLM Setup Guide: Run AI on Your Own Hardware",
+    "price_eur": 14.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "06_ai_to_blender_kit": {
+    "creem_id": "prod_487BNiRJnrBYz0aMMc4jiL",
+    "product_url": "https://creem.io/test/product/prod_487BNiRJnrBYz0aMMc4jiL",
+    "name": "AI-to-Blender Kit: Scripts, Prompts & Workflows",
+    "price_eur": 14.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "07_consistent_character_genesis_2026": {
+    "creem_id": "prod_2r5eRymeaaoJXUBZgJ27uj",
+    "product_url": "https://creem.io/test/product/prod_2r5eRymeaaoJXUBZgJ27uj",
+    "name": "Consistent Character Genesis 2026: Midjourney Mastery",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "08_consistent_character_genesis_editorial": {
+    "creem_id": "prod_2W0JFrw9VFoceKwoe4GVuZ",
+    "product_url": "https://creem.io/test/product/prod_2W0JFrw9VFoceKwoe4GVuZ",
+    "name": "Consistent Character Genesis: Editorial Edition",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "09_viral_hooks": {
+    "creem_id": "prod_fOg45BYP4dJn42e4MTrIU",
+    "product_url": "https://creem.io/test/product/prod_fOg45BYP4dJn42e4MTrIU",
+    "name": "0.5s Viral Hooks: Stop the Scroll in Half a Second",
+    "price_eur": 5.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "10_business_name_generator": {
+    "creem_id": "prod_y1gyDW5sRR6OBbWQi8477",
+    "product_url": "https://creem.io/test/product/prod_y1gyDW5sRR6OBbWQi8477",
+    "name": "AI Business Name Generator: 8 Archetypes + 5-Filter System",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "11_freelancer_prompt_pack": {
+    "creem_id": "prod_5tKbAvEGAZDvmAQbNHZjWl",
+    "product_url": "https://creem.io/test/product/prod_5tKbAvEGAZDvmAQbNHZjWl",
+    "name": "Freelancer AI Prompt Pack: Proposals, Clients & Contracts",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "12_instagram_growth_templates": {
+    "creem_id": "prod_3qFwHfnnwXdTYv59iNgDgA",
+    "product_url": "https://creem.io/test/product/prod_3qFwHfnnwXdTYv59iNgDgA",
+    "name": "Instagram Growth Templates: Captions, Carousels & Stories",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "13_cv_resume_templates": {
+    "creem_id": "prod_2zpXEEJaEFbguyOi8kEz4H",
+    "product_url": "https://creem.io/test/product/prod_2zpXEEJaEFbguyOi8kEz4H",
+    "name": "CV & Resume AI Templates: Beat ATS, Win Interviews",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "14_notion_habit_architecture": {
+    "creem_id": "prod_zx0ZzI0k1FoPW7H7laS7a",
+    "product_url": "https://creem.io/test/product/prod_zx0ZzI0k1FoPW7H7laS7a",
+    "name": "Notion Habit Architecture: AI-Powered Habit System",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "15_omnichannel_social_calendar": {
+    "creem_id": "prod_20Wo0NZdnXpz2sAeasKUTG",
+    "product_url": "https://creem.io/test/product/prod_20Wo0NZdnXpz2sAeasKUTG",
+    "name": "Omnichannel Social Media Calendar: The Content Atom Model",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "16_email_subject_line_mastery": {
+    "creem_id": "prod_5eXzAPepP5cFfL3Iqj0Ffp",
+    "product_url": "https://creem.io/test/product/prod_5eXzAPepP5cFfL3Iqj0Ffp",
+    "name": "Email Subject Line Mastery: 80+ Formulas + A/B Framework",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "17_side_hustle_checklist": {
+    "creem_id": "prod_43hlLuErWiObQE9IaXR7Oc",
+    "product_url": "https://creem.io/test/product/prod_43hlLuErWiObQE9IaXR7Oc",
+    "name": "Side Hustle Quick-Start Checklist: 90 Days to First Payment",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "18_journaling_prompts": {
+    "creem_id": "prod_5H5b8HuwJbNCx0WrymNXeJ",
+    "product_url": "https://creem.io/test/product/prod_5H5b8HuwJbNCx0WrymNXeJ",
+    "name": "Journaling Prompts for Clarity & Calm: 100+ Structured Prompts",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "19_seo_checklist": {
+    "creem_id": "prod_37LIOtMXpTgF39JkagfzLl",
+    "product_url": "https://creem.io/test/product/prod_37LIOtMXpTgF39JkagfzLl",
+    "name": "SEO Checklist 2026: Technical, Content & AI Search",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "20_ai_content_machine": {
+    "creem_id": "prod_1txbCCQSjNAAI6Z5eVHUHq",
+    "product_url": "https://creem.io/test/product/prod_1txbCCQSjNAAI6Z5eVHUHq",
+    "name": "AI Content Machine Bundle: Hook Architecture + Carousel System",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "21_75_power_prompts_ai_masters": {
+    "creem_id": "prod_2Cl1qzvHefLKolRkD8BUCE",
+    "product_url": "https://creem.io/test/product/prod_2Cl1qzvHefLKolRkD8BUCE",
+    "name": "75 Power Prompts for AI Masters: Advanced Techniques",
+    "price_eur": 7.99,
+    "mode": "test",
+    "status": "active"
+  },
+  "22_ai_side_hustle_inner_circle": {
+    "creem_id": "prod_5pof9kecnc3xy2mbhpfgyG",
+    "product_url": "https://creem.io/test/product/prod_5pof9kecnc3xy2mbhpfgyG",
+    "name": "AI Side Hustle Inner Circle: Monthly Playbooks + Community",
+    "price_eur": 12.99,
+    "mode": "test",
+    "status": "active"
+  }
+}
