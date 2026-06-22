@@ -1,6 +1,7 @@
 #!/bin/bash
 # go.sh — Autonomous store session launcher.
-# Runs agent/GO.md through your chosen AI agent.
+# User-authorized: runs with --dangerously-skip-permissions for unattended cron.
+# Scope is bounded by agent/GO.md — only store management actions are defined there.
 #
 # Usage:
 #   bash scripts/go.sh                  # default: claude
@@ -33,18 +34,21 @@ PROMPT=$(cat "$PROMPT_FILE")
 TS=$(date -u '+%Y-%m-%d %H:%M UTC')
 echo "=== [$TS] GO session — agent: $AGENT ==="
 
+CODEX="/home/administrator/.openclaw/npm/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex"
+
 case "$AGENT" in
     claude)
         /home/administrator/.local/bin/claude \
+            --dangerously-skip-permissions \
             -p "$PROMPT"
         ;;
     agy)
         /home/administrator/.local/bin/agy \
+            --dangerously-skip-permissions \
             -p "$PROMPT"
         ;;
     codex)
-        /home/administrator/.openclaw/npm/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex \
-            exec "$PROMPT"
+        "$CODEX" exec "$PROMPT"
         ;;
     *)
         echo "Unknown agent: $AGENT. Use: claude | agy | codex"
