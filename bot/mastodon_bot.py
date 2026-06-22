@@ -1,220 +1,240 @@
 #!/usr/bin/env python3
 """
-Mastodon Social Media Bot for Gumroad_AI
-Promotes products autonomously and acts as an engagement engine.
-
-Research-backed best practices applied:
-1. COMMUNITY ENGAGEMENT: Mastodon has no algorithm. Growth comes from interacting, boosting, and following.
-2. MAX 3 POSTS PER DAY: Prevents spamming and respects instance culture.
-3. 80/20 VALUE RULE: We mix hard product sales with value-driven advice.
-4. DATABASE TRACKING: All posts are logged to `store.db`.
+Mastodon bot for Schep Digital — promotes products and builds audience.
 
 Usage:
-    python3 bot/mastodon_bot.py post "Your message here!"
-    python3 bot/mastodon_bot.py promote  # Auto-selects a product and promotes it
-    python3 bot/mastodon_bot.py engage   # Follows, likes, and boosts relevant niche tags
+    python3 bot/mastodon_bot.py promote   # Post a product promotion (max 3/day)
+    python3 bot/mastodon_bot.py engage    # Like/boost/follow relevant hashtag posts
+    python3 bot/mastodon_bot.py post "text"  # Post arbitrary text
 """
-
-import os
-import sys
-import sqlite3
-import random
-import time
+import os, sys, sqlite3, random, time
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
 try:
     from mastodon import Mastodon
 except ImportError:
-    print("❌ Mastodon.py package not installed. Run: pip3 install Mastodon.py")
-    sys.exit(1)
+    sys.exit("mastodon.py not installed. Run: pip3 install Mastodon.py")
 
-ENV_PATH = os.path.join(os.path.dirname(__file__), "../.env")
-DB_PATH = os.path.join(os.path.dirname(__file__), "../db/store.db")
-BOT_DIR = os.path.dirname(__file__)
+ENV_PATH  = Path(__file__).parent.parent / ".env"
+DB_PATH   = Path(__file__).parent.parent / "db" / "store.db"
 
 MAX_POSTS_PER_DAY = 3
+MASTODON_LIMIT    = 500
+DISCOUNT_CODE     = "LAUNCH30"
+
+# Hashtag sets by product category
+HASHTAGS = {
+    "ai_prompts":   "#AI #ChatGPT #AIPrompts #Productivity #PromptEngineering",
+    "creative":     "#AIArt #MidjourneyAI #DigitalArt #CreativeAI #AIDesign",
+    "blender":      "#Blender3D #AIArt #3DArt #BlenderPython #GenerativeAI",
+    "business":     "#Solopreneur #SideHustle #DigitalProducts #OnlineBusiness #AITools",
+    "writing":      "#Copywriting #ContentMarketing #EmailMarketing #AIWriting #Marketing",
+    "freelance":    "#Freelancing #RemoteWork #Solopreneur #FreelanceLife #AITools",
+    "growth":       "#SocialMedia #ContentCreator #CreatorEconomy #GrowthHacking #Marketing",
+    "productivity": "#Productivity #GTD #NotionTemplates #PKM #WorkSmart",
+    "default":      "#AI #Productivity #DigitalProducts #Solopreneur #AITools",
+}
+
+# Map product name keywords → hashtag category
+def get_hashtags(name: str) -> str:
+    name_l = name.lower()
+    if "blender" in name_l:                    return HASHTAGS["blender"]
+    if "character" in name_l or "midjourney" in name_l: return HASHTAGS["creative"]
+    if "instagram" in name_l or "hook" in name_l or "viral" in name_l: return HASHTAGS["growth"]
+    if "email" in name_l or "subject" in name_l:  return HASHTAGS["writing"]
+    if "freelanc" in name_l or "proposal" in name_l: return HASHTAGS["freelance"]
+    if "notion" in name_l or "habit" in name_l:   return HASHTAGS["productivity"]
+    if "side hustle" in name_l or "business" in name_l or "cv" in name_l or "resume" in name_l:
+        return HASHTAGS["business"]
+    if "prompt" in name_l or "gemini" in name_l or "llm" in name_l or "vault" in name_l:
+        return HASHTAGS["ai_prompts"]
+    return HASHTAGS["default"]
+
+
+# ── Improved copy templates ────────────────────────────────────────────────────
+# Templates use {name}, {price}, {url}, {code}, {hashtags}
+# 70% value-first, 30% direct sell
+
+VALUE_TEMPLATES = [
+    # Hook → specific claim → CTA
+    "Most AI users write prompts like search queries. That's why their output is mediocre.\n\nThe fix: treat every prompt as a job spec — role, context, format, constraints.\n\n'{name}' is 75 prompts written this way, ready to copy-paste.\n{url} ({price} — code {code} for 30% off)\n\n{hashtags}",
+
+    "I tracked how long I spent writing content last month: 14 hours.\n\nAfter building proper AI systems: 3 hours. Same output.\n\n'{name}' is the exact system. {url}\n(Use {code} at checkout — 30% off today)\n\n{hashtags}",
+
+    "Unpopular opinion: most digital products are too generic to be useful.\n\nSo I built '{name}' around ONE specific workflow — tested, refined, done.\n\nGrab it for {price}: {url}\n\n{hashtags}",
+
+    "The AI tools you're paying for monthly cost more than a one-time system that does the same job.\n\n'{name}' — {price} once, yours forever.\n\nCode {code} takes it to 30% off: {url}\n\n{hashtags}",
+
+    "Quick win for your workflow this week:\n\n✅ Stop writing prompts from scratch\n✅ Use tested frameworks instead\n✅ Get consistent output every time\n\n'{name}' has the frameworks: {url}\n\n{hashtags}",
+
+    "If you're spending more than 20 min on [task AI should handle in 2 min], you need a system.\n\n'{name}' is mine. {price} → instant download.\n{url}\n\nCode {code}: 30% off\n\n{hashtags}",
+
+    "3 things that changed my AI workflow:\n\n1. Structured prompt templates (not vibes)\n2. Batch processing instead of one-by-one\n3. A system for consistency\n\n'{name}' covers all three: {url}\n\n{hashtags}",
+]
+
+SELL_TEMPLATES = [
+    "🔥 '{name}' — {price}\n\nInstant download. Use code {code} for 30% off.\n{url}\n\n{hashtags}",
+
+    "Just dropped: '{name}'\n\nEverything I know about this workflow, packaged for instant use.\n{price} → {url}\n\nCode {code} = 30% off today.\n\n{hashtags}",
+
+    "Stop reinventing the wheel.\n\n'{name}' gives you the exact system, ready to use. {price} once.\n{url}\n\n{hashtags}",
+]
+
+BUNDLE_TEMPLATES = [
+    "Built 10 AI systems over 6 months.\n\nPackaged all of them into one bundle at €29.99 — less than the cost of one month of ChatGPT Plus.\n\nThe Complete AI Creator Toolkit: {url}\n(Code {code}: 30% off → €21)\n\n{hashtags}",
+
+    "Instead of buying 10 separate tools:\n\nThe Complete AI Creator Toolkit bundles everything for €29.99.\nUse code {code} for 30% off → €21 total.\n\n{url}\n\n{hashtags}",
+]
+
 
 def load_env():
-    """Load credentials from .env file"""
-    if os.path.exists(ENV_PATH):
-        with open(ENV_PATH) as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    if "=" in line:
-                        k, v = line.split("=", 1)
-                        os.environ[k.strip()] = v.strip().strip('"').strip("'")
+    if ENV_PATH.exists():
+        for line in ENV_PATH.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
 
 def get_client():
     load_env()
-    access_token = os.environ.get("MASTODON_ACCESS_TOKEN")
+    token = os.environ.get("MASTODON_ACCESS_TOKEN")
     instance = os.environ.get("MASTODON_INSTANCE", "https://mastodon.social")
-    
-    if not access_token:
-        print("❌ MASTODON_ACCESS_TOKEN not set in .env")
-        print("   Mastodon 4.4.0+ requires Access Tokens instead of username/password.")
-        print("   Get one at: Preferences -> Development -> New Application")
-        sys.exit(1)
-    
-    client = Mastodon(access_token=access_token, api_base_url=instance)
-    return client
+    if not token:
+        sys.exit("MASTODON_ACCESS_TOKEN not set in .env")
+    return Mastodon(access_token=token, api_base_url=instance)
+
 
 def log_promotion(platform, product_id, url, content):
-    """Log the promotion to the SQLite DB."""
-    if not os.path.exists(DB_PATH):
-        print(f"⚠️ Warning: Database not found at {DB_PATH}. Promotion not logged.")
+    if not DB_PATH.exists():
         return
-    with sqlite3.connect(DB_PATH) as con:
-        con.execute("""
-            INSERT INTO promotions (platform, product_id, url, content, posted_at)
-            VALUES (?, ?, ?, ?, ?)
-        """, (platform, product_id, url, content, datetime.now(timezone.utc).isoformat()))
-        con.commit()
+    with sqlite3.connect(str(DB_PATH)) as con:
+        con.execute(
+            "INSERT INTO promotions (platform, product_id, url, content, posted_at) VALUES (?,?,?,?,?)",
+            (platform, product_id, url, content, datetime.now(timezone.utc).isoformat())
+        )
 
-def check_rate_limits():
-    """Check if we have exceeded our daily posting limit (Max 3/day)."""
-    if not os.path.exists(DB_PATH):
-        print(f"⚠️ Warning: Database not found at {DB_PATH}. Refusing to post (fail-closed).")
+
+def check_rate_limit():
+    if not DB_PATH.exists():
+        print("DB not found — fail-closed on rate limit")
         return False
-    
-    with sqlite3.connect(DB_PATH) as con:
-        twenty_four_hours_ago = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+    with sqlite3.connect(str(DB_PATH)) as con:
         count = con.execute(
-            "SELECT COUNT(*) FROM promotions WHERE platform='mastodon' AND posted_at >= ?", 
-            (twenty_four_hours_ago,)
+            "SELECT COUNT(*) FROM promotions WHERE platform='mastodon' AND posted_at >= ?", (cutoff,)
         ).fetchone()[0]
-    
     if count >= MAX_POSTS_PER_DAY:
-        print(f"⚠️ RATE LIMIT REACHED: Already posted {count} times on Mastodon in the last 24 hours.")
-        print("💡 Best practice: Mastodon favors authenticity over spam. We will pause posting.")
+        print(f"Rate limit: already posted {count}x in last 24h (max {MAX_POSTS_PER_DAY})")
         return False
     return True
 
-MASTODON_CHAR_LIMIT = 500
 
 def post_message(text, product_id=None, url=None):
-    if not check_rate_limits():
-        sys.exit(0)
-    
-    # Enforce Mastodon character limit (500 chars)
-    if len(text) > MASTODON_CHAR_LIMIT:
-        suffix = f"... {url}" if url else "..."
-        text = text[:MASTODON_CHAR_LIMIT - len(suffix)] + suffix
-        print(f"⚠️ Text truncated to {MASTODON_CHAR_LIMIT} characters.")
-        
+    if not check_rate_limit():
+        return False
+    if len(text) > MASTODON_LIMIT:
+        text = text[:MASTODON_LIMIT - 3] + "..."
     client = get_client()
-    print(f"📝 Posting to Mastodon:\n{text}\n")
-    try:
-        post = client.status_post(text)
-    except Exception as e:
-        print(f"❌ Failed to post to Mastodon: {e}")
-        sys.exit(1)
-    
+    print(f"Posting to Mastodon:\n{text}\n")
+    post = client.status_post(text)
     log_promotion("mastodon", product_id, url, text)
-    print(f"✅ Successfully posted to Mastodon! Post URL: {post['url']}")
+    print(f"Posted: {post['url']}")
+    return True
+
 
 def promote_random_product():
-    if not os.path.exists(DB_PATH):
-        print("❌ Database not found. Run: python3 db/sync.py")
-        sys.exit(1)
-        
-    with sqlite3.connect(DB_PATH) as con:
+    if not DB_PATH.exists():
+        sys.exit("DB not found. Run: python3 db/sync.py")
+
+    with sqlite3.connect(str(DB_PATH)) as con:
         con.row_factory = sqlite3.Row
-        products = con.execute("SELECT id, name, formatted_price, short_url FROM products WHERE published=1 AND price_cents > 99").fetchall()
-        last_promo = con.execute("SELECT product_id FROM promotions WHERE platform='mastodon' ORDER BY posted_at DESC LIMIT 1").fetchone()
-    
+        products = con.execute(
+            "SELECT id, name, formatted_price, short_url FROM products WHERE published=1 AND price_cents > 99"
+        ).fetchall()
+        last = con.execute(
+            "SELECT product_id FROM promotions WHERE platform='mastodon' ORDER BY posted_at DESC LIMIT 3"
+        ).fetchall()
+
     if not products:
-        print("❌ No properly priced published products found to promote.")
-        sys.exit(1)
-        
-    if last_promo and len(products) > 1:
-        products = [p for p in products if p['id'] != last_promo['product_id']]
-        
-    p = random.choice(products)
-    url = p['short_url'] or "https://schephenk.gumroad.com"
-    
-    is_value_post = random.random() < 0.70 # 70% chance of being a "value" / educational hook
-    
-    if is_value_post:
-        prompts = [
-            f"💡 Quick tip for creators in 2026: Authenticity + AI is the winning combo. Let the AI handle the boilerplate, you handle the vision. \n\nIf you want to master this workflow, check out my guide on '{p['name']}': {url} #AI #CreatorEconomy",
-            f"Building an audience takes time, but the right systems save you hundreds of hours. I distilled my workflow into '{p['name']}'. \n\nLearn the exact blueprint here: {url} #Productivity #Solopreneur",
-            f"Stop doing repetitive digital tasks manually. 🛑 \n\n'{p['name']}' is designed to help you scale your output without burning out. \n\nGrab it for {p['formatted_price']}: {url} #DigitalMarketing",
-            f"The best digital products solve one specific problem perfectly. That's what I aimed for with '{p['name']}'. \n\nSee how it can help your workflow today 👉 {url} #SideHustle"
-        ]
+        sys.exit("No products found.")
+
+    recent_ids = {r["product_id"] for r in last}
+    bundle = next((p for p in products if "toolkit" in p["name"].lower() or "bundle" in p["name"].lower()), None)
+
+    # 20% chance to promote the bundle specifically
+    if bundle and random.random() < 0.20:
+        p = bundle
+        tmpl = random.choice(BUNDLE_TEMPLATES)
     else:
-        prompts = [
-            f"🔥 Level up your workflow with '{p['name']}'! Available now for {p['formatted_price']}. Instant access here: {url} #Productivity",
-            f"Don't miss out on '{p['name']}'. Get it today for just {p['formatted_price']}! 🚀 {url} #DigitalProducts",
-            f"Just published: '{p['name']}'. Only {p['formatted_price']}. Enhance your AI skills now! {url} #AI"
-        ]
-    
-    text = random.choice(prompts)
-    post_message(text, product_id=p['id'], url=url)
+        pool = [p for p in products if p["id"] not in recent_ids] or list(products)
+        p = random.choice(pool)
+        is_value = random.random() < 0.70
+        tmpl = random.choice(VALUE_TEMPLATES if is_value else SELL_TEMPLATES)
+
+    url = p["short_url"] or "https://schephenk.gumroad.com"
+    tags = get_hashtags(p["name"])
+    text = tmpl.format(
+        name=p["name"],
+        price=p["formatted_price"],
+        url=url,
+        code=DISCOUNT_CODE,
+        hashtags=tags,
+    )
+    post_message(text, product_id=p["id"], url=url)
+
 
 def engage_community():
-    """Autonomously interact with relevant hashtags to build organic reach."""
     client = get_client()
-    hashtags = ["AI", "Productivity", "CreatorEconomy", "Solopreneur", "DigitalMarketing", "ContentCreator", "SideHustle"]
-    
-    tag = random.choice(hashtags)
-    print(f"🔍 Searching Mastodon for recent posts with #{tag}...")
-    
+    tags = ["AItools", "Productivity", "Solopreneur", "PromptEngineering", "CreatorEconomy",
+            "SideHustle", "ContentCreator", "DigitalMarketing"]
+    tag = random.choice(tags)
+    print(f"Engaging #{tag}...")
     try:
-        results = client.timeline_hashtag(tag, limit=8)
+        results = client.timeline_hashtag(tag, limit=10)
     except Exception as e:
-        print(f"❌ Error fetching timeline: {e}")
-        sys.exit(1)
-        
+        sys.exit(f"Error: {e}")
+
+    me = client.me()
     interactions = 0
-    my_account = client.me()
     for status in results:
-        # Avoid replying/interacting with our own posts
-        if status.account.id == my_account.id:
+        if status.account.id == me.id:
             continue
-            
         try:
-            # 1. Favorite the post (High probability)
             if not status.favourited:
                 client.status_favourite(status.id)
-                print(f"❤️ Favorited post by @{status.account.acct}")
+                print(f"  Liked: @{status.account.acct}")
                 interactions += 1
-                
-            # 2. Reblog/Boost the post (Medium probability, adds huge value)
-            if not status.reblogged and random.random() < 0.3:
+            if not status.reblogged and random.random() < 0.25:
                 client.status_reblog(status.id)
-                print(f"🔁 Boosted post by @{status.account.acct}")
+                print(f"  Boosted: @{status.account.acct}")
                 interactions += 1
-                
-            # 3. Follow the user (Low probability)
-            # Mastodon API handles already-followed seamlessly
-            if random.random() < 0.4:
+            if random.random() < 0.35:
                 client.account_follow(status.account.id)
-                print(f"👤 Followed @{status.account.acct}")
+                print(f"  Followed: @{status.account.acct}")
                 interactions += 1
-                
-            time.sleep(1) # Be polite to the API
+            time.sleep(1.5)
         except Exception as e:
-            print(f"⚠️ Could not interact with post {status.id}: {e}")
-            
-    print(f"\n✅ Engagement complete! Total interactions generated for #{tag}: {interactions}")
+            print(f"  Skip {status.id}: {e}")
+
+    print(f"Done. {interactions} interactions on #{tag}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 bot/mastodon_bot.py [post <text> | promote | engage]")
+        print("Usage: python3 bot/mastodon_bot.py [promote | engage | post <text>]")
         sys.exit(1)
-        
     cmd = sys.argv[1]
-    if cmd == "post":
-        text = " ".join(sys.argv[2:])
-        if not text:
-            print("❌ Please provide text to post.")
-            sys.exit(1)
-        post_message(text)
-    elif cmd == "promote":
+    if cmd == "promote":
         promote_random_product()
     elif cmd == "engage":
         engage_community()
+    elif cmd == "post":
+        text = " ".join(sys.argv[2:])
+        if not text:
+            sys.exit("Provide text to post.")
+        post_message(text)
     else:
-        print(f"Unknown command: {cmd}")
-        print("Usage: python3 bot/mastodon_bot.py [post <text> | promote | engage]")
+        print(f"Unknown: {cmd}")
         sys.exit(1)
