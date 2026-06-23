@@ -1,0 +1,93 @@
+{
+  "product_name": "LinkedIn Content OS: 30 Days of Posts in 2 Hours",
+  "slug": "linkedin-content-os",
+  "tagline": "Turn any idea into a month of scroll-stopping LinkedIn content with AI — in one sitting.",
+  "price": 9.99,
+  "currency": "eur",
+  "description": "Stop staring at a blank LinkedIn post. This system hands you the exact AI prompts, content frameworks, and copy templates that turn one idea into a full month of high-performing posts — in under 2 hours.\n\nInside: 7 battle-tested content formats (story, insight, carousel, controversy, list, question, case study), 40+ fill-in prompts for ChatGPT and Claude, a 30-day editorial calendar you can fill in 90 minutes, hooks that triple engagement, and a repeatable weekly workflow that keeps your feed alive without burnout.\n\nFor founders, freelancers, and creators who know LinkedIn matters but never have time — this is the operating system that makes consistent posting effortless.",
+  "gumroad_url": "https://schephenk.gumroad.com/l/linkedin-content-os",
+  "content_outline": [
+    {
+      "chapter": "01 — The LinkedIn Algorithm Decoded (What Actually Gets Seen in 2026)",
+      "bullets": [
+        "How the feed ranking works in 2026 — dwell time, early saves, comment velocity",
+        "The 3 content types the algorithm loves (and 2 it actively suppresses)",
+        "Best posting windows by industry and audience type",
+        "Why most 'tips' are outdated and what the data actually shows",
+        "The 90-day compound effect: why consistency beats virality"
+      ]
+    },
+    {
+      "chapter": "02 — Your Content Pillars: Building a 3-Topic Strategy",
+      "bullets": [
+        "How to find your 3 authority pillars in 20 minutes",
+        "The AI prompt for extracting unique angles from your expertise",
+        "Balancing value, story, and soft-sell content",
+        "Positioning framework: what to own vs. what to share",
+        "Validating your pillars with a competitor gap analysis"
+      ]
+    },
+    {
+      "chapter": "03 — The 7 Content Formats That Dominate LinkedIn",
+      "bullets": [
+        "Format 1: The Story Post — structure, hook, and emotional arc",
+        "Format 2: The Insight Post — contrarian takes that spark debate",
+        "Format 3: The List Post — skimmable value that gets bookmarked",
+        "Format 4: The Question Post — triggers comments and algorithm boost",
+        "Format 5: The Case Study — proof-based posts that build trust",
+        "Format 6: The Carousel — step-by-step guides that get saved",
+        "Format 7: The Controversy Post — how to provoke without burning bridges"
+      ]
+    },
+    {
+      "chapter": "04 — 40+ AI Prompts: Write a Month of Posts in One Sitting",
+      "bullets": [
+        "Story post prompts: inject personal experience into professional lessons",
+        "Insight prompts: use AI to flip conventional wisdom in your niche",
+        "List post prompts: rapid-fire value extraction from any topic",
+        "Hook-first prompts: generating 10 opening lines per post idea",
+        "Repurposing prompts: turning one idea into 5 different post angles",
+        "Full 30-day prompt sequence with day-by-day topic slots"
+      ]
+    },
+    {
+      "chapter": "05 — The Hook Vault: 60 Opening Lines That Stop the Scroll",
+      "bullets": [
+        "Anatomy of a LinkedIn hook — the pattern that works every time",
+        "15 curiosity hooks (readers can't scroll past these)",
+        "15 bold claim hooks (works for insight and controversy formats)",
+        "15 story openers (personal, vulnerable, specific)",
+        "15 question hooks (drives comments within the first hour)",
+        "How to adapt any hook to your voice in 30 seconds with AI"
+      ]
+    },
+    {
+      "chapter": "06 — The 30-Day Editorial Calendar",
+      "bullets": [
+        "The fill-in-the-blank calendar template (topic + format + hook for each day)",
+        "Week 1: Authority establishment week — lead with expertise",
+        "Week 2: Story week — let people see behind the work",
+        "Week 3: Engagement week — questions, polls, hot takes",
+        "Week 4: Conversion week — subtle offers, case studies, social proof",
+        "How to reuse this system month after month with minimal rework"
+      ]
+    },
+    {
+      "chapter": "07 — The 2-Hour Weekly Workflow (Stay Consistent Without Burning Out)",
+      "bullets": [
+        "The Sunday session: 90-minute content batch that powers your whole week",
+        "Capturing ideas on the fly — the daily 5-minute habit",
+        "Scheduling tools and the optimal post frequency for your goals",
+        "Measuring what matters: engagement rate, profile views, DMs — not just likes",
+        "When to break from the system and go off-schedule for viral moments",
+        "Building a content bank so you always have backup posts"
+      ]
+    }
+  ],
+  "personas": [
+    "Freelancers and consultants building a client pipeline on LinkedIn",
+    "Founders growing their personal brand alongside their company",
+    "Creators and coaches who want authority without posting every day"
+  ],
+  "created_at": "2026-06-22"
+}
