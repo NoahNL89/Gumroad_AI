@@ -1,5 +1,5 @@
 {
-  "_comment": "AI Agent Revenue Ledger \u2014 updated after each agent session",
+  "_comment": "AI Agent Revenue Ledger — updated after each agent session",
   "store": "schephenk.gumroad.com",
   "currency": "EUR",
   "targets": {
@@ -26,9 +26,9 @@
       "date": "2026-06-24",
       "agent": "Antigravity CLI",
       "actions": [
-        "Ran startup sync \u2014 30 live products, 0 sales, AT RISK status confirmed",
-        "Skipped social bots \u2014 both platforms at 3-post daily limit",
-        "Checked underpriced products \u2014 both exempt (one free, one subscription)",
+        "Ran startup sync — 30 live products, 0 sales, AT RISK status confirmed",
+        "Skipped social bots — both platforms at 3-post daily limit",
+        "Checked underpriced products — both exempt (one free, one subscription)",
         "Skipped new product pipeline based on funnel verdict (bottleneck is REACH, not products)",
         "Generated 2 launch kits for The Complete AI Creator Toolkit and The Sovereign Professional Local LLM Guide"
       ],
@@ -45,23 +45,23 @@
       "date": "2026-06-23",
       "agent": "Claude (claude-sonnet-4-6)",
       "actions": [
-        "Ran startup sync \u2014 28 live products, \u20ac0.00 revenue, AT RISK status confirmed",
-        "Skipped social bots \u2014 both Mastodon and Bluesky already at 3-post daily limit",
-        "Confirmed no draft products, no underpriced products (\u20ac0.99 is subscription, exempt)",
+        "Ran startup sync — 28 live products, €0.00 revenue, AT RISK status confirmed",
+        "Skipped social bots — both Mastodon and Bluesky already at 3-post daily limit",
+        "Confirmed no draft products, no underpriced products (€0.99 is subscription, exempt)",
         "Executed full new product pipeline for 'LinkedIn Content OS: 30 Days of Posts in 2 Hours'",
         "Used existing product plan from agent/new_product_plan.json (created 2026-06-22, never built)",
-        "Codex image generation skipped \u2014 codex not in PATH and no OPENAI_API_KEY; used CSS-only design",
-        "Wrote scripts/gen_linkedin-content-os.py \u2014 7-chapter PDF with 40+ AI prompts, 60 hook templates, 30-day calendar",
+        "Codex image generation skipped — codex not in PATH and no OPENAI_API_KEY; used CSS-only design",
+        "Wrote scripts/gen_linkedin-content-os.py — 7-chapter PDF with 40+ AI prompts, 60 hook templates, 30-day calendar",
         "Generated downloads/pdfs/linkedin-content-os.html via generator script",
         "Applied impeccable design skill: fixed .checklist-item CSS (was unstyled divs), fixed .check-icon (was empty box rendering), fixed .item-num sizing for multi-char labels, added page-break-inside: avoid on key components, added cover accent rule, added text-wrap: balance to headings",
         "Reduced em-dashes from 95 to 18 across 3 Python passes (60+ targeted replacements)",
-        "Fixed marketing buzzwords: 'Drive Engagement' \u2192 'Build Comment Volume', 'scroll-stopping' \u2192 'posts that stop the scroll'",
-        "Generated downloads/pdfs/linkedin-content-os.pdf via headless Chrome \u2014 26 pages, 1.21MB",
-        "Created Gumroad product ID rGqkgEIfurqtJggIRWHxsQ== at \u20ac9.99 EUR",
+        "Fixed marketing buzzwords: 'Drive Engagement' → 'Build Comment Volume', 'scroll-stopping' → 'posts that stop the scroll'",
+        "Generated downloads/pdfs/linkedin-content-os.pdf via headless Chrome — 26 pages, 1.21MB",
+        "Created Gumroad product ID rGqkgEIfurqtJggIRWHxsQ== at €9.99 EUR",
         "Uploaded PDF, published product at https://schephenk.gumroad.com/l/sstsmp",
         "Added LAUNCH30 discount code (30% off)",
         "Updated product with full conversion-optimized description",
-        "Skipped launch announcement posts \u2014 daily social rate limit (3/platform) already reached by prior sessions"
+        "Skipped launch announcement posts — daily social rate limit (3/platform) already reached by prior sessions"
       ],
       "new_product_created": {
         "name": "LinkedIn Content OS: 30 Days of Posts in 2 Hours",
@@ -77,17 +77,17 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "notes": "Codex and OPENAI_API_KEY unavailable \u2014 images skipped, CSS gradient design used. Launch announcement deferred to next session when 24h social window resets."
+      "notes": "Codex and OPENAI_API_KEY unavailable — images skipped, CSS gradient design used. Launch announcement deferred to next session when 24h social window resets."
     },
     {
       "date": "2026-06-22",
       "agent": "Codex",
       "actions": [
         "Ran the autonomous startup sync, survival check, and 28-product catalog review",
-        "Confirmed revenue remains \u20ac0.00 against the \u20ac58.00 June survival target",
+        "Confirmed revenue remains €0.00 against the €58.00 June survival target",
         "Confirmed social activity is already within target: 3 Mastodon posts and 2 Bluesky posts in the last 24 hours; no additional posts or engagement were required",
         "Confirmed all 28 products are published and no draft products require action",
-        "Left the \u20ac0.99 Consistent Character Genesis monthly subscription unchanged because subscriptions are explicitly exempt from the repricing rule",
+        "Left the €0.99 Consistent Character Genesis monthly subscription unchanged because subscriptions are explicitly exempt from the repricing rule",
         "Skipped the new-product pipeline because repository evidence shows catalog/product work on 2026-06-21 and a new product plan dated 2026-06-22, within the seven-day window",
         "Logged obvious duplicate/edition families without deleting them: Consistent Character Genesis, 75 Power Prompts, and AI Prompt Vault",
         "Skipped FLASH50 because the available zero-revenue history begins on 2026-06-16 and does not establish 14 consecutive days"
@@ -194,9 +194,9 @@
       "date": "2026-06-16",
       "agent": "Antigravity CLI",
       "actions": [
-        "Analyzed store: 10 products all at \u20ac0.99, 0 sales \u2014 critical underpricing",
-        "Repriced all 10 products to market rates (\u20ac5.99 \u2013 \u20ac14.99)",
-        "Created flagship bundle: The Complete AI Creator Toolkit 2026 (\u20ac29.99)",
+        "Analyzed store: 10 products all at €0.99, 0 sales — critical underpricing",
+        "Repriced all 10 products to market rates (€5.99 – €14.99)",
+        "Created flagship bundle: The Complete AI Creator Toolkit 2026 (€29.99)",
         "Published bundle at https://schephenk.gumroad.com/l/usfdum",
         "Created LAUNCH30 discount codes (30% off) on top 2 products",
         "Created BUNDLE20 discount code (20% off) on bundle",
@@ -230,11 +230,26 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Milestone 3 complete. Descriptions optimized and synchronized."
+    },
+    {
+      "date": "2026-06-24T12:30:59Z",
+      "agent": "claude",
+      "actions": [
+        "Ran full GO session routines 1-6; confirmed funnel verdict = REACH/distribution bottleneck (0 sales across 30 live products).",
+        "Routine 2 skipped: both social bots already at the 3/3 daily cap (posted 2026-06-23 evening) — no further posts allowed.",
+        "Routine 3: no drafts; no repricing needed (only sub-€0.99 items are the exempt €0.99/mo subscription and the €0 lead magnet).",
+        "Routine 4b: rotated launch kit to a fresh product — generated agent/launch_kits/linkedin-content-os-30-days-of-posts-in-2-hours.md.",
+        "Routine 4c (key fix): rewrote the free lead-magnet page 'The AI Quick-Start Pack (Free)' from a 175-char stub to a full 2004-char conversion page (hook, what's inside, 10-min how-to, personas, soft LAUNCH30 bridge). This is the funnel's email-capture entry point.",
+        "Conversion audit: lead magnet was the ONLY thin page (<600 chars) in the catalog; all 29 paid products already have rich 1200+ char pages."
+      ],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "HUMAN BOTTLENECK: every autonomous reach channel is tapped (both bots maxed daily; Reddit/Product Hunt/SEO/email require human posting). 3 ready-to-post launch kits now sit in agent/launch_kits/ unposted — the single highest-ROI next action is a human posting the bundle kit to r/SideProject or r/Entrepreneur (value-first, link in first comment). The email nurture funnel has 0 subscribers because the lead magnet has had 0 downloads — fixing its page (this session) is the prerequisite for that funnel to ever fill."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-06-24T08:09:44Z",
+  "last_updated": "2026-06-24T12:30:59Z",
   "status": "at_risk",
   "catalog": {
     "bundle": {
