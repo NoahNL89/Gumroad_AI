@@ -158,12 +158,27 @@ def init_db(con):
         notes           TEXT
     );
 
+    -- Per-sync time series so we can see sales VELOCITY (did anything move?),
+    -- not just the latest snapshot. Gumroad's API exposes sales_count but not
+    -- page views, so this is the measurable half of the funnel.
+    CREATE TABLE IF NOT EXISTS product_snapshots (
+        id              INTEGER PRIMARY KEY AUTOINCREMENT,
+        product_id      TEXT,
+        name            TEXT,
+        price_cents     INTEGER,
+        sales_count     INTEGER,
+        sales_usd_cents REAL,
+        published       INTEGER,
+        snapshot_at     TEXT
+    );
+
     CREATE INDEX IF NOT EXISTS idx_sales_product ON sales(product_id);
     CREATE INDEX IF NOT EXISTS idx_sales_email   ON sales(email);
     CREATE INDEX IF NOT EXISTS idx_subs_product  ON subscribers(product_id);
     CREATE INDEX IF NOT EXISTS idx_sales_timestamp ON sales(sale_timestamp);
     CREATE INDEX IF NOT EXISTS idx_products_published ON products(published);
     CREATE INDEX IF NOT EXISTS idx_promotions_platform ON promotions(platform, posted_at);
+    CREATE INDEX IF NOT EXISTS idx_snapshots_product ON product_snapshots(product_id, snapshot_at);
     """)
     con.commit()
 
@@ -258,10 +273,22 @@ def sync_products(con):
             now,
         ))
 
+    # Record a velocity snapshot for each product (time series for the funnel view)
+    for p in products:
+        con.execute("""
+            INSERT INTO product_snapshots
+              (product_id, name, price_cents, sales_count, sales_usd_cents, published, snapshot_at)
+            VALUES (?,?,?,?,?,?,?)
+        """, (
+            p["id"], p.get("name", ""), p.get("price"),
+            p.get("sales_count", 0), p.get("sales_usd_cents", 0),
+            1 if p.get("published") else 0, now,
+        ))
+
     con.execute("INSERT INTO sync_log (synced_at,entity,count) VALUES (?,?,?)",
                 (now, "products", len(products)))
     con.commit()
-    print(f"   ✅ {len(products)} products saved to DB")
+    print(f"   ✅ {len(products)} products saved to DB ({len(products)} snapshots recorded)")
     return products
 
 # ── Sync: Sales ───────────────────────────────────────────────────────────────

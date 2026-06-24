@@ -52,26 +52,40 @@ def get_hashtags(name: str) -> str:
     return HASHTAGS["default"]
 
 
+def is_prompt_product(name: str) -> bool:
+    """True only for actual prompt packs, so prompt-specific copy stays accurate."""
+    n = name.lower()
+    return any(k in n for k in ("prompt", "gemini", "llm", "vault"))
+
+
 # ── Improved copy templates ────────────────────────────────────────────────────
 # Templates use {name}, {price}, {url}, {code}, {hashtags}
 # 70% value-first, 30% direct sell
 
-VALUE_TEMPLATES = [
-    # Hook → specific claim → CTA
-    "Most AI users write prompts like search queries. That's why their output is mediocre.\n\nThe fix: treat every prompt as a job spec — role, context, format, constraints.\n\n'{name}' is 75 prompts written this way, ready to copy-paste.\n{url} ({price} — code {code} for 30% off)\n\n{hashtags}",
-
+# Generic value templates — safe for ANY product (templates, checklists, guides, prompt packs).
+# These make no claim about the product being a set of prompts.
+GENERIC_VALUE_TEMPLATES = [
     "I tracked how long I spent writing content last month: 14 hours.\n\nAfter building proper AI systems: 3 hours. Same output.\n\n'{name}' is the exact system. {url}\n(Use {code} at checkout — 30% off today)\n\n{hashtags}",
 
     "Unpopular opinion: most digital products are too generic to be useful.\n\nSo I built '{name}' around ONE specific workflow — tested, refined, done.\n\nGrab it for {price}: {url}\n\n{hashtags}",
 
     "The AI tools you're paying for monthly cost more than a one-time system that does the same job.\n\n'{name}' — {price} once, yours forever.\n\nCode {code} takes it to 30% off: {url}\n\n{hashtags}",
 
-    "Quick win for your workflow this week:\n\n✅ Stop writing prompts from scratch\n✅ Use tested frameworks instead\n✅ Get consistent output every time\n\n'{name}' has the frameworks: {url}\n\n{hashtags}",
+    "If you're spending more than 20 min on a task AI should handle in 2 min, you need a system.\n\n'{name}' is mine. {price} → instant download.\n{url}\n\nCode {code}: 30% off\n\n{hashtags}",
+]
 
-    "If you're spending more than 20 min on [task AI should handle in 2 min], you need a system.\n\n'{name}' is mine. {price} → instant download.\n{url}\n\nCode {code}: 30% off\n\n{hashtags}",
+# Prompt-pack-only templates — these claim the product IS a set of prompts/prompt frameworks.
+# Only used when the product is actually a prompt pack (see is_prompt_product).
+PROMPT_VALUE_TEMPLATES = [
+    "Most AI users write prompts like search queries. That's why their output is mediocre.\n\nThe fix: treat every prompt as a job spec — role, context, format, constraints.\n\n'{name}' is written exactly this way, ready to copy-paste.\n{url} ({price} — code {code} for 30% off)\n\n{hashtags}",
+
+    "Quick win for your workflow this week:\n\n✅ Stop writing prompts from scratch\n✅ Use tested frameworks instead\n✅ Get consistent output every time\n\n'{name}' has the frameworks: {url}\n\n{hashtags}",
 
     "3 things that changed my AI workflow:\n\n1. Structured prompt templates (not vibes)\n2. Batch processing instead of one-by-one\n3. A system for consistency\n\n'{name}' covers all three: {url}\n\n{hashtags}",
 ]
+
+# Backwards-compatible alias for any external caller that imports VALUE_TEMPLATES.
+VALUE_TEMPLATES = GENERIC_VALUE_TEMPLATES + PROMPT_VALUE_TEMPLATES
 
 SELL_TEMPLATES = [
     "🔥 '{name}' — {price}\n\nInstant download. Use code {code} for 30% off.\n{url}\n\n{hashtags}",
@@ -170,8 +184,13 @@ def promote_random_product():
     else:
         pool = [p for p in products if p["id"] not in recent_ids] or list(products)
         p = random.choice(pool)
-        is_value = random.random() < 0.70
-        tmpl = random.choice(VALUE_TEMPLATES if is_value else SELL_TEMPLATES)
+        if random.random() < 0.70:
+            value_pool = GENERIC_VALUE_TEMPLATES + (
+                PROMPT_VALUE_TEMPLATES if is_prompt_product(p["name"]) else []
+            )
+            tmpl = random.choice(value_pool)
+        else:
+            tmpl = random.choice(SELL_TEMPLATES)
 
     url = p["short_url"] or "https://schephenk.gumroad.com"
     tags = get_hashtags(p["name"])

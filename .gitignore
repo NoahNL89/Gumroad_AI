@@ -30,8 +30,11 @@ db/store.db
 # Downloaded assets (large binaries)
 downloads/
 
-# Agent working state (ephemeral)
+# Agent working state (ephemeral) + local dev tooling (skill is provided by the harness)
 .agents/
+.agent_rotation
+.claude/
+.codex/
 
 # Test/temp outputs
 test_image.jpg

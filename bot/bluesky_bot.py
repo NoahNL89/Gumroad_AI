@@ -53,12 +53,26 @@ def get_tag_list(name: str) -> list[str]:
     return HASHTAGS["default"]
 
 
+def is_prompt_product(name: str) -> bool:
+    """True only for actual prompt packs, so prompt-specific copy stays accurate."""
+    n = name.lower()
+    return any(k in n for k in ("prompt", "gemini", "llm", "vault"))
+
+
 # Short copy blocks that fit Bluesky's 300 char limit
 # Variables: {name} {price} {url} {code}
-VALUE_TEMPLATES = [
-    "Most AI users write prompts like Google searches.\n\nResult: mediocre output.\n\nFix: treat prompts as job specs — role, context, format, constraints.\n\n'{name}' has 75 tested ones.\n{url} | code {code} = 30% off",
-
+# Generic value templates — safe for ANY product. No prompt-pack-specific claims.
+GENERIC_VALUE_TEMPLATES = [
     "Spent 14h on content last month. After building AI systems: 3h. Same output.\n\n'{name}' is the system.\n{price} → {url}\nCode {code}: 30% off",
+
+    "One-time purchase. No subscription, no monthly fee.\n\n'{name}' — {price}, instant download.\n{url}\nCode {code} = 30% off",
+
+    "Built this so you don't have to start from a blank page.\n\n'{name}': everything ready to use. {price} once.\n{url} (code {code} = 30% off)",
+]
+
+# Prompt-pack-only templates — claim the product IS a set of prompts. Gated by is_prompt_product.
+PROMPT_VALUE_TEMPLATES = [
+    "Most AI users write prompts like Google searches.\n\nResult: mediocre output.\n\nFix: treat prompts as job specs — role, context, format, constraints.\n\n'{name}' is built this way.\n{url} | code {code} = 30% off",
 
     "The best AI tool you have is the one with a proven prompt behind it.\n\n'{name}' — {price}, instant download.\n{url}\nCode {code} saves 30%",
 
@@ -66,6 +80,9 @@ VALUE_TEMPLATES = [
 
     "Quick workflow upgrade:\n✅ Structured prompts\n✅ Tested templates\n✅ Consistent output\n\n'{name}': {url}\n({price} — code {code} for 30% off)",
 ]
+
+# Backwards-compatible alias for any external caller that imports VALUE_TEMPLATES.
+VALUE_TEMPLATES = GENERIC_VALUE_TEMPLATES + PROMPT_VALUE_TEMPLATES
 
 SELL_TEMPLATES = [
     "'{name}' — {price}\n\nInstant download. Code {code} = 30% off at checkout.\n{url}",
@@ -164,7 +181,6 @@ def post_message(text: str, tags: list = None, product_id=None, url=None):
         print(f"Posting to Bluesky:\n{full_text}\n")
         post = client.send_post(text)
 
-    full_text = full_text
     log_promotion("bluesky", product_id, url, full_text)
     print(f"Posted: {post.uri}")
     return True
@@ -195,7 +211,13 @@ def promote_random_product():
     else:
         pool = [p for p in products if p["id"] not in recent_ids] or list(products)
         p = random.choice(pool)
-        tmpl = random.choice(VALUE_TEMPLATES if random.random() < 0.70 else SELL_TEMPLATES)
+        if random.random() < 0.70:
+            value_pool = GENERIC_VALUE_TEMPLATES + (
+                PROMPT_VALUE_TEMPLATES if is_prompt_product(p["name"]) else []
+            )
+            tmpl = random.choice(value_pool)
+        else:
+            tmpl = random.choice(SELL_TEMPLATES)
 
     url = p["short_url"] or "https://schephenk.gumroad.com"
     tags = get_tag_list(p["name"])

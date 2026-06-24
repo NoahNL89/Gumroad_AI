@@ -14,10 +14,11 @@ Execute the following routines **in order**. Be decisive. Do not ask for input.
 source .env
 python3 db/sync.py
 python3 db/query.py survival
+python3 db/query.py funnel
 python3 db/query.py products
 ```
 
-Store the survival status and today's date in your working memory.
+Store the survival status, the funnel verdict, and today's date in your working memory. The funnel verdict tells you where to spend the session — usually distribution (ROUTINE 4), not new products.
 
 ---
 
@@ -58,16 +59,48 @@ sqlite3 db/store.db "SELECT name, permalink FROM products WHERE published=0"
 
 ---
 
-## ROUTINE 4 — New Product Pipeline (if no new product in last 7 days)
+## ROUTINE 4 — Growth & Distribution (the priority — run EVERY session)
 
-Check when the last product was created:
+> **The store has the products. What it lacks is buyers.** With 29 products and
+> near-zero sales, the bottleneck is REACH, not catalog size. Adding product #30
+> earns nothing if nobody sees product #1. This routine is the main job.
+
+### 4a — Read the funnel
 ```bash
-sqlite3 db/store.db "SELECT name, created_at FROM products ORDER BY created_at DESC LIMIT 1"
+python3 db/query.py funnel
 ```
+This tells you catalog health, weekly sales velocity, and the verdict. Act on the verdict.
 
-**If the newest product is older than 7 days, run the full pipeline below. Otherwise skip.**
+### 4b — Generate and act on a launch kit
+Pick the flagship or best seller and produce multi-channel launch copy:
+```bash
+python3 scripts/launch_kit.py best --write
+```
+Then **do** the distribution (this is where sales come from — not the two social bots):
+- Fill the `[bracketed]` spots with 2–3 genuinely useful, specific tips from the product.
+- Post the value-first content where buyers actually are (the suggested subreddits, Product Hunt, an SEO article). Respect each community's self-promo rules — lead with value, link as a P.S.
+- Rotate which product gets a kit each session so the whole catalog gets exposure over time.
 
-### 4a — Research: Find the product gap
+### 4c — Keep the free lead magnet live (email capture = the compounding asset)
+A free product collects buyer emails you can market to forever. If it isn't live yet, publish it once:
+```bash
+bash scripts/create_lead_magnet.sh        # builds + publishes "The AI Quick-Start Pack (Free)"
+```
+Then run the nurture sequence in `agent/EMAIL_FLOW.md` against your audience.
+
+### 4d — New product? Only if EVIDENCE says so (not on a timer)
+Do **not** create a new product just because 7 days passed — that only adds near-duplicates to a saturated catalog. Build a new one **only if all are true**:
+- The funnel shows existing products are getting traffic but a clear, *different* need is unmet.
+- No near-duplicate already exists (we already have ~4 prompt vaults, 3 "75 prompts", 4 Character Genesis — do not add more of these).
+- You can make it genuinely best-in-niche, not generic.
+
+If those hold, build it with the data-driven engine (steps below). Otherwise skip and do more 4b distribution.
+
+---
+
+## ROUTINE 5 — New Product Build Pipeline (only when ROUTINE 4d approves)
+
+### 5a — Research: Find the product gap
 
 Use web search and your knowledge to identify ONE high-value digital product gap in the AI tools / productivity / creator economy niche that is not already in the catalog. The product must be:
 - Actionable (templates, checklists, prompt packs, guides, systems)
@@ -85,9 +118,9 @@ Decide on:
 
 Write this to: `agent/new_product_plan.json`
 
-### 4b — Generate Images with Codex
+### 5b — Generate Images with Codex
 
-Codex CLI path: `/home/administrator/.openclaw/npm/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex`
+Use the `codex` executable available on `PATH` (or `$CODEX_BIN` when explicitly configured).
 
 Create the image output directory first:
 ```bash
@@ -96,7 +129,7 @@ mkdir -p codex_images/<slug>
 
 Then call Codex to write and run an image generation script:
 ```bash
-<codex_path> exec "Write a Python script that uses the OpenAI images API (DALL-E 3, size 1792x1024, quality standard) to generate these 4 images for a digital product called '<product_name>'. Dark cinematic aesthetic, deep purple/violet tones (oklch 0.10 0.02 285 background), no text, no words, no labels. Professional, premium feel.
+${CODEX_BIN:-codex} exec "Write a Python script that uses the OpenAI images API (DALL-E 3, size 1792x1024, quality standard) to generate these 4 images for a digital product called '<product_name>'. Dark cinematic aesthetic, deep purple/violet tones (oklch 0.10 0.02 285 background), no text, no words, no labels. Professional, premium feel.
 
 1. key-art.jpg — hero cover art: abstract representation of the product theme, dramatic lighting, orbiting elements
 2. interior-01-<theme>.jpg — conceptual illustration for chapter 1 topic
@@ -112,24 +145,22 @@ Verify images were created:
 ls -la codex_images/<slug>/
 ```
 
-### 4c — Create Product PDF (Claude with Impeccable Design)
+### 5c — Create Product PDF (data-driven builder)
 
-You are now creating the PDF. Use the established dark violet design system from `scripts/shared_css.py`.
+You are now creating the PDF. Do **not** write a new bespoke generator script — use the shared, data-driven engine `scripts/product_builder.py` (dark-violet design system, auto-escaping, 8 block types). The legacy `scripts/gen_*.py` files are deprecated historical one-offs; do not copy them.
 
-1. Write a new generator script at `scripts/gen_<slug>.py` following the pattern of existing generators (e.g. `scripts/gen_product2.py`). The PDF must:
-   - Use `html_doc()` from `scripts/shared_css.py`
-   - Include all chapters from the content outline
-   - Use `.section-header`, `.prompt-block`, `.callout`, `.item`, `.checklist` CSS classes
-   - Have proper cover metadata (product count, format, compatibility)
-   - Be substantive — each chapter minimum 400 words of real usable content
+1. Write a product **spec** as JSON to `agent/specs/<slug>.spec.json`. Run `python3 scripts/product_builder.py --help` to see the full spec format, or `--demo` to emit a working example. The spec must:
+   - Provide `slug`, `title`, `subtitle`, `eyebrow`, and `meta` (format / pages / compatibility).
+   - Include every chapter from the content outline under `chapters`, each with a `num`, `title`, `sub`, and `blocks`.
+   - Use the block types (`p`, `h3`, `callout`, `prompt`, `item`, `checklist`, `table`, `stats`) — at least one `callout` and one `prompt`/`checklist`/`table` per chapter.
+   - Be substantive — each chapter minimum 400 words of real usable content (put prose in `p` blocks; the builder escapes everything, so write plain text, not HTML).
 
-2. Run the generator to produce the HTML:
+2. Build the HTML (the builder validates the spec and fails loudly on errors):
    ```bash
-   python3 scripts/gen_<slug>.py
+   python3 scripts/product_builder.py agent/specs/<slug>.spec.json
    ```
 
-3. Invoke the impeccable design skill to review and improve the HTML before PDF export:
-   Use the Skill tool to invoke `impeccable` on the generated HTML file. Apply any suggested improvements.
+3. Invoke the impeccable design skill to review the generated `downloads/pdfs/<slug>.html` before PDF export. Apply improvements to the **spec**, then re-run the builder (do not hand-edit the HTML — it is regenerated).
 
 4. Inject Codex images:
    Add the slug→folder mapping to `scripts/inject_images.py`'s `PRODUCT_IMAGE_MAP`, then run:
@@ -150,7 +181,7 @@ You are now creating the PDF. Use the established dark violet design system from
    ls -lh downloads/pdfs/<slug>.pdf
    ```
 
-### 4d — Upload to Gumroad
+### 5d — Upload to Gumroad
 
 ```bash
 # Create the product
@@ -174,7 +205,7 @@ gumroad products publish <id> --json --no-input
 gumroad offer-codes create --product <id> --name LAUNCH30 --percent-off 30 --json --no-input --yes
 ```
 
-### 4e — Beautiful Product Page
+### 5e — Beautiful Product Page
 
 Update the product description with a full, conversion-optimised Gumroad page. Write it yourself — make it specific, punchy, benefit-driven. Include:
 - **Hook headline** (1 sentence — the transformation)
@@ -191,7 +222,7 @@ gumroad products update <id> \
   --json --no-input --yes
 ```
 
-### 4f — Launch Announcement
+### 5f — Launch Announcement
 
 Post to both socials about the new product:
 ```bash
@@ -202,7 +233,7 @@ python3 bot/bluesky_bot.py post "New: '<product_name>'. <tagline> €<price> →
 
 ---
 
-## ROUTINE 5 — Sync & Ledger
+## ROUTINE 6 — Sync & Ledger
 
 After all routines:
 ```bash
@@ -213,7 +244,7 @@ python3 db/query.py survival
 Update `agent/ledger.json` — append an entry with today's date (ISO format), actions taken, new product created (if any), social posts made, revenue status.
 
 ```bash
-git add agent/ledger.json db/store.db scripts/ downloads/pdfs/ codex_images/ bot/
+git add agent/ledger.json scripts/ codex_images/ bot/   # NOTE: db/store.db and downloads/ are gitignored — do not add them
 git commit -m "agent: autonomous session $(date +%Y-%m-%d) — <brief summary>"
 ```
 
@@ -233,8 +264,8 @@ git commit -m "agent: autonomous session $(date +%Y-%m-%d) — <brief summary>"
 
 ## Store Context
 
-- 28 live products, AI tools / templates / productivity niche
-- Currency: EUR, price range €5.99–€29.99
+- ~29 live products (always confirm with `python3 db/query.py products` — this number drifts), AI tools / templates / productivity niche
+- Currency: EUR, paid price range €5.99–€29.99 (one €0 subscription is exempt from repricing)
 - Survival target: €58/month (covers Claude + Codex subscriptions)
 - Active discount: LAUNCH30 (30% off, all products)
 - Social: @schep_digital on Mastodon (mastodon.social) + Bluesky

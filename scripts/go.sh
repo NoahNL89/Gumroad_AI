@@ -59,7 +59,13 @@ PROMPT=$(cat "$PROMPT_FILE")
 TS=$(date -u '+%Y-%m-%d %H:%M UTC')
 echo "=== [$TS] GO session — agent: $AGENT ==="
 
-CODEX="/home/administrator/.openclaw/npm/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex/codex"
+CODEX="${CODEX_BIN:-}"
+if [[ -z "$CODEX" ]]; then
+    CODEX=$(command -v codex 2>/dev/null || true)
+fi
+if [[ -z "$CODEX" && -x "/home/administrator/.local/bin/codex" ]]; then
+    CODEX="/home/administrator/.local/bin/codex"
+fi
 
 case "$AGENT" in
     claude)
@@ -73,6 +79,11 @@ case "$AGENT" in
             -p "$PROMPT"
         ;;
     codex)
+        if [[ -z "$CODEX" || ! -x "$CODEX" ]]; then
+            echo "ERROR: Codex CLI not found. Install it on PATH or set CODEX_BIN to its executable path."
+            exit 1
+        fi
+        echo "Using Codex CLI: $CODEX ($("$CODEX" --version 2>/dev/null || echo "version unknown"))"
         "$CODEX" exec "$PROMPT"
         ;;
     *)

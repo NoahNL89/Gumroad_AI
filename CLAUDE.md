@@ -86,6 +86,14 @@ pip3 install -r requirements.txt
 # Packages: requests, Mastodon.py, atproto
 ```
 
+## Testing
+
+```bash
+python3 tests/test_smoke.py        # no-dep smoke suite (builder, bot copy + rate limits, revenue math)
+```
+
+Run this after editing `bot/`, `db/query.py`, or `scripts/product_builder.py`. CI (`.github/workflows/ci.yml`) runs it on every push. New products use the data-driven engine — write a JSON spec and run `python3 scripts/product_builder.py <spec.json>` (see `--help`); do not author bespoke `gen_*.py` scripts (the existing ones are deprecated one-offs).
+
 ---
 
 ## Environment Variables
@@ -98,7 +106,6 @@ Credentials live in `.env` (gitignored). Copy `.env.example` to get started.
 | `MASTODON_ACCESS_TOKEN` / `MASTODON_INSTANCE` | `bot/mastodon_bot.py` |
 | `BLUESKY_USERNAME` / `BLUESKY_PASSWORD` | `bot/bluesky_bot.py` |
 | `AGENT_MONTHLY_TARGET_EUR` | `db/query.py` survival check (default: 58) |
-| `CREEM_API_KEY` | `scripts/creem_*.py`, `creem` CLI |
 
 ---
 
@@ -111,45 +118,7 @@ Each session, after startup checks:
 3. **If above target** → plan recurring memberships or high-ticket courses
 4. After any store change: `python3 db/sync.py` to update the local DB
 
-Store context: ~27 products, focus on AI tools / templates / productivity, currency EUR, price range €5–150.
-
----
-
-## Creem.io (Second Sales Channel)
-
-Creem is a Merchant of Record platform at `https://test-api.creem.io/v1` (test mode). All 22 products are live on Creem — IDs stored in `creem/products.json`. The CLI is `creem` (globally installed, v0.1.3, authenticated).
-
-```bash
-# Creem CLI (use --json for scripting)
-creem products list --json
-creem discounts list --json
-creem discounts create --name LAUNCH30 --type percentage --percentage 30 --duration once --products <id1>,<id2>
-
-# Creem automation scripts (always load env first: export $(grep -v '^#' .env | xargs))
-python3 scripts/creem_heartbeat.py          # Single poll — new sales/subs/customers
-python3 scripts/creem_heartbeat.py --watch  # Loop every 4h (HEARTBEAT.md spec)
-python3 scripts/creem_heartbeat.py --report # Print state summary + DB totals
-
-python3 scripts/creem_discount.py list
-python3 scripts/creem_discount.py create --percent 30 --name "LAUNCH30" --products all
-python3 scripts/creem_discount.py create --percent 50 --name "FLASH50" --products 01,03,05
-
-python3 scripts/creem_create_products.py    # Idempotent — creates missing products only
-```
-
-Creem state is saved to `~/.creem/heartbeat-state.json`. New transactions/customers are also written to `db/store.db` (`creem_transactions`, `creem_customers` tables). Alert on: new sales, new subscriptions, cancellations, payment failures.
-
-**Limits/notes:**
-- Store profile settings must be configured via Creem dashboard (API returns 500 for profile endpoints)
-- File attachments (PDFs) must be attached manually via dashboard — no file upload API
-- Two leftover test products exist on page 2 of Creem products (cannot delete via API or CLI currently)
-- Switch to live mode by updating `CREEM_BASE` in scripts from `test-api.creem.io` to `api.creem.io`
-
-**System heartbeat cron** (add manually once, survives reboots):
-```bash
-# Run once to install:
-(crontab -l 2>/dev/null; echo "23 */4 * * * cd /home/administrator/NewGitHub/GumRoad_AI && export \$(grep -v '^#' .env | xargs) 2>/dev/null && python3 scripts/creem_heartbeat.py >> /tmp/creem_heartbeat.log 2>&1") | crontab -
-```
+Store context: ~29 products (run `python3 db/query.py products` for the live count — do not trust this number, it drifts as products are added), focus on AI tools / templates / productivity, currency EUR, paid price range €5.99–€29.99 (one €0 subscription is exempt from repricing).
 
 ---
 

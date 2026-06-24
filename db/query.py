@@ -10,6 +10,7 @@ Usage:
     python3 db/query.py sales            # Recent sales
     python3 db/query.py revenue          # Revenue summary
     python3 db/query.py survival         # Survival dashboard
+    python3 db/query.py funnel           # Catalog health + sales velocity + verdict
 """
 
 import sqlite3
@@ -53,7 +54,7 @@ def cmd_underpriced(con):
         live = "live" if r["published"] else "draft"
         print(f"  [{live}] {r['name'][:60]}  → {r['formatted_price']}")
         print(f"         ID: {r['id']}")
-    print(f"\nFix with: python3 db/sync.py --reprice-zero 9.99")
+    print(f"\nFix with: python3 db/sync.py --reprice-zero 7.99   (matches GO.md ROUTINE 3; skip €0 subscriptions — they are exempt)")
 
 def cmd_sales(con):
     rows = con.execute("""
@@ -135,6 +136,77 @@ def cmd_survival(con):
             eur = (b["net_cents"] or 0) / 100
             print(f"    {b['product_name'][:45]:<45}  ×{b['cnt']}  €{eur:.2f}")
 
+def cmd_funnel(con):
+    """Catalog health + sales velocity. The measurable half of the funnel
+    (Gumroad's API gives sales_count but not page views)."""
+    from datetime import datetime, timezone, timedelta
+
+    cat = con.execute("""
+        SELECT COUNT(*) AS n,
+               SUM(CASE WHEN sales_count > 0 THEN 1 ELSE 0 END) AS with_sales,
+               COALESCE(SUM(sales_count), 0) AS units,
+               COALESCE(SUM(sales_usd_cents), 0) / 100.0 AS revenue
+        FROM products
+    """).fetchone()
+    n = cat["n"] or 0
+    with_sales = cat["with_sales"] or 0
+    pct = (with_sales / n * 100) if n else 0
+
+    print("\n📊 Funnel & Catalog Health")
+    print("─" * 52)
+    print(f"  Products in catalog:   {n}")
+    print(f"  Products with ≥1 sale: {with_sales}  ({pct:.0f}% of catalog)")
+    print(f"  Lifetime units sold:   {cat['units']}")
+    print(f"  Lifetime revenue:      €{cat['revenue']:.2f}")
+
+    # Velocity: current sales_count vs the earliest snapshot in the last 7 days.
+    # product_snapshots is created by db/sync.py — tolerate a DB synced before it existed.
+    has_snapshots = con.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='product_snapshots'"
+    ).fetchone() is not None
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+    baseline, snap_days = {}, 0
+    if has_snapshots:
+        baseline = {
+            r["product_id"]: r["sales_count"]
+            for r in con.execute("""
+                SELECT product_id, sales_count, MIN(snapshot_at)
+                FROM product_snapshots WHERE snapshot_at >= ?
+                GROUP BY product_id
+            """, (cutoff,)).fetchall()
+        }
+        snap_days = con.execute(
+            "SELECT COUNT(DISTINCT substr(snapshot_at,1,10)) FROM product_snapshots"
+        ).fetchone()[0]
+
+    movers = []
+    for p in con.execute("SELECT id, name, sales_count FROM products").fetchall():
+        delta = (p["sales_count"] or 0) - baseline.get(p["id"], p["sales_count"] or 0)
+        if delta > 0:
+            movers.append((p["name"], delta))
+
+    print(f"\n  Sales velocity (last 7 days, across {snap_days} snapshot day(s)):")
+    if not baseline or snap_days < 2:
+        print("    ⏳ Baseline building — run `python3 db/sync.py` daily to populate velocity.")
+    elif movers:
+        for name, d in sorted(movers, key=lambda x: -x[1]):
+            print(f"    ↑ +{d}  {name[:50]}")
+    else:
+        print("    ▏ 0 units moved across the entire catalog this week.")
+
+    # Verdict — keep it growth-oriented (we earn our way up; we do not cut back).
+    print("\n  Verdict:")
+    if cat["units"] == 0:
+        print("    Bottleneck = REACH. 0 sales across the catalog means buyers")
+        print("    aren't arriving — the lever is DISTRIBUTION, not more products.")
+        print("    → python3 scripts/launch_kit.py <product-id|name>  (multi-channel launch copy)")
+    elif pct < 25:
+        print(f"    Only {with_sales}/{n} products have ever sold. Concentrate promotion")
+        print("    on proven sellers; pause net-new SKUs until traffic converts.")
+    else:
+        print("    Healthy spread. Push winners harder and test price/bundles.")
+
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "snapshot"
     con = get_db()
@@ -145,6 +217,7 @@ def main():
         "sales":      cmd_sales,
         "revenue":    cmd_revenue,
         "survival":   cmd_survival,
+        "funnel":     cmd_funnel,
         "snapshot":   lambda c: (cmd_survival(c), cmd_products(c)),
     }
 

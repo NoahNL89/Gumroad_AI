@@ -1,0 +1,74 @@
+{
+  "slug": "free-ai-quickstart",
+  "title": "The AI Quick-Start Pack",
+  "subtitle": "12 copy-paste prompts and a one-page system that make AI actually useful in your day. Free — the fast on-ramp to the full Schep Digital toolkit.",
+  "eyebrow": "Schep Digital · Free Starter",
+  "meta": [["Price", "Free"], ["Format", "PDF"], ["Time to value", "10 minutes"], ["Upgrade", "code LAUNCH30 = 30% off"]],
+  "intro_callout": {
+    "title": "Why this is free",
+    "body": "Because the fastest way to show you the paid kits are worth it is to make this one genuinely useful first. Use it, get a real result today, then go deeper if you want.",
+    "variant": "green"
+  },
+  "stats": [["12", "Prompts inside"], ["1", "Page system"], ["10 min", "To first win"], ["0", "Cost"]],
+  "chapters": [
+    {
+      "num": "Chapter 01",
+      "title": "The 5-Part Prompt Formula",
+      "sub": "Why most prompts fail, and the structure that fixes it.",
+      "blocks": [
+        {"type": "p", "text": "Most people type prompts like a Google search: a few keywords and hope. The model fills the gaps with the most generic answer it can, and you get mediocre output. The fix is to treat every prompt as a short job brief. Give the model a role, the context it cannot guess, the exact format you want back, the constraints that matter, and one worked example. Do that and the same model produces dramatically better work, no special tools required."},
+        {"type": "h3", "text": "The five parts"},
+        {"type": "checklist", "items": ["Role: who the model should act as (a senior copywriter, a recruiter, a financial analyst)", "Context: the facts it cannot guess (audience, product, goal, prior attempts)", "Task: the single, specific thing you want done", "Format: how the answer should be shaped (table, 5 bullets, 200 words, JSON)", "Constraints: tone, what to avoid, length, reading level"]},
+        {"type": "callout", "title": "Rule of thumb", "body": "If a smart freelancer could not do the task from your prompt alone, the model cannot either. Add the missing brief.", "variant": "amber"},
+        {"type": "prompt", "label": "The formula as a template", "text": "You are a [ROLE].\nContext: [WHAT THE MODEL CANNOT GUESS].\nTask: [THE ONE SPECIFIC THING].\nFormat: [EXACT SHAPE OF THE ANSWER].\nConstraints: [TONE, LENGTH, WHAT TO AVOID]."}
+      ]
+    },
+    {
+      "num": "Chapter 02",
+      "title": "12 Prompts You Can Paste Today",
+      "sub": "Built with the formula above. Swap the brackets for your details.",
+      "blocks": [
+        {"type": "p", "text": "These cover the three things people use AI for most: getting work out the door, writing things that persuade, and thinking more clearly. Each one already has a role, a format, and constraints baked in, so you only have to add your specifics."},
+        {"type": "h3", "text": "Work and email"},
+        {"type": "prompt", "label": "1 — Inbox zero reply", "text": "You are my executive assistant. Draft a reply to the email below. Match the sender's tone, keep it under 90 words, end with one clear next step. Email: [PASTE]"},
+        {"type": "prompt", "label": "2 — Meeting to action items", "text": "You are a project manager. Turn these messy notes into a table of owner, action, and due date. Flag anything ambiguous. Notes: [PASTE]"},
+        {"type": "prompt", "label": "3 — Say no gracefully", "text": "You are a diplomatic communicator. Write a 3-sentence decline to [REQUEST] that keeps the relationship warm and offers one alternative."},
+        {"type": "h3", "text": "Writing and marketing"},
+        {"type": "prompt", "label": "4 — 10 headlines", "text": "You are a direct-response copywriter. Give 10 headlines for [PRODUCT] aimed at [AUDIENCE]. Mix curiosity, benefit, and specificity. No clickbait, no exclamation marks."},
+        {"type": "prompt", "label": "5 — Rewrite for clarity", "text": "Rewrite the text below at an 8th-grade reading level. Keep every fact, cut filler, use short sentences. Return only the rewrite. Text: [PASTE]"},
+        {"type": "prompt", "label": "6 — Cold outreach", "text": "You are a sales rep known for short, human messages. Write a 60-word outreach to [PERSON/ROLE] about [VALUE]. One specific compliment, one clear ask, no buzzwords."},
+        {"type": "h3", "text": "Thinking and planning"},
+        {"type": "prompt", "label": "7 — Decision in 5 minutes", "text": "Act as a decision coach. I'm choosing between [A] and [B]. Ask me 5 sharp questions one at a time, then recommend one with your reasoning."},
+        {"type": "prompt", "label": "8 — Break down a big goal", "text": "You are a planner. Turn [GOAL] into a 7-day plan with one concrete task per day I can finish in under 30 minutes."},
+        {"type": "prompt", "label": "9 — Find the risk", "text": "Be a skeptical reviewer. Here is my plan: [PASTE]. List the 3 most likely ways it fails and the cheapest test for each."},
+        {"type": "prompt", "label": "10 — Explain it simply", "text": "Explain [TOPIC] to me like I'm smart but new to it. Use one analogy, then 3 bullet takeaways."},
+        {"type": "prompt", "label": "11 — Summarize a long doc", "text": "Summarize the text below into: a 1-line gist, 5 key points, and any action I should take. Text: [PASTE]"},
+        {"type": "prompt", "label": "12 — Weekly review", "text": "Act as my coach. Ask me 4 questions about last week (wins, misses, lessons, next focus), one at a time, then summarize into a short plan."}
+      ]
+    },
+    {
+      "num": "Chapter 03",
+      "title": "Your One-Page AI Workflow",
+      "sub": "How to actually build the habit so this pays off every day.",
+      "blocks": [
+        {"type": "p", "text": "Prompts are only useful if you reach for them. The trick is to remove friction: keep your best prompts one keystroke away and batch similar tasks so you stay in the same headspace. Here is the simplest workflow that sticks."},
+        {"type": "checklist", "items": ["Save your 3 most-used prompts somewhere you can paste in one click (a note, a text expander, a pinned doc)", "Batch like with like: answer all email in one AI session, write all copy in another", "Always give context once at the top of a session, then keep asking follow-ups", "Keep a running file of prompts that worked so your library compounds"]},
+        {"type": "callout", "title": "The 10-minute test", "body": "Pick one prompt above, use it on a real task right now, and notice how much time it saved. That number is why the full kits are worth it.", "variant": "green"},
+        {"type": "table", "headers": ["When you have...", "Use prompt #", "You get back"], "rows": [["A full inbox", "1, 2, 3", "Replies and action items in minutes"], ["A blank page", "4, 5, 6", "Headlines, clean copy, outreach"], ["A hard call", "7, 8, 9", "A decision, a plan, the risks"]]}
+      ]
+    },
+    {
+      "num": "Chapter 04",
+      "title": "Go Deeper (and Save 30%)",
+      "sub": "If this saved you time, the full kits do it at scale.",
+      "blocks": [
+        {"type": "p", "text": "This pack is the on-ramp. When you want the complete, done-for-you systems, the Schep Digital catalog has the full versions: hundreds of engineered prompts, niche workflows, and ready-to-use templates. Everything is a one-time purchase, yours forever, no subscription."},
+        {"type": "item", "h4": "75 Power Prompts for Content Creators", "body": "The full library the formula in Chapter 1 is built on, organized by job."},
+        {"type": "item", "h4": "The AI Prompt Vault (200+ Blueprints)", "body": "An operating system of engineered prompts for serious, repeatable work."},
+        {"type": "item", "h4": "The Complete AI Creator Toolkit", "body": "Ten systems bundled together for less than one month of a chatbot subscription."},
+        {"type": "callout", "title": "Your launch code", "body": "Use LAUNCH30 at checkout for 30% off anything in the catalog this week: schephenk.gumroad.com", "variant": "amber"}
+      ]
+    }
+  ],
+  "closing": {"line": "The AI Quick-Start Pack — Schep Digital", "url": "schephenk.gumroad.com"}
+}
