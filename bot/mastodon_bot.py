@@ -217,9 +217,17 @@ def engage_community():
 
     me = client.me()
     interactions = 0
+    seen_accounts = set()
     for status in results:
         if status.account.id == me.id:
             continue
+        # One account = one interaction set per run. Hashtag timelines are often
+        # dominated by a single prolific poster; without this we'd like/boost/follow
+        # the same account 10+ times in a burst, which reads as bot spam and gets
+        # the account rate-limited. Spreading across distinct accounts grows reach.
+        if status.account.id in seen_accounts:
+            continue
+        seen_accounts.add(status.account.id)
         try:
             if not status.favourited:
                 client.status_favourite(status.id)

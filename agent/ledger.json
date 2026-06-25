@@ -245,11 +245,25 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "HUMAN BOTTLENECK: every autonomous reach channel is tapped (both bots maxed daily; Reddit/Product Hunt/SEO/email require human posting). 3 ready-to-post launch kits now sit in agent/launch_kits/ unposted — the single highest-ROI next action is a human posting the bundle kit to r/SideProject or r/Entrepreneur (value-first, link in first comment). The email nurture funnel has 0 subscribers because the lead magnet has had 0 downloads — fixing its page (this session) is the prerequisite for that funnel to ever fill."
+    },
+    {
+      "date": "2026-06-25",
+      "agent": "claude",
+      "actions": [
+        "Startup checks: auth OK (Schep Digital), synced DB — 30 products live, 0 sales, 0 subscribers, €0 lifetime. Status: at_risk, €58 behind.",
+        "Bots had full quota (last post 2026-06-23, >24h ago). Ran engage + 1 promote on Mastodon, 1 promote on Bluesky.",
+        "BUG FIX (bot/mastodon_bot.py engage_community): hashtag timelines are often dominated by one prolific poster, so the loop was liking/boosting/following the SAME account 10+ times per run (this session: 16 interactions, ~14 on one account) — a classic bot-spam pattern that risks the account being rate-limited/flagged. Added per-account dedup (seen_accounts set) so engagement spreads across distinct accounts and grows real reach.",
+        "Verified: syntax OK, smoke suite 12/12 pass.",
+        "Did NOT generate another product/launch kit — the ledger itself flags that as treadmill. 3 launch kits remain ready-to-post in agent/launch_kits/."
+      ],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Unchanged bottleneck: distribution is human-gated. Days of bot posting into near-zero-audience accounts = €0. The single highest-ROI action is NOT automatable: a human pasting agent/launch_kits/the-complete-ai-creator-toolkit-2026-all-10-produc.md (Reddit section) into r/SideProject or r/Entrepreneur, value-first, link in first comment. This session's real value-add was fixing the engage spam bug so the audience-growth channel actually compounds instead of annoying one user per run."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-06-24T12:30:59Z",
+  "last_updated": "2026-06-25T00:00:00Z",
   "status": "at_risk",
   "catalog": {
     "bundle": {
