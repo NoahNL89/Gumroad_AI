@@ -110,6 +110,8 @@ Credentials live in `.env` (gitignored). Copy `.env.example` to get started.
 | `PINTEREST_APP_ID` / `PINTEREST_APP_SECRET` / `PINTEREST_ACCESS_TOKEN` / `PINTEREST_REFRESH_TOKEN` | `bot/pinterest_bot.py` |
 | `AGENT_MONTHLY_TARGET_EUR` | `db/query.py` survival check (default: 58) |
 
+Pinterest Trial-access apps must use `PINTEREST_API_BASE=https://api-sandbox.pinterest.com/v5` for test Pin creation. Production Pin creation requires Pinterest Standard access.
+
 ---
 
 ## Agent Decision Loop

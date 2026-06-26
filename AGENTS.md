@@ -139,6 +139,7 @@ python3 bot/pinterest_bot.py exchange "<code>"
 python3 bot/pinterest_bot.py boards
 python3 bot/pinterest_bot.py promote
 ```
+Trial-access Pinterest apps can read production boards but cannot create production Pins. For sandbox demos, set `PINTEREST_API_BASE=https://api-sandbox.pinterest.com/v5` and use a sandbox OAuth/access token.
 
 ---
 

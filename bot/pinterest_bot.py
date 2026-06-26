@@ -26,9 +26,8 @@ from pathlib import Path
 ENV_PATH = Path(__file__).parent.parent / ".env"
 DB_PATH = Path(__file__).parent.parent / "db" / "store.db"
 
-API_BASE = "https://api.pinterest.com/v5"
 AUTH_URL = "https://www.pinterest.com/oauth/"
-TOKEN_URL = f"{API_BASE}/oauth/token"
+DEFAULT_API_BASE = "https://api.pinterest.com/v5"
 
 MAX_POSTS_PER_DAY = 3
 DISCOUNT_CODE = "LAUNCH30"
@@ -63,7 +62,10 @@ def load_env():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
-                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+                key = k.strip()
+                value = v.strip().strip('"').strip("'")
+                if key not in os.environ or (not os.environ[key] and value):
+                    os.environ[key] = value
 
 
 def env(name, default=None):
@@ -76,6 +78,14 @@ def require_env(name):
     if not value:
         sys.exit(f"{name} not set in .env")
     return value
+
+
+def api_base():
+    return env("PINTEREST_API_BASE", DEFAULT_API_BASE).rstrip("/")
+
+
+def token_url():
+    return f"{api_base()}/oauth/token"
 
 
 def truncate(text, limit):
@@ -109,7 +119,7 @@ def api_request(method, path, data=None, token=None, auth_basic=False):
         raw = f"{client_id}:{client_secret}".encode()
         headers["Authorization"] = "Basic " + base64.b64encode(raw).decode()
 
-    url = path if path.startswith("http") else f"{API_BASE}{path}"
+    url = path if path.startswith("http") else f"{api_base()}{path}"
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -156,7 +166,7 @@ def print_token_export(data):
 def exchange_code(code):
     data = api_request(
         "POST",
-        TOKEN_URL,
+        token_url(),
         {
             "grant_type": "authorization_code",
             "code": code,
@@ -171,7 +181,7 @@ def refresh_token():
     refresh = require_env("PINTEREST_REFRESH_TOKEN")
     data = api_request(
         "POST",
-        TOKEN_URL,
+        token_url(),
         {
             "grant_type": "refresh_token",
             "refresh_token": refresh,
