@@ -26,6 +26,28 @@
       "date": "2026-06-26",
       "agent": "Codex",
       "actions": [
+        "Verified Pinterest OAuth production token reads successfully by listing boards",
+        "Confirmed production Pin creation is blocked by Pinterest Trial access with API code 29",
+        "Verified the supplied Pinterest sandbox token against api-sandbox.pinterest.com",
+        "Created a sandbox Pinterest board and successfully created a sandbox product Pin for the flagship Gumroad bundle",
+        "Updated bot/pinterest_bot.py to support separate sandbox token/board settings and explicit sandbox-boards/sandbox-promote commands",
+        "Relabeled the local sandbox test promotion row to pinterest_sandbox so sandbox activity does not consume the production Pinterest posting limit"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0,
+        "pinterest_sandbox": 1
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Pinterest bot is functional in sandbox mode. Production Pin posting still requires Pinterest Standard access approval."
+    },
+    {
+      "date": "2026-06-26",
+      "agent": "Codex",
+      "actions": [
         "Implemented a new Pinterest promotion bot at bot/pinterest_bot.py",
         "Added Pinterest OAuth setup commands: auth-url, exchange, refresh, boards, create-board, promote, and post",
         "Configured the bot to create product Pins from live Gumroad products using existing thumbnail URLs, product links, and the shared promotions rate-limit table",
@@ -365,7 +387,7 @@
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-06-26T12:10:00Z",
+  "last_updated": "2026-06-26T12:20:00Z",
   "status": "at_risk",
   "catalog": {
     "bundle": {

@@ -84,6 +84,14 @@ def api_base():
     return env("PINTEREST_API_BASE", DEFAULT_API_BASE).rstrip("/")
 
 
+def use_sandbox_api():
+    os.environ["PINTEREST_API_BASE"] = env("PINTEREST_SANDBOX_API_BASE", "https://api-sandbox.pinterest.com/v5")
+
+
+def is_sandbox():
+    return "api-sandbox.pinterest.com" in api_base()
+
+
 def token_url():
     return f"{api_base()}/oauth/token"
 
@@ -192,6 +200,8 @@ def refresh_token():
 
 
 def access_token():
+    if is_sandbox() and env("PINTEREST_SANDBOX_ACCESS_TOKEN"):
+        return env("PINTEREST_SANDBOX_ACCESS_TOKEN")
     return require_env("PINTEREST_ACCESS_TOKEN")
 
 
@@ -223,11 +233,17 @@ def create_board(name):
 
 
 def get_board_id():
+    if is_sandbox() and env("PINTEREST_SANDBOX_BOARD_ID"):
+        return env("PINTEREST_SANDBOX_BOARD_ID")
     configured = env("PINTEREST_BOARD_ID")
     if configured:
         return configured
 
-    board_name = env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME)
+    board_name = (
+        env("PINTEREST_SANDBOX_BOARD_NAME")
+        if is_sandbox() and env("PINTEREST_SANDBOX_BOARD_NAME")
+        else env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME)
+    )
     token = access_token()
     data = api_request("GET", "/boards?page_size=100", token=token)
     for board in data.get("items", []):
@@ -252,11 +268,12 @@ def check_rate_limit():
     if not DB_PATH.exists():
         print("DB not found — fail-closed on rate limit")
         return False
+    platform = "pinterest_sandbox" if is_sandbox() else "pinterest"
     cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
     with sqlite3.connect(str(DB_PATH)) as con:
         count = con.execute(
-            "SELECT COUNT(*) FROM promotions WHERE platform='pinterest' AND posted_at >= ?",
-            (cutoff,),
+            "SELECT COUNT(*) FROM promotions WHERE platform=? AND posted_at >= ?",
+            (platform, cutoff),
         ).fetchone()[0]
     if count >= MAX_POSTS_PER_DAY:
         print(f"Rate limit: already posted {count}x in last 24h (max {MAX_POSTS_PER_DAY})")
@@ -294,7 +311,8 @@ def choose_product(product_id=None):
     with sqlite3.connect(str(DB_PATH)) as con:
         con.row_factory = sqlite3.Row
         recent = con.execute(
-            "SELECT product_id FROM promotions WHERE platform='pinterest' ORDER BY posted_at DESC LIMIT 5"
+            "SELECT product_id FROM promotions WHERE platform=? ORDER BY posted_at DESC LIMIT 5",
+            ("pinterest_sandbox" if is_sandbox() else "pinterest",),
         ).fetchall()
     recent_ids = {r["product_id"] for r in recent}
     pool = [p for p in products if p["id"] not in recent_ids] or products
@@ -333,13 +351,13 @@ def post_product(product_id=None):
     print(f"Posting Pinterest pin for: {product['name']}")
     data = api_request("POST", "/pins", payload, token=access_token())
     pin_url = data.get("link") or data.get("url") or f"https://www.pinterest.com/pin/{data.get('id')}/"
-    log_promotion("pinterest", product["id"], product["short_url"], payload["description"])
+    log_promotion("pinterest_sandbox" if is_sandbox() else "pinterest", product["id"], product["short_url"], payload["description"])
     print(json.dumps({"pin_id": data.get("id"), "pin_url": pin_url}, indent=2))
     return True
 
 
 def usage():
-    print("Usage: python3 bot/pinterest_bot.py [auth-url | exchange <code> | refresh | boards | create-board [name] | promote | post <product_id>]")
+    print("Usage: python3 bot/pinterest_bot.py [auth-url | exchange <code> | refresh | boards | create-board [name] | promote | post <product_id> | sandbox-boards | sandbox-promote]")
 
 
 if __name__ == "__main__":
@@ -359,9 +377,15 @@ if __name__ == "__main__":
             refresh_token()
         elif cmd == "boards":
             list_boards()
+        elif cmd == "sandbox-boards":
+            use_sandbox_api()
+            list_boards()
         elif cmd == "create-board":
             create_board(" ".join(sys.argv[2:]) or env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME))
         elif cmd == "promote":
+            post_product()
+        elif cmd == "sandbox-promote":
+            use_sandbox_api()
             post_product()
         elif cmd == "post":
             if len(sys.argv) < 3:
