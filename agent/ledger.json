@@ -26,6 +26,27 @@
       "date": "2026-06-26",
       "agent": "Codex",
       "actions": [
+        "Implemented a new Pinterest promotion bot at bot/pinterest_bot.py",
+        "Added Pinterest OAuth setup commands: auth-url, exchange, refresh, boards, create-board, promote, and post",
+        "Configured the bot to create product Pins from live Gumroad products using existing thumbnail URLs, product links, and the shared promotions rate-limit table",
+        "Added Pinterest environment placeholders to .env.example and local app credentials to gitignored .env",
+        "Updated AGENTS.md, CLAUDE.md, README.md, agent/GO.md, agent/MISSION.md, and scripts/run_bots.sh so Pinterest is treated as the third social promotion channel",
+        "Extended smoke tests so Pinterest participates in bot template formatting, copy-safety, and 3-post rate-limit checks"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Pinterest app credentials are configured locally, but no Pinterest Pin was posted yet because OAuth consent must be completed once in a browser to obtain PINTEREST_ACCESS_TOKEN and PINTEREST_REFRESH_TOKEN."
+    },
+    {
+      "date": "2026-06-26",
+      "agent": "Codex",
+      "actions": [
         "Loaded environment and verified Gumroad authentication for Schep Digital",
         "Ran live sync: 30 products discovered, 30 live, 0 drafts; products and offer codes synced successfully",
         "Confirmed sales/subscriber/payout API endpoints still return HTTP 403, so revenue visibility remains limited to the local DB snapshot",
@@ -344,7 +365,7 @@
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-06-26T11:50:00Z",
+  "last_updated": "2026-06-26T12:10:00Z",
   "status": "at_risk",
   "catalog": {
     "bundle": {

@@ -20,4 +20,7 @@ python3 bot/bluesky_bot.py promote
 echo "-- Bluesky engage --"
 python3 bot/bluesky_bot.py engage
 
+echo "-- Pinterest promote --"
+python3 bot/pinterest_bot.py promote
+
 echo "=== Done ==="

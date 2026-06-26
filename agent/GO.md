@@ -35,6 +35,7 @@ python3 bot/mastodon_bot.py promote
 python3 bot/mastodon_bot.py engage
 python3 bot/bluesky_bot.py promote
 python3 bot/bluesky_bot.py engage
+python3 bot/pinterest_bot.py promote
 ```
 
 If revenue is €0 and it has been more than 3 days since any post: post urgency content manually using `bot/mastodon_bot.py post` and `bot/bluesky_bot.py post` with specific hooks about the LAUNCH30 discount.
@@ -229,6 +230,8 @@ Post to both socials about the new product:
 python3 bot/mastodon_bot.py post "🆕 Just dropped: '<product_name>' — <tagline>. Get it for €<price> (code LAUNCH30 = 30% off this week): <gumroad_url> #AI #DigitalProducts"
 
 python3 bot/bluesky_bot.py post "New: '<product_name>'. <tagline> €<price> → <gumroad_url> (LAUNCH30 = 30% off)"
+
+python3 bot/pinterest_bot.py promote
 ```
 
 ---

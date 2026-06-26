@@ -103,10 +103,10 @@ Use `--dry-run` if you want to preview a change first.
 
 ---
 
-## Social Media Promotion (Bluesky & Mastodon)
+## Social Media Promotion (Bluesky, Mastodon & Pinterest)
 
 You have access to bots that allow you to promote products autonomously.
-They automatically authenticate using `BLUESKY_USERNAME` / `MASTODON_USERNAME` and their respective passwords from `.env`.
+They automatically authenticate using credentials from `.env`.
 
 **Bluesky:**
 ```bash
@@ -127,6 +127,17 @@ python3 bot/mastodon_bot.py promote
 
 # Autonomously engage with the community to build organic reach (favorites, boosts, follows)
 python3 bot/mastodon_bot.py engage
+```
+
+**Pinterest:**
+```bash
+# One-time OAuth setup
+python3 bot/pinterest_bot.py auth-url
+python3 bot/pinterest_bot.py exchange "<code>"
+
+# List/create boards and auto-pin a product
+python3 bot/pinterest_bot.py boards
+python3 bot/pinterest_bot.py promote
 ```
 
 ---

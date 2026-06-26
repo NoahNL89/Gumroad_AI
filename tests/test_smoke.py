@@ -67,12 +67,12 @@ def test_builder_rejects_unknown_block_type():
 
 
 # ── bots: copy correctness + rate limiting ──────────────────────────────────
-def _make_promotions_db(path, mastodon_posts=0, bluesky_posts=0):
+def _make_promotions_db(path, mastodon_posts=0, bluesky_posts=0, pinterest_posts=0):
     con = sqlite3.connect(path)
     con.execute("""CREATE TABLE promotions (platform TEXT, product_id TEXT, url TEXT,
                    content TEXT, posted_at TEXT)""")
     now = "datetime('now')"
-    for plat, n in (("mastodon", mastodon_posts), ("bluesky", bluesky_posts)):
+    for plat, n in (("mastodon", mastodon_posts), ("bluesky", bluesky_posts), ("pinterest", pinterest_posts)):
         for _ in range(n):
             con.execute(f"INSERT INTO promotions VALUES (?,?,?,?,{now})",
                         (plat, "id", "url", "x"))
@@ -84,7 +84,8 @@ def _bots():
     """Import both bot modules; skip cleanly if their network deps aren't installed."""
     mods = {}
     for name, path in (("mastodon_bot", ROOT / "bot/mastodon_bot.py"),
-                       ("bluesky_bot", ROOT / "bot/bluesky_bot.py")):
+                       ("bluesky_bot", ROOT / "bot/bluesky_bot.py"),
+                       ("pinterest_bot", ROOT / "bot/pinterest_bot.py")):
         try:
             mods[name] = _load(path, name)
         except SystemExit:
@@ -124,6 +125,15 @@ def test_bot_rate_limit_blocks_at_three():
         if "bluesky_bot" in mods:
             mods["bluesky_bot"].DB_PATH = dbp
             assert mods["bluesky_bot"].check_rate_limit() is True, "should allow at 0 posts"
+        if "pinterest_bot" in mods:
+            mods["pinterest_bot"].DB_PATH = dbp
+            assert mods["pinterest_bot"].check_rate_limit() is True, "should allow at 0 posts"
+
+        dbp.unlink()
+        _make_promotions_db(str(dbp), pinterest_posts=3)
+        if "pinterest_bot" in mods:
+            mods["pinterest_bot"].DB_PATH = dbp
+            assert mods["pinterest_bot"].check_rate_limit() is False, "should block Pinterest at 3 posts"
 
 
 # ── query.py: revenue math ──────────────────────────────────────────────────

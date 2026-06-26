@@ -40,8 +40,9 @@ All source `scripts/api/_base.sh` which provides `gumroad_get/post/put/delete` h
 **4. Social media bots** (`bot/`) — audience growth and product promotion.  
 - `bot/mastodon_bot.py promote|engage|post "<text>"` — max 3 posts/day, logs to `promotions` table in DB.  
 - `bot/bluesky_bot.py promote` — Bluesky promotion, also rate-limited.  
+- `bot/pinterest_bot.py auth-url|exchange|boards|promote|post` — Pinterest OAuth setup and product Pin promotion.
 - `bot/update_profile.py` — updates Mastodon profile bio.  
-Bots read credentials from `.env` (`MASTODON_ACCESS_TOKEN`, `MASTODON_INSTANCE`, `BLUESKY_USERNAME`, `BLUESKY_PASSWORD`).
+Bots read credentials from `.env` (`MASTODON_ACCESS_TOKEN`, `MASTODON_INSTANCE`, `BLUESKY_USERNAME`, `BLUESKY_PASSWORD`, `PINTEREST_*`).
 
 ---
 
@@ -70,6 +71,7 @@ python3 db/query.py underpriced       # Products still priced ≤€0.99
 python3 bot/mastodon_bot.py engage    # Like/boost relevant posts (audience growth)
 python3 bot/mastodon_bot.py promote   # Post product promotion (max 3x/day)
 python3 bot/bluesky_bot.py promote    # Post to Bluesky
+python3 bot/pinterest_bot.py promote  # Create a product Pin on Pinterest
 
 # Direct API (for operations not in CLI)
 source .env && ./scripts/api/list-products.sh
@@ -105,6 +107,7 @@ Credentials live in `.env` (gitignored). Copy `.env.example` to get started.
 | `GUMROAD_ACCESS_TOKEN` | CLI, API scripts, `db/sync.py` |
 | `MASTODON_ACCESS_TOKEN` / `MASTODON_INSTANCE` | `bot/mastodon_bot.py` |
 | `BLUESKY_USERNAME` / `BLUESKY_PASSWORD` | `bot/bluesky_bot.py` |
+| `PINTEREST_APP_ID` / `PINTEREST_APP_SECRET` / `PINTEREST_ACCESS_TOKEN` / `PINTEREST_REFRESH_TOKEN` | `bot/pinterest_bot.py` |
 | `AGENT_MONTHLY_TARGET_EUR` | `db/query.py` survival check (default: 58) |
 
 ---
