@@ -29,11 +29,11 @@ The workspace has four layers that work together:
 Always use AI-safe flags: `gumroad <cmd> --json --no-input --no-color`  
 Use `--dry-run` before destructive operations. Use `--yes` to skip prompts. Use `--all --page-delay 200ms` for paginated listing.
 
-**2. Direct API scripts** (`scripts/api/`) — bash wrappers for operations not in the CLI.  
-All source `scripts/api/_base.sh` which provides `gumroad_get/post/put/delete` helpers using `$GUMROAD_ACCESS_TOKEN`.
+**2. CLI compatibility scripts** (`scripts/api/`) — legacy bash entry points that delegate to the authenticated Gumroad CLI.
+All source `scripts/api/_base.sh`, which provides the machine-safe `gumroad_cli` helper.
 
 **3. SQLite DB layer** (`db/`) — local snapshot of store data for fast querying.  
-- `db/sync.py` — fetches products (via permalink discovery + `/products` endpoint), sales (paginated), subscribers, payouts, and offer codes into `db/store.db`. Also supports `--products-only`, `--report-only`, `--reprice-zero <price>`.  
+- `db/sync.py` — fetches products (via CLI permalink discovery), sales, subscribers, payouts, and offer codes into `db/store.db`. Also supports `--products-only`, `--report-only`, `--reprice-zero <price>`.
 - `db/query.py` — CLI query tool: `products`, `underpriced`, `sales`, `revenue`, `survival`, `snapshot`.  
 - `db/store.db` — SQLite file (gitignored). Tables: `products`, `sales`, `subscribers`, `payouts`, `offer_codes`, `promotions`, `sync_log`.
 
@@ -104,7 +104,7 @@ Credentials live in `.env` (gitignored). Copy `.env.example` to get started.
 
 | Variable | Used by |
 |---|---|
-| `GUMROAD_ACCESS_TOKEN` | CLI, API scripts, `db/sync.py` |
+| Gumroad CLI auth | All Gumroad reads and writes; run `gumroad auth login` |
 | `MASTODON_ACCESS_TOKEN` / `MASTODON_INSTANCE` | `bot/mastodon_bot.py` |
 | `BLUESKY_USERNAME` / `BLUESKY_PASSWORD` | `bot/bluesky_bot.py` |
 | `PINTEREST_APP_ID` / `PINTEREST_APP_SECRET` / `PINTEREST_ACCESS_TOKEN` / `PINTEREST_REFRESH_TOKEN` | `bot/pinterest_bot.py` |

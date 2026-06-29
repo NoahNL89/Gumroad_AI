@@ -8,7 +8,5 @@ source "$DIR/_base.sh"
 PRODUCT_ID="${1:?Provide product_id}"
 NAME="${2:?Provide code name}"
 PERCENT="${3:?Provide percent_off}"
-gumroad_post "products/$PRODUCT_ID/offer_codes" \
-  --data-urlencode "name=$NAME" \
-  --data-urlencode "offer_type=percent" \
-  --data-urlencode "amount_off=$PERCENT" | jq .
+gumroad_cli offer-codes create \
+  --product "$PRODUCT_ID" --name "$NAME" --percent-off "$PERCENT" --yes | jq .

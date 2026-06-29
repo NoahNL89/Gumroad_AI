@@ -26,6 +26,29 @@
       "date": "2026-06-29",
       "agent": "Codex",
       "actions": [
+        "Migrated db/sync.py from direct Gumroad HTTP requests to machine-safe authenticated Gumroad CLI commands",
+        "Enabled CLI-backed full pagination for sales, subscribers, and payouts, eliminating the previous HTTP 403 sync failures",
+        "Converted all legacy scripts/api entry points for products, sales, subscribers, payouts, offer codes, webhooks, and licenses to CLI commands",
+        "Converted product file metadata retrieval to gumroad products view and removed the direct OAuth exchange path in favor of gumroad auth login",
+        "Disabled direct-API fallback for cover and thumbnail utilities because the installed CLI does not expose those mutation flags",
+        "Updated workspace instructions, environment examples, and command documentation to establish the CLI as the sole Gumroad integration boundary",
+        "Added regression tests for machine-safe CLI flags and direct Gumroad API exclusion; all 14 smoke tests passed",
+        "Verified the complete live sync and compatibility reads: 30 products, 0 sales, 0 subscribers, 0 payouts, and 31 offer codes with no 403 errors"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The CLI-authenticated live reads confirm that sales, subscribers, and payouts are genuinely empty rather than hidden by authorization failures. Cover and thumbnail uploads are intentionally blocked until the Gumroad CLI adds supported flags."
+    },
+    {
+      "date": "2026-06-29",
+      "agent": "Codex",
+      "actions": [
         "Verified Gumroad authentication and synchronized the complete 30-product catalog; all 30 products remain live with no drafts",
         "Confirmed the funnel verdict remains REACH and skipped new product creation because distribution is the current bottleneck",
         "Left the EUR 0 lead magnet and EUR 0.99/month subscription unchanged as intentional pricing exemptions",

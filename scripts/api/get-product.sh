@@ -7,4 +7,4 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_base.sh"
 
 PRODUCT_ID="${1:?Usage: get-product.sh PRODUCT_ID}"
-gumroad_get "products/$PRODUCT_ID" | jq .
+gumroad_cli products view "$PRODUCT_ID" | jq .

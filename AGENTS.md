@@ -74,9 +74,10 @@ gumroad offer-codes create --product <id> --name LAUNCH --percent-off 25 --json 
 
 ---
 
-## Gumroad API (Direct HTTP)
+## Gumroad CLI Compatibility Scripts
 
-For operations not in the CLI, use the scripts in `scripts/api/`:
+The scripts in `scripts/api/` preserve older automation entry points but now
+delegate entirely to the authenticated `gumroad` CLI:
 ```bash
 source .env
 ./scripts/api/get-user.sh
@@ -84,8 +85,8 @@ source .env
 ./scripts/api/list-products.sh
 ```
 
-Base URL: `https://api.gumroad.com/v2/`
-Auth: `?access_token=$GUMROAD_ACCESS_TOKEN`
+Authenticate once with `gumroad auth login`. Do not call Gumroad endpoints
+directly from workspace code.
 
 ---
 
@@ -148,7 +149,7 @@ Trial-access Pinterest apps can read production boards but cannot create product
 - **Store**: schephenk.gumroad.com (Schep Digital)
 - **Focus**: AI tools, templates, productivity, digital products
 - **Currency**: EUR
-- **Auth**: `$GUMROAD_ACCESS_TOKEN` in `.env`
+- **Auth**: authenticated `gumroad` CLI session
 
 ---
 

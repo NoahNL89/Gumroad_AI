@@ -19,6 +19,7 @@ import sys
 import tempfile
 from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -169,6 +170,33 @@ def test_query_survival_excludes_refunds():
     # 2 non-refunded x €9.99 = €19.98 net (the €9.99 refund must NOT count)
     assert "€  19.98" in out or "19.98" in out, f"net revenue wrong:\n{out}"
     assert "AT RISK" in out, "should be AT RISK below €58 target"
+
+
+# ── Gumroad CLI integration boundary ───────────────────────────────────────
+def test_sync_cli_json_uses_machine_safe_flags():
+    sync = _load(ROOT / "db/sync.py", "sync_cli_test")
+    completed = type("Result", (), {
+        "returncode": 0,
+        "stdout": '{"success":true,"sales":[]}',
+        "stderr": "",
+    })()
+    with patch.object(sync.subprocess, "run", return_value=completed) as run:
+        data = sync.cli_json("sales", "list", "--all")
+    command = run.call_args.args[0]
+    assert command[:4] == ["gumroad", "sales", "list", "--all"]
+    assert command[-3:] == ["--json", "--no-input", "--no-color"]
+    assert data["success"] is True
+
+
+def test_workspace_gumroad_code_has_no_direct_api_calls():
+    paths = [ROOT / "db/sync.py", ROOT / "scripts/download_files.py"]
+    paths.extend((ROOT / "scripts/api").glob("*.sh"))
+    paths.extend([ROOT / "scripts/upload_cover.py", ROOT / "scripts/upload_thumbnails.py"])
+    forbidden = ("api.gumroad.com", "access_token=", "gumroad_get", "gumroad_post", "gumroad_put")
+    for path in paths:
+        content = path.read_text()
+        for marker in forbidden:
+            assert marker not in content, f"{path.name} contains direct API marker {marker}"
 
 
 # ── funnel + launch_kit + real-spec build ───────────────────────────────────

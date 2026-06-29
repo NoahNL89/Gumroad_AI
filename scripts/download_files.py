@@ -11,25 +11,20 @@ import urllib.request
 import urllib.parse
 import json
 import re
+import subprocess
 
-ENV_PATH = os.path.join(os.path.dirname(__file__), "../.env")
 DB_PATH = os.path.join(os.path.dirname(__file__), "../db/store.db")
 DOWNLOAD_DIR = os.path.join(os.path.dirname(__file__), "../downloads")
 
-def load_token():
-    token = os.environ.get("GUMROAD_ACCESS_TOKEN", "")
-    if not token and os.path.exists(ENV_PATH):
-        with open(ENV_PATH) as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith("GUMROAD_ACCESS_TOKEN=") and not line.startswith("#"):
-                    token = line.split("=", 1)[1].strip().strip('"').strip("'")
-    if not token:
-        print("❌  GUMROAD_ACCESS_TOKEN not set in .env")
-        sys.exit(1)
-    return token
-
-TOKEN = load_token()
+def product_json(product_id):
+    result = subprocess.run(
+        ["gumroad", "products", "view", product_id,
+         "--json", "--no-input", "--no-color"],
+        capture_output=True, text=True, timeout=120, check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "Gumroad CLI failed")
+    return json.loads(result.stdout)
 
 def sanitize_filename(name):
     """Remove invalid characters from filenames and folder names"""
@@ -55,12 +50,8 @@ def download_product_files():
         prod_name = sanitize_filename(prod["name"])
         prod_dir = os.path.join(DOWNLOAD_DIR, prod_name)
         
-        # Call API to get files
-        url = f"https://api.gumroad.com/v2/products/{prod_id}?access_token={TOKEN}"
         try:
-            req = urllib.request.Request(url)
-            with urllib.request.urlopen(req) as response:
-                data = json.loads(response.read())
+            data = product_json(prod_id)
         except Exception as e:
             print(f"⚠️ Failed to fetch product {prod_name}: {e}")
             continue

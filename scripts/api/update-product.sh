@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PUT /v2/products/:id — Update an existing product
+# Update an existing product through the Gumroad CLI.
 # Usage: ./update-product.sh PRODUCT_ID [--name "Name"] [--price 999] [--description "Desc"]
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -12,11 +12,15 @@ shift
 ARGS=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --name) ARGS+=(--data-urlencode "name=$2"); shift 2 ;;
-    --price) ARGS+=(--data-urlencode "price=$2"); shift 2 ;;
-    --description) ARGS+=(--data-urlencode "description=$2"); shift 2 ;;
+    --name) ARGS+=(--name "$2"); shift 2 ;;
+    --price)
+      PRICE="$(awk -v cents="$2" 'BEGIN { printf "%.2f", cents / 100 }')"
+      ARGS+=(--price "$PRICE")
+      shift 2
+      ;;
+    --description) ARGS+=(--description "$2"); shift 2 ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
 done
 
-gumroad_put "products/$PRODUCT_ID" "${ARGS[@]}" | jq .
+gumroad_cli products update "$PRODUCT_ID" "${ARGS[@]}" --yes | jq .

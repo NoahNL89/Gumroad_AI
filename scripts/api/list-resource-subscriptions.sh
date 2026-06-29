@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# GET /v2/resource_subscriptions — List all webhooks
-# Usage: ./list-resource-subscriptions.sh
+# List webhooks for one Gumroad resource.
+# Usage: ./list-resource-subscriptions.sh <resource_name>
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ -f "$DIR/../../.env" ] && source "$DIR/../../.env"
 source "$DIR/_base.sh"
-gumroad_get "resource_subscriptions" | jq .
+RESOURCE="${1:?Provide resource_name (e.g. sale)}"
+gumroad_cli webhooks list --resource "$RESOURCE" | jq .

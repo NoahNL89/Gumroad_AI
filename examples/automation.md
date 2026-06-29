@@ -192,7 +192,7 @@ set -euo pipefail
 
 # Fail fast if not authenticated
 if ! gumroad auth status --json --no-input 2>/dev/null | jq -e '.seller' > /dev/null 2>&1; then
-  echo "Error: Not authenticated. Set GUMROAD_ACCESS_TOKEN or run 'gumroad auth login'."
+  echo "Error: Not authenticated. Run 'gumroad auth login' or configure the CLI token in CI."
   exit 1
 fi
 

@@ -17,6 +17,6 @@
 | 5 | End-to-End Verification & Audit | Validate all updates, run final integrity audit checks, compile summary | M3, M4 | DONE |
 
 ## Interface Contracts
-- API Scripts/CLI require valid GUMROAD_ACCESS_TOKEN.
+- Gumroad operations require an authenticated CLI session (`gumroad auth login`).
 - Database: sqlite3 database at `store.db` contains table `products` with columns `id`, `name`, `description`, etc.
 - Output report format: Markdown file `cover_audit_report.md` with structured tables listing cover replacement recommendations.

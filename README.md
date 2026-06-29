@@ -12,7 +12,7 @@
 # Interactive (opens browser for device approval)
 gumroad auth login
 
-# CI / Agents: set env var (no login needed)
+# CI / agents may provide a token to the CLI process
 export GUMROAD_ACCESS_TOKEN=your-token
 
 # Pipe a token in directly
@@ -53,7 +53,7 @@ go install github.com/antiwork/gumroad-cli/cmd/gumroad@latest
 
 | Variable | Purpose |
 |---|---|
-| `GUMROAD_ACCESS_TOKEN` | Seller API token (preferred for CI/agents) |
+| `GUMROAD_ACCESS_TOKEN` | Optional CLI credential for CI/agents |
 | `GUMROAD_ADMIN_TOKEN` | Admin API token (for `gumroad admin` commands) |
 | `GUMROAD_ADMIN_API_BASE_URL` | Override admin API base URL (local testing) |
 
@@ -226,7 +226,7 @@ gumroad webhooks delete <id> --yes --json --no-input
 
 This CLI is designed for AI agents:
 - Use `--json --no-input --non-interactive` for all commands
-- Set `GUMROAD_ACCESS_TOKEN` env var — no interactive login needed
+- Authenticate with `gumroad auth login`, or provide `GUMROAD_ACCESS_TOKEN` to the CLI in CI
 - Use `--jq` to extract exactly the fields you need
 - Use `--dry-run` to preview destructive operations first
 - Use `--yes` to skip confirmation prompts
@@ -270,15 +270,15 @@ GumRoad_AI/
 │   └── store.db               # SQLite database (gitignored, generated)
 ├── scripts/
 │   ├── auth-check.sh          # Quick auth status check
-│   ├── oauth-exchange.sh      # OAuth code → token exchange
-│   ├── download_files.py      # Download product cover assets
-│   ├── upload_cover.py        # Upload cover images via API
-│   ├── upload_thumbnails.py   # Batch upload thumbnails via GitHub URLs
-│   └── api/                   # Direct Gumroad API wrappers (16 scripts)
-│       ├── _base.sh           # Shared helpers (gumroad_get/post/put/delete)
-│       ├── get-user.sh        # GET /v2/user
-│       ├── list-products.sh   # GET /v2/products
-│       ├── list-sales.sh      # GET /v2/sales
+│   ├── oauth-exchange.sh      # Compatibility alias for CLI auth login
+│   ├── download_files.py      # Download product files via CLI metadata
+│   ├── upload_cover.py        # Check CLI cover-upload capability
+│   ├── upload_thumbnails.py   # Check CLI thumbnail capability
+│   └── api/                   # Legacy entry points backed by the CLI
+│       ├── _base.sh           # Shared machine-safe gumroad_cli helper
+│       ├── get-user.sh        # gumroad user
+│       ├── list-products.sh   # gumroad products list
+│       ├── list-sales.sh      # gumroad sales list --all
 │       └── ...                # create-product, update-product, etc.
 ├── assets/
 │   └── thumbnails/            # AI-generated product thumbnails

@@ -8,7 +8,6 @@ source "$DIR/_base.sh"
 PRODUCT_ID="${1:?Provide product_id (permalink)}"
 LICENSE_KEY="${2:?Provide license_key}"
 INCREMENT="${3:-false}"
-gumroad_post "licenses/verify" \
-  --data-urlencode "product_id=$PRODUCT_ID" \
-  --data-urlencode "license_key=$LICENSE_KEY" \
-  --data-urlencode "increment_uses_count=$INCREMENT" | jq .
+ARGS=(--product "$PRODUCT_ID")
+[ "$INCREMENT" = "true" ] || ARGS+=(--no-increment)
+printf '%s\n' "$LICENSE_KEY" | gumroad_cli licenses verify "${ARGS[@]}" | jq .

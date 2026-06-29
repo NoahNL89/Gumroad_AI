@@ -103,7 +103,7 @@ Every time you are invoked, do this:
    - If above target: Plan growth (recurring memberships, high-ticket courses).
 
 4. EXECUTE
-   - Create products using the Gumroad CLI or API scripts.
+   - Create products using the Gumroad CLI or its compatibility scripts.
    - Use 'db/sync.py' again after making changes to update the DB.
    - Document what you did in agent/ledger.json.
 

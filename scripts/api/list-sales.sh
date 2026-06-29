@@ -6,8 +6,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ -f "$DIR/../../.env" ] && source "$DIR/../../.env"
 source "$DIR/_base.sh"
 
-ARGS=()
-[ -n "${1:-}" ] && ARGS+=(--data-urlencode "product_id=$1")
-[ -n "${2:-}" ] && ARGS+=(--data-urlencode "after=$2")
-[ -n "${3:-}" ] && ARGS+=(--data-urlencode "before=$3")
-gumroad_get "sales" "${ARGS[@]}" | jq .
+ARGS=(--all)
+[ -n "${1:-}" ] && ARGS+=(--product "$1")
+[ -n "${2:-}" ] && ARGS+=(--after "$2")
+[ -n "${3:-}" ] && ARGS+=(--before "$3")
+gumroad_cli sales list "${ARGS[@]}" | jq .

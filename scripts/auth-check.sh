@@ -11,8 +11,7 @@ if ! gumroad auth status --json --no-input 2>/dev/null | jq -e '.user' > /dev/nu
   echo "❌ Not authenticated."
   echo ""
   echo "To authenticate:"
-  echo "  gumroad auth login              # Interactive device flow"
-  echo "  export GUMROAD_ACCESS_TOKEN=xxx # CI/Agent mode"
+  echo "  gumroad auth login"
   exit 1
 fi
 

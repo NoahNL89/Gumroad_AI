@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# POST /v2/products — Create a new product
+# Create a new product through the Gumroad CLI.
 # Usage: ./create-product.sh "Product Name" 999 "Description text"
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -7,10 +7,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_base.sh"
 
 NAME="${1:?Usage: create-product.sh NAME PRICE_CENTS [DESCRIPTION]}"
-PRICE="${2:?Provide price in cents (e.g. 999 for \$9.99)}"
+PRICE_CENTS="${2:?Provide price in cents (e.g. 999 for \$9.99)}"
 DESC="${3:-}"
+PRICE="$(awk -v cents="$PRICE_CENTS" 'BEGIN { printf "%.2f", cents / 100 }')"
 
-gumroad_post "products" \
-  --data-urlencode "name=$NAME" \
-  --data-urlencode "price=$PRICE" \
-  --data-urlencode "description=$DESC" | jq .
+gumroad_cli products create --name "$NAME" --price "$PRICE" --description "$DESC" | jq .

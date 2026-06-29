@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Gumroad SQLite Sync
-Fetches ALL products (via permalink discovery), sales, and subscribers
-and stores them in store.db for easy local access and agent tracking.
+Fetches ALL products (via permalink discovery), sales, and subscribers through
+the authenticated Gumroad CLI and stores them in store.db.
 
 Usage:
     python3 db/sync.py                  # Sync everything
@@ -11,10 +11,9 @@ Usage:
 """
 
 import sqlite3
-import urllib.request
-import urllib.parse
 import json
 import os
+import subprocess
 import sys
 import time
 import argparse
@@ -23,46 +22,34 @@ from datetime import datetime, timezone
 # ── Config ────────────────────────────────────────────────────────────────────
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "store.db")
-ENV_PATH = os.path.join(os.path.dirname(__file__), "../.env")
-API_BASE = "https://api.gumroad.com/v2"
+CLI_FLAGS = ["--json", "--no-input", "--no-color"]
 
-def load_token():
-    token = os.environ.get("GUMROAD_ACCESS_TOKEN", "")
-    if not token and os.path.exists(ENV_PATH):
-        with open(ENV_PATH) as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith("GUMROAD_ACCESS_TOKEN=") and not line.startswith("#"):
-                    token = line.split("=", 1)[1].strip().strip('"').strip("'")
-    if not token:
-        print("❌  GUMROAD_ACCESS_TOKEN not set. Run: source .env")
-        sys.exit(1)
-    return token
+def cli_json(*args):
+    """Run a Gumroad CLI command and return its JSON response."""
+    command = ["gumroad", *args, *CLI_FLAGS]
+    try:
+        result = subprocess.run(
+            command, capture_output=True, text=True, timeout=120, check=False
+        )
+    except FileNotFoundError:
+        return {"success": False, "error": "gumroad CLI not found on PATH"}
+    except subprocess.TimeoutExpired:
+        return {"success": False, "error": "gumroad CLI timed out after 120 seconds"}
 
-TOKEN = load_token()
+    try:
+        data = json.loads(result.stdout) if result.stdout.strip() else {}
+    except json.JSONDecodeError:
+        detail = result.stderr.strip() or result.stdout.strip() or "invalid JSON output"
+        return {"success": False, "error": detail}
+
+    if result.returncode != 0 or data.get("success") is False:
+        error = data.get("error", result.stderr.strip() or "CLI command failed")
+        if isinstance(error, dict):
+            error = error.get("message") or error.get("code") or str(error)
+        return {"success": False, "error": error}
+    return data
 
 # ── HTTP helpers ──────────────────────────────────────────────────────────────
-
-def api_get(path, params=None):
-    p = {"access_token": TOKEN}
-    if params:
-        p.update(params)
-    url = f"{API_BASE}/{path}?{urllib.parse.urlencode(p)}"
-    try:
-        with urllib.request.urlopen(url, timeout=15) as r:
-            return json.loads(r.read())
-    except Exception as e:
-        return {"success": False, "error": str(e)}
-
-def api_put(path, data):
-    data["access_token"] = TOKEN
-    encoded = urllib.parse.urlencode(data).encode()
-    req = urllib.request.Request(f"{API_BASE}/{path}", data=encoded, method="PUT")
-    try:
-        with urllib.request.urlopen(req, timeout=15) as r:
-            return json.loads(r.read())
-    except Exception as e:
-        return {"success": False, "error": str(e)}
 
 # ── DB setup ──────────────────────────────────────────────────────────────────
 
@@ -188,22 +175,22 @@ def sync_products(con):
     now = datetime.now(timezone.utc).isoformat()
     print("\n📦 Syncing products...")
 
-    # Step 1: Get known products from /products endpoint
-    data = api_get("products")
+    # Step 1: Get known products from the CLI products endpoint.
+    data = cli_json("products", "list")
     if data.get("success") is False:
-        print(f"   ⚠️  API error fetching products: {data.get('error', 'unknown')}")
+        print(f"   ⚠️  CLI error fetching products: {data.get('error', 'unknown')}")
         return []
     products = data.get("products", [])
 
     # Step 2: Get all product permalinks from user.links
-    user_data = api_get("user")
+    user_data = cli_json("user")
     if user_data.get("success") is False:
-        print(f"   ⚠️  API error fetching user links: {user_data.get('error', 'unknown')}")
+        print(f"   ⚠️  CLI error fetching user links: {user_data.get('error', 'unknown')}")
         print(f"   Continuing with {len(products)} products from /products endpoint only.")
         permalinks = []
     else:
         permalinks = user_data.get("user", {}).get("links", [])
-    print(f"   /products API returned: {len(products)}")
+    print(f"   CLI products list returned: {len(products)}")
     print(f"   User links (all permalinks): {len(permalinks)}")
 
     # Step 3: For each permalink not already in product list, fetch individually
@@ -221,7 +208,7 @@ def sync_products(con):
             continue
 
         # Fetch product by permalink
-        r = api_get(f"products/{permalink}")
+        r = cli_json("products", "view", permalink)
         if r.get("success") and r.get("product"):
             prod = r["product"]
             if prod["id"] not in known_ids:
@@ -297,31 +284,11 @@ def sync_sales(con):
     now = datetime.now(timezone.utc).isoformat()
     print("\n💰 Syncing sales...")
 
-    all_sales = []
-    page_key = None
-    page = 1
-
-    while True:
-        params = {}
-        if page_key:
-            params["page_key"] = page_key
-
-        data = api_get("sales", params)
-        if data.get("success") is False:
-            print(f"   ⚠️  API error fetching sales page {page}: {data.get('error', 'unknown')}")
-            break
-        sales = data.get("sales", [])
-        if not sales:
-            break
-
-        all_sales.extend(sales)
-        print(f"   Page {page}: {len(sales)} sales (total so far: {len(all_sales)})")
-
-        page_key = data.get("next_page_key") or data.get("next_page_url")
-        if not page_key or len(sales) == 0:
-            break
-        page += 1
-        time.sleep(0.2)
+    data = cli_json("sales", "list", "--all")
+    if data.get("success") is False:
+        print(f"   ⚠️  CLI error fetching sales: {data.get('error', 'unknown')}")
+        return []
+    all_sales = data.get("sales", [])
 
     for s in all_sales:
         con.execute("""
@@ -369,47 +336,33 @@ def sync_subscribers(con):
     total = 0
     for prod in products:
         prod_id = prod["id"]
-        page_key = None
+        data = cli_json("subscribers", "list", "--product", prod_id, "--all")
+        if data.get("success") is False:
+            print(f"   ⚠️  CLI error fetching subscribers for {prod_id}: {data.get('error', 'unknown')}")
+            continue
+        subs = data.get("subscribers", [])
 
-        while True:
-            params = {}
-            if page_key:
-                params["page_key"] = page_key
-
-            data = api_get(f"products/{prod_id}/subscribers", params)
-            if data.get("success") is False:
-                print(f"   ⚠️  API error fetching subscribers for {prod_id}: {data.get('error', 'unknown')}")
-                break
-            subs = data.get("subscribers", [])
-            if not subs:
-                break
-
-            for s in subs:
-                con.execute("""
-                    INSERT INTO subscribers
-                      (id, product_id, product_name, email, status,
-                       created_at, cancelled_at, synced_at)
-                    VALUES (?,?,?,?,?,?,?,?)
-                    ON CONFLICT(id) DO UPDATE SET
-                      status=excluded.status,
-                      cancelled_at=excluded.cancelled_at,
-                      synced_at=excluded.synced_at
-                """, (
-                    s.get("id"),
-                    prod_id,
-                    prod["name"],
-                    s.get("email"),
-                    s.get("status"),
-                    s.get("created_at"),
-                    s.get("cancelled_at"),
-                    now,
-                ))
-            total += len(subs)
-
-            page_key = data.get("next_page_key")
-            if not page_key:
-                break
-            time.sleep(0.2)
+        for s in subs:
+            con.execute("""
+                INSERT INTO subscribers
+                  (id, product_id, product_name, email, status,
+                   created_at, cancelled_at, synced_at)
+                VALUES (?,?,?,?,?,?,?,?)
+                ON CONFLICT(id) DO UPDATE SET
+                  status=excluded.status,
+                  cancelled_at=excluded.cancelled_at,
+                  synced_at=excluded.synced_at
+            """, (
+                s.get("id"),
+                prod_id,
+                prod["name"],
+                s.get("email"),
+                s.get("status"),
+                s.get("created_at"),
+                s.get("cancelled_at"),
+                now,
+            ))
+        total += len(subs)
 
     con.execute("INSERT INTO sync_log (synced_at,entity,count) VALUES (?,?,?)",
                 (now, "subscribers", total))
@@ -422,9 +375,9 @@ def sync_payouts(con):
     now = datetime.now(timezone.utc).isoformat()
     print("\n💳 Syncing payouts...")
 
-    data = api_get("payouts")
+    data = cli_json("payouts", "list", "--all")
     if data.get("success") is False:
-        print(f"   ⚠️  API error fetching payouts: {data.get('error', 'unknown')}")
+        print(f"   ⚠️  CLI error fetching payouts: {data.get('error', 'unknown')}")
         return
     payouts = data.get("payouts", [])
 
@@ -459,9 +412,9 @@ def sync_offer_codes(con):
 
     for prod in products:
         prod_id = prod["id"]
-        data = api_get(f"products/{prod_id}/offer_codes")
+        data = cli_json("offer-codes", "list", "--product", prod_id)
         if data.get("success") is False:
-            print(f"   ⚠️  API error fetching offer codes for {prod_id}: {data.get('error', 'unknown')}")
+            print(f"   ⚠️  CLI error fetching offer codes for {prod_id}: {data.get('error', 'unknown')}")
             continue
         codes = data.get("offer_codes", [])
 
@@ -568,7 +521,7 @@ def main():
     parser.add_argument("--products-only", action="store_true")
     parser.add_argument("--report-only",   action="store_true")
     parser.add_argument("--reprice-zero",  type=float, metavar="PRICE",
-                        help="Reprice all ≤€0.99 products to PRICE via API")
+                        help="Reprice all ≤€0.99 products to PRICE via CLI")
     args = parser.parse_args()
 
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
@@ -588,7 +541,7 @@ def main():
         sync_payouts(con)
         sync_offer_codes(con)
 
-    # Reprice underpriced products via direct API
+    # Reprice underpriced products through the authenticated CLI.
     if args.reprice_zero:
         target_price = args.reprice_zero
         under = con.execute(
@@ -597,8 +550,10 @@ def main():
         print(f"\n🔧 Repricing {len(under)} products to €{target_price}...")
         for p in under:
             print(f"   → {p['name'][:50]}  ({p['formatted_price']} → €{target_price})")
-            cents = int(target_price * 100)
-            result = api_put(f"products/{p['id']}", {"price": str(cents), "currency": "eur"})
+            result = cli_json(
+                "products", "update", p["id"],
+                "--price", f"{target_price:.2f}", "--currency", "eur", "--yes"
+            )
             if result.get("success"):
                 new_cents = int(target_price * 100)
                 con.execute(
