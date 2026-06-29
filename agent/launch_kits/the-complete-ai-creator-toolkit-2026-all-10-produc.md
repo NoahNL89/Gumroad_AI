@@ -21,11 +21,10 @@ Lifetime sales so far: 0
 **Body (paste, then trim to your voice):**
 Most advice on AI productivity templates is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. Pick one recurring task first: content planning, proposals, product descriptions, resume rewrites, SEO outlines, or email sequences. Do not start with a "clever prompt"; start with a job you repeat.
-2. Define the raw input before asking for output. Tell the AI whether it will receive notes, a transcript, a rough idea, a product page, a customer persona, or an existing draft.
-3. Force the output format. Ask for a table, checklist, calendar, scorecard, swipe file, or email sequence so the result is easy to review and reuse.
-4. Add constraints: audience, tone, length, exclusions, and what the output must not do. This is what separates reusable templates from generic prompts.
-5. Run a second QA prompt: "Review this for vague claims, missing next steps, unsupported statements, repeated ideas, and anything that would make a buyer hesitate. Return a prioritized fix list."
+1. Start with one repeatable outcome, not a vague request. Write the role, audience, deliverable, constraints, and success test before asking the model to generate anything. Example: “Act as a B2B editor; draft five LinkedIn hooks for solo consultants; under 18 words; no hype; each must name a concrete pain.”
+2. Separate generation from evaluation. Generate 10 options first, then run a second prompt that scores each against clarity, specificity, audience fit, and credibility. Keep only the top two and revise those; asking for a perfect first draft produces generic compromises.
+3. Turn the winner into a reusable template. Replace the topic, audience, proof point, and call to action with variables, then save one completed example beside it. The example anchors quality; the variables make the workflow reusable.
+4. Repurpose from a single source of truth. Create one evidence-rich core piece, then adapt its argument for email, LinkedIn, Instagram, and SEO instead of independently generating four inconsistent drafts.
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
@@ -72,9 +71,9 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most AI productivity templates advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: choose one recurring task. Content planning, proposals, resume rewrites, SEO outlines, or email sequences are better starting points than "make me more productive."
-3. Step 2: define the input. Tell the AI what it receives: notes, transcript, rough idea, product page, persona, or draft. Ambiguous input creates messy output.
-4. Step 3: force structure. Ask for a table, checklist, calendar, scorecard, swipe file, or email sequence. Step 4: run a QA pass for vague claims, missing next steps, and repeated ideas.
+2. Step 1: Define role, audience, deliverable, constraints, and a measurable success test. Specific inputs beat “make this better.”
+3. Step 2: Generate 10 options, then evaluate them in a separate pass for clarity, specificity, audience fit, and credibility.
+4. Steps 3–4: Turn the winner into a variable-based template with one completed example; then repurpose one evidence-rich core asset across channels so the message stays consistent.
 5. If you want it done-for-you (templates + every step), I packaged it as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle": https://schephenk.gumroad.com/l/usfdum — code LAUNCH30 = 30% off this week.
 
 ---

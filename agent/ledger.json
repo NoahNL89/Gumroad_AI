@@ -23,6 +23,33 @@
   },
   "sessions": [
     {
+      "date": "2026-06-28",
+      "agent": "Codex",
+      "actions": [
+        "Ran startup and final local state checks: 30 products, 30 live, 0 drafts, 0 recorded sales, and EUR 0.00 revenue against the EUR 58.00 target",
+        "Confirmed the funnel verdict is REACH, so skipped the new-product pipeline",
+        "Checked store hygiene and left the EUR 0 lead magnet and EUR 0.99/month subscription unchanged as explicit pricing exemptions",
+        "Logged obvious duplicate/edition families without deleting them: Consistent Character Genesis, 75 Power Prompts, and AI Prompt Vault",
+        "Regenerated the flagship bundle launch kit and replaced all placeholders with four concrete AI workflow tips and a post-ready social thread",
+        "Confirmed The AI Quick-Start Pack (Free) is live; skipped nurture sends because the local audience contains zero subscribers",
+        "Attempted Mastodon and Bluesky promotion and engagement plus Pinterest promotion; all failed before posting because external DNS was unavailable",
+        "Applied the 14-day zero-revenue rule and attempted FLASH50 creation; the first Gumroad request failed because external DNS was unavailable, so no codes were created",
+        "Attempted required manual urgency posts to Mastodon and Bluesky; both failed before posting because external DNS was unavailable"
+      ],
+      "new_product_created": null,
+      "distribution_assets": {
+        "launch_kit": "agent/launch_kits/the-complete-ai-creator-toolkit-2026-all-10-produc.md (refreshed, placeholder-free, and post-ready)"
+      },
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Remote sync, store mutations, community posting, social posting, engagement, and Pinterest promotion were blocked by DNS/network restrictions. Gumroad auth-check also reported no active CLI authentication. No remote action succeeded and no rate-limit counters were consumed."
+    },
+    {
       "date": "2026-06-26",
       "agent": "Codex",
       "actions": [
@@ -383,11 +410,45 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Unchanged bottleneck: distribution is human-gated. Bots reach a near-zero audience; the highest-ROI action remains a human pasting the post-ready launch kits into r/resumes / r/jobs (CV kit) or r/SideProject / r/Entrepreneur (bundle kit), value-first with the link in the first comment, and publishing the two SEO articles. This session added a 4th ready-to-post distribution asset (CV/ATS) so catalog exposure keeps rotating, plus a real FLASH50 urgency lever on the flagship. RELAUNCH50 already existed on one product; FLASH50 is now a deeper, headline-grade flash on the bundle."
+    },
+    {
+      "date": "2026-06-29",
+      "agent": "claude",
+      "actions": [
+        "Startup: synced DB — 30 products live, 0 drafts, 0 sales, 0 subscribers, €0 lifetime. Survival status: at_risk, €58 behind. Funnel verdict = REACH/distribution bottleneck (0 sales = buyers not arriving, not a catalog gap).",
+        "Social bots: 0 posts in prior 24h, so ran full ROUTINE 2. Mastodon promote+engage (5 interactions, spread across distinct accounts) and Bluesky promote+engage (17 interactions). Pinterest promote failed as expected (Trial-access app cannot create production Pins).",
+        "Store hygiene: no drafts; only ≤€0.99 items are the €0.99/mo subscription and the €0 free lead magnet (both rule-exempt). No repricing needed. Re-logged the known duplicate clusters (see notes) — did NOT delete.",
+        "ROTATED distribution focus to '0.5s VIRAL HOOKS: The 2026 Psychology Framework' (€5.99, /l/ahihg) — prior sessions covered CV/ATS, flagship bundle, LinkedIn OS, Local LLM guide. Broadest addressable audience (short-form creators) + cheapest entry point. Generated its launch kit and filled every [bracketed] Reddit/X spot with real, teachable tips pulled from the product PDF: 0.5s decision window, contrarian opener psychology, specific/odd numbers, curiosity gap + watch-to-end, direct-address self-selection.",
+        "Wrote a finished, publishable ~1000-word SEO article agent/reports/seo_social_media_hooks_2026.md targeting \"social media hooks\" (value-first, single soft CTA) — a compounding free-traffic asset, the 3rd such article in the library.",
+        "Distribution via configured channels: rather than a 2nd generic promo, posted a VALUE-FIRST tip post to both Mastodon and Bluesky tied to today rotation (hook psychology + soft link). Better-converting than promo spam and reinforces the launch-kit theme. Still under the 3/platform/day cap.",
+        "ROUTINE 4d: skipped new-product build — funnel shows reach problem, catalog already heavily duplicated (4 prompt vaults, 5 Character Genesis, 3x 75-Power-Prompts). No evidence-backed unmet need; new product #31 would earn nothing while product #1 has no buyers.",
+        "14+ day €0 rule: FLASH50 (50% off flagship bundle, €29.99→€15) created 2026-06-26 remains active as the headline urgency lever; did not duplicate it. Posted hook-themed content to both socials this session."
+      ],
+      "new_product_created": null,
+      "distribution_assets": {
+        "launch_kit": "agent/launch_kits/0-5s-viral-hooks-the-2026-psychology-framework-adh.md (brackets filled with real product tips, post-ready)",
+        "seo_article": "agent/reports/seo_social_media_hooks_2026.md (publishable, ~1000 words)"
+      },
+      "offer_codes_created": [],
+      "social_posts_made": {
+        "mastodon": 2,
+        "bluesky": 2,
+        "pinterest": 0,
+        "note": "2 posts/platform (1 promote + 1 value-first tip) + engage interactions; Pinterest blocked by Trial access"
+      },
+      "duplicate_clusters_noted": [
+        "Consistent Character Genesis ×5 (Midjourney 2026 / Edit / -2026 / bare / €0.99-sub)",
+        "75 Power Prompts ×3 (Content Creators Master Edi / 2026 Edition / AI Masters 2026)",
+        "The AI Prompt Vault ×3 (bare / 200+ Engineering Blueprints / AI PROMPT VAULT 2026)"
+      ],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Bottleneck unchanged and human-gated: the social bots reach a near-zero audience, so the highest-ROI action is still a human pasting a post-ready launch kit into the right community value-first (for 0.5s VIRAL HOOKS: r/NewTubers, r/socialmedia, r/Entrepreneur — link in first comment) and publishing the SEO articles. There are now 5 post-ready launch kits + 3 SEO articles queued in agent/. Catalog exposure keeps rotating each session so every product gets a turn. FLASH50 (50%% off bundle) remains the headline urgency lever."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-06-26T12:20:00Z",
+  "last_updated": "2026-06-29",
   "status": "at_risk",
   "catalog": {
     "bundle": {
