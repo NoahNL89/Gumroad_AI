@@ -125,8 +125,9 @@ gumroad sales summary --group-by month --json --no-input
 # See README.md for full reference
 ```
 
-### Secondary: Direct API (scripts/api/)
-For operations not in the CLI:
+### Compatibility scripts (scripts/api/)
+These legacy wrappers now delegate to the Gumroad CLI. Do not call Gumroad HTTP
+endpoints directly from workspace code.
 ```bash
 ./scripts/api/get-user.sh
 ./scripts/api/list-sales.sh

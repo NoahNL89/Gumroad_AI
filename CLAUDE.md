@@ -73,10 +73,10 @@ python3 bot/mastodon_bot.py promote   # Post product promotion (max 3x/day)
 python3 bot/bluesky_bot.py promote    # Post to Bluesky
 python3 bot/pinterest_bot.py promote  # Create a product Pin on Pinterest
 
-# Direct API (for operations not in CLI)
+# CLI compatibility wrappers
 source .env && ./scripts/api/list-products.sh
 ./scripts/api/create-product.sh "Name" 9.99 "Description"
-./scripts/api/update-product.sh <id> '{"price": "999"}'
+./scripts/api/update-product.sh <id> --price 9.99
 ```
 
 ---

@@ -26,6 +26,31 @@
       "date": "2026-06-29",
       "agent": "Codex",
       "actions": [
+        "Ran the standard Gumroad CLI health loop: auth check succeeded, db/sync.py discovered 30 live products, 0 sales, 0 subscribers, 0 payouts, and 31 offer codes with no 403 errors",
+        "Confirmed June 2026 revenue remains €0.00 against the €58 survival target; underpriced query still flags the free lead magnet and the €0.99/month subscription",
+        "Fixed documentation drift in agent/MISSION.md and CLAUDE.md so scripts/api is described as a CLI compatibility layer rather than a direct HTTP API path",
+        "Ran smoke tests after the doc cleanup; all 14 tests passed, including the direct Gumroad API exclusion regression",
+        "Completed Mastodon community engagement with 2 interactions on #CreatorEconomy",
+        "Posted one Bluesky promotion for The Complete AI Creator Toolkit and one Mastodon promotion for GEMINI 1.5 PRO: Advanced 'No-Chunk' High-Context Architecture",
+        "Verified Pinterest production remains blocked by Trial app code 29 and created one successful Pinterest sandbox Pin instead"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0,
+        "pinterest_sandbox": 1,
+        "note": "Pinterest production posting still requires Standard access; sandbox OAuth and board posting work."
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "No product mutations were made. The current bottleneck remains distribution/reach rather than Gumroad API access; the CLI-only Gumroad path is healthy."
+    },
+    {
+      "date": "2026-06-29",
+      "agent": "Codex",
+      "actions": [
         "Migrated db/sync.py from direct Gumroad HTTP requests to machine-safe authenticated Gumroad CLI commands",
         "Enabled CLI-backed full pagination for sales, subscribers, and payouts, eliminating the previous HTTP 403 sync failures",
         "Converted all legacy scripts/api entry points for products, sales, subscribers, payouts, offer codes, webhooks, and licenses to CLI commands",
