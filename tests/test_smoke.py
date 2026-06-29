@@ -81,6 +81,29 @@ def _make_promotions_db(path, mastodon_posts=0, bluesky_posts=0, pinterest_posts
     con.close()
 
 
+def _seed_pinterest_products_db(path):
+    con = sqlite3.connect(path)
+    con.execute("""CREATE TABLE products (
+                   id TEXT, name TEXT, formatted_price TEXT, short_url TEXT,
+                   thumbnail_url TEXT, published INTEGER, price_cents INTEGER)""")
+    con.execute("""CREATE TABLE promotions (
+                   platform TEXT, product_id TEXT, url TEXT, content TEXT, posted_at TEXT)""")
+    con.execute(
+        "INSERT INTO products VALUES (?,?,?,?,?,?,?)",
+        (
+            "prod_1",
+            "Pinterest Demo Product",
+            "€7.99",
+            "https://schephenk.gumroad.com/l/demo",
+            "https://example.com/demo.jpg",
+            1,
+            799,
+        ),
+    )
+    con.commit()
+    con.close()
+
+
 def _bots():
     """Import both bot modules; skip cleanly if their network deps aren't installed."""
     mods = {}
@@ -135,6 +158,27 @@ def test_bot_rate_limit_blocks_at_three():
         if "pinterest_bot" in mods:
             mods["pinterest_bot"].DB_PATH = dbp
             assert mods["pinterest_bot"].check_rate_limit() is False, "should block Pinterest at 3 posts"
+
+
+def test_pinterest_draft_requires_manual_approval():
+    mods = _bots()
+    if "pinterest_bot" not in mods:
+        return
+    pinterest = mods["pinterest_bot"]
+    with tempfile.TemporaryDirectory() as d:
+        root = Path(d)
+        dbp = root / "store.db"
+        drafts = root / "queue"
+        _seed_pinterest_products_db(str(dbp))
+        pinterest.DB_PATH = dbp
+        pinterest.DRAFT_DIR = drafts
+        with patch.object(pinterest, "api_request", side_effect=AssertionError("draft must not call Pinterest API")):
+            path = pinterest.write_draft("prod_1")
+        data = json.loads(path.read_text())
+    assert data["status"] == "needs_manual_approval"
+    assert data["approval_required"] is True
+    assert data["product"]["id"] == "prod_1"
+    assert data["pin"]["link"] == "https://schephenk.gumroad.com/l/demo"
 
 
 # ── query.py: revenue math ──────────────────────────────────────────────────

@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Pinterest bot for Schep Digital.
+Pinterest review-and-publish assistant for Schep Digital.
 
 Usage:
     python3 bot/pinterest_bot.py auth-url
     python3 bot/pinterest_bot.py exchange "<code>"
     python3 bot/pinterest_bot.py refresh
     python3 bot/pinterest_bot.py boards
-    python3 bot/pinterest_bot.py promote
-    python3 bot/pinterest_bot.py post <product_id>
+    python3 bot/pinterest_bot.py draft [product_id]
+    python3 bot/pinterest_bot.py review <draft.json>
+    python3 bot/pinterest_bot.py approve <draft.json>
+    python3 bot/pinterest_bot.py sandbox-promote
 """
 import base64
 import json
@@ -25,6 +27,7 @@ from pathlib import Path
 
 ENV_PATH = Path(__file__).parent.parent / ".env"
 DB_PATH = Path(__file__).parent.parent / "db" / "store.db"
+DRAFT_DIR = Path(__file__).parent.parent / "agent" / "pinterest_queue"
 
 AUTH_URL = "https://www.pinterest.com/oauth/"
 DEFAULT_API_BASE = "https://api.pinterest.com/v5"
@@ -154,6 +157,8 @@ def auth_url():
     print(f"\nState: {state}")
     print("After approving, copy the `code` query parameter from the redirect URL and run:")
     print('python3 bot/pinterest_bot.py exchange "<code>"')
+    print("\nFor the Standard access demo, record this OAuth flow plus:")
+    print("python3 bot/pinterest_bot.py sandbox-promote")
 
 
 def print_token_export(data):
@@ -339,25 +344,139 @@ def build_pin(product):
     }
 
 
-def post_product(product_id=None):
+def platform_name():
+    return "pinterest_sandbox" if is_sandbox() else "pinterest"
+
+
+def draft_path(product):
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    safe = "".join(c.lower() if c.isalnum() else "-" for c in product["name"]).strip("-")
+    safe = "-".join(part for part in safe.split("-") if part)[:72] or "pin"
+    return DRAFT_DIR / f"{stamp}-{safe}.json"
+
+
+def write_draft(product_id=None):
+    product = choose_product(product_id)
+    payload = build_pin(product)
+    draft = {
+        "status": "needs_manual_approval",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "platform": "pinterest",
+        "approval_required": True,
+        "approval_note": "Review title, description, link, image URL, and board before publishing. Pinterest requires specific user consent for each Pin.",
+        "product": {
+            "id": product["id"],
+            "name": product["name"],
+            "url": product["short_url"],
+            "price": product["formatted_price"],
+            "thumbnail_url": product["thumbnail_url"],
+        },
+        "pin": payload,
+        "board": {
+            "id_env": "PINTEREST_BOARD_ID",
+            "default_name": env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME),
+        },
+    }
+    DRAFT_DIR.mkdir(parents=True, exist_ok=True)
+    path = draft_path(product)
+    path.write_text(json.dumps(draft, indent=2) + "\n")
+    print(f"Pinterest draft created: {path}")
+    print_review(draft)
+    print("\nPublish only after review:")
+    print(f"python3 bot/pinterest_bot.py approve {path}")
+    return path
+
+
+def read_draft(path):
+    data = json.loads(Path(path).read_text())
+    if data.get("platform") != "pinterest":
+        sys.exit("Draft is not a Pinterest draft.")
+    pin = data.get("pin") or {}
+    required = ("title", "description", "link", "media_source")
+    missing = [key for key in required if not pin.get(key)]
+    if missing:
+        sys.exit(f"Draft missing required Pin fields: {', '.join(missing)}")
+    return data
+
+
+def print_review(draft):
+    product = draft.get("product") or {}
+    pin = draft.get("pin") or {}
+    media = pin.get("media_source") or {}
+    print(json.dumps({
+        "status": draft.get("status"),
+        "product": product.get("name"),
+        "title": pin.get("title"),
+        "description": pin.get("description"),
+        "link": pin.get("link"),
+        "image_url": media.get("url"),
+        "approval_required": draft.get("approval_required", True),
+    }, indent=2))
+
+
+def post_payload(payload, product_id=None, product_url=None, content=None):
     if not check_rate_limit():
         return False
     board_id = get_board_id()
     if not board_id:
         sys.exit("No Pinterest board available. Set PINTEREST_BOARD_ID or allow boards:write.")
-    product = choose_product(product_id)
-    payload = build_pin(product)
+    payload = dict(payload)
     payload["board_id"] = board_id
-    print(f"Posting Pinterest pin for: {product['name']}")
+    print(f"Posting Pinterest pin: {payload.get('title')}")
     data = api_request("POST", "/pins", payload, token=access_token())
     pin_url = data.get("link") or data.get("url") or f"https://www.pinterest.com/pin/{data.get('id')}/"
-    log_promotion("pinterest_sandbox" if is_sandbox() else "pinterest", product["id"], product["short_url"], payload["description"])
+    log_promotion(platform_name(), product_id, product_url, content or payload.get("description", ""))
     print(json.dumps({"pin_id": data.get("id"), "pin_url": pin_url}, indent=2))
     return True
 
 
+def post_product(product_id=None):
+    product = choose_product(product_id)
+    payload = build_pin(product)
+    return post_payload(payload, product["id"], product["short_url"], payload["description"])
+
+
+def approve_draft(path):
+    draft = read_draft(path)
+    print_review(draft)
+    if not is_sandbox():
+        print("\nManual approval recorded for this specific Pin draft.")
+    product = draft.get("product") or {}
+    ok = post_payload(
+        draft["pin"],
+        product_id=product.get("id"),
+        product_url=product.get("url"),
+        content=draft["pin"].get("description"),
+    )
+    if ok:
+        draft["status"] = "published"
+        draft["published_at"] = datetime.now(timezone.utc).isoformat()
+        draft["published_platform"] = platform_name()
+        Path(path).write_text(json.dumps(draft, indent=2) + "\n")
+    return ok
+
+
+def standard_access_brief():
+    print("""Pinterest Standard access positioning
+
+Use case:
+Private single-user Pinterest content scheduler for Schep Digital's own Gumroad products. The tool drafts product Pins, lets the owner review title/description/link/image/board, and publishes only a specifically approved Pin.
+
+Demo recording checklist:
+1. Run `python3 bot/pinterest_bot.py auth-url` and open the OAuth URL.
+2. Show Pinterest OAuth consent for the minimal scopes: user_accounts:read, boards:read, boards:write, pins:read, pins:write.
+3. Exchange the returned code with `python3 bot/pinterest_bot.py exchange "<code>"`.
+4. Run `python3 bot/pinterest_bot.py draft` to show the manual review draft.
+5. Run `python3 bot/pinterest_bot.py sandbox-promote` to show a live sandbox Pin create API call.
+6. Open Pinterest and show the sandbox-created Pin or board visible to the creator.
+
+Production behavior:
+`promote` and `draft` create review drafts only. `approve <draft.json>` is the explicit per-Pin approval command.
+""")
+
+
 def usage():
-    print("Usage: python3 bot/pinterest_bot.py [auth-url | exchange <code> | refresh | boards | create-board [name] | promote | post <product_id> | sandbox-boards | sandbox-promote]")
+    print("Usage: python3 bot/pinterest_bot.py [auth-url | exchange <code> | refresh | boards | create-board [name] | draft [product_id] | review <draft.json> | approve <draft.json> | promote | post <product_id> | sandbox-boards | sandbox-promote | standard-brief]")
 
 
 if __name__ == "__main__":
@@ -382,15 +501,27 @@ if __name__ == "__main__":
             list_boards()
         elif cmd == "create-board":
             create_board(" ".join(sys.argv[2:]) or env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME))
+        elif cmd == "draft":
+            write_draft(sys.argv[2] if len(sys.argv) >= 3 else None)
+        elif cmd == "review":
+            if len(sys.argv) < 3:
+                sys.exit("Provide a Pinterest draft JSON path.")
+            print_review(read_draft(sys.argv[2]))
+        elif cmd == "approve":
+            if len(sys.argv) < 3:
+                sys.exit("Provide a Pinterest draft JSON path.")
+            approve_draft(sys.argv[2])
         elif cmd == "promote":
-            post_product()
+            write_draft()
         elif cmd == "sandbox-promote":
             use_sandbox_api()
             post_product()
         elif cmd == "post":
             if len(sys.argv) < 3:
                 sys.exit("Provide a Gumroad product id.")
-            post_product(sys.argv[2])
+            write_draft(sys.argv[2])
+        elif cmd == "standard-brief":
+            standard_access_brief()
         else:
             usage()
             sys.exit(1)

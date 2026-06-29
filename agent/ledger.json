@@ -26,6 +26,30 @@
       "date": "2026-06-29",
       "agent": "Codex",
       "actions": [
+        "Researched Pinterest Standard access requirements and developer policy framing from official Pinterest developer/policy docs",
+        "Converted bot/pinterest_bot.py into a review-and-publish assistant: production promote/post now create local draft JSON files instead of creating Pins",
+        "Added draft, review, approve, and standard-brief commands so each production Pin has explicit per-draft approval before the Pinterest API create call",
+        "Kept sandbox-promote as the live API demo path for Trial access and Standard access screen recordings",
+        "Added agent/reports/pinterest_standard_access_brief.md with compliant app positioning, demo checklist, scopes, and current Trial-access blocker",
+        "Updated AGENTS.md, CLAUDE.md, README.md, agent/MISSION.md, and .env.example to describe the Pinterest workflow as manual review-and-publish",
+        "Added regression coverage proving Pinterest drafts are local-only and marked approval_required before publishing",
+        "Verified production board reads, sandbox board reads, and local draft creation; no production Pin was created"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0,
+        "note": "Production Pinterest posting intentionally requires approve <draft.json>; sandbox remains available for the Standard access demo."
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The production-ready path is now compliant-by-design: OAuth, minimal scopes, manual review, explicit approval, and no unattended production Pin creation."
+    },
+    {
+      "date": "2026-06-29",
+      "agent": "Codex",
+      "actions": [
         "Ran the standard Gumroad CLI health loop: auth check succeeded, db/sync.py discovered 30 live products, 0 sales, 0 subscribers, 0 payouts, and 31 offer codes with no 403 errors",
         "Confirmed June 2026 revenue remains €0.00 against the €58 survival target; underpriced query still flags the free lead magnet and the €0.99/month subscription",
         "Fixed documentation drift in agent/MISSION.md and CLAUDE.md so scripts/api is described as a CLI compatibility layer rather than a direct HTTP API path",

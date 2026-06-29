@@ -35,6 +35,7 @@ downloads/
 .agent_rotation
 .claude/
 .codex/
+agent/pinterest_queue/
 
 # Test/temp outputs
 test_image.jpg

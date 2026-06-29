@@ -131,16 +131,27 @@ python3 bot/mastodon_bot.py engage
 ```
 
 **Pinterest:**
+Pinterest production must be treated as a manual review-and-publish workflow,
+not an autonomous poster. This keeps the app aligned with Pinterest's developer
+guidelines around specific user consent for each Pin.
+
 ```bash
 # One-time OAuth setup
 python3 bot/pinterest_bot.py auth-url
 python3 bot/pinterest_bot.py exchange "<code>"
 
-# List/create boards and auto-pin a product
+# List/create boards
 python3 bot/pinterest_bot.py boards
+
+# Prepare a reviewed product Pin draft, then explicitly approve that one draft
 python3 bot/pinterest_bot.py promote
+python3 bot/pinterest_bot.py review agent/pinterest_queue/<draft>.json
+python3 bot/pinterest_bot.py approve agent/pinterest_queue/<draft>.json
+
+# Standard access application/demo helper
+python3 bot/pinterest_bot.py standard-brief
 ```
-Trial-access Pinterest apps can read production boards but cannot create production Pins. For sandbox demos, set `PINTEREST_API_BASE=https://api-sandbox.pinterest.com/v5` and use a sandbox OAuth/access token.
+Trial-access Pinterest apps can read production boards but cannot create production Pins. Use `python3 bot/pinterest_bot.py sandbox-promote` for a live sandbox Pin create demo.
 
 ---
 

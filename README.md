@@ -262,7 +262,7 @@ GumRoad_AI/
 ├── bot/
 │   ├── bluesky_bot.py         # Bluesky promotion + posting bot
 │   ├── mastodon_bot.py        # Mastodon promotion, posting + engagement bot
-│   ├── pinterest_bot.py       # Pinterest OAuth + product Pin promotion bot
+│   ├── pinterest_bot.py       # Pinterest OAuth + review-and-publish product Pin assistant
 │   └── update_profile.py      # Mastodon profile updater
 ├── db/
 │   ├── sync.py                # Gumroad → SQLite sync (products, sales, subs)
