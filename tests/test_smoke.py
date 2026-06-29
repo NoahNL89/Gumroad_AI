@@ -181,6 +181,29 @@ def test_pinterest_draft_requires_manual_approval():
     assert data["pin"]["link"] == "https://schephenk.gumroad.com/l/demo"
 
 
+def test_pinterest_save_env_values_updates_tokens():
+    mods = _bots()
+    if "pinterest_bot" not in mods:
+        return
+    pinterest = mods["pinterest_bot"]
+    with tempfile.TemporaryDirectory() as d:
+        envp = Path(d) / ".env"
+        envp.write_text("PINTEREST_ACCESS_TOKEN=old\nPINTEREST_BOARD_NAME=Board\n")
+        old_env_path = pinterest.ENV_PATH
+        try:
+            pinterest.ENV_PATH = envp
+            pinterest.save_env_values({
+                "PINTEREST_ACCESS_TOKEN": "new-access",
+                "PINTEREST_REFRESH_TOKEN": "new-refresh",
+            })
+        finally:
+            pinterest.ENV_PATH = old_env_path
+        text = envp.read_text()
+    assert "PINTEREST_ACCESS_TOKEN=new-access" in text
+    assert "PINTEREST_REFRESH_TOKEN=new-refresh" in text
+    assert "PINTEREST_BOARD_NAME=Board" in text
+
+
 # ── query.py: revenue math ──────────────────────────────────────────────────
 def _seed_sales_db(path):
     con = sqlite3.connect(path)

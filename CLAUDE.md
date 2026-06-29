@@ -40,7 +40,7 @@ All source `scripts/api/_base.sh`, which provides the machine-safe `gumroad_cli`
 **4. Social media bots** (`bot/`) — audience growth and product promotion.  
 - `bot/mastodon_bot.py promote|engage|post "<text>"` — max 3 posts/day, logs to `promotions` table in DB.  
 - `bot/bluesky_bot.py promote` — Bluesky promotion, also rate-limited.  
-- `bot/pinterest_bot.py auth-url|exchange|boards|draft|review|approve|standard-brief` — Pinterest OAuth plus manual review-and-publish product Pin workflow.
+- `scripts/pinterest login|exchange|status|boards|draft|review|publish|standard-brief` — personal Pinterest CLI for OAuth plus manual review-and-publish product Pin workflow.
 - `bot/update_profile.py` — updates Mastodon profile bio.  
 Bots read credentials from `.env` (`MASTODON_ACCESS_TOKEN`, `MASTODON_INSTANCE`, `BLUESKY_USERNAME`, `BLUESKY_PASSWORD`, `PINTEREST_*`).
 
@@ -71,8 +71,8 @@ python3 db/query.py underpriced       # Products still priced ≤€0.99
 python3 bot/mastodon_bot.py engage    # Like/boost relevant posts (audience growth)
 python3 bot/mastodon_bot.py promote   # Post product promotion (max 3x/day)
 python3 bot/bluesky_bot.py promote    # Post to Bluesky
-python3 bot/pinterest_bot.py promote  # Draft a Pinterest product Pin for manual review
-python3 bot/pinterest_bot.py approve agent/pinterest_queue/<draft>.json  # Publish one approved draft
+scripts/pinterest promote  # Draft a Pinterest product Pin for manual review
+scripts/pinterest publish agent/pinterest_queue/<draft>.json  # Publish one approved draft
 
 # CLI compatibility wrappers
 source .env && ./scripts/api/list-products.sh

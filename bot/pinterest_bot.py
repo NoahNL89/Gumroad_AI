@@ -3,13 +3,14 @@
 Pinterest review-and-publish assistant for Schep Digital.
 
 Usage:
-    python3 bot/pinterest_bot.py auth-url
+    python3 bot/pinterest_bot.py login
     python3 bot/pinterest_bot.py exchange "<code>"
+    python3 bot/pinterest_bot.py status
     python3 bot/pinterest_bot.py refresh
     python3 bot/pinterest_bot.py boards
     python3 bot/pinterest_bot.py draft [product_id]
     python3 bot/pinterest_bot.py review <draft.json>
-    python3 bot/pinterest_bot.py approve <draft.json>
+    python3 bot/pinterest_bot.py publish <draft.json>
     python3 bot/pinterest_bot.py sandbox-promote
 """
 import base64
@@ -69,6 +70,36 @@ def load_env():
                 value = v.strip().strip('"').strip("'")
                 if key not in os.environ or (not os.environ[key] and value):
                     os.environ[key] = value
+
+
+def quote_env_value(value):
+    if value is None:
+        return ""
+    value = str(value)
+    if not value or any(c.isspace() or c in value for c in "\"'#$`\\"):
+        return "'" + value.replace("'", "'\"'\"'") + "'"
+    return value
+
+
+def save_env_values(values):
+    existing = ENV_PATH.read_text().splitlines() if ENV_PATH.exists() else []
+    seen = set()
+    updated = []
+    for line in existing:
+        stripped = line.strip()
+        if stripped and not stripped.startswith("#") and "=" in stripped:
+            key = stripped.split("=", 1)[0].strip()
+            if key in values:
+                updated.append(f"{key}={quote_env_value(values[key])}")
+                seen.add(key)
+                os.environ[key] = str(values[key])
+                continue
+        updated.append(line)
+    for key, value in values.items():
+        if key not in seen:
+            updated.append(f"{key}={quote_env_value(value)}")
+            os.environ[key] = str(value)
+    ENV_PATH.write_text("\n".join(updated).rstrip() + "\n")
 
 
 def env(name, default=None):
@@ -161,22 +192,34 @@ def auth_url():
     print("python3 bot/pinterest_bot.py sandbox-promote")
 
 
-def print_token_export(data):
+def login():
+    print("Pinterest personal CLI login")
+    print("============================")
+    auth_url()
+    print("\nHeadless machine flow:")
+    print("1. Open the URL above on your laptop/browser.")
+    print("2. Approve Pinterest OAuth.")
+    print("3. Copy the `code` query parameter from the redirect URL.")
+    print("4. Run: scripts/pinterest exchange \"<code>\"")
+
+
+def print_token_export(data, saved=False):
     print(json.dumps({
         "access_token_present": bool(data.get("access_token")),
         "refresh_token_present": bool(data.get("refresh_token")),
         "expires_in": data.get("expires_in"),
         "scope": data.get("scope"),
         "token_type": data.get("token_type"),
+        "saved_to_env": saved,
     }, indent=2))
-    if data.get("access_token"):
+    if data.get("access_token") and not saved:
         print("\nAdd/update these in .env:")
         print(f"PINTEREST_ACCESS_TOKEN={data['access_token']}")
-    if data.get("refresh_token"):
+    if data.get("refresh_token") and not saved:
         print(f"PINTEREST_REFRESH_TOKEN={data['refresh_token']}")
 
 
-def exchange_code(code):
+def exchange_code(code, save=True):
     data = api_request(
         "POST",
         token_url(),
@@ -187,10 +230,18 @@ def exchange_code(code):
         },
         auth_basic=True,
     )
-    print_token_export(data)
+    if save:
+        values = {}
+        if data.get("access_token"):
+            values["PINTEREST_ACCESS_TOKEN"] = data["access_token"]
+        if data.get("refresh_token"):
+            values["PINTEREST_REFRESH_TOKEN"] = data["refresh_token"]
+        if values:
+            save_env_values(values)
+    print_token_export(data, saved=save)
 
 
-def refresh_token():
+def refresh_token(save=True):
     refresh = require_env("PINTEREST_REFRESH_TOKEN")
     data = api_request(
         "POST",
@@ -201,7 +252,15 @@ def refresh_token():
         },
         auth_basic=True,
     )
-    print_token_export(data)
+    if save:
+        values = {}
+        if data.get("access_token"):
+            values["PINTEREST_ACCESS_TOKEN"] = data["access_token"]
+        if data.get("refresh_token"):
+            values["PINTEREST_REFRESH_TOKEN"] = data["refresh_token"]
+        if values:
+            save_env_values(values)
+    print_token_export(data, saved=save)
 
 
 def access_token():
@@ -219,6 +278,22 @@ def list_boards():
     if not boards:
         print("No boards returned.")
     return boards
+
+
+def account_status():
+    token_present = bool(access_token())
+    data = api_request("GET", "/user_account", token=access_token())
+    summary = {
+        "api_base": api_base(),
+        "sandbox": is_sandbox(),
+        "token_present": token_present,
+        "username": data.get("username"),
+        "account_type": data.get("account_type"),
+        "profile_url": data.get("profile_url"),
+        "website_url": data.get("website_url"),
+    }
+    print(json.dumps(summary, indent=2))
+    return summary
 
 
 def create_board(name):
@@ -383,7 +458,7 @@ def write_draft(product_id=None):
     print(f"Pinterest draft created: {path}")
     print_review(draft)
     print("\nPublish only after review:")
-    print(f"python3 bot/pinterest_bot.py approve {path}")
+    print(f"scripts/pinterest publish {path}")
     return path
 
 
@@ -456,6 +531,9 @@ def approve_draft(path):
     return ok
 
 
+publish_draft = approve_draft
+
+
 def standard_access_brief():
     print("""Pinterest Standard access positioning
 
@@ -463,20 +541,20 @@ Use case:
 Private single-user Pinterest content scheduler for Schep Digital's own Gumroad products. The tool drafts product Pins, lets the owner review title/description/link/image/board, and publishes only a specifically approved Pin.
 
 Demo recording checklist:
-1. Run `python3 bot/pinterest_bot.py auth-url` and open the OAuth URL.
+1. Run `scripts/pinterest login` and open the OAuth URL.
 2. Show Pinterest OAuth consent for the minimal scopes: user_accounts:read, boards:read, boards:write, pins:read, pins:write.
-3. Exchange the returned code with `python3 bot/pinterest_bot.py exchange "<code>"`.
-4. Run `python3 bot/pinterest_bot.py draft` to show the manual review draft.
-5. Run `python3 bot/pinterest_bot.py sandbox-promote` to show a live sandbox Pin create API call.
+3. Exchange the returned code with `scripts/pinterest exchange "<code>"`.
+4. Run `scripts/pinterest draft` to show the manual review draft.
+5. Run `scripts/pinterest sandbox-promote` to show a live sandbox Pin create API call.
 6. Open Pinterest and show the sandbox-created Pin or board visible to the creator.
 
 Production behavior:
-`promote` and `draft` create review drafts only. `approve <draft.json>` is the explicit per-Pin approval command.
+`promote` and `draft` create review drafts only. `publish <draft.json>` / `approve <draft.json>` is the explicit per-Pin approval command.
 """)
 
 
 def usage():
-    print("Usage: python3 bot/pinterest_bot.py [auth-url | exchange <code> | refresh | boards | create-board [name] | draft [product_id] | review <draft.json> | approve <draft.json> | promote | post <product_id> | sandbox-boards | sandbox-promote | standard-brief]")
+    print("Usage: pinterest [login | auth-url | exchange <code> [--print-only] | refresh [--print-only] | status | boards | create-board [name] | draft [product_id] | review <draft.json> | publish <draft.json> | approve <draft.json> | promote | post <product_id> | sandbox-boards | sandbox-promote | standard-brief]")
 
 
 if __name__ == "__main__":
@@ -486,14 +564,18 @@ if __name__ == "__main__":
 
     cmd = sys.argv[1]
     try:
-        if cmd == "auth-url":
+        if cmd == "login":
+            login()
+        elif cmd == "auth-url":
             auth_url()
         elif cmd == "exchange":
             if len(sys.argv) < 3:
                 sys.exit("Provide the OAuth code from Pinterest.")
-            exchange_code(sys.argv[2])
+            exchange_code(sys.argv[2], save="--print-only" not in sys.argv[3:])
         elif cmd == "refresh":
-            refresh_token()
+            refresh_token(save="--print-only" not in sys.argv[2:])
+        elif cmd == "status":
+            account_status()
         elif cmd == "boards":
             list_boards()
         elif cmd == "sandbox-boards":
@@ -507,10 +589,10 @@ if __name__ == "__main__":
             if len(sys.argv) < 3:
                 sys.exit("Provide a Pinterest draft JSON path.")
             print_review(read_draft(sys.argv[2]))
-        elif cmd == "approve":
+        elif cmd in ("approve", "publish"):
             if len(sys.argv) < 3:
                 sys.exit("Provide a Pinterest draft JSON path.")
-            approve_draft(sys.argv[2])
+            publish_draft(sys.argv[2])
         elif cmd == "promote":
             write_draft()
         elif cmd == "sandbox-promote":

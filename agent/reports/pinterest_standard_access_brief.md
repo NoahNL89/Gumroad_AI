@@ -13,18 +13,18 @@ Avoid describing it as an autonomous promotion bot.
 - OAuth only; no password, cookie, or session scraping.
 - Minimal scopes: `user_accounts:read`, `boards:read`, `boards:write`, `pins:read`, `pins:write`.
 - `promote` and `post` create local draft JSON files only.
-- `approve <draft.json>` publishes one reviewed draft.
+- `publish <draft.json>` / `approve <draft.json>` publishes one reviewed draft.
 - Production API base: `https://api.pinterest.com/v5`.
 - Sandbox API base: `https://api-sandbox.pinterest.com/v5`.
 
 ## Demo Recording Checklist
 
-1. Run `python3 bot/pinterest_bot.py auth-url`.
+1. Run `scripts/pinterest login`.
 2. Open the OAuth URL in a browser and show Pinterest consent.
 3. Approve the scopes and copy the redirect `code`.
-4. Run `python3 bot/pinterest_bot.py exchange "<code>"` and show token presence only, not token values.
-5. Run `python3 bot/pinterest_bot.py draft` and show the review fields.
-6. Run `python3 bot/pinterest_bot.py sandbox-promote`.
+4. Run `scripts/pinterest exchange "<code>"` and show token presence only, not token values.
+5. Run `scripts/pinterest draft` and show the review fields.
+6. Run `scripts/pinterest sandbox-promote`.
 7. Show the created sandbox Pin or board in Pinterest.
 8. Explain that production posting uses `approve <draft.json>` after reviewing each Pin.
 

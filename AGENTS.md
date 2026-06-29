@@ -137,21 +137,22 @@ guidelines around specific user consent for each Pin.
 
 ```bash
 # One-time OAuth setup
-python3 bot/pinterest_bot.py auth-url
-python3 bot/pinterest_bot.py exchange "<code>"
+scripts/pinterest login
+scripts/pinterest exchange "<code>"
 
 # List/create boards
-python3 bot/pinterest_bot.py boards
+scripts/pinterest status
+scripts/pinterest boards
 
 # Prepare a reviewed product Pin draft, then explicitly approve that one draft
-python3 bot/pinterest_bot.py promote
-python3 bot/pinterest_bot.py review agent/pinterest_queue/<draft>.json
-python3 bot/pinterest_bot.py approve agent/pinterest_queue/<draft>.json
+scripts/pinterest promote
+scripts/pinterest review agent/pinterest_queue/<draft>.json
+scripts/pinterest publish agent/pinterest_queue/<draft>.json
 
 # Standard access application/demo helper
-python3 bot/pinterest_bot.py standard-brief
+scripts/pinterest standard-brief
 ```
-Trial-access Pinterest apps can read production boards but cannot create production Pins. Use `python3 bot/pinterest_bot.py sandbox-promote` for a live sandbox Pin create demo.
+Trial-access Pinterest apps can read production boards but cannot create production Pins. Use `scripts/pinterest sandbox-promote` for a live sandbox Pin create demo.
 
 ---
 

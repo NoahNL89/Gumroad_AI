@@ -95,7 +95,7 @@ Every time you are invoked, do this:
    - Run: python3 bot/mastodon_bot.py engage (Build authority via likes/boosts)
    - Run: python3 bot/bluesky_bot.py promote (Promote to Bluesky if under 3x/day limit)
    - Run: python3 bot/mastodon_bot.py promote (Promote to Mastodon if under limit)
-   - Run: python3 bot/pinterest_bot.py promote (Draft a Pinterest product Pin for manual review; production posting requires approve <draft>)
+   - Run: scripts/pinterest promote (Draft a Pinterest product Pin for manual review; production posting requires publish <draft>)
 
 3. DECIDE & ACT (Product & Strategy)
    - If behind target: Create a new product OR run a 50% discount launch promo.

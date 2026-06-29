@@ -26,6 +26,29 @@
       "date": "2026-06-29",
       "agent": "Codex",
       "actions": [
+        "Built scripts/pinterest as the personal Pinterest CLI wrapper for OAuth, status checks, board listing, draft creation, review, and approved publishing",
+        "Added scripts/pinterest login for headless-friendly OAuth instructions and scripts/pinterest exchange/refresh with automatic .env token persistence",
+        "Added scripts/pinterest status to verify the authenticated Pinterest Business account and production API base without exposing token values",
+        "Kept production publishing behind scripts/pinterest publish <draft.json> while sandbox-promote remains the live online posting path during Trial access",
+        "Verified scripts/pinterest status against the production account, listed production boards, generated a local production draft, and created one live sandbox Pin through the new CLI",
+        "Updated agent docs, .env.example, and the Pinterest Standard access brief to use scripts/pinterest as the primary interface",
+        "Added regression coverage for Pinterest .env token persistence; smoke suite now has 16 passing tests"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 1,
+        "note": "Sandbox Pin created through scripts/pinterest sandbox-promote; production publishing remains gated until Standard access and explicit draft approval."
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The workspace now has a real personal Pinterest CLI. After Standard access approval, agents can use the same CLI to publish reviewed product Pins with full production API access."
+    },
+    {
+      "date": "2026-06-29",
+      "agent": "Codex",
+      "actions": [
         "Researched Pinterest Standard access requirements and developer policy framing from official Pinterest developer/policy docs",
         "Converted bot/pinterest_bot.py into a review-and-publish assistant: production promote/post now create local draft JSON files instead of creating Pins",
         "Added draft, review, approve, and standard-brief commands so each production Pin has explicit per-draft approval before the Pinterest API create call",
