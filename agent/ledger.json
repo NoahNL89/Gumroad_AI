@@ -26,6 +26,28 @@
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [
+        "Added scripts/build_pinterest_catalog.py to generate a Pinterest retail catalog CSV from the synced Gumroad product database",
+        "Mapped Gumroad products to Pinterest feed fields including id, title, description, link, image_link, price, availability, brand, condition, product_type, google_product_category, and custom_label_0",
+        "Added PINTEREST_CLAIMED_STORE_URL support so Gumroad short links can be rewritten onto the claimed custom store domain before catalog ingestion",
+        "Excluded free products and monthly subscription products from the retail feed because Pinterest catalog rows need concrete product prices",
+        "Generated a local output/pinterest_catalog.csv with 27 eligible rows from the current store snapshot",
+        "Added agent/reports/pinterest_catalog_setup.md with the Provide a URL link workflow and public HTTPS hosting requirements",
+        "Added smoke test coverage for claimed-domain link rewriting, EUR price formatting, feed headers, and subscription exclusion"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Before submitting the feed URL to Pinterest, set PINTEREST_CLAIMED_STORE_URL to the claimed custom Gumroad domain and host output/pinterest_catalog.csv at a public HTTPS URL."
+    },
+    {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
         "Changed the Pinterest OAuth redirect default from http://localhost:3003/pinterest/callback to http://localhost:9900/pinterest/callback",
         "Updated .env.example and the local gitignored .env redirect URI to use port 9900",
         "Verified 127.0.0.1:9900 is currently free and scripts/pinterest auth-url generates an OAuth URL with the 9900 redirect",

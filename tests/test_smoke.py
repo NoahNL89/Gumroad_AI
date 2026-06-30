@@ -109,6 +109,43 @@ def _seed_pinterest_products_db(path):
     con.close()
 
 
+def _seed_catalog_products_db(path):
+    con = sqlite3.connect(path)
+    con.execute("""CREATE TABLE products (
+                   id TEXT, name TEXT, description TEXT, price_cents INTEGER,
+                   currency TEXT, formatted_price TEXT, short_url TEXT,
+                   thumbnail_url TEXT, published INTEGER)""")
+    con.executemany(
+        "INSERT INTO products VALUES (?,?,?,?,?,?,?,?,?)",
+        [
+            (
+                "paid_1",
+                "AI Prompt Pack",
+                "Useful prompts for creators.",
+                799,
+                "eur",
+                "€7.99",
+                "https://schephenk.gumroad.com/l/prompts",
+                "https://example.com/prompts.jpg",
+                1,
+            ),
+            (
+                "sub_1",
+                "Monthly Vault",
+                "Subscription.",
+                99,
+                "eur",
+                "€0.99 a month",
+                "https://schephenk.gumroad.com/l/monthly",
+                "https://example.com/monthly.jpg",
+                1,
+            ),
+        ],
+    )
+    con.commit()
+    con.close()
+
+
 def _bots():
     """Import both bot modules; skip cleanly if their network deps aren't installed."""
     mods = {}
@@ -231,6 +268,23 @@ def test_pinterest_api_base_forces_sandbox_by_default():
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = value
+
+
+def test_pinterest_catalog_feed_rewrites_claimed_domain_and_skips_subscriptions():
+    catalog = _load(ROOT / "scripts/build_pinterest_catalog.py", "pinterest_catalog")
+    with tempfile.TemporaryDirectory() as d:
+        dbp = Path(d) / "store.db"
+        out = Path(d) / "catalog.csv"
+        _seed_catalog_products_db(str(dbp))
+        rows, skipped = catalog.rows_from_db(dbp, "https://store.example.com")
+        catalog.write_csv(rows, out)
+        text = out.read_text()
+    assert len(rows) == 1
+    assert rows[0]["link"] == "https://store.example.com/l/prompts"
+    assert rows[0]["price"] == "7.99 EUR"
+    assert rows[0]["availability"] == "in stock"
+    assert "Monthly Vault" in skipped[0][0]
+    assert '"id","title","description","link","image_link","price","availability"' in text
 
 
 # ── query.py: revenue math ──────────────────────────────────────────────────

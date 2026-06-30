@@ -73,6 +73,7 @@ python3 bot/mastodon_bot.py promote   # Post product promotion (max 3x/day)
 python3 bot/bluesky_bot.py promote    # Post to Bluesky
 scripts/pinterest promote  # Draft a Pinterest product Pin for manual review
 scripts/pinterest publish agent/pinterest_queue/<draft>.json  # Publish one approved draft
+PINTEREST_CLAIMED_STORE_URL=https://store.example.com python3 scripts/build_pinterest_catalog.py
 
 # CLI compatibility wrappers
 source .env && ./scripts/api/list-products.sh
