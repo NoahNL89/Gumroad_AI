@@ -72,6 +72,15 @@ The container bind-mounts `output/` read-only, so every regenerated
 `output/pinterest_catalog.csv` is served on the next Pinterest fetch without a
 container restart.
 
+The compose service publishes port `9000` on all host interfaces, so local LAN
+checks can use:
+
+```text
+http://192.168.1.11:9000/pinterest_catalog.csv
+```
+
+Cloudflare Tunnel can still point to `http://localhost:9000`.
+
 ## Product Link Requirement
 
 Product `link` values should use the claimed domain, not the raw Gumroad subdomain:

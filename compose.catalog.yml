@@ -6,7 +6,7 @@ services:
     container_name: pinterest-catalog
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9000:9000"
+      - "9000:9000"
     environment:
       CATALOG_BASIC_USER: ${CATALOG_BASIC_USER:-}
       CATALOG_BASIC_PASSWORD: ${CATALOG_BASIC_PASSWORD:-}

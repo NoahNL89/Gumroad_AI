@@ -26,6 +26,25 @@
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [
+        "Changed the Pinterest catalog Docker port binding from 127.0.0.1:9000 to 0.0.0.0:9000 so LAN checks can reach it at http://192.168.1.11:9000/pinterest_catalog.csv",
+        "Recreated the pinterest-catalog container with the new port mapping",
+        "Verified authenticated requests return HTTP 200 on both http://127.0.0.1:9000/pinterest_catalog.csv and http://192.168.1.11:9000/pinterest_catalog.csv",
+        "Updated the catalog setup docs to explain LAN checks while Cloudflare Tunnel can still target localhost:9000"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The feed remains Basic Auth protected; unauthenticated browser access will still show 401."
+    },
+    {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
         "Added a Dockerized Pinterest catalog CSV server on 127.0.0.1:9000",
         "Added Basic Auth support controlled by CATALOG_BASIC_USER and CATALOG_BASIC_PASSWORD in the local .env",
         "Added compose.catalog.yml, Dockerfile.catalog, scripts/catalog_server.py, and scripts/update_pinterest_catalog.sh",
