@@ -26,6 +26,27 @@
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [
+        "Added a Dockerized Pinterest catalog CSV server on 127.0.0.1:9000",
+        "Added Basic Auth support controlled by CATALOG_BASIC_USER and CATALOG_BASIC_PASSWORD in the local .env",
+        "Added compose.catalog.yml, Dockerfile.catalog, scripts/catalog_server.py, and scripts/update_pinterest_catalog.sh",
+        "Documented Cloudflare Zero Trust Tunnel setup for catalog.schep.dev -> http://localhost:9000",
+        "Verified unauthenticated catalog requests return 401 and authenticated requests return the 27-row CSV with store.schep.dev product links",
+        "Added regression coverage for catalog server Basic Auth behavior"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Pinterest catalog feed can now be exposed as https://catalog.schep.dev/pinterest_catalog.csv through Cloudflare Tunnel. Do not put Cloudflare Access in front of it; use the feed username/password in Pinterest."
+    },
+    {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
         "Set the claimed Pinterest catalog/store domain to https://store.schep.dev in .env.example, docs, tests, and local .env",
         "Regenerated output/pinterest_catalog.csv from the Gumroad DB with 27 eligible products",
         "Verified every generated catalog product link starts with https://store.schep.dev/",

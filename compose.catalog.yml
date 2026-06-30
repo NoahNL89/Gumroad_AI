@@ -1,0 +1,20 @@
+services:
+  pinterest-catalog:
+    build:
+      context: .
+      dockerfile: Dockerfile.catalog
+    container_name: pinterest-catalog
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9000:9000"
+    environment:
+      CATALOG_BASIC_USER: ${CATALOG_BASIC_USER:-}
+      CATALOG_BASIC_PASSWORD: ${CATALOG_BASIC_PASSWORD:-}
+      CATALOG_FILE: /app/output/pinterest_catalog.csv
+    volumes:
+      - ./output:/app/output:ro
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9000/healthz', timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

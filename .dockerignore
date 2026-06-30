@@ -1,0 +1,11 @@
+.git
+.env
+db/store.db
+downloads/
+output/
+agent/pinterest_queue/
+__pycache__/
+*.pyc
+.agents/
+.claude/
+.codex/

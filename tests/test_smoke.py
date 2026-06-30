@@ -287,6 +287,31 @@ def test_pinterest_catalog_feed_rewrites_claimed_domain_and_skips_subscriptions(
     assert '"id","title","description","link","image_link","price","availability"' in text
 
 
+def test_catalog_server_requires_basic_auth():
+    server = _load(ROOT / "scripts/catalog_server.py", "catalog_server_test")
+    with tempfile.TemporaryDirectory() as d:
+        catalog = Path(d) / "pinterest_catalog.csv"
+        catalog.write_text("id,title\n1,Test\n")
+        old_path = server.CATALOG_PATH
+        old_user = server.USERNAME
+        old_password = server.PASSWORD
+        try:
+            server.CATALOG_PATH = catalog
+            server.USERNAME = "user"
+            server.PASSWORD = "pass"
+            handler = object.__new__(server.Handler)
+            handler.headers = {}
+            assert handler.authenticated() is False
+            import base64
+            token = base64.b64encode(b"user:pass").decode()
+            handler.headers = {"Authorization": f"Basic {token}"}
+            assert handler.authenticated() is True
+        finally:
+            server.CATALOG_PATH = old_path
+            server.USERNAME = old_user
+            server.PASSWORD = old_password
+
+
 # ── query.py: revenue math ──────────────────────────────────────────────────
 def _seed_sales_db(path):
     con = sqlite3.connect(path)

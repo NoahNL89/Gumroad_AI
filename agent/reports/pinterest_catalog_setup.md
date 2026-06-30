@@ -20,25 +20,57 @@ output/pinterest_catalog.csv
 
 ## Feed Hosting
 
-Pinterest needs a public HTTPS URL for that CSV. Good options:
+Pinterest needs a public HTTPS URL for that CSV. The easiest self-hosted option
+for this workspace is the Docker catalog server plus a Cloudflare Tunnel public
+hostname.
 
-- Cloudflare Pages static file
-- Cloudflare R2 public object
-- Any public HTTPS host under the claimed domain
+Run locally:
 
-Example final URL:
-
-```text
-https://store.schep.dev/pinterest_catalog.csv
+```bash
+source .env
+python3 scripts/build_pinterest_catalog.py
+docker compose -f compose.catalog.yml up -d --build
+curl -u "$CATALOG_BASIC_USER:$CATALOG_BASIC_PASSWORD" \
+  http://127.0.0.1:9000/pinterest_catalog.csv
 ```
 
-In Pinterest, paste that URL into **Provide a URL link** and choose daily ingestion.
+Cloudflare Zero Trust setup:
+
+1. Go to **Zero Trust -> Networks -> Tunnels**.
+2. Use an existing tunnel on this machine, or create one.
+3. Add a **Public Hostname**:
+   - Subdomain: `catalog`
+   - Domain: `schep.dev`
+   - Service type: `HTTP`
+   - URL: `localhost:9000`
+4. Do not enable Cloudflare Access for this hostname unless Pinterest can pass
+   that Access policy. Use the container Basic Auth credentials instead.
+
+Final URL:
+
+```text
+https://catalog.schep.dev/pinterest_catalog.csv
+```
+
+In Pinterest, paste that URL into **Provide a URL link**, enter the feed username
+and password from `CATALOG_BASIC_USER` / `CATALOG_BASIC_PASSWORD`, and choose the
+6-hour ingestion schedule.
 
 For the current Schep Digital store, use:
 
 ```text
-https://store.schep.dev/pinterest_catalog.csv
+https://catalog.schep.dev/pinterest_catalog.csv
 ```
+
+To refresh the file manually:
+
+```bash
+scripts/update_pinterest_catalog.sh
+```
+
+The container bind-mounts `output/` read-only, so every regenerated
+`output/pinterest_catalog.csv` is served on the next Pinterest fetch without a
+container restart.
 
 ## Product Link Requirement
 

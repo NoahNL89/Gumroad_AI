@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY scripts/catalog_server.py /app/scripts/catalog_server.py
+RUN mkdir -p /app/output
+
+ENV CATALOG_HOST=0.0.0.0
+ENV CATALOG_PORT=9000
+ENV CATALOG_FILE=/app/output/pinterest_catalog.csv
+
+EXPOSE 9000
+CMD ["python3", "/app/scripts/catalog_server.py"]

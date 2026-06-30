@@ -74,6 +74,7 @@ python3 bot/bluesky_bot.py promote    # Post to Bluesky
 scripts/pinterest promote  # Draft a Pinterest product Pin for manual review
 scripts/pinterest publish agent/pinterest_queue/<draft>.json  # Publish one approved draft
 PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev python3 scripts/build_pinterest_catalog.py
+docker compose -f compose.catalog.yml up -d --build  # Serve feed on 127.0.0.1:9000 for Cloudflare Tunnel
 
 # CLI compatibility wrappers
 source .env && ./scripts/api/list-products.sh
