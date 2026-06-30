@@ -3,8 +3,8 @@
 Build a Pinterest retail catalog CSV from the local Gumroad SQLite snapshot.
 
 Usage:
-    python3 scripts/build_pinterest_catalog.py --store-url https://store.example.com
-    PINTEREST_CLAIMED_STORE_URL=https://store.example.com python3 scripts/build_pinterest_catalog.py
+    python3 scripts/build_pinterest_catalog.py --store-url https://store.schep.dev
+    PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev python3 scripts/build_pinterest_catalog.py
 """
 import argparse
 import csv
@@ -171,7 +171,7 @@ def main(argv=None):
     parser.add_argument(
         "--store-url",
         default=os.environ.get("PINTEREST_CLAIMED_STORE_URL") or os.environ.get("GUMROAD_CUSTOM_DOMAIN", ""),
-        help="Claimed Gumroad custom domain, e.g. https://store.example.com",
+        help="Claimed Gumroad custom domain, e.g. https://store.schep.dev",
     )
     args = parser.parse_args(argv)
 

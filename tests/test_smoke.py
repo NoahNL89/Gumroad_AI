@@ -276,11 +276,11 @@ def test_pinterest_catalog_feed_rewrites_claimed_domain_and_skips_subscriptions(
         dbp = Path(d) / "store.db"
         out = Path(d) / "catalog.csv"
         _seed_catalog_products_db(str(dbp))
-        rows, skipped = catalog.rows_from_db(dbp, "https://store.example.com")
+        rows, skipped = catalog.rows_from_db(dbp, "https://store.schep.dev")
         catalog.write_csv(rows, out)
         text = out.read_text()
     assert len(rows) == 1
-    assert rows[0]["link"] == "https://store.example.com/l/prompts"
+    assert rows[0]["link"] == "https://store.schep.dev/l/prompts"
     assert rows[0]["price"] == "7.99 EUR"
     assert rows[0]["availability"] == "in stock"
     assert "Monthly Vault" in skipped[0][0]

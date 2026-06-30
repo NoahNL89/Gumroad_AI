@@ -8,7 +8,7 @@ The workspace can generate the feed file:
 
 ```bash
 python3 db/sync.py
-PINTEREST_CLAIMED_STORE_URL=https://store.yourdomain.com \
+PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev \
   python3 scripts/build_pinterest_catalog.py
 ```
 
@@ -29,17 +29,23 @@ Pinterest needs a public HTTPS URL for that CSV. Good options:
 Example final URL:
 
 ```text
-https://store.yourdomain.com/pinterest_catalog.csv
+https://store.schep.dev/pinterest_catalog.csv
 ```
 
 In Pinterest, paste that URL into **Provide a URL link** and choose daily ingestion.
+
+For the current Schep Digital store, use:
+
+```text
+https://store.schep.dev/pinterest_catalog.csv
+```
 
 ## Product Link Requirement
 
 Product `link` values should use the claimed domain, not the raw Gumroad subdomain:
 
 ```text
-https://store.yourdomain.com/l/product-slug
+https://store.schep.dev/l/product-slug
 ```
 
 Set `PINTEREST_CLAIMED_STORE_URL` in `.env` so the generator rewrites Gumroad links automatically.
