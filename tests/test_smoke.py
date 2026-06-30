@@ -283,6 +283,7 @@ def test_pinterest_catalog_feed_rewrites_claimed_domain_and_skips_subscriptions(
     assert rows[0]["link"] == "https://store.schep.dev/l/prompts"
     assert rows[0]["price"] == "7.99 EUR"
     assert rows[0]["availability"] == "in stock"
+    assert rows[0]["google_product_category"].count(">") >= 2
     assert "Monthly Vault" in skipped[0][0]
     assert '"id","title","description","link","image_link","price","availability"' in text
 

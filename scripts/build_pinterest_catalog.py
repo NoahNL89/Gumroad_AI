@@ -80,6 +80,23 @@ def product_type(name):
     return "Digital Products > Templates"
 
 
+def google_product_category(name):
+    n = name.lower()
+    if "blender" in n or "3d" in n:
+        return "Software > Computer Software > Multimedia & Design Software > 3D Modeling Software"
+    if any(k in n for k in ("midjourney", "character", "ai art")):
+        return "Software > Computer Software > Multimedia & Design Software > Graphic Design & Illustration Software"
+    if any(k in n for k in ("instagram", "linkedin", "hook", "content", "email", "seo", "social media")):
+        return "Business & Industrial > Advertising & Marketing > Brochures"
+    if any(k in n for k in ("resume", "cv", "proposal", "freelance", "business name", "side hustle")):
+        return "Software > Computer Software > Business & Productivity Software"
+    if any(k in n for k in ("notion", "habit", "productivity", "journaling")):
+        return "Software > Computer Software > Office Application Software"
+    if any(k in n for k in ("prompt", "gemini", "llm", "vault", "ai ")) or "ai-" in n:
+        return "Software > Computer Software > Business & Productivity Software"
+    return "Media > Books > E-books"
+
+
 def custom_label(name):
     n = name.lower()
     if "bundle" in n or "toolkit" in n:
@@ -149,7 +166,7 @@ def rows_from_db(db_path, store_url):
             "brand": "Schep Digital",
             "condition": "new",
             "product_type": product_type(name),
-            "google_product_category": "Media > Digital Goods",
+            "google_product_category": google_product_category(name),
             "custom_label_0": custom_label(name),
         })
     return out, skipped

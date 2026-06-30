@@ -26,6 +26,26 @@
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [
+        "Updated the Pinterest catalog generator to emit deeper product-specific google_product_category paths instead of the shallow Media > Digital Goods category",
+        "Mapped products to Google taxonomy paths for business/productivity software, marketing, office applications, graphic design, and 3D modeling",
+        "Regenerated output/pinterest_catalog.csv with 27 rows and verified every row has at least three google_product_category levels",
+        "Confirmed the running catalog server immediately serves the regenerated CSV with no container restart required",
+        "Added smoke coverage requiring generated catalog rows to have a deep Google product category"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Pinterest warning 126 should clear on the next catalog ingestion because no feed rows now use one- or two-level Google categories."
+    },
+    {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
         "Changed the Pinterest catalog Docker port binding from 127.0.0.1:9000 to 0.0.0.0:9000 so LAN checks can reach it at http://192.168.1.11:9000/pinterest_catalog.csv",
         "Recreated the pinterest-catalog container with the new port mapping",
         "Verified authenticated requests return HTTP 200 on both http://127.0.0.1:9000/pinterest_catalog.csv and http://192.168.1.11:9000/pinterest_catalog.csv",
