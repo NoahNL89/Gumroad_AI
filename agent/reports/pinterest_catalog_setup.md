@@ -39,10 +39,11 @@ Cloudflare Zero Trust setup:
 1. Go to **Zero Trust -> Networks -> Tunnels**.
 2. Use an existing tunnel on this machine, or create one.
 3. Add a **Public Hostname**:
-   - Subdomain: `catalog`
+   - Subdomain: `catalog` (not `catelog`)
    - Domain: `schep.dev`
    - Service type: `HTTP`
-   - URL: `localhost:9000`
+   - URL: `localhost:9000` if the tunnel connector runs on this machine, or `192.168.1.11:9000` if the connector runs elsewhere on the LAN.
+   - Do not use `HTTPS` for the origin service; the container serves plain HTTP and Cloudflare provides public HTTPS.
 4. Do not enable Cloudflare Access for this hostname unless Pinterest can pass
    that Access policy. Use the container Basic Auth credentials instead.
 

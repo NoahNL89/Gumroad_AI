@@ -41,11 +41,18 @@ class Handler(BaseHTTPRequestHandler):
         return sep == ":" and user == USERNAME and password == PASSWORD
 
     def do_GET(self):
+        self.handle_request(send_body=True)
+
+    def do_HEAD(self):
+        self.handle_request(send_body=False)
+
+    def handle_request(self, send_body):
         if self.path == "/healthz":
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "text/plain; charset=utf-8")
             self.end_headers()
-            self.wfile.write(b"ok\n")
+            if send_body:
+                self.wfile.write(b"ok\n")
             return
 
         if self.path.split("?", 1)[0] != "/pinterest_catalog.csv":
@@ -66,7 +73,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
         self.end_headers()
-        self.wfile.write(body)
+        if send_body:
+            self.wfile.write(body)
 
 
 def main():
