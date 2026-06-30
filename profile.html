@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: oklch(0.145 0.018 250);
+      --panel: oklch(0.205 0.02 250);
+      --panel-2: oklch(0.275 0.03 250);
+      --ink: oklch(0.955 0.015 92);
+      --muted: oklch(0.78 0.03 92);
+      --line: oklch(0.36 0.035 250);
+      --accent: oklch(0.78 0.19 155);
+      --accent-2: oklch(0.69 0.2 28);
+      --accent-3: oklch(0.72 0.18 260);
+      --shadow: 0 12px 8px rgba(0, 0, 0, .28);
+      --radius: 8px;
+      --body-font: Avenir, "Avenir Next", "Trebuchet MS", Verdana, sans-serif;
+      --display-font: Impact, "Arial Black", Haettenschweiler, "Franklin Gothic Heavy", sans-serif;
+      font-family: var(--body-font);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: oklch(0.955 0.006 250);
+        --panel: oklch(0.985 0.004 250);
+        --panel-2: oklch(0.92 0.012 250);
+        --ink: oklch(0.16 0.02 250);
+        --muted: oklch(0.38 0.025 250);
+        --line: oklch(0.78 0.018 250);
+        --accent: oklch(0.66 0.18 155);
+        --accent-2: oklch(0.62 0.21 28);
+        --accent-3: oklch(0.55 0.2 260);
+        --shadow: 0 12px 8px rgba(25, 30, 40, .12);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 28rem),
+        radial-gradient(circle at 88% 3%, color-mix(in srgb, var(--accent-2) 24%, transparent), transparent 24rem),
+        linear-gradient(135deg, var(--bg), color-mix(in srgb, var(--bg) 82%, var(--panel-2)));
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .18em; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--accent-3);
+      outline-offset: 3px;
+    }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: -60px;
+      z-index: 20;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: 6px;
+    }
+    .skip:focus { top: 12px; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+    }
+    nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .01em;
+    }
+    .sig {
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--ink);
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #10100f;
+      font-weight: 900;
+    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-end; }
+    .nav-links a {
+      padding: 9px 11px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+    .nav-links a:hover { border-color: var(--line); color: var(--ink); background: color-mix(in srgb, var(--panel) 70%, transparent); }
+    .hero {
+      padding: clamp(58px, 9vw, 112px) 0 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(280px, .92fr);
+      gap: clamp(28px, 6vw, 74px);
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--panel) 80%, transparent);
+      color: var(--muted);
+      font-size: .88rem;
+      margin: 0 0 20px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent); }
+    h1 {
+      font-family: var(--display-font);
+      margin: 0;
+      font-size: clamp(2.7rem, 8vw, 6rem);
+      line-height: .9;
+      letter-spacing: 0;
+      max-width: 9ch;
+      text-wrap: balance;
+    }
+    .bio {
+      max-width: 64ch;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 2vw, 1.24rem);
+      line-height: 1.6;
+    }
+    .hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 7px;
+      border: 2px solid var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 4px 4px 0 var(--ink);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn.primary { background: var(--accent); color: #08130f; }
+    .btn.secondary { background: var(--panel); }
+    .system-card {
+      position: relative;
+      min-height: 440px;
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 22px;
+    }
+    .grid-art {
+      position: absolute;
+      inset: 0;
+      opacity: .2;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .stack { position: relative; display: grid; gap: 14px; }
+    .signal {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--bg));
+    }
+    .signal strong {
+      display: block;
+      font-family: var(--display-font);
+      font-size: 1.28rem;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+    .signal span { color: var(--muted); font-size: .98rem; line-height: 1.45; display: block; }
+    main section { padding: 54px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 22px; margin-bottom: 22px; }
+    h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: 1; letter-spacing: 0; }
+    h2, h3 { text-wrap: balance; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 48ch; line-height: 1.55; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
+    .filter {
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 80%, transparent);
+      color: var(--ink);
+      min-height: 38px;
+      padding: 0 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .filter[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .product {
+      min-height: 292px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--panel) 92%, var(--bg));
+      overflow: hidden;
+    }
+    .product-top {
+      min-height: 116px;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent) 28%, transparent), transparent),
+        linear-gradient(45deg, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 70%);
+      border-bottom: 1px solid var(--line);
+    }
+    .initials {
+      width: 54px;
+      height: 54px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: var(--panel);
+    }
+    .price { font-weight: 900; padding: 6px 9px; border-radius: 999px; background: var(--ink); color: var(--bg); white-space: nowrap; font-size: .9rem; }
+    .product-body { padding: 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .product h3 { margin: 0; font-size: 1.1rem; line-height: 1.25; }
+    .product p { margin: 0; color: var(--muted); line-height: 1.48; font-size: .96rem; }
+    .product a { margin-top: auto; align-self: flex-start; font-weight: 800; }
+    .trust {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .trust article {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--panel) 92%, var(--bg));
+      padding: 18px;
+    }
+    .trust h3 { margin: 0 0 8px; font-size: 1.05rem; }
+    .trust p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .empty {
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--panel) 75%, transparent);
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0 42px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .system-card { min-height: auto; }
+      .products, .trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 24px, 1180px); }
+      nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .nav-links { justify-content: flex-start; }
+      .hero { padding-top: 38px; }
+      .products, .trust { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#catalog">Skip to catalog</a>
+  <header>
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="mark" href="#top" aria-label="Schep Digital home">
+        <span class="sig" aria-hidden="true">SD</span>
+        <span data-gumroad-field="name">Schep Digital</span>
+      </a>
+      <div class="nav-links">
+        <a href="#catalog">Catalog</a>
+        <a href="#systems">Systems</a>
+        <a href="#support">Support</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> AI tools, templates, prompts, and practical creator systems</p>
+        <h1 id="hero-title"><span data-gumroad-field="name">Schep Digital</span></h1>
+        <p class="bio" data-gumroad-field="bio">Helping creators, freelancers and small businesses work smarter with AI-powered tools, templates and content. Instant digital downloads - ready to use.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#catalog">Explore the catalog</a>
+          <a class="btn secondary" href="#support">Contact and policies</a>
+        </div>
+      </div>
+
+      <aside class="system-card" aria-label="Store highlights">
+        <div class="grid-art" aria-hidden="true"></div>
+        <div class="stack">
+          <div class="signal">
+            <strong id="product-count">Live systems</strong>
+            <span>Digital products update from Gumroad data as the catalog changes.</span>
+          </div>
+          <div class="signal">
+            <strong>Pay once</strong>
+            <span>Most products are one-time purchases designed to be reused, adapted, and kept.</span>
+          </div>
+          <div class="signal">
+            <strong>No blank pages</strong>
+            <span>Prompt packs, launch kits, creative systems, and productivity templates.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="wrap" id="systems" aria-labelledby="systems-title">
+      <div class="section-head">
+        <h2 id="systems-title">Built for repeatable output.</h2>
+        <p>Every product is designed as a working system: clear instructions, reusable templates, copy-paste prompts, and practical workflows for shipping faster.</p>
+      </div>
+      <div class="trust" role="list">
+        <article role="listitem">
+          <h3>Creator workflows</h3>
+          <p>Content calendars, hooks, social systems, and AI-assisted workflows for publishing without starting from a blank page.</p>
+        </article>
+        <article role="listitem">
+          <h3>Business templates</h3>
+          <p>Resume, proposal, naming, SEO, and freelancer kits that turn fuzzy tasks into repeatable checklists.</p>
+        </article>
+        <article role="listitem">
+          <h3>AI production systems</h3>
+          <p>Prompt packs, local LLM guides, Midjourney character systems, and Blender workflows for practical AI output.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" id="catalog" aria-labelledby="catalog-title">
+      <div class="section-head">
+        <div>
+          <h2 id="catalog-title">Live catalog</h2>
+          <div class="pill-row" aria-label="Catalog filters">
+            <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter" type="button" data-filter="prompt" aria-pressed="false">Prompts</button>
+            <button class="filter" type="button" data-filter="marketing" aria-pressed="false">Marketing</button>
+            <button class="filter" type="button" data-filter="creative" aria-pressed="false">Creative</button>
+            <button class="filter" type="button" data-filter="business" aria-pressed="false">Business</button>
+          </div>
+        </div>
+        <p>Products are rendered from Gumroad's server-injected catalog data, so this page stays current as products are added, removed, or updated.</p>
+      </div>
+      <div class="products" id="product-grid" aria-live="polite"></div>
+      <div class="empty" id="empty-state" hidden>No matching products found.</div>
+    </section>
+
+    <section class="wrap" id="support" aria-labelledby="support-title">
+      <div class="section-head">
+        <h2 id="support-title">Contact, delivery, and policies.</h2>
+        <p>Clear merchant information for digital products sold by Schep Digital through Gumroad.</p>
+      </div>
+      <div class="trust">
+        <article>
+          <h3>Contact</h3>
+          <p>Support email: <a href="mailto:schephenk198@gmail.com">schephenk198@gmail.com</a>. Store: <a href="https://store.schep.dev">store.schep.dev</a>.</p>
+        </article>
+        <article>
+          <h3>Delivery</h3>
+          <p>All products are digital downloads delivered through Gumroad after purchase. Product pages contain the current price and included files.</p>
+        </article>
+        <article>
+          <h3>Refunds and returns</h3>
+          <p>Because these are digital products, returns are not required for downloaded files. If there is a technical issue, duplicate purchase, missing file, or product mismatch, email within 14 days. Requests are reviewed within 2 business days.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong data-gumroad-field="name">Schep Digital</strong><br>
+      AI tools and digital templates for creators, freelancers, and small businesses. Privacy note: customer purchases, payments, downloads, and emails are handled securely through Gumroad. Schep Digital does not sell customer data.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var source = document.getElementById("gumroad-data");
+      var data = { products: [], posts: [], pages: [] };
+      if (source && source.textContent.trim()) {
+        try { data = JSON.parse(source.textContent); } catch (error) { data = { products: [], posts: [], pages: [] }; }
+      }
+
+      var products = Array.isArray(data.products) ? data.products.slice() : [];
+      var grid = document.getElementById("product-grid");
+      var empty = document.getElementById("empty-state");
+      var count = document.getElementById("product-count");
+      var activeFilter = "all";
+
+      function text(value, fallback) {
+        return String(value || fallback || "").replace(/\s+/g, " ").trim();
+      }
+      function shortDescription(value) {
+        var clean = text(value, "A practical Schep Digital system for faster AI-assisted work.");
+        clean = clean.replace(/<[^>]*>/g, "");
+        return clean.length > 148 ? clean.slice(0, 145).trim() + "..." : clean;
+      }
+      function initials(name) {
+        return text(name, "SD").split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+      }
+      function bucket(product) {
+        var name = text(product.name).toLowerCase();
+        if (/prompt|gemini|llm|vault|chatgpt/.test(name)) return "prompt";
+        if (/instagram|linkedin|hook|content|email|seo|social/.test(name)) return "marketing";
+        if (/midjourney|character|blender|art|creative/.test(name)) return "creative";
+        if (/resume|cv|proposal|freelance|business|side hustle|notion|habit/.test(name)) return "business";
+        return "all";
+      }
+      function productCard(product) {
+        var article = document.createElement("article");
+        article.className = "product";
+        article.dataset.bucket = bucket(product);
+
+        var top = document.createElement("div");
+        top.className = "product-top";
+        var badge = document.createElement("span");
+        badge.className = "initials";
+        badge.textContent = initials(product.name);
+        var price = document.createElement("span");
+        price.className = "price";
+        price.textContent = text(product.price, "View");
+        top.appendChild(badge);
+        top.appendChild(price);
+
+        var body = document.createElement("div");
+        body.className = "product-body";
+        var h3 = document.createElement("h3");
+        h3.textContent = text(product.name, "Schep Digital product");
+        var p = document.createElement("p");
+        p.textContent = shortDescription(product.description);
+        var a = document.createElement("a");
+        a.href = text(product.url, "#catalog");
+        a.textContent = "View product page";
+        a.setAttribute("aria-label", "View product page for " + h3.textContent);
+        body.appendChild(h3);
+        body.appendChild(p);
+        body.appendChild(a);
+
+        article.appendChild(top);
+        article.appendChild(body);
+        return article;
+      }
+      function render() {
+        if (!grid) return;
+        grid.textContent = "";
+        var visible = products.filter(function (product) {
+          return activeFilter === "all" || bucket(product) === activeFilter;
+        });
+        visible.forEach(function (product) { grid.appendChild(productCard(product)); });
+        if (empty) empty.hidden = visible.length !== 0;
+        if (count) count.textContent = products.length || "Live";
+      }
+      Array.prototype.forEach.call(document.querySelectorAll(".filter"), function (button) {
+        button.addEventListener("click", function () {
+          activeFilter = button.getAttribute("data-filter") || "all";
+          Array.prototype.forEach.call(document.querySelectorAll(".filter"), function (other) {
+            other.setAttribute("aria-pressed", other === button ? "true" : "false");
+          });
+          render();
+        });
+      });
+      render();
+    }());
+  </script>
+</body>
+</html>

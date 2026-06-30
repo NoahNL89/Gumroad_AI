@@ -26,6 +26,28 @@
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [
+        "Built a self-contained custom Gumroad profile landing page in profile.html for @schephenk",
+        "Rendered the live Gumroad catalog dynamically from the server-injected gumroad-data JSON instead of hardcoding a product grid",
+        "Added responsive light and dark mode styling, accessible navigation, product filtering, contact details, delivery notes, refund notes, and privacy/support information",
+        "Ran Gumroad's server-side page preview sanitizer until it reported zero removed tags and zero removed attributes",
+        "Published the custom profile page with a clean Gumroad sanitization report and verified it live at the Gumroad profile URL and store.schep.dev embed endpoint"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0,
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The custom profile replaces the default Gumroad profile and links visitors to individual product pages; no checkout buttons were added."
+    },
+    {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
         "Updated the Pinterest catalog generator to emit deeper product-specific google_product_category paths instead of the shallow Media > Digital Goods category",
         "Mapped products to Google taxonomy paths for business/productivity software, marketing, office applications, graphic design, and 3D modeling",
         "Regenerated output/pinterest_catalog.csv with 27 rows and verified every row has at least three google_product_category levels",
