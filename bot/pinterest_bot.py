@@ -31,7 +31,9 @@ DB_PATH = Path(__file__).parent.parent / "db" / "store.db"
 DRAFT_DIR = Path(__file__).parent.parent / "agent" / "pinterest_queue"
 
 AUTH_URL = "https://www.pinterest.com/oauth/"
-DEFAULT_API_BASE = "https://api.pinterest.com/v5"
+PRODUCTION_API_BASE = "https://api.pinterest.com/v5"
+SANDBOX_API_BASE = "https://api-sandbox.pinterest.com/v5"
+DEFAULT_API_BASE = SANDBOX_API_BASE
 
 MAX_POSTS_PER_DAY = 3
 DISCOUNT_CODE = "LAUNCH30"
@@ -115,11 +117,14 @@ def require_env(name):
 
 
 def api_base():
-    return env("PINTEREST_API_BASE", DEFAULT_API_BASE).rstrip("/")
+    configured = env("PINTEREST_API_BASE", DEFAULT_API_BASE).rstrip("/")
+    if env("PINTEREST_ALLOW_PRODUCTION", "").strip() == "1":
+        return configured
+    return env("PINTEREST_SANDBOX_API_BASE", SANDBOX_API_BASE).rstrip("/")
 
 
 def use_sandbox_api():
-    os.environ["PINTEREST_API_BASE"] = env("PINTEREST_SANDBOX_API_BASE", "https://api-sandbox.pinterest.com/v5")
+    os.environ["PINTEREST_API_BASE"] = env("PINTEREST_SANDBOX_API_BASE", SANDBOX_API_BASE)
 
 
 def is_sandbox():
@@ -315,7 +320,7 @@ def create_board(name):
 def get_board_id():
     if is_sandbox() and env("PINTEREST_SANDBOX_BOARD_ID"):
         return env("PINTEREST_SANDBOX_BOARD_ID")
-    configured = env("PINTEREST_BOARD_ID")
+    configured = None if is_sandbox() else env("PINTEREST_BOARD_ID")
     if configured:
         return configured
 

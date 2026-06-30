@@ -111,7 +111,7 @@ Credentials live in `.env` (gitignored). Copy `.env.example` to get started.
 | `PINTEREST_APP_ID` / `PINTEREST_APP_SECRET` / `PINTEREST_ACCESS_TOKEN` / `PINTEREST_REFRESH_TOKEN` | `bot/pinterest_bot.py` |
 | `AGENT_MONTHLY_TARGET_EUR` | `db/query.py` survival check (default: 58) |
 
-Pinterest Trial-access apps must use the sandbox API for test Pin creation. Production Pin creation requires Pinterest Standard access and must go through the explicit draft review/approve flow.
+For now all Pinterest API calls must stay on the sandbox API. Production Pin creation requires Pinterest Standard access, `PINTEREST_ALLOW_PRODUCTION=1`, and the explicit draft review/publish flow.
 
 ---
 

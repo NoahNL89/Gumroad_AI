@@ -14,8 +14,8 @@ Avoid describing it as an autonomous promotion bot.
 - Minimal scopes: `user_accounts:read`, `boards:read`, `boards:write`, `pins:read`, `pins:write`.
 - `promote` and `post` create local draft JSON files only.
 - `publish <draft.json>` / `approve <draft.json>` publishes one reviewed draft.
-- Production API base: `https://api.pinterest.com/v5`.
-- Sandbox API base: `https://api-sandbox.pinterest.com/v5`.
+- Current API base: `https://api-sandbox.pinterest.com/v5`.
+- Future production API base, only after Standard access and `PINTEREST_ALLOW_PRODUCTION=1`: `https://api.pinterest.com/v5`.
 
 ## Demo Recording Checklist
 
@@ -30,4 +30,4 @@ Avoid describing it as an autonomous promotion bot.
 
 ## Current Status
 
-Production Pin creation is blocked while the app has Trial access. The expected Pinterest error is code 29. Sandbox Pin creation works and is suitable for the Standard access demo.
+Production Pin creation is disabled in this workspace while the app has Trial access. Sandbox Pin creation works and is suitable for the Standard access demo.

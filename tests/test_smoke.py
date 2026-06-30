@@ -68,12 +68,17 @@ def test_builder_rejects_unknown_block_type():
 
 
 # ── bots: copy correctness + rate limiting ──────────────────────────────────
-def _make_promotions_db(path, mastodon_posts=0, bluesky_posts=0, pinterest_posts=0):
+def _make_promotions_db(path, mastodon_posts=0, bluesky_posts=0, pinterest_posts=0, pinterest_sandbox_posts=0):
     con = sqlite3.connect(path)
     con.execute("""CREATE TABLE promotions (platform TEXT, product_id TEXT, url TEXT,
                    content TEXT, posted_at TEXT)""")
     now = "datetime('now')"
-    for plat, n in (("mastodon", mastodon_posts), ("bluesky", bluesky_posts), ("pinterest", pinterest_posts)):
+    for plat, n in (
+        ("mastodon", mastodon_posts),
+        ("bluesky", bluesky_posts),
+        ("pinterest", pinterest_posts),
+        ("pinterest_sandbox", pinterest_sandbox_posts),
+    ):
         for _ in range(n):
             con.execute(f"INSERT INTO promotions VALUES (?,?,?,?,{now})",
                         (plat, "id", "url", "x"))
@@ -154,10 +159,10 @@ def test_bot_rate_limit_blocks_at_three():
             assert mods["pinterest_bot"].check_rate_limit() is True, "should allow at 0 posts"
 
         dbp.unlink()
-        _make_promotions_db(str(dbp), pinterest_posts=3)
+        _make_promotions_db(str(dbp), pinterest_sandbox_posts=3)
         if "pinterest_bot" in mods:
             mods["pinterest_bot"].DB_PATH = dbp
-            assert mods["pinterest_bot"].check_rate_limit() is False, "should block Pinterest at 3 posts"
+            assert mods["pinterest_bot"].check_rate_limit() is False, "should block Pinterest sandbox at 3 posts"
 
 
 def test_pinterest_draft_requires_manual_approval():
@@ -202,6 +207,30 @@ def test_pinterest_save_env_values_updates_tokens():
     assert "PINTEREST_ACCESS_TOKEN=new-access" in text
     assert "PINTEREST_REFRESH_TOKEN=new-refresh" in text
     assert "PINTEREST_BOARD_NAME=Board" in text
+
+
+def test_pinterest_api_base_forces_sandbox_by_default():
+    mods = _bots()
+    if "pinterest_bot" not in mods:
+        return
+    pinterest = mods["pinterest_bot"]
+    old = {
+        "PINTEREST_API_BASE": os.environ.get("PINTEREST_API_BASE"),
+        "PINTEREST_SANDBOX_API_BASE": os.environ.get("PINTEREST_SANDBOX_API_BASE"),
+        "PINTEREST_ALLOW_PRODUCTION": os.environ.get("PINTEREST_ALLOW_PRODUCTION"),
+    }
+    try:
+        os.environ["PINTEREST_API_BASE"] = "https://api.pinterest.com/v5"
+        os.environ["PINTEREST_SANDBOX_API_BASE"] = "https://api-sandbox.pinterest.com/v5"
+        os.environ.pop("PINTEREST_ALLOW_PRODUCTION", None)
+        assert pinterest.api_base() == "https://api-sandbox.pinterest.com/v5"
+        assert pinterest.is_sandbox() is True
+    finally:
+        for key, value in old.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
 
 
 # ── query.py: revenue math ──────────────────────────────────────────────────

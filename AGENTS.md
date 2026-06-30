@@ -131,9 +131,9 @@ python3 bot/mastodon_bot.py engage
 ```
 
 **Pinterest:**
-Pinterest production must be treated as a manual review-and-publish workflow,
-not an autonomous poster. This keeps the app aligned with Pinterest's developer
-guidelines around specific user consent for each Pin.
+For now every Pinterest API call must use the sandbox API. Production access is
+disabled unless `PINTEREST_ALLOW_PRODUCTION=1` is deliberately set after Standard
+access is approved. Publishing remains a manual review-and-publish workflow.
 
 ```bash
 # One-time OAuth setup
@@ -152,7 +152,7 @@ scripts/pinterest publish agent/pinterest_queue/<draft>.json
 # Standard access application/demo helper
 scripts/pinterest standard-brief
 ```
-Trial-access Pinterest apps can read production boards but cannot create production Pins. Use `scripts/pinterest sandbox-promote` for a live sandbox Pin create demo.
+Trial-access Pinterest apps cannot create production Pins. Use `scripts/pinterest sandbox-promote` for a live sandbox Pin create demo.
 
 ---
 

@@ -23,6 +23,28 @@
   },
   "sessions": [
     {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
+        "Forced all Pinterest CLI/API calls to use the sandbox API by default",
+        "Added an explicit production escape hatch requiring PINTEREST_ALLOW_PRODUCTION=1 for future Standard-access use",
+        "Changed .env.example and agent docs so Pinterest currently points at https://api-sandbox.pinterest.com/v5",
+        "Prevented sandbox runs from reusing PINTEREST_BOARD_ID so board lookup/create stays inside sandbox resources",
+        "Added regression coverage proving a production PINTEREST_API_BASE is ignored unless production is explicitly allowed",
+        "Verified scripts/pinterest status reports sandbox=true and scripts/pinterest boards lists only the sandbox board"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0,
+        "note": "No Pin was posted this session; Pinterest reads were verified against sandbox only."
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Pinterest production calls are disabled for now. Re-enable only after Standard access approval by setting PINTEREST_ALLOW_PRODUCTION=1."
+    },
+    {
       "date": "2026-06-29",
       "agent": "Codex",
       "actions": [
