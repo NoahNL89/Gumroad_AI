@@ -26,6 +26,25 @@
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [
+        "Changed the Pinterest OAuth redirect default from http://localhost:3003/pinterest/callback to http://localhost:9900/pinterest/callback",
+        "Updated .env.example and the local gitignored .env redirect URI to use port 9900",
+        "Verified 127.0.0.1:9900 is currently free and scripts/pinterest auth-url generates an OAuth URL with the 9900 redirect",
+        "Confirmed no tracked Pinterest references to port 3003 remain"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The Pinterest app settings must also include http://localhost:9900/pinterest/callback as an allowed redirect URL."
+    },
+    {
+      "date": "2026-06-30",
+      "agent": "Codex",
+      "actions": [
         "Forced all Pinterest CLI/API calls to use the sandbox API by default",
         "Added an explicit production escape hatch requiring PINTEREST_ALLOW_PRODUCTION=1 for future Standard-access use",
         "Changed .env.example and agent docs so Pinterest currently points at https://api-sandbox.pinterest.com/v5",

@@ -38,7 +38,7 @@ DEFAULT_API_BASE = SANDBOX_API_BASE
 MAX_POSTS_PER_DAY = 3
 DISCOUNT_CODE = "LAUNCH30"
 DEFAULT_BOARD_NAME = "AI Tools & Digital Templates"
-DEFAULT_REDIRECT_URI = "http://localhost:3003/pinterest/callback"
+DEFAULT_REDIRECT_URI = "http://localhost:9900/pinterest/callback"
 DEFAULT_SCOPES = "user_accounts:read,boards:read,boards:write,pins:read,pins:write"
 
 TITLE_LIMIT = 100
