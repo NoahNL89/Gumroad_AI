@@ -23,6 +23,27 @@
   },
   "sessions": [
     {
+      "date": "2026-07-01",
+      "agent": "Codex",
+      "actions": [
+        "Replaced ambiguous Pinterest google_product_category paths with exact leaf IDs from Google's current product taxonomy",
+        "Classified 25 downloadable templates as Document Templates (8022), one guide as E-books (543542), and one Blender product as 3D Modeling Software (6027)",
+        "Regenerated the 27-item Pinterest catalog and verified the authenticated container endpoint serves the identical updated file",
+        "Added smoke tests for the supported taxonomy mappings and completed the full suite with 20 passing tests"
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "pinterest": 0,
+        "pinterest_sandbox": 0,
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Pinterest warning 126 should be reevaluated after the next scheduled catalog ingestion; numeric leaf IDs avoid path parsing ambiguity and represent the most specific applicable Google categories."
+    },
+    {
       "date": "2026-06-30",
       "agent": "Codex",
       "actions": [

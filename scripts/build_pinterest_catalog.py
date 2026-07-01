@@ -40,6 +40,14 @@ DEFAULT_DESCRIPTION = (
     "creator systems, and practical business automation."
 )
 
+# Numeric IDs are less error-prone than taxonomy paths when Pinterest imports
+# Google categories. These IDs are leaf categories from Google's current
+# English product taxonomy.
+GPC_DOCUMENT_TEMPLATES = "8022"
+GPC_EBOOKS = "543542"
+GPC_DIGITAL_ARTWORK = "500046"
+GPC_3D_MODELING_SOFTWARE = "6027"
+
 
 def load_env():
     env_path = ROOT / ".env"
@@ -83,18 +91,12 @@ def product_type(name):
 def google_product_category(name):
     n = name.lower()
     if "blender" in n or "3d" in n:
-        return "Software > Computer Software > Multimedia & Design Software > 3D Modeling Software"
-    if any(k in n for k in ("midjourney", "character", "ai art")):
-        return "Software > Computer Software > Multimedia & Design Software > Graphic Design & Illustration Software"
-    if any(k in n for k in ("instagram", "linkedin", "hook", "content", "email", "seo", "social media")):
-        return "Business & Industrial > Advertising & Marketing > Brochures"
-    if any(k in n for k in ("resume", "cv", "proposal", "freelance", "business name", "side hustle")):
-        return "Software > Computer Software > Business & Productivity Software"
-    if any(k in n for k in ("notion", "habit", "productivity", "journaling")):
-        return "Software > Computer Software > Office Application Software"
-    if any(k in n for k in ("prompt", "gemini", "llm", "vault", "ai ")) or "ai-" in n:
-        return "Software > Computer Software > Business & Productivity Software"
-    return "Media > Books > E-books"
+        return GPC_3D_MODELING_SOFTWARE
+    if "digital artwork" in n or "ai art asset" in n:
+        return GPC_DIGITAL_ARTWORK
+    if any(k in n for k in ("guide", "mastery kit")):
+        return GPC_EBOOKS
+    return GPC_DOCUMENT_TEMPLATES
 
 
 def custom_label(name):

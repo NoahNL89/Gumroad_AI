@@ -283,9 +283,17 @@ def test_pinterest_catalog_feed_rewrites_claimed_domain_and_skips_subscriptions(
     assert rows[0]["link"] == "https://store.schep.dev/l/prompts"
     assert rows[0]["price"] == "7.99 EUR"
     assert rows[0]["availability"] == "in stock"
-    assert rows[0]["google_product_category"].count(">") >= 2
+    assert rows[0]["google_product_category"] == "8022"
     assert "Monthly Vault" in skipped[0][0]
     assert '"id","title","description","link","image_link","price","availability"' in text
+
+
+def test_pinterest_catalog_uses_specific_google_taxonomy_leaf_ids():
+    catalog = _load(ROOT / "scripts/build_pinterest_catalog.py", "pinterest_catalog_categories")
+    assert catalog.google_product_category("Instagram Growth Templates") == "8022"
+    assert catalog.google_product_category("The Local LLM Guide") == "543542"
+    assert catalog.google_product_category("AI Art Asset Collection") == "500046"
+    assert catalog.google_product_category("AI-to-Blender Mastery Kit") == "6027"
 
 
 def test_catalog_server_requires_basic_auth():
