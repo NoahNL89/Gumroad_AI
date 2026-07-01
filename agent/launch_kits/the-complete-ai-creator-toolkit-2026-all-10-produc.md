@@ -21,9 +21,9 @@ Lifetime sales so far: 0
 **Body (paste, then trim to your voice):**
 Most advice on AI productivity templates is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. Define a unified persona architecture (voice, constraints, audience) in a single document and feed it to your LLM before any specific prompt, ensuring consistent output across all tasks.
-2. Build 'modular prompt blocks' rather than giant monolithic prompts. Have one block for the context, one for the task, and one for formatting, then combine them as needed.
-3. Use the 'Chain of Density' technique when summarizing long articles: ask the AI to summarize first, then iterate 3 times to condense the text while keeping every specific entity.
+1. Start with one recurring task and name the raw input it receives—notes, a transcript, a customer insight, or a rough draft. A reusable AI system begins with a stable job, not a clever one-off prompt.
+2. Force a predictable output such as a checklist, scorecard, calendar, or table. Add audience, tone, length, exclusions, and a concrete quality bar so the result is reviewable instead of merely plausible.
+3. Run a separate QA prompt that flags vague claims, unsupported statements, repetition, missing next steps, and buyer objections. Save that prompt beside one strong example output so quality compounds.
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
@@ -70,9 +70,9 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most AI productivity templates advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: Define a unified persona architecture (voice, constraints, audience) and feed it to your LLM before any specific prompt, ensuring consistent output.
-3. Step 2: Build 'modular prompt blocks' rather than giant monolithic prompts (context, task, format) and combine them as needed.
-4. Step 3–4: Use the 'Chain of Density' technique to condense text while keeping every specific entity, and always use explicit negative constraints.
+2. Step 1: Pick one task you repeat and define the exact raw input the AI will receive.
+3. Step 2: Require a fixed output format, then state audience, tone, length, exclusions, and quality bar.
+4. Step 3–4: Run a separate QA pass for vague or unsupported claims, then save the prompt with a strong example output for reuse.
 5. If you want it done-for-you (templates + every step), I packaged it as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle": https://schephenk.gumroad.com/l/usfdum — code LAUNCH30 = 30% off this week.
 
 ---
