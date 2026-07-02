@@ -839,12 +839,45 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Pinterest publishing remains manual-review gated. Existing discount inventory is sufficient; no duplicate promotion code was created."
+    },
+    {
+      "date": "2026-07-02",
+      "agent": "Claude (Opus 4.8)",
+      "actions": [
+        "Startup: synced DB (30 products live, 0 drafts, 0 sales, 0 subscribers, EUR 0 lifetime). Fixed PATH so the Gumroad CLI authenticates (~/.local/bin was missing from PATH; auth-check falsely reported unauthenticated).",
+        "Funnel verdict stored and acted on: bottleneck = REACH/distribution, not more products. Skipped the ROUTINE 5 new-product build (4d evidence gate: 0 traffic + saturated catalog with known near-duplicates).",
+        "Store hygiene: no drafts; the 2 'underpriced' flags are both exempt (EUR 0.99/mo subscription + EUR 0 free lead magnet). No repricing needed.",
+        "ROTATED launch kit to 'The AI-to-Blender Mastery Kit - 2026 Edition' (EUR 14.99, /l/ai-blender-mastery) — a fresh, distinct audience (r/blender, r/3Dmodeling) not covered by the 5 prior kits. Filled ALL bracketed placeholders with real, specific workflow tips (orthographic reference prompting, one-texture->full-PBR set, sRGB vs Non-Color color space, bpy batch-import).",
+        "Distribution via configured channels: Mastodon promote + Bluesky promote (LAUNCH30), plus one VALUE-FIRST Blender tip post to each platform (link-soft, to grow audience). Both platforms now at 3/3 daily posts (maxed).",
+        "Community growth: 14 Mastodon interactions (#AItools) + 23 Bluesky interactions (#Productivity).",
+        "Pinterest: 1 review-required draft queued (Side Hustle Quick-Start Checklist). Production still sandbox-gated (PINTEREST_ALLOW_PRODUCTION unset) — left for manual review, not force-published.",
+        "14+ day EUR 0 rule honored: extended FLASH50 (50% off) from the flagship-only to ALL 28 eligible paid single-purchase products (created 27 new codes, 0 failures). Excluded the EUR 0.99/mo subscription + EUR 0 free product, which is why the prior universal attempt was blocked. Catalog-wide urgency lever now exists.",
+        "Logged duplicate-name clusters for visibility (NOT deleted): ~4 Consistent Character Genesis, ~3 '75 Power Prompts', ~3-4 'AI Prompt Vault', 2 GEMINI packs."
+      ],
+      "new_product_created": null,
+      "distribution_assets": {
+        "launch_kit": "agent/launch_kits/the-ai-to-blender-mastery-kit-2026-edition.md (ready-to-post; placeholders filled with real tips)",
+        "pinterest_draft": "agent/pinterest_queue/20260702T080839Z-side-hustle-quick-start-checklist-2026-edition.json (manual review required)"
+      },
+      "social_posts_made": {
+        "mastodon": 2,
+        "bluesky": 2,
+        "pinterest": 0,
+        "mastodon_interactions": 14,
+        "bluesky_interactions": 23
+      },
+      "offer_codes_created": [
+        "FLASH50 (50% off) added to 27 paid single-purchase products -> now covers all 28 eligible products"
+      ],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Unchanged bottleneck: distribution is human-gated. The social bots reach a near-zero audience, and the highest-ROI action remains a HUMAN pasting a post-ready launch kit into the right community value-first (this session: r/blender / r/3Dmodeling for the AI-to-Blender kit). FLASH50 is now a catalog-wide 50%-off lever; the bots still advertise LAUNCH30, so a future session (or human) should lead urgency posts with FLASH50. Socials maxed at 3/3 today so no further urgency posts possible this session."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-01",
-  "status": "at_risk",
+  "last_updated": "2026-07-02",
+  "status": "at_risk — EUR 0 this month vs EUR 58 target; bottleneck = reach/distribution (human-gated)",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
