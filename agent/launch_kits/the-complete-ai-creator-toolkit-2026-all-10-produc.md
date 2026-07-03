@@ -21,9 +21,9 @@ Lifetime sales so far: 0
 **Body (paste, then trim to your voice):**
 Most advice on AI productivity templates is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. Start with one recurring task and name the raw input it receives—notes, a transcript, a customer insight, or a rough draft. A reusable AI system begins with a stable job, not a clever one-off prompt.
-2. Force a predictable output such as a checklist, scorecard, calendar, or table. Add audience, tone, length, exclusions, and a concrete quality bar so the result is reviewable instead of merely plausible.
-3. Run a separate QA prompt that flags vague claims, unsupported statements, repetition, missing next steps, and buyer objections. Save that prompt beside one strong example output so quality compounds.
+1. Stop starting from a blank page. Create a master prompts library grouped by task (Ideation, Drafting, Editing). Keep it in Notion and never type the same prompt twice.
+2. Automate your outline generation. Feed the AI a structure template (e.g., PAS - Problem, Agitation, Solution) and constrain the output format strictly to headers and bullet points.
+3. Define your brand voice once. Write a "Voice & Tone" prompt that includes a sample of your best writing. Append this to every content generation request to stop sounding like a robot.
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
@@ -70,9 +70,9 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most AI productivity templates advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: Pick one task you repeat and define the exact raw input the AI will receive.
-3. Step 2: Require a fixed output format, then state audience, tone, length, exclusions, and quality bar.
-4. Step 3–4: Run a separate QA pass for vague or unsupported claims, then save the prompt with a strong example output for reuse.
+2. Step 1: Create a master prompts library grouped by task (Ideation, Drafting, Editing). Keep it in Notion and never type the same prompt twice.
+3. Step 2: Automate your outline generation. Feed the AI a structure template (e.g., PAS) and constrain the output format strictly to headers and bullet points.
+4. Step 3–4: Define your brand voice with a sample prompt, and always use "chain of thought" for complex tasks so you can correct the AI's direction early.
 5. If you want it done-for-you (templates + every step), I packaged it as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle": https://schephenk.gumroad.com/l/usfdum — code LAUNCH30 = 30% off this week.
 
 ---
