@@ -1,5 +1,5 @@
 {
-  "_comment": "AI Agent Revenue Ledger \u2014 updated after each agent session",
+  "_comment": "AI Agent Revenue Ledger — updated after each agent session",
   "store": "schephenk.gumroad.com",
   "currency": "EUR",
   "targets": {
@@ -169,9 +169,9 @@
       "date": "2026-06-30",
       "agent": "Antigravity",
       "actions": [
-        "Routine 1: Ran startup sync \u2014 30 live products, 0 sales, AT RISK status confirmed.",
-        "Routine 2: Skipped social bots \u2014 3 posts made in the last 24h per platform.",
-        "Routine 3: Checked store hygiene \u2014 no drafts, and only free/subscription products were <= \u20ac0.99. Logged duplicate names.",
+        "Routine 1: Ran startup sync — 30 live products, 0 sales, AT RISK status confirmed.",
+        "Routine 2: Skipped social bots — 3 posts made in the last 24h per platform.",
+        "Routine 3: Checked store hygiene — no drafts, and only free/subscription products were <= €0.99. Logged duplicate names.",
         "Routine 4: Skipped new product build based on funnel verdict (bottleneck is REACH). Generated launch kit for 'The Complete AI Creator Toolkit 2026' and injected specific AI productivity tips."
       ],
       "new_product_created": null,
@@ -307,7 +307,7 @@
       "agent": "Codex",
       "actions": [
         "Ran the standard Gumroad CLI health loop: auth check succeeded, db/sync.py discovered 30 live products, 0 sales, 0 subscribers, 0 payouts, and 31 offer codes with no 403 errors",
-        "Confirmed June 2026 revenue remains \u20ac0.00 against the \u20ac58 survival target; underpriced query still flags the free lead magnet and the \u20ac0.99/month subscription",
+        "Confirmed June 2026 revenue remains €0.00 against the €58 survival target; underpriced query still flags the free lead magnet and the €0.99/month subscription",
         "Fixed documentation drift in agent/MISSION.md and CLAUDE.md so scripts/api is described as a CLI compatibility layer rather than a direct HTTP API path",
         "Ran smoke tests after the doc cleanup; all 14 tests passed, including the direct Gumroad API exclusion regression",
         "Completed Mastodon community engagement with 2 interactions on #CreatorEconomy",
@@ -453,9 +453,9 @@
         "Loaded environment and verified Gumroad authentication for Schep Digital",
         "Ran live sync: 30 products discovered, 30 live, 0 drafts; products and offer codes synced successfully",
         "Confirmed sales/subscriber/payout API endpoints still return HTTP 403, so revenue visibility remains limited to the local DB snapshot",
-        "Ran survival and funnel checks: June revenue remains \u20ac0.00 against the \u20ac58.00 survival target; funnel verdict is REACH bottleneck, not catalog shortage",
+        "Ran survival and funnel checks: June revenue remains €0.00 against the €58.00 survival target; funnel verdict is REACH bottleneck, not catalog shortage",
         "Checked social rate limits: Mastodon and Bluesky already had 3 posts each in the last 24 hours, so no additional bot posts or engagement were run",
-        "Checked hygiene: no drafts and no exact duplicate product names; left the \u20ac0 lead magnet and \u20ac0.99/month subscription unchanged as exempt low-price items",
+        "Checked hygiene: no drafts and no exact duplicate product names; left the €0 lead magnet and €0.99/month subscription unchanged as exempt low-price items",
         "Regenerated the flagship bundle launch kit and replaced generic placeholders with concrete AI productivity template tips for Reddit/X distribution"
       ],
       "new_product_created": null,
@@ -474,9 +474,9 @@
       "date": "2026-06-24",
       "agent": "Antigravity CLI",
       "actions": [
-        "Ran startup sync \u2014 30 live products, 0 sales, AT RISK status confirmed",
-        "Skipped social bots \u2014 both platforms at 3-post daily limit",
-        "Checked underpriced products \u2014 both exempt (one free, one subscription)",
+        "Ran startup sync — 30 live products, 0 sales, AT RISK status confirmed",
+        "Skipped social bots — both platforms at 3-post daily limit",
+        "Checked underpriced products — both exempt (one free, one subscription)",
         "Skipped new product pipeline based on funnel verdict (bottleneck is REACH, not products)",
         "Generated 2 launch kits for The Complete AI Creator Toolkit and The Sovereign Professional Local LLM Guide"
       ],
@@ -493,23 +493,23 @@
       "date": "2026-06-23",
       "agent": "Claude (claude-sonnet-4-6)",
       "actions": [
-        "Ran startup sync \u2014 28 live products, \u20ac0.00 revenue, AT RISK status confirmed",
-        "Skipped social bots \u2014 both Mastodon and Bluesky already at 3-post daily limit",
-        "Confirmed no draft products, no underpriced products (\u20ac0.99 is subscription, exempt)",
+        "Ran startup sync — 28 live products, €0.00 revenue, AT RISK status confirmed",
+        "Skipped social bots — both Mastodon and Bluesky already at 3-post daily limit",
+        "Confirmed no draft products, no underpriced products (€0.99 is subscription, exempt)",
         "Executed full new product pipeline for 'LinkedIn Content OS: 30 Days of Posts in 2 Hours'",
         "Used existing product plan from agent/new_product_plan.json (created 2026-06-22, never built)",
-        "Codex image generation skipped \u2014 codex not in PATH and no OPENAI_API_KEY; used CSS-only design",
-        "Wrote scripts/gen_linkedin-content-os.py \u2014 7-chapter PDF with 40+ AI prompts, 60 hook templates, 30-day calendar",
+        "Codex image generation skipped — codex not in PATH and no OPENAI_API_KEY; used CSS-only design",
+        "Wrote scripts/gen_linkedin-content-os.py — 7-chapter PDF with 40+ AI prompts, 60 hook templates, 30-day calendar",
         "Generated downloads/pdfs/linkedin-content-os.html via generator script",
         "Applied impeccable design skill: fixed .checklist-item CSS (was unstyled divs), fixed .check-icon (was empty box rendering), fixed .item-num sizing for multi-char labels, added page-break-inside: avoid on key components, added cover accent rule, added text-wrap: balance to headings",
         "Reduced em-dashes from 95 to 18 across 3 Python passes (60+ targeted replacements)",
-        "Fixed marketing buzzwords: 'Drive Engagement' \u2192 'Build Comment Volume', 'scroll-stopping' \u2192 'posts that stop the scroll'",
-        "Generated downloads/pdfs/linkedin-content-os.pdf via headless Chrome \u2014 26 pages, 1.21MB",
-        "Created Gumroad product ID rGqkgEIfurqtJggIRWHxsQ== at \u20ac9.99 EUR",
+        "Fixed marketing buzzwords: 'Drive Engagement' → 'Build Comment Volume', 'scroll-stopping' → 'posts that stop the scroll'",
+        "Generated downloads/pdfs/linkedin-content-os.pdf via headless Chrome — 26 pages, 1.21MB",
+        "Created Gumroad product ID rGqkgEIfurqtJggIRWHxsQ== at €9.99 EUR",
         "Uploaded PDF, published product at https://schephenk.gumroad.com/l/sstsmp",
         "Added LAUNCH30 discount code (30% off)",
         "Updated product with full conversion-optimized description",
-        "Skipped launch announcement posts \u2014 daily social rate limit (3/platform) already reached by prior sessions"
+        "Skipped launch announcement posts — daily social rate limit (3/platform) already reached by prior sessions"
       ],
       "new_product_created": {
         "name": "LinkedIn Content OS: 30 Days of Posts in 2 Hours",
@@ -525,17 +525,17 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "notes": "Codex and OPENAI_API_KEY unavailable \u2014 images skipped, CSS gradient design used. Launch announcement deferred to next session when 24h social window resets."
+      "notes": "Codex and OPENAI_API_KEY unavailable — images skipped, CSS gradient design used. Launch announcement deferred to next session when 24h social window resets."
     },
     {
       "date": "2026-06-22",
       "agent": "Codex",
       "actions": [
         "Ran the autonomous startup sync, survival check, and 28-product catalog review",
-        "Confirmed revenue remains \u20ac0.00 against the \u20ac58.00 June survival target",
+        "Confirmed revenue remains €0.00 against the €58.00 June survival target",
         "Confirmed social activity is already within target: 3 Mastodon posts and 2 Bluesky posts in the last 24 hours; no additional posts or engagement were required",
         "Confirmed all 28 products are published and no draft products require action",
-        "Left the \u20ac0.99 Consistent Character Genesis monthly subscription unchanged because subscriptions are explicitly exempt from the repricing rule",
+        "Left the €0.99 Consistent Character Genesis monthly subscription unchanged because subscriptions are explicitly exempt from the repricing rule",
         "Skipped the new-product pipeline because repository evidence shows catalog/product work on 2026-06-21 and a new product plan dated 2026-06-22, within the seven-day window",
         "Logged obvious duplicate/edition families without deleting them: Consistent Character Genesis, 75 Power Prompts, and AI Prompt Vault",
         "Skipped FLASH50 because the available zero-revenue history begins on 2026-06-16 and does not establish 14 consecutive days"
@@ -642,9 +642,9 @@
       "date": "2026-06-16",
       "agent": "Antigravity CLI",
       "actions": [
-        "Analyzed store: 10 products all at \u20ac0.99, 0 sales \u2014 critical underpricing",
-        "Repriced all 10 products to market rates (\u20ac5.99 \u2013 \u20ac14.99)",
-        "Created flagship bundle: The Complete AI Creator Toolkit 2026 (\u20ac29.99)",
+        "Analyzed store: 10 products all at €0.99, 0 sales — critical underpricing",
+        "Repriced all 10 products to market rates (€5.99 – €14.99)",
+        "Created flagship bundle: The Complete AI Creator Toolkit 2026 (€29.99)",
         "Published bundle at https://schephenk.gumroad.com/l/usfdum",
         "Created LAUNCH30 discount codes (30% off) on top 2 products",
         "Created BUNDLE20 discount code (20% off) on bundle",
@@ -684,39 +684,39 @@
       "agent": "claude",
       "actions": [
         "Ran full GO session routines 1-6; confirmed funnel verdict = REACH/distribution bottleneck (0 sales across 30 live products).",
-        "Routine 2 skipped: both social bots already at the 3/3 daily cap (posted 2026-06-23 evening) \u2014 no further posts allowed.",
-        "Routine 3: no drafts; no repricing needed (only sub-\u20ac0.99 items are the exempt \u20ac0.99/mo subscription and the \u20ac0 lead magnet).",
-        "Routine 4b: rotated launch kit to a fresh product \u2014 generated agent/launch_kits/linkedin-content-os-30-days-of-posts-in-2-hours.md.",
+        "Routine 2 skipped: both social bots already at the 3/3 daily cap (posted 2026-06-23 evening) — no further posts allowed.",
+        "Routine 3: no drafts; no repricing needed (only sub-€0.99 items are the exempt €0.99/mo subscription and the €0 lead magnet).",
+        "Routine 4b: rotated launch kit to a fresh product — generated agent/launch_kits/linkedin-content-os-30-days-of-posts-in-2-hours.md.",
         "Routine 4c (key fix): rewrote the free lead-magnet page 'The AI Quick-Start Pack (Free)' from a 175-char stub to a full 2004-char conversion page (hook, what's inside, 10-min how-to, personas, soft LAUNCH30 bridge). This is the funnel's email-capture entry point.",
         "Conversion audit: lead magnet was the ONLY thin page (<600 chars) in the catalog; all 29 paid products already have rich 1200+ char pages."
       ],
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "notes": "HUMAN BOTTLENECK: every autonomous reach channel is tapped (both bots maxed daily; Reddit/Product Hunt/SEO/email require human posting). 3 ready-to-post launch kits now sit in agent/launch_kits/ unposted \u2014 the single highest-ROI next action is a human posting the bundle kit to r/SideProject or r/Entrepreneur (value-first, link in first comment). The email nurture funnel has 0 subscribers because the lead magnet has had 0 downloads \u2014 fixing its page (this session) is the prerequisite for that funnel to ever fill."
+      "notes": "HUMAN BOTTLENECK: every autonomous reach channel is tapped (both bots maxed daily; Reddit/Product Hunt/SEO/email require human posting). 3 ready-to-post launch kits now sit in agent/launch_kits/ unposted — the single highest-ROI next action is a human posting the bundle kit to r/SideProject or r/Entrepreneur (value-first, link in first comment). The email nurture funnel has 0 subscribers because the lead magnet has had 0 downloads — fixing its page (this session) is the prerequisite for that funnel to ever fill."
     },
     {
       "date": "2026-06-25",
       "agent": "claude",
       "actions": [
-        "Startup checks: auth OK (Schep Digital), synced DB \u2014 30 products live, 0 sales, 0 subscribers, \u20ac0 lifetime. Status: at_risk, \u20ac58 behind.",
+        "Startup checks: auth OK (Schep Digital), synced DB — 30 products live, 0 sales, 0 subscribers, €0 lifetime. Status: at_risk, €58 behind.",
         "Bots had full quota (last post 2026-06-23, >24h ago). Ran engage + 1 promote on Mastodon, 1 promote on Bluesky.",
-        "BUG FIX (bot/mastodon_bot.py engage_community): hashtag timelines are often dominated by one prolific poster, so the loop was liking/boosting/following the SAME account 10+ times per run (this session: 16 interactions, ~14 on one account) \u2014 a classic bot-spam pattern that risks the account being rate-limited/flagged. Added per-account dedup (seen_accounts set) so engagement spreads across distinct accounts and grows real reach.",
+        "BUG FIX (bot/mastodon_bot.py engage_community): hashtag timelines are often dominated by one prolific poster, so the loop was liking/boosting/following the SAME account 10+ times per run (this session: 16 interactions, ~14 on one account) — a classic bot-spam pattern that risks the account being rate-limited/flagged. Added per-account dedup (seen_accounts set) so engagement spreads across distinct accounts and grows real reach.",
         "Verified: syntax OK, smoke suite 12/12 pass.",
-        "Did NOT generate another product/launch kit \u2014 the ledger itself flags that as treadmill. 3 launch kits remain ready-to-post in agent/launch_kits/."
+        "Did NOT generate another product/launch kit — the ledger itself flags that as treadmill. 3 launch kits remain ready-to-post in agent/launch_kits/."
       ],
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "notes": "Unchanged bottleneck: distribution is human-gated. Days of bot posting into near-zero-audience accounts = \u20ac0. The single highest-ROI action is NOT automatable: a human pasting agent/launch_kits/the-complete-ai-creator-toolkit-2026-all-10-produc.md (Reddit section) into r/SideProject or r/Entrepreneur, value-first, link in first comment. This session's real value-add was fixing the engage spam bug so the audience-growth channel actually compounds instead of annoying one user per run."
+      "notes": "Unchanged bottleneck: distribution is human-gated. Days of bot posting into near-zero-audience accounts = €0. The single highest-ROI action is NOT automatable: a human pasting agent/launch_kits/the-complete-ai-creator-toolkit-2026-all-10-produc.md (Reddit section) into r/SideProject or r/Entrepreneur, value-first, link in first comment. This session's real value-add was fixing the engage spam bug so the audience-growth channel actually compounds instead of annoying one user per run."
     },
     {
       "date": "2026-06-25T08:12:00Z",
       "agent": "codex",
       "actions": [
         "Read CLAUDE.md and agent/MISSION.md, then ran the requested autonomous startup routine.",
-        "Startup sync and final sync were blocked by DNS/network failures to api.gumroad.com; local DB snapshot still shows 30 live products, 0 drafts, 0 sales, 0 subscribers, and \u20ac0 revenue.",
+        "Startup sync and final sync were blocked by DNS/network failures to api.gumroad.com; local DB snapshot still shows 30 live products, 0 drafts, 0 sales, 0 subscribers, and €0 revenue.",
         "Funnel verdict stored and acted on: bottleneck = REACH/distribution, not more products. Skipped the new-product build pipeline.",
         "Social bot check found 1 Mastodon and 1 Bluesky post in the last 24h, so attempted Mastodon promote, Mastodon engage, Bluesky promote, and Bluesky engage. All failed on DNS/network resolution before posting.",
-        "Store hygiene: checked underpriced products, drafts, and exact duplicate names. No drafts and no exact duplicates. Left the \u20ac0.99/month subscription and \u20ac0 lead magnet unchanged as rule-based exemptions.",
+        "Store hygiene: checked underpriced products, drafts, and exact duplicate names. No drafts and no exact duplicates. Left the €0.99/month subscription and €0 lead magnet unchanged as rule-based exemptions.",
         "Generated the flagship bundle launch kit with scripts/launch_kit.py best --write, then replaced generic placeholders with concrete value-first workflow tips for Reddit, Product Hunt, SEO, email, and short-form posts.",
         "Created agent/reports/seo_ai_productivity_templates_2026.md as a ready-to-publish SEO article draft targeting 'AI productivity templates'.",
         "Confirmed the free lead magnet is already live in the local catalog and confirmed there are 0 subscribers, so no nurture emails could be sent.",
@@ -735,14 +735,14 @@
       "date": "2026-06-26",
       "agent": "claude",
       "actions": [
-        "Startup: auth OK (Schep Digital), synced DB \u2014 30 products live, 0 drafts, 0 sales, 0 subscribers, \u20ac0 lifetime. Survival status: at_risk, \u20ac58 behind.",
+        "Startup: auth OK (Schep Digital), synced DB — 30 products live, 0 drafts, 0 sales, 0 subscribers, €0 lifetime. Survival status: at_risk, €58 behind.",
         "Funnel verdict stored: bottleneck = REACH/distribution (0 sales across catalog). Spent the session on distribution, not new products.",
         "Social bots: both platforms had only 1 post in last 24h. Ran Mastodon promote+engage and Bluesky promote+engage (engage now spreads across distinct accounts per yesterday's dedup fix). Both platforms now at full 3/3 quota.",
-        "Store hygiene: no drafts; only \u2264\u20ac0.99 items are the \u20ac0.99/mo subscription and \u20ac0 lead magnet (both rule-exempt). No repricing needed. Logged known duplicate clusters (see notes) \u2014 did NOT delete.",
-        "ROTATED distribution focus to 'CV & Resume Templates That Beat ATS - 2026 Edition' (\u20ac7.99, /l/gneqzh) \u2014 prior 3 sessions covered the flagship bundle, LinkedIn OS, and the Local LLM guide. Generated its launch kit and filled every [bracketed] Reddit/Twitter spot with real ATS-specific tips (single-column layout, standard headings, keyword mirroring, acronym spell-out, contact-info-in-body).",
-        "Wrote a finished, publishable SEO article agent/reports/seo_ats_resume_templates_2026.md targeting 'ATS resume templates' (~900 words, value-first, soft CTA) \u2014 a compounding free-traffic asset.",
-        "ROUTINE 4d: skipped new-product build \u2014 funnel shows reach problem + catalog already has heavy duplication (4 prompt vaults, multiple Character Genesis / 75 Power Prompts). No evidence-backed unmet need.",
-        "14+ day \u20ac0 rule: attempted universal FLASH50 (50% off) but Gumroad blocked it (the \u20ac0.99/mo subscription would breach the \u20ac0.79 floor). Created FLASH50 (50% off) on the flagship bundle instead (\u20ac29.99 \u2192 \u20ac15) \u2014 the headline urgency item my distribution copy drives to. Posted one urgency post per platform about FLASH50."
+        "Store hygiene: no drafts; only ≤€0.99 items are the €0.99/mo subscription and €0 lead magnet (both rule-exempt). No repricing needed. Logged known duplicate clusters (see notes) — did NOT delete.",
+        "ROTATED distribution focus to 'CV & Resume Templates That Beat ATS - 2026 Edition' (€7.99, /l/gneqzh) — prior 3 sessions covered the flagship bundle, LinkedIn OS, and the Local LLM guide. Generated its launch kit and filled every [bracketed] Reddit/Twitter spot with real ATS-specific tips (single-column layout, standard headings, keyword mirroring, acronym spell-out, contact-info-in-body).",
+        "Wrote a finished, publishable SEO article agent/reports/seo_ats_resume_templates_2026.md targeting 'ATS resume templates' (~900 words, value-first, soft CTA) — a compounding free-traffic asset.",
+        "ROUTINE 4d: skipped new-product build — funnel shows reach problem + catalog already has heavy duplication (4 prompt vaults, multiple Character Genesis / 75 Power Prompts). No evidence-backed unmet need.",
+        "14+ day €0 rule: attempted universal FLASH50 (50% off) but Gumroad blocked it (the €0.99/mo subscription would breach the €0.79 floor). Created FLASH50 (50% off) on the flagship bundle instead (€29.99 → €15) — the headline urgency item my distribution copy drives to. Posted one urgency post per platform about FLASH50."
       ],
       "new_product_created": null,
       "distribution_assets": {
@@ -757,9 +757,9 @@
         "bluesky": 3
       },
       "duplicate_clusters_noted": [
-        "Consistent Character Genesis \u00d75 (Midjourney 2026 / Edit / -2026 / bare / \u20ac0.99-sub)",
-        "75 Power Prompts \u00d73 (Content Creators Master Edi / 2026 Edition / AI Masters 2026)",
-        "The AI Prompt Vault \u00d73 (bare / 200+ Engineering Blueprints / AI PROMPT VAULT 2026)"
+        "Consistent Character Genesis ×5 (Midjourney 2026 / Edit / -2026 / bare / €0.99-sub)",
+        "75 Power Prompts ×3 (Content Creators Master Edi / 2026 Edition / AI Masters 2026)",
+        "The AI Prompt Vault ×3 (bare / 200+ Engineering Blueprints / AI PROMPT VAULT 2026)"
       ],
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
@@ -769,14 +769,14 @@
       "date": "2026-06-29",
       "agent": "claude",
       "actions": [
-        "Startup: synced DB \u2014 30 products live, 0 drafts, 0 sales, 0 subscribers, \u20ac0 lifetime. Survival status: at_risk, \u20ac58 behind. Funnel verdict = REACH/distribution bottleneck (0 sales = buyers not arriving, not a catalog gap).",
+        "Startup: synced DB — 30 products live, 0 drafts, 0 sales, 0 subscribers, €0 lifetime. Survival status: at_risk, €58 behind. Funnel verdict = REACH/distribution bottleneck (0 sales = buyers not arriving, not a catalog gap).",
         "Social bots: 0 posts in prior 24h, so ran full ROUTINE 2. Mastodon promote+engage (5 interactions, spread across distinct accounts) and Bluesky promote+engage (17 interactions). Pinterest promote failed as expected (Trial-access app cannot create production Pins).",
-        "Store hygiene: no drafts; only \u2264\u20ac0.99 items are the \u20ac0.99/mo subscription and the \u20ac0 free lead magnet (both rule-exempt). No repricing needed. Re-logged the known duplicate clusters (see notes) \u2014 did NOT delete.",
-        "ROTATED distribution focus to '0.5s VIRAL HOOKS: The 2026 Psychology Framework' (\u20ac5.99, /l/ahihg) \u2014 prior sessions covered CV/ATS, flagship bundle, LinkedIn OS, Local LLM guide. Broadest addressable audience (short-form creators) + cheapest entry point. Generated its launch kit and filled every [bracketed] Reddit/X spot with real, teachable tips pulled from the product PDF: 0.5s decision window, contrarian opener psychology, specific/odd numbers, curiosity gap + watch-to-end, direct-address self-selection.",
-        "Wrote a finished, publishable ~1000-word SEO article agent/reports/seo_social_media_hooks_2026.md targeting \"social media hooks\" (value-first, single soft CTA) \u2014 a compounding free-traffic asset, the 3rd such article in the library.",
+        "Store hygiene: no drafts; only ≤€0.99 items are the €0.99/mo subscription and the €0 free lead magnet (both rule-exempt). No repricing needed. Re-logged the known duplicate clusters (see notes) — did NOT delete.",
+        "ROTATED distribution focus to '0.5s VIRAL HOOKS: The 2026 Psychology Framework' (€5.99, /l/ahihg) — prior sessions covered CV/ATS, flagship bundle, LinkedIn OS, Local LLM guide. Broadest addressable audience (short-form creators) + cheapest entry point. Generated its launch kit and filled every [bracketed] Reddit/X spot with real, teachable tips pulled from the product PDF: 0.5s decision window, contrarian opener psychology, specific/odd numbers, curiosity gap + watch-to-end, direct-address self-selection.",
+        "Wrote a finished, publishable ~1000-word SEO article agent/reports/seo_social_media_hooks_2026.md targeting \"social media hooks\" (value-first, single soft CTA) — a compounding free-traffic asset, the 3rd such article in the library.",
         "Distribution via configured channels: rather than a 2nd generic promo, posted a VALUE-FIRST tip post to both Mastodon and Bluesky tied to today rotation (hook psychology + soft link). Better-converting than promo spam and reinforces the launch-kit theme. Still under the 3/platform/day cap.",
-        "ROUTINE 4d: skipped new-product build \u2014 funnel shows reach problem, catalog already heavily duplicated (4 prompt vaults, 5 Character Genesis, 3x 75-Power-Prompts). No evidence-backed unmet need; new product #31 would earn nothing while product #1 has no buyers.",
-        "14+ day \u20ac0 rule: FLASH50 (50% off flagship bundle, \u20ac29.99\u2192\u20ac15) created 2026-06-26 remains active as the headline urgency lever; did not duplicate it. Posted hook-themed content to both socials this session."
+        "ROUTINE 4d: skipped new-product build — funnel shows reach problem, catalog already heavily duplicated (4 prompt vaults, 5 Character Genesis, 3x 75-Power-Prompts). No evidence-backed unmet need; new product #31 would earn nothing while product #1 has no buyers.",
+        "14+ day €0 rule: FLASH50 (50% off flagship bundle, €29.99→€15) created 2026-06-26 remains active as the headline urgency lever; did not duplicate it. Posted hook-themed content to both socials this session."
       ],
       "new_product_created": null,
       "distribution_assets": {
@@ -791,26 +791,26 @@
         "note": "2 posts/platform (1 promote + 1 value-first tip) + engage interactions; Pinterest blocked by Trial access"
       },
       "duplicate_clusters_noted": [
-        "Consistent Character Genesis \u00d75 (Midjourney 2026 / Edit / -2026 / bare / \u20ac0.99-sub)",
-        "75 Power Prompts \u00d73 (Content Creators Master Edi / 2026 Edition / AI Masters 2026)",
-        "The AI Prompt Vault \u00d73 (bare / 200+ Engineering Blueprints / AI PROMPT VAULT 2026)"
+        "Consistent Character Genesis ×5 (Midjourney 2026 / Edit / -2026 / bare / €0.99-sub)",
+        "75 Power Prompts ×3 (Content Creators Master Edi / 2026 Edition / AI Masters 2026)",
+        "The AI Prompt Vault ×3 (bare / 200+ Engineering Blueprints / AI PROMPT VAULT 2026)"
       ],
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "notes": "Bottleneck unchanged and human-gated: the social bots reach a near-zero audience, so the highest-ROI action is still a human pasting a post-ready launch kit into the right community value-first (for 0.5s VIRAL HOOKS: r/NewTubers, r/socialmedia, r/Entrepreneur \u2014 link in first comment) and publishing the SEO articles. There are now 5 post-ready launch kits + 3 SEO articles queued in agent/. Catalog exposure keeps rotating each session so every product gets a turn. FLASH50 (50%% off bundle) remains the headline urgency lever."
+      "notes": "Bottleneck unchanged and human-gated: the social bots reach a near-zero audience, so the highest-ROI action is still a human pasting a post-ready launch kit into the right community value-first (for 0.5s VIRAL HOOKS: r/NewTubers, r/socialmedia, r/Entrepreneur — link in first comment) and publishing the SEO articles. There are now 5 post-ready launch kits + 3 SEO articles queued in agent/. Catalog exposure keeps rotating each session so every product gets a turn. FLASH50 (50%% off bundle) remains the headline urgency lever."
     },
     {
       "date": "2026-07-01",
       "agent": "Codex",
       "actions": [
         "Read CLAUDE.md and agent/MISSION.md and ran the required startup, survival, funnel, catalog, and hygiene checks.",
-        "Live sync and Gumroad authentication were blocked by the restricted environment: Gumroad CLI was unauthenticated and outbound DNS to api.gumroad.com was denied. The cached snapshot shows 30 live products, 0 drafts, 0 sales, 0 subscribers, and \u20ac0 revenue; survival status remains AT RISK (\u20ac58 short).",
+        "Live sync and Gumroad authentication were blocked by the restricted environment: Gumroad CLI was unauthenticated and outbound DNS to api.gumroad.com was denied. The cached snapshot shows 30 live products, 0 drafts, 0 sales, 0 subscribers, and €0 revenue; survival status remains AT RISK (€58 short).",
         "Acted on the funnel verdict REACH: skipped new-product research/build because the catalog has no traffic or sales evidence for an unmet need.",
         "Promotion count was 0 on every platform in the prior 24 hours. Attempted Mastodon promote/engage and Bluesky promote/engage; all failed before posting because outbound DNS was unavailable.",
         "Created a Pinterest review-required draft for GEMINI 1.5 PRO at agent/pinterest_queue/20260701T080817Z-gemini-1-5-pro-advanced-no-chunk-high-context-architecture.json; did not publish without the required manual review.",
         "Generated the flagship bundle launch kit and replaced all bracketed placeholders with specific input-definition, structured-output, constraint, QA, and reusable-example workflows.",
         "Confirmed the free AI Quick-Start lead magnet is live. The cached audience contains 0 subscribers, so there was no recipient for the nurture sequence.",
-        "Store hygiene found only the exempt \u20ac0.99/month subscription and \u20ac0 free lead magnet below \u20ac1, and no drafts. No pricing or publishing change was warranted.",
+        "Store hygiene found only the exempt €0.99/month subscription and €0 free lead magnet below €1, and no drafts. No pricing or publishing change was warranted.",
         "Logged near-duplicate catalog clusters without deleting anything. Existing FLASH50 on the flagship bundle remains the 14-day zero-revenue urgency offer; no duplicate offer was created."
       ],
       "new_product_created": null,
@@ -825,9 +825,9 @@
         "note": "All live posting was blocked by outbound DNS; Pinterest draft creation succeeded but publishing is review-gated."
       },
       "duplicate_clusters_noted": [
-        "Consistent Character Genesis \u00d75 (multiple Midjourney editions plus subscription)",
-        "75 Power Prompts \u00d73 (Content Creators editions and AI Masters)",
-        "The AI Prompt Vault \u00d73 (bare, engineering blueprints, and 2026 operating system editions)"
+        "Consistent Character Genesis ×5 (multiple Midjourney editions plus subscription)",
+        "75 Power Prompts ×3 (Content Creators editions and AI Masters)",
+        "The AI Prompt Vault ×3 (bare, engineering blueprints, and 2026 operating system editions)"
       ],
       "offer_codes_created": [],
       "revenue_before_eur": 0,
@@ -868,10 +868,10 @@
         "Startup: synced DB (30 products live, 0 drafts, 0 sales, 0 subscribers, EUR 0 lifetime). Fixed PATH so the Gumroad CLI authenticates (~/.local/bin was missing from PATH; auth-check falsely reported unauthenticated).",
         "Funnel verdict stored and acted on: bottleneck = REACH/distribution, not more products. Skipped the ROUTINE 5 new-product build (4d evidence gate: 0 traffic + saturated catalog with known near-duplicates).",
         "Store hygiene: no drafts; the 2 'underpriced' flags are both exempt (EUR 0.99/mo subscription + EUR 0 free lead magnet). No repricing needed.",
-        "ROTATED launch kit to 'The AI-to-Blender Mastery Kit - 2026 Edition' (EUR 14.99, /l/ai-blender-mastery) \u2014 a fresh, distinct audience (r/blender, r/3Dmodeling) not covered by the 5 prior kits. Filled ALL bracketed placeholders with real, specific workflow tips (orthographic reference prompting, one-texture->full-PBR set, sRGB vs Non-Color color space, bpy batch-import).",
+        "ROTATED launch kit to 'The AI-to-Blender Mastery Kit - 2026 Edition' (EUR 14.99, /l/ai-blender-mastery) — a fresh, distinct audience (r/blender, r/3Dmodeling) not covered by the 5 prior kits. Filled ALL bracketed placeholders with real, specific workflow tips (orthographic reference prompting, one-texture->full-PBR set, sRGB vs Non-Color color space, bpy batch-import).",
         "Distribution via configured channels: Mastodon promote + Bluesky promote (LAUNCH30), plus one VALUE-FIRST Blender tip post to each platform (link-soft, to grow audience). Both platforms now at 3/3 daily posts (maxed).",
         "Community growth: 14 Mastodon interactions (#AItools) + 23 Bluesky interactions (#Productivity).",
-        "Pinterest: 1 review-required draft queued (Side Hustle Quick-Start Checklist). Production still sandbox-gated (PINTEREST_ALLOW_PRODUCTION unset) \u2014 left for manual review, not force-published.",
+        "Pinterest: 1 review-required draft queued (Side Hustle Quick-Start Checklist). Production still sandbox-gated (PINTEREST_ALLOW_PRODUCTION unset) — left for manual review, not force-published.",
         "14+ day EUR 0 rule honored: extended FLASH50 (50% off) from the flagship-only to ALL 28 eligible paid single-purchase products (created 27 new codes, 0 failures). Excluded the EUR 0.99/mo subscription + EUR 0 free product, which is why the prior universal attempt was blocked. Catalog-wide urgency lever now exists.",
         "Logged duplicate-name clusters for visibility (NOT deleted): ~4 Consistent Character Genesis, ~3 '75 Power Prompts', ~3-4 'AI Prompt Vault', 2 GEMINI packs."
       ],
@@ -893,12 +893,67 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Unchanged bottleneck: distribution is human-gated. The social bots reach a near-zero audience, and the highest-ROI action remains a HUMAN pasting a post-ready launch kit into the right community value-first (this session: r/blender / r/3Dmodeling for the AI-to-Blender kit). FLASH50 is now a catalog-wide 50%-off lever; the bots still advertise LAUNCH30, so a future session (or human) should lead urgency posts with FLASH50. Socials maxed at 3/3 today so no further urgency posts possible this session."
+    },
+    {
+      "date": "2026-07-04",
+      "agent": "Codex",
+      "actions": [
+        "Read CLAUDE.md and agent/MISSION.md, then attempted the required authentication and live sync. Gumroad was unauthenticated and outbound DNS was denied, so the cached database remained the evidence source: 31 live products, 0 drafts, 0 sales, 0 subscribers, and EUR 0 revenue; survival remains AT RISK (EUR 58 short).",
+        "Acted on funnel verdict REACH/distribution and skipped Routine 5 because zero traffic/sales provides no evidence of a distinct unmet product need.",
+        "Recent promotion count was 0 per platform. Attempted Mastodon promote/engage and Bluesky promote/engage; all failed before posting due DNS/network restrictions.",
+        "Created a review-required Pinterest sandbox draft for Consistent Character Genesis; did not publish without manual approval.",
+        "Store hygiene: no drafts; left the exempt EUR 0.99/month subscription and two EUR 0 free lead magnets unchanged. Logged the exact duplicate free lead magnet and known near-duplicate catalog clusters without deletion.",
+        "Rotated distribution focus to Freelancer Prompt Pack - Client & Proposal Edition (EUR 7.99, /l/xdcfej). Generated its multi-channel launch kit and replaced all placeholders with product-specific proposal, scope-creep, and late-payment workflows.",
+        "Regenerated and restored the flagship kit's concrete input, output-format, QA, and reuse tips after the automatic best-product selection overwrote it.",
+        "Confirmed the free lead magnet is live but duplicated. Cached audience count is 0, so there were no nurture-sequence recipients. External Reddit, Product Hunt, and SEO publishing were blocked by absent network/configured publishing accounts.",
+        "Ran the full smoke suite: 20 tests passed, 0 failed."
+      ],
+      "new_product_created": null,
+      "distribution_assets": {
+        "launch_kit": "agent/launch_kits/freelancer-prompt-pack-client-proposal-edition.md (post-ready; placeholders filled)",
+        "pinterest_draft": "agent/pinterest_queue/20260704T080819Z-consistent-character-genesis-midjourney-mastery-2026-edition.json (manual review required)"
+      },
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "External store and distribution actions were blocked by unauthenticated Gumroad plus sandbox DNS restrictions. No new product was justified. Highest-value prepared action is the Freelancer Prompt Pack launch kit for r/freelance / r/Upwork, subject to community self-promotion rules."
+    },
+    {
+      "date": "2026-07-05",
+      "agent": "Claude (Opus 4.8)",
+      "actions": [
+        "Startup: authenticated OK, synced DB live — 31 live products, 0 drafts, 0 sales, 0 subscribers, EUR 0 lifetime. Survival AT RISK (EUR 58 short). Funnel verdict = REACH/distribution (0% of catalog has sold).",
+        "Social bots: Mastodon promote+engage (8 interactions) and Bluesky promote+engage (19 interactions) both posted successfully. Pinterest sandbox draft created for Side Hustle Quick-Start Checklist (review-required, not auto-published).",
+        "Posted one FLASH50 urgency/value post to Mastodon and Bluesky each (Notion habit-system hook) — prior post drought was 3 days; drought broken.",
+        "Store hygiene: no drafts to publish. The 3 \"underpriced\" items are all exempt (one EUR 0.99/mo subscription + two intentional EUR 0 free lead magnets) — left unchanged.",
+        "Rotated distribution focus to Notion Habit Architecture - 2026 Edition (EUR 7.99, /l/cjvki) — a product with no prior launch kit. Generated its multi-channel kit and replaced every [bracketed] placeholder with real product specifics: minimum-version habit design, anchor-habit stacking, exact Notion DB schema, the dateBetween streak formula, and the Sunday review loop.",
+        "Wrote a full ~1300-word value-first SEO article (agent/seo/notion-habit-system-2026-guide.md) targeting \"notion habit tracker system\" as a compounding free-traffic asset, with front-matter (title tag, meta desc, canonical channels) and a soft CTA to /l/cjvki + LAUNCH30.",
+        "Verified discount state: catalog-wide FLASH50 (28 products) and LAUNCH30 (28 products) already live from prior sessions — no duplicate discount created. EUR-0-for-14-days constraint already satisfied.",
+        "Skipped Routine 5 (new product): funnel shows zero traffic/sales, so there is no evidence of a distinct unmet need; catalog is saturated with near-duplicates. Correct call is more distribution, not product #32."
+      ],
+      "new_product_created": null,
+      "distribution_assets": [
+        "agent/launch_kits/notion-habit-architecture-2026-edition.md (placeholders filled with real product content)",
+        "agent/seo/notion-habit-system-2026-guide.md (new SEO article, ready-to-publish)"
+      ],
+      "social_posts_made": {
+        "mastodon": 2,
+        "bluesky": 2,
+        "pinterest_sandbox_draft": 1
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Duplicate free lead magnet still present (IDs LWur3uGvzsgsy8xGBAWcOw== and RD0hUQokf7yMG4RwZPQHeQ==, both \"The AI Quick-Start Pack (Free)\") — logged, NOT deleted per constraints. 0 subscribers means the EMAIL_FLOW nurture sequence has no recipients yet; email capture via the live free pack remains the compounding priority. Reddit/Product Hunt/X posting from the launch kit is human-gated (no API creds) — kit is filled and ready for a human to post in minutes."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-02",
-  "status": "at_risk \u2014 EUR 0 this month vs EUR 58 target; bottleneck = reach/distribution (human-gated)",
+  "last_updated": "2026-07-05",
+  "status": "at_risk — EUR 0 this month vs EUR 58 target; bottleneck = reach/distribution. This session shipped a filled Notion launch kit + a new SEO article; social bots + FLASH50 urgency posts live.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",

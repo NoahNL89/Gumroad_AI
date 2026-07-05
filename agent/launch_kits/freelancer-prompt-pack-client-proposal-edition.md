@@ -1,0 +1,81 @@
+# Launch Kit — Freelancer Prompt Pack - Client & Proposal Edition
+
+**Product:** Freelancer Prompt Pack - Client & Proposal Edition  ·  **Price:** €7.99  ·  **URL:** https://schephenk.gumroad.com/l/xdcfej  ·  **Code:** LAUNCH30 (30% off)
+Lifetime sales so far: 0
+
+> Goal: get this in front of real buyers. The social bots reach almost no one —
+> these channels are where purchases actually come from. Post value first; the
+> link is the P.S., not the pitch.
+
+---
+
+## 1. Reddit (highest-intent free traffic)
+
+**Where:** r/freelance, r/Upwork, r/Entrepreneur  ·  *(read each sub's self-promo rules first; lead with value, comment for a week before posting a link)*
+
+**Title options:**
+- I spent way too long figuring out freelance proposals; here's the system that finally worked
+- After 50+ attempts at freelance proposals, these are the only steps that mattered
+- A no-fluff freelance proposals checklist (what I wish I'd had on day one)
+
+**Body (paste, then trim to your voice):**
+Most advice on freelance proposals is either vague or trying to sell you something. So here's the actual workflow I use, free:
+
+1. Start by pasting the actual client brief, then state your role, 2–3 sentences of relevant experience, your approach, timeline, and price. This prevents the AI from inventing proof or writing a generic pitch.
+2. Structure the proposal around the client's problem: show you understood the brief, explain your approach in plain language, add one relevant proof point, then give milestones, investment, and one clear next step.
+3. For scope creep, quote the original scope, name the new request, and offer a concrete path forward: a priced change order, a separate phase, or a polite decline. Warm tone; explicit boundary.
+4. For late invoices, use a three-step sequence: friendly reminder on day 1, a firm ETA request on day 7, and a final notice tied to your stated pause-work or late-fee policy on day 14.
+
+This took months to refine. I packaged the full version (templates + every step done-for-you) as "Freelancer Prompt Pack" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
+
+*(First comment:)* For anyone who asked — it's here: https://schephenk.gumroad.com/l/xdcfej (code LAUNCH30 = 30% off this week). But the steps above are the core; you can do this without buying anything.
+
+---
+
+## 2. Product Hunt
+
+**Tagline (≤60 chars):** Freelancer Prompt Pack — freelance proposals without the guesswork
+**Description:** Freelancer Prompt Pack is a done-for-you freelance proposals kit: everything you need, ready to use, €7.99 once (no subscription). Built for makers who'd rather ship than research.
+**Topics:** Artificial Intelligence, Productivity, Marketing
+**First maker comment:** I kept rebuilding the same freelance proposals workflow from scratch, so I packaged it once and for all. Launch code LAUNCH30 takes 30% off today. Feedback very welcome — what would make it a no-brainer for you?
+
+---
+
+## 3. SEO article (compounding free traffic)
+
+**Target keyword:** freelance proposals
+**Title tag (≤60 chars):** Freelance Proposals: A Practical 2026 Guide
+**Meta description (≤155 chars):** A step-by-step freelance proposals guide for 2026 — the exact workflow, templates, and a shortcut kit if you want it done for you.
+**H2 outline:**
+- What most people get wrong about freelance proposals
+- The freelance proposals workflow, step by step
+- Templates & tools that save the most time
+- Common mistakes (and how to avoid them)
+- FAQ
+**Soft CTA (end of article):** If you'd rather not build this from scratch, "Freelancer Prompt Pack" packages the whole system: https://schephenk.gumroad.com/l/xdcfej
+
+---
+
+## 4. Email to your list (the asset that compounds)
+
+**Subject A:** the freelance proposals shortcut I promised
+**Subject B:** done-for-you: Freelancer Prompt Pack
+**Body:**
+Quick one. I just released "Freelancer Prompt Pack" — the full freelance proposals system, ready to use.
+No subscription, €7.99 once, yours forever.
+This week only: code LAUNCH30 takes 30% off → https://schephenk.gumroad.com/l/xdcfej
+Reply if you have questions; I read every one.
+
+---
+
+## 5. X / Twitter thread (5 posts)
+
+1. Most freelance proposals advice is vague. Here's the exact system I use, in 4 steps. 🧵
+2. Step 1: Feed the AI the real brief plus your role, relevant proof, approach, timeline, and price. Missing inputs create generic proposals.
+3. Step 2: Open by reflecting the client's specific problem; then explain your approach, one proof point, milestones, investment, and one next step.
+4. Steps 3–4: Turn extra requests into a priced change order, and handle late invoices with escalating day-1/day-7/day-14 messages tied to your written policy.
+5. If you want it done-for-you (templates + every step), I packaged it as "Freelancer Prompt Pack": https://schephenk.gumroad.com/l/xdcfej — code LAUNCH30 = 30% off this week.
+
+---
+
+*Generated by scripts/launch_kit.py and completed with specific workflows from the product.*
