@@ -6,7 +6,7 @@ The better approach is to turn common work into reusable AI productivity templat
 
 ## What Most People Get Wrong
 
-The mistake is starting with a clever prompt instead of a clear workflow. A strong workflow names the input, the expected output, the constraints, and the quality bar.
+The mistake is starting with a clever prompt instead of a clear workflow. A strong workflow names the input, the expected output, the constraints, and the quality bar. Treat the prompt like a job spec: role, business goal, audience, source material, output format, and definition of "good" all belong in the template before the creative request.
 
 For example, "write LinkedIn posts" is too broad. A reusable workflow is tighter: "Turn this customer insight into five LinkedIn post drafts, each with a hook, short story, practical takeaway, and CTA. Keep each under 1,200 characters and avoid hype."
 
@@ -28,7 +28,7 @@ Ask for a table, checklist, calendar, scorecard, swipe file, or email sequence. 
 
 4. Add constraints.
 
-Include audience, tone, length, exclusions, and what not to do. Constraints are what separate usable templates from generic prompts.
+Include audience, tone, length, exclusions, and what not to do. Constraints are what separate usable templates from generic prompts. A practical constraint block should include banned phrases, required evidence, structure, length, and a rule that tells the model to ask clarifying questions when an input is missing.
 
 5. Run a QA pass.
 
@@ -36,7 +36,7 @@ Use a second prompt: "Review this for vague claims, missing next steps, unsuppor
 
 6. Save the system.
 
-Keep the prompt, a strong example output, and the QA checklist together. That saved system is the actual productivity asset.
+Keep the prompt, a strong example output, and the QA checklist together. The example output is not decoration; it anchors the quality bar and makes the template easier to reuse on future work.
 
 ## Templates That Save The Most Time
 
@@ -53,6 +53,8 @@ The highest-leverage AI templates usually sit near revenue or distribution:
 Do not save prompts without example outputs. The example shows the quality bar.
 
 Do not use one giant prompt for every job. Smaller workflow-specific templates are easier to debug.
+
+Do not ask one prompt to do strategy, production, and review at the same time. Use one template to decide the angle, a second to draft the asset, and a third to critique it against your standards.
 
 Do not publish first drafts. AI is useful for structure and speed, but the last pass should check accuracy, specificity, and buyer relevance.
 

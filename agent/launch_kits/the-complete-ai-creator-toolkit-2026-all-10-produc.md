@@ -21,9 +21,11 @@ Lifetime sales so far: 0
 **Body (paste, then trim to your voice):**
 Most advice on AI productivity templates is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. Set up a centralized prompt library in Notion to stop re-inventing the wheel every time.
-2. Use batch processing prompts to handle multiple related tasks in one go instead of one-by-one.
-3. Chain your prompts sequentially so the output of one becomes the context for the next.
+1. Start with a reusable "job spec" prompt, not a clever one-liner: define the role, the business goal, the audience, the source material, the output format, and the quality bar before asking the model to create anything.
+2. Split the workflow into three templates: one prompt for strategy, one for production, and one for review. Mixing all three jobs into one prompt usually creates generic output because the model cannot tell whether it should think, draft, or audit.
+3. Add a constraint block to every template. Include banned phrases, required evidence, word count or structure, and "ask me clarifying questions if any input is missing" so the model does not quietly invent context.
+4. Save every prompt that works as a named operating procedure: input fields at the top, the exact prompt in the middle, and an example output at the bottom. The example is what makes the template repeatable for future tasks.
+5. Run a final QA prompt against the result: "Find vague claims, unsupported advice, missing steps, and places where a beginner would get stuck." This catches most of the mistakes that make AI content feel disposable.
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
@@ -70,9 +72,9 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most AI productivity templates advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: Set up a centralized prompt library in Notion to stop re-inventing the wheel every time.
-3. Step 2: Use batch processing prompts to handle multiple related tasks in one go instead of one-by-one.
-4. Step 3–4: Chain your prompts sequentially so the output of one becomes the context for the next, and automate repetitive tasks.
+2. Step 1: write prompts as job specs. Give the model the role, goal, audience, source material, output format, and quality bar before asking for the deliverable.
+3. Step 2: separate strategy, production, and review. One prompt should decide the angle, another should draft, and a third should critique the draft against your standards.
+4. Step 3–4: add constraints and examples. Ban generic phrases, require evidence, set the structure, then save the best output as the example that anchors the reusable template.
 5. If you want it done-for-you (templates + every step), I packaged it as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle": https://schephenk.gumroad.com/l/usfdum — code LAUNCH30 = 30% off this week.
 
 ---
