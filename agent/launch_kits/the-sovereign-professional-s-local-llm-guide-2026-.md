@@ -21,9 +21,9 @@ Lifetime sales so far: 0
 **Body (paste, then trim to your voice):**
 Most advice on AI prompt engineering is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. Don't buy hardware blindly. Start by renting a cheap GPU cloud instance (like RunPod) to test models before investing in a local rig.
-2. Pick the right quantization. Use GGUF models at Q4_K_M for the best balance of speed and intelligence on consumer hardware.
-3. Setup LM Studio for a foolproof start. It's a 1-click install that handles model downloading and provides a ChatGPT-like interface locally.
+1. Choose the right model for the hardware. Don't run 70B models on an 8GB Mac; stick to optimized 8B models like Llama 3 8B.
+2. Setup LM Studio or Ollama to run models entirely offline, ensuring complete data privacy for your client work.
+3. Structure prompts with system boundaries to prevent hallucinations and strictly guide the model's tone and output format.
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "The Sovereign Professional's Local LLM Guide" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
@@ -70,9 +70,9 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most AI prompt engineering advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: Don't buy hardware blindly. Start by renting a cheap GPU cloud instance (like RunPod) to test models first.
-3. Step 2: Use GGUF models at Q4_K_M for the best balance of speed and intelligence on consumer hardware.
-4. Step 3–4: Setup LM Studio for a foolproof 1-click start, then hook it up to VSCode using Continue.dev to code with it.
+2. Step 1: Choose the right model for your hardware. Optimized 8B models (e.g. Llama 3 8B) perform great on standard laptops.
+3. Step 2: Use LM Studio or Ollama to run models offline for total privacy.
+4. Step 3–4: Set strict system boundaries in prompts and iterate locally without API costs.
 5. If you want it done-for-you (templates + every step), I packaged it as "The Sovereign Professional's Local LLM Guide": https://schephenk.gumroad.com/l/local-llm-guide — code LAUNCH30 = 30% off this week.
 
 ---
