@@ -1,5 +1,8 @@
 # AI Productivity Templates: A Practical 2026 Guide
 
+**Title tag:** AI Productivity Templates: A Practical 2026 Guide  
+**Meta description:** Build reusable AI productivity templates for content, proposals, SEO, email, and review workflows without starting from scratch every time.
+
 Most people use AI like a faster blank page. They open a chatbot, ask for ideas, copy a few usable lines, and start over the next day. That feels productive, but it does not compound.
 
 The better approach is to turn common work into reusable AI productivity templates: prompts, output formats, checklists, and review steps that you can run again whenever the same job appears.
@@ -38,6 +41,23 @@ Use a second prompt: "Review this for vague claims, missing next steps, unsuppor
 
 Keep the prompt, a strong example output, and the QA checklist together. The example output is not decoration; it anchors the quality bar and makes the template easier to reuse on future work.
 
+## A Simple Template You Can Reuse
+
+Use this structure for almost any recurring task:
+
+**Task:** Name the repeatable job in one sentence.  
+**Input:** List the raw material the AI will receive.  
+**Audience:** Define who the output is for and what they already know.  
+**Output format:** Specify the structure: table, checklist, post, outline, scorecard, email, proposal, or calendar.  
+**Constraints:** Add length, tone, claims to avoid, required evidence, and any banned phrases.  
+**Review rule:** Ask for a critique against clarity, specificity, usefulness, and missing next steps.
+
+Example:
+
+> Turn the notes below into four LinkedIn post drafts for solo consultants. Use one post per idea. Each post needs a specific first line under 15 words, a short story or observation, one practical takeaway, and a soft CTA. Avoid hype, fake urgency, and generic claims. After drafting, list the weakest post and explain how to improve it.
+
+That prompt works because it defines the job, audience, output shape, constraints, and review pass. It is not trying to be clever; it is trying to be reusable.
+
 ## Templates That Save The Most Time
 
 The highest-leverage AI templates usually sit near revenue or distribution:
@@ -47,6 +67,16 @@ The highest-leverage AI templates usually sit near revenue or distribution:
 - A client proposal builder that turns notes into scope, deliverables, timeline, risks, and follow-up questions.
 - An SEO article outline template that maps search intent, headings, examples, and internal CTA placement.
 - A resume and cover letter template that rewrites experience against a target job description without inventing claims.
+
+## The Three-Prompt System
+
+The strongest AI productivity templates are usually not single prompts. Use a three-prompt chain instead:
+
+1. **Angle prompt:** decide the strategy, audience, promise, and examples before any drafting starts.
+2. **Draft prompt:** produce the asset in a fixed format using the angle and source material.
+3. **Review prompt:** critique the draft for vague claims, missing proof, repeated ideas, weak hooks, and unclear next steps.
+
+This keeps each prompt accountable for one job. It also makes failures easier to diagnose. If the output is bland, the angle prompt is probably weak. If the structure is messy, the draft prompt needs a tighter format. If the piece sounds good but would not convert, the review prompt needs sharper buyer objections.
 
 ## Common Mistakes
 
@@ -70,5 +100,8 @@ Build a content repurposing template. It creates immediate leverage because one 
 
 **How do I know a template is good?**  
 You can run it on a new input and get a usable first draft without rewriting the instructions from scratch.
+
+**What should I template first if I sell digital products?**  
+Start with distribution: Reddit value posts, SEO outlines, launch emails, product-page critiques, and content repurposing. Those tasks sit closest to traffic and sales.
 
 If you would rather not build this from scratch, The Complete AI Creator Toolkit 2026 packages prompt systems, content workflows, creator templates, and productivity checklists in one bundle: https://schephenk.gumroad.com/l/usfdum
