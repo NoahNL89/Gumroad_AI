@@ -1368,12 +1368,37 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "The store now has a coherent free-to-paid funnel, safe delivery, focused acquisition, and campaign attribution. Revenue is still EUR 0 at handoff because the first tracked campaign posts were just published; next decision should use seven days of UTM views and sales rather than creating another product."
+    },
+    {
+      "date": "2026-07-16",
+      "agent": "Codex (GPT-5)",
+      "actions": [
+        "GO idempotency validation: sourced the environment, confirmed live Gumroad authentication, and completed a full authoritative sync without reverting any recent store changes.",
+        "Verified state remained stable at 35 catalog records, 29 live products, 6 drafts, 0 sales, 0 subscribers, and EUR 0.00 revenue. The EUR 0 free lead magnet is correctly exempt and there are no underpriced live paid offers.",
+        "Confirmed the corrected product ladder persisted: Private AI guide EUR 7 and Complete AI Creator Toolkit EUR 24. The flagship still contains all 10 promised files.",
+        "Tested both social promotion commands after three posts per platform in the prior 24 hours. Mastodon and Bluesky both refused a fourth post, proving the rate-limit guardrails work and no duplicate promotion was logged.",
+        "Skipped additional engagement to avoid bursty automation after 36 interactions earlier today. Skipped Pinterest draft creation because two same-day drafts already await the required manual review.",
+        "Confirmed the Private AI next-step upsell remains live and unpaused at 30% from the canonical free pack, and existing LAUNCH30/FLASH50 coverage remains 28 products each with no duplicate code creation.",
+        "Skipped product creation and further discounting because the funnel verdict remains reach-constrained and the repaired campaign needs observation time rather than another SKU.",
+        "Re-ran the complete smoke suite: all 21 tests passed. Campaign report remains at two tracked launch posts and zero sales immediately after launch."
+      ],
+      "new_product_created": null,
+      "distribution_assets": [],
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "pinterest_drafts_created": 0,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "GO behaved idempotently: live state was preserved, rate limits and duplicate protections fired, no unnecessary catalog or campaign mutations occurred, and all automated checks passed."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
   "last_updated": "2026-07-16",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target; funnel repaired and bottleneck remains reach/distribution. 2026-07-16: canonical free-to-EUR 7-to-EUR 24 path live, flagship delivery fixed, duplicate listings unpublished, tracked Private AI campaign launched on Mastodon and Bluesky.",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target; funnel repaired and bottleneck remains reach/distribution. 2026-07-16 GO validation passed idempotently: state persisted, social caps blocked duplicate posts, upsell stayed active, and 21 tests passed.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
