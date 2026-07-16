@@ -21,9 +21,9 @@ Lifetime sales so far: 0
 **Body (paste, then trim to your voice):**
 Most advice on AI productivity templates is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. Stop copying prompts from past chats. Build a central Master Prompt Repository in Notion or plain text.
-2. Force structured output. Add "Output exactly as a Markdown table" to every research prompt to save 30 minutes of formatting.
-3. Use the 'No-Chunk' context architecture. Pass your entire brand guideline document in one go to Gemini Pro so it never loses your voice.
+1. Choose three authority pillars before generating anything: one topic where you have firsthand experience, one recurring audience problem, and one outcome tied to your offer. This keeps AI output focused instead of producing random “content ideas.”
+2. Turn one strong idea into a content atom, then adapt it by channel: a contrarian text post for LinkedIn, a five-slide how-to carousel for Instagram, a concise thread for X, a practical checklist for Reddit, and an SEO section that answers one search question.
+3. Batch the work in a 90-minute weekly session: capture five raw observations, generate ten hooks for each, select the strongest five, draft them in your own examples and language, then schedule. Spend five minutes daily replying to comments and logging questions as next week's source material.
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
@@ -70,9 +70,9 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most AI productivity templates advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: Stop copying prompts from past chats. Build a central Master Prompt Repository in Notion.
-3. Step 2: Force structured output. Add "Output exactly as a Markdown table" to research prompts.
-4. Step 3–4: Use the 'No-Chunk' context architecture. Pass your entire brand guideline document in one go.
+2. Step 1: Pick 3 authority pillars—your firsthand expertise, your audience's recurring problem, and the outcome connected to your offer. Every idea must fit one pillar.
+3. Step 2: Start with one “content atom”: a useful observation, client question, mistake, or result. Ask AI for 10 hooks, but keep only the one that creates curiosity without hiding the payoff.
+4. Steps 3–4: Adapt the atom to each channel's native format, then batch five drafts in 90 minutes. Use the daily five-minute habit for replies; turn recurring questions into next week's atoms.
 5. If you want it done-for-you (templates + every step), I packaged it as "The Complete AI Creator Toolkit 2026 — All 10 Products Bundle": https://schephenk.gumroad.com/l/usfdum — code LAUNCH30 = 30% off this week.
 
 ---
