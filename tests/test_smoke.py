@@ -180,6 +180,15 @@ def test_bot_templates_all_format():
             t.format(**base, **extra)  # raises KeyError on a bad placeholder
 
 
+def test_campaign_links_have_source_attribution():
+    campaign = _load(ROOT / "bot/campaign.py", "campaign")
+    url = campaign.tracked_url("https://schephenk.gumroad.com/l/test?existing=1", "bluesky", "l1")
+    assert "existing=1" in url
+    assert "utm_source=bluesky" in url
+    assert f"utm_campaign={campaign.CAMPAIGN}" in url
+    assert "utm_content=l1" in url
+
+
 def test_bot_rate_limit_blocks_at_three():
     mods = _bots()
     with tempfile.TemporaryDirectory() as d:

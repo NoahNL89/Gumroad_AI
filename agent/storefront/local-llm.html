@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{color-scheme:dark;--bg:#090d0c;--panel:#111816;--ink:#f2f7f4;--muted:#b8c5bf;--line:#30423a;--accent:#58e493;--accent-dark:#07150d;--max:1120px;font-family:Avenir,"Avenir Next","Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65}a{color:inherit}.shell{width:min(var(--max),calc(100% - 32px));margin:auto}.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:clamp(36px,7vw,88px);align-items:center;padding:clamp(64px,9vw,112px) 0 56px}.label{display:inline-flex;align-items:center;gap:10px;color:var(--accent);font-weight:700;margin:0 0 18px}.label:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent)}h1{font-size:clamp(2.6rem,6vw,5.4rem);line-height:.98;letter-spacing:-.035em;text-wrap:balance;margin:0}.lede{font-size:clamp(1.08rem,2vw,1.3rem);color:var(--muted);max-width:62ch;margin:26px 0 0}.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:30px}.buy{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:8px;background:var(--accent);color:var(--accent-dark);font-weight:900;text-decoration:none}.price{font-weight:800}.hero-art{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid var(--line)}.facts{border-block:1px solid var(--line);display:flex;flex-wrap:wrap;gap:0;margin-bottom:72px}.fact{padding:18px 28px 18px 0;margin-right:28px;color:var(--muted)}.fact strong{color:var(--ink)}section{padding:42px 0}h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.04;letter-spacing:-.025em;text-wrap:balance;margin:0 0 18px}.intro{color:var(--muted);max-width:68ch;font-size:1.08rem}.ram{width:100%;border-collapse:collapse;margin-top:28px}.ram th,.ram td{text-align:left;padding:16px;border-bottom:1px solid var(--line)}.ram th{color:var(--accent)}.ram td{color:var(--muted)}.ram td:first-child{color:var(--ink);font-weight:800}.split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(34px,7vw,86px);align-items:start}.checklist{list-style:none;padding:0;margin:0}.checklist li{padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted)}.checklist strong{display:block;color:var(--ink);margin-bottom:3px}.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}.gallery img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:8px;border:1px solid var(--line)}.faq{max-width:800px}.faq details{border-bottom:1px solid var(--line);padding:18px 0}.faq summary{cursor:pointer;font-weight:800}.faq p{color:var(--muted)}.close{margin:58px 0 90px;padding:clamp(28px,6vw,64px);background:var(--panel);border:1px solid var(--line);border-radius:12px}.close p{color:var(--muted);max-width:60ch}.fine{color:var(--muted);font-size:.9rem;margin-top:14px}@media(max-width:780px){.hero,.split{grid-template-columns:1fr}.hero-art{max-width:580px}.gallery{grid-template-columns:1fr}.gallery img{aspect-ratio:16/10}.ram{font-size:.9rem}.ram th,.ram td{padding:12px 8px}.buy{width:100%}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="label">Private AI, practical setup</p>
+        <h1>Private AI on Your Computer</h1>
+        <p class="lede">Choose a model your computer can actually run, install a useful local workflow, and keep confidential work off third-party servers.</p>
+        <div class="actions">
+          <a class="buy" data-gumroad-action="buy">Get the setup guide</a>
+          <span class="price" data-gumroad-field="price">€7</span>
+        </div>
+        <p class="fine">One payment · PDF download · Windows, macOS, and Linux · Code LAUNCH30 saves 30%</p>
+      </div>
+      <img class="hero-art" src="https://public-files.gumroad.com/o1jni903g0sq5p2u0rq0kli27xvl" alt="Private local AI system running on a professional workstation">
+    </section>
+
+    <div class="facts" aria-label="Product facts">
+      <div class="fact"><strong>Start at 8 GB RAM</strong><br>Clear hardware tiers</div>
+      <div class="fact"><strong>No API key</strong><br>Keep work on your machine</div>
+      <div class="fact"><strong>No subscription</strong><br>Download and keep it</div>
+    </div>
+
+    <section>
+      <h2>Start with the machine you own.</h2>
+      <p class="intro">The guide begins with capacity, not benchmark hype. Match model size to available memory, leave room for context, and avoid turning a capable laptop into a swapping, overheating mess.</p>
+      <table class="ram">
+        <thead><tr><th>Available memory</th><th>Practical starting point</th><th>Best use</th></tr></thead>
+        <tbody>
+          <tr><td>8 GB</td><td>Small quantized instruct model</td><td>Summaries, drafts, simple extraction</td></tr>
+          <tr><td>16 GB</td><td>7B–14B quantized model</td><td>Writing, research notes, private documents</td></tr>
+          <tr><td>32 GB+</td><td>Larger models and longer context</td><td>Batch work, coding, retrieval workflows</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>A working decision system.</h2>
+        <p class="intro">Use the checklists in order, then test your setup on real work instead of endlessly changing models.</p>
+      </div>
+      <ul class="checklist">
+        <li><strong>Hardware and model selection</strong>Pick a realistic model tier for CPU, GPU, and memory constraints.</li>
+        <li><strong>Privacy classification</strong>Decide which client, legal, financial, or unpublished work should stay local.</li>
+        <li><strong>Installation workflow</strong>Move from download to first useful response without a cloud API.</li>
+        <li><strong>Prompt structure</strong>Use role, objective, context, constraints, and output format consistently.</li>
+        <li><strong>Acceptance testing</strong>Evaluate ten real tasks before changing models or adding retrieval.</li>
+        <li><strong>Troubleshooting</strong>Diagnose slow output, memory pressure, weak context, and unsuitable model choices.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>See the system before you buy.</h2>
+      <div class="gallery">
+        <img src="https://public-files.gumroad.com/glrhrvzl60wcqbqk0ckhsx5e8gwt" alt="Hardware tiers for running local AI models">
+        <img src="https://public-files.gumroad.com/0dlsqg9l4bnj3twta5b8ezhacjro" alt="Privacy-first setup for confidential AI work">
+        <img src="https://public-files.gumroad.com/viis6iwsgb46y3i4fj63o7v1wgmz" alt="Offline AI workflow from task to checked output">
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Before you download.</h2>
+      <details open><summary>Do I need a dedicated GPU?</summary><p>No. CPU-only setups can handle smaller quantized models, although generation will be slower. The guide explains sensible starting points by available memory.</p></details>
+      <details><summary>Is this software?</summary><p>No. This is a practical PDF setup and decision guide. It points you through compatible local-model tools and workflows; it is not a hosted application.</p></details>
+      <details><summary>Will every model run on every computer?</summary><p>No. Model choice depends on memory, hardware, quantization, and context length. The guide is designed to prevent unrealistic downloads and poor configurations.</p></details>
+      <details><summary>What if the file is missing or damaged?</summary><p>Email schephenk198@gmail.com within 14 days. Technical delivery problems and product mismatches are reviewed within two business days.</p></details>
+    </section>
+
+    <section class="close">
+      <h2>Put private AI to work today.</h2>
+      <p>Choose your hardware tier, install one suitable model, and complete one confidential task locally before experimenting with anything more complex.</p>
+      <div class="actions"><a class="buy" data-gumroad-action="buy">Get the guide</a><span class="price" data-gumroad-field="price">€7</span></div>
+    </section>
+  </main>
+</body>
+</html>

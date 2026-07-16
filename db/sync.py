@@ -193,7 +193,9 @@ def sync_products(con):
     print(f"   CLI products list returned: {len(products)}")
     print(f"   User links (all permalinks): {len(permalinks)}")
 
-    # Step 3: For each permalink not already in product list, fetch individually
+    # Step 3: For each permalink not already in product list, fetch individually.
+    # Keep previously discovered draft IDs too: unpublished products disappear
+    # from user.links and the list endpoint only returns a recent subset.
     known_ids = {p["id"] for p in products}
     extra_fetched = 0
 
@@ -214,8 +216,29 @@ def sync_products(con):
             if prod["id"] not in known_ids:
                 products.append(prod)
                 known_ids.add(prod["id"])
-                extra_fetched += 1
+            extra_fetched += 1
         time.sleep(0.15)
+
+    for row in con.execute("SELECT id FROM products").fetchall():
+        product_id = row["id"]
+        if product_id in known_ids:
+            continue
+        r = cli_json("products", "view", product_id)
+        if r.get("success") and r.get("product"):
+            products.append(r["product"])
+            known_ids.add(product_id)
+            extra_fetched += 1
+        time.sleep(0.15)
+
+    # The list endpoint can lag immediately after an edit. Refresh every
+    # discovered product through `products view`, which returns authoritative
+    # name, price, publication state, files, and media for that product.
+    refreshed = []
+    for product in products:
+        r = cli_json("products", "view", product["id"])
+        refreshed.append(r["product"] if r.get("success") and r.get("product") else product)
+        time.sleep(0.15)
+    products = refreshed
 
     print(f"   Extra products fetched by permalink: {extra_fetched}")
     print(f"   Total products discovered: {len(products)}")
@@ -459,18 +482,23 @@ def print_report(con):
           COUNT(*) as total,
           SUM(published) as live,
           COUNT(*) - SUM(published) as draft,
-          COUNT(CASE WHEN price_cents <= 99 THEN 1 END) as underpriced,
-          COUNT(CASE WHEN price_cents > 99 THEN 1 END) as properly_priced
+          COUNT(CASE WHEN published=1 AND price_cents <= 99
+                     AND formatted_price NOT LIKE '%0+%' THEN 1 END) as underpriced,
+          COUNT(CASE WHEN published=1 AND (price_cents > 99
+                     OR formatted_price LIKE '%0+%') THEN 1 END) as properly_priced
         FROM products
     """).fetchone()
     print(f"\n  📦 Products:  {rows['total']} total  |  {rows['live']} live  |  {rows['draft']} draft")
     if rows['underpriced'] > 0:
-        print(f"  ⚠️  Still at ≤€0.99: {rows['underpriced']} products — NEEDS REPRICING")
-    print(f"  ✅ Properly priced (>€0.99): {rows['properly_priced']} products")
+        print(f"  ⚠️  Live paid offers at ≤€0.99: {rows['underpriced']} — NEEDS REPRICING")
+    else:
+        print("  ✅ No live paid offer is stuck at ≤€0.99")
+    print(f"  ✅ Intentional free or properly priced live: {rows['properly_priced']} products")
 
     # List underpriced
     under = con.execute(
-        "SELECT name, formatted_price FROM products WHERE price_cents <= 99 ORDER BY name"
+        "SELECT name, formatted_price FROM products WHERE published=1 AND price_cents <= 99 "
+        "AND formatted_price NOT LIKE '%0+%' ORDER BY name"
     ).fetchall()
     for u in under:
         print(f"     • {u['name'][:50]}  → {u['formatted_price']}")
@@ -545,7 +573,8 @@ def main():
     if args.reprice_zero:
         target_price = args.reprice_zero
         under = con.execute(
-            "SELECT id, name, formatted_price FROM products WHERE price_cents <= 99 AND published=1"
+            "SELECT id, name, formatted_price FROM products WHERE price_cents <= 99 AND published=1 "
+            "AND formatted_price NOT LIKE '%0+%'"
         ).fetchall()
         print(f"\n🔧 Repricing {len(under)} products to €{target_price}...")
         for p in under:

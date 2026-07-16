@@ -12,6 +12,11 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 try:
+    from campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+except ImportError:  # package import in tests/tools
+    from .campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+
+try:
     from mastodon import Mastodon
 except ImportError:
     sys.exit("mastodon.py not installed. Run: pip3 install Mastodon.py")
@@ -21,7 +26,6 @@ DB_PATH   = Path(__file__).parent.parent / "db" / "store.db"
 
 MAX_POSTS_PER_DAY = 3
 MASTODON_LIMIT    = 500
-DISCOUNT_CODE     = "LAUNCH30"
 
 # Hashtag sets by product category
 HASHTAGS = {
@@ -96,9 +100,20 @@ SELL_TEMPLATES = [
 ]
 
 BUNDLE_TEMPLATES = [
-    "Built 10 AI systems over 6 months.\n\nPackaged all of them into one bundle at €29.99 — less than the cost of one month of ChatGPT Plus.\n\nThe Complete AI Creator Toolkit: {url}\n(Code {code}: 30% off → €21)\n\n{hashtags}",
+    "Built 10 AI systems over 6 months.\n\nPackaged all of them into one practical bundle at {price}.\n\nThe Complete AI Creator Toolkit: {url}\n(Code {code}: 30% off)\n\n{hashtags}",
 
-    "Instead of buying 10 separate tools:\n\nThe Complete AI Creator Toolkit bundles everything for €29.99.\nUse code {code} for 30% off → €21 total.\n\n{url}\n\n{hashtags}",
+    "Instead of buying 10 separate tools:\n\nThe Complete AI Creator Toolkit bundles everything for {price}.\nUse code {code} for 30% off.\n\n{url}\n\n{hashtags}",
+]
+
+# A focused seven-day campaign: five useful lessons for every direct offer.
+# Specific teaching earns more attention than rotating generic product pitches.
+FOCUS_TEMPLATES = [
+    "Want to run AI locally? Start smaller than you think.\n\nAn 8B model is a practical first test: install Ollama, run one model, then judge speed and output before downloading anything larger.\n\nMy step-by-step setup guide: {url}\nCode {code} = 30% off\n\n{hashtags}",
+    "Local AI privacy rule: downloading a model is not enough.\n\nKeep sensitive files out of cloud-synced folders, check whether your interface has analytics enabled, and test offline after setup.\n\nThe full private-AI checklist: {url}\n\n{hashtags}",
+    "Before choosing a local AI model, write down the job:\n\n• drafting or coding?\n• short chat or long documents?\n• speed or best output?\n\nThat decision matters more than chasing the biggest model. My setup guide: {url}\n\n{hashtags}",
+    "A useful first local-AI test:\n\n1. Ask a factual question\n2. Summarize a page you provide\n3. Rewrite a paragraph in your voice\n4. Repeat after disconnecting the network\n\nSetup workflow + troubleshooting: {url}\n\n{hashtags}",
+    "You do not need a server rack to learn local AI. Start with the computer you own, one modest model, and one repeatable task. Upgrade only after you find the actual bottleneck.\n\nPrivate AI setup guide: {url}\n\n{hashtags}",
+    "Run useful AI on your own computer—without another monthly subscription.\n\nPrivate AI on Your Computer is the practical install, model-choice, privacy and troubleshooting guide. {price} once.\n\n{url}\nCode {code} = 30% off\n\n{hashtags}",
 ]
 
 
@@ -158,43 +173,23 @@ def post_message(text, product_id=None, url=None):
     return True
 
 
-def promote_random_product():
+def promote_focus_product():
     if not DB_PATH.exists():
         sys.exit("DB not found. Run: python3 db/sync.py")
 
     with sqlite3.connect(str(DB_PATH)) as con:
-        con.row_factory = sqlite3.Row
-        products = con.execute(
-            "SELECT id, name, formatted_price, short_url FROM products WHERE published=1 AND price_cents > 99"
-        ).fetchall()
-        last = con.execute(
-            "SELECT product_id FROM promotions WHERE platform='mastodon' ORDER BY posted_at DESC LIMIT 3"
-        ).fetchall()
+        p = focus_product(con)
+        if not p:
+            sys.exit("Focused Local LLM product not found. Run: python3 db/sync.py")
+        variant = next_variant(con, "mastodon", p["id"], len(FOCUS_TEMPLATES))
 
-    if not products:
-        sys.exit("No products found.")
-
-    recent_ids = {r["product_id"] for r in last}
-    bundle = next((p for p in products if "toolkit" in p["name"].lower() or "bundle" in p["name"].lower()), None)
-
-    # 20% chance to promote the bundle specifically
-    if bundle and random.random() < 0.20:
-        p = bundle
-        tmpl = random.choice(BUNDLE_TEMPLATES)
-    else:
-        pool = [p for p in products if p["id"] not in recent_ids] or list(products)
-        p = random.choice(pool)
-        if random.random() < 0.70:
-            value_pool = GENERIC_VALUE_TEMPLATES + (
-                PROMPT_VALUE_TEMPLATES if is_prompt_product(p["name"]) else []
-            )
-            tmpl = random.choice(value_pool)
-        else:
-            tmpl = random.choice(SELL_TEMPLATES)
-
-    url = p["short_url"] or "https://schephenk.gumroad.com"
-    tags = get_hashtags(p["name"])
-    text = tmpl.format(
+    url = tracked_url(
+        p["short_url"] or "https://schephenk.gumroad.com/l/local-llm-guide",
+        "mastodon",
+        f"l{variant + 1}",
+    )
+    tags = "#LocalAI #Privacy #Ollama #OpenSourceAI"
+    text = FOCUS_TEMPLATES[variant].format(
         name=p["name"],
         price=p["formatted_price"],
         url=url,
@@ -202,6 +197,10 @@ def promote_random_product():
         hashtags=tags,
     )
     post_message(text, product_id=p["id"], url=url)
+
+
+# Keep the historical function name for cron jobs and external callers.
+promote_random_product = promote_focus_product
 
 
 def engage_community():
@@ -254,7 +253,7 @@ if __name__ == "__main__":
         sys.exit(1)
     cmd = sys.argv[1]
     if cmd == "promote":
-        promote_random_product()
+        promote_focus_product()
     elif cmd == "engage":
         engage_community()
     elif cmd == "post":

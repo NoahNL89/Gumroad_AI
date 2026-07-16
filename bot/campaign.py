@@ -1,0 +1,45 @@
+"""Shared campaign settings and tracking helpers for Schep Digital bots."""
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+FOCUS_PRODUCT_ID = "gIXM0JN3NDuI1-2BadEVNg=="
+FOCUS_PRODUCT_NAME = "Private AI on Your Computer: Local LLM Setup Guide (2026)"
+CAMPAIGN = "private_ai_2026_07"
+DISCOUNT_CODE = "LAUNCH30"
+
+
+def tracked_url(url: str, source: str, content: str) -> str:
+    """Add stable UTM attribution without discarding an existing query string."""
+    parts = urlsplit(url)
+    query = dict(parse_qsl(parts.query, keep_blank_values=True))
+    query.update({
+        "utm_source": source,
+        "utm_medium": "social",
+        "utm_campaign": CAMPAIGN,
+        "utm_content": content,
+    })
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
+
+
+def focus_product(con):
+    """Return the campaign product, surviving a future ID migration by name."""
+    con.row_factory = __import__("sqlite3").Row
+    row = con.execute(
+        "SELECT id, name, formatted_price, short_url FROM products "
+        "WHERE published=1 AND id=?",
+        (FOCUS_PRODUCT_ID,),
+    ).fetchone()
+    if row:
+        return row
+    return con.execute(
+        "SELECT id, name, formatted_price, short_url FROM products "
+        "WHERE published=1 AND lower(name) LIKE '%local llm%' LIMIT 1"
+    ).fetchone()
+
+
+def next_variant(con, platform: str, product_id: str, variant_count: int) -> int:
+    """Rotate campaign lessons based on already-logged posts."""
+    count = con.execute(
+        "SELECT COUNT(*) FROM promotions WHERE platform=? AND product_id=?",
+        (platform, product_id),
+    ).fetchone()[0]
+    return count % variant_count

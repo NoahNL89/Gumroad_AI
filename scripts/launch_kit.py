@@ -22,6 +22,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "db" / "store.db"
 OUT_DIR = ROOT / "agent" / "launch_kits"
 CODE = "LAUNCH30"
+sys.path.insert(0, str(ROOT / "bot"))
+from campaign import CAMPAIGN, tracked_url  # noqa: E402
 
 # product keyword -> (subreddits, primary SEO keyword theme)
 CHANNELS = [
@@ -79,10 +81,33 @@ def build_kit(p) -> str:
     url = p["short_url"] or "https://schephenk.gumroad.com"
     subs, kw = channels_for(name)
     short = name.split(":")[0].split(" - ")[0].strip()
+    reddit_url = tracked_url(url, "reddit", "value_post")
+    product_hunt_url = tracked_url(url, "product_hunt", "launch")
+    seo_url = tracked_url(url, "seo", "guide_cta")
+    email_url = tracked_url(url, "email", "launch")
+    x_url = tracked_url(url, "x", "thread")
+    is_local_llm = "local llm" in name.lower() or "private ai" in name.lower()
+    if is_local_llm:
+        reddit_steps = """1. Install Ollama from its official installer and begin with one modest 7B–8B model.
+2. Test the model on one real job—summarizing supplied text, drafting, or coding—not a synthetic benchmark.
+3. Check your interface settings for analytics and keep sensitive source files outside cloud-synced folders.
+4. Disconnect the network after the model is downloaded and repeat the task to verify the workflow is actually local.
+5. Upgrade hardware or model size only after speed, context length, or output quality becomes a measured bottleneck."""
+        thread_tips = """2. Start with a 7B–8B model. A small useful model beats a huge download your machine struggles to run.
+3. Test your real task: summarize text you supply, rewrite a paragraph, or explain a code block.
+4. For privacy, check analytics settings, avoid cloud-sync folders, and repeat the test offline."""
+    else:
+        reddit_steps = """1. [give a useful first step from the product]
+2. [give a concrete example]
+3. [give a common mistake and its fix]"""
+        thread_tips = """2. Step 1: [specific, useful tip from the product]
+3. Step 2: [specific, useful tip]
+4. Step 3–4: [specific, useful tips]"""
 
     return f"""# Launch Kit — {name}
 
 **Product:** {name}  ·  **Price:** {price}  ·  **URL:** {url}  ·  **Code:** {CODE} (30% off)
+**Campaign:** `{CAMPAIGN}` — every channel link below has its own UTM source.
 Lifetime sales so far: {p['sales_count'] or 0}
 
 > Goal: get this in front of real buyers. The social bots reach almost no one —
@@ -103,13 +128,11 @@ Lifetime sales so far: {p['sales_count'] or 0}
 **Body (paste, then trim to your voice):**
 Most advice on {kw} is either vague or trying to sell you something. So here's the actual workflow I use, free:
 
-1. [give 3–5 genuinely useful, specific steps from the product — teach, don't tease]
-2. ...
-3. ...
+{reddit_steps}
 
 This took months to refine. I packaged the full version (templates + every step done-for-you) as "{short}" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
 
-*(First comment:)* For anyone who asked — it's here: {url} (code {CODE} = 30% off this week). But the steps above are the core; you can do this without buying anything.
+*(First comment:)* For anyone who asked — it's here: {reddit_url} (code {CODE} = 30% off this week). But the steps above are the core; you can do this without buying anything.
 
 ---
 
@@ -119,6 +142,7 @@ This took months to refine. I packaged the full version (templates + every step 
 **Description:** {short} is a done-for-you {kw} kit: everything you need, ready to use, {price} once (no subscription). Built for makers who'd rather ship than research.
 **Topics:** Artificial Intelligence, Productivity, Marketing
 **First maker comment:** I kept rebuilding the same {kw} workflow from scratch, so I packaged it once and for all. Launch code {CODE} takes 30% off today. Feedback very welcome — what would make it a no-brainer for you?
+**Tracked launch URL:** {product_hunt_url}
 
 ---
 
@@ -133,7 +157,7 @@ This took months to refine. I packaged the full version (templates + every step 
 - Templates & tools that save the most time
 - Common mistakes (and how to avoid them)
 - FAQ
-**Soft CTA (end of article):** If you'd rather not build this from scratch, "{short}" packages the whole system: {url}
+**Soft CTA (end of article):** If you'd rather not build this from scratch, "{short}" packages the whole system: {seo_url}
 
 ---
 
@@ -144,7 +168,7 @@ This took months to refine. I packaged the full version (templates + every step 
 **Body:**
 Quick one. I just released "{short}" — the full {kw} system, ready to use.
 No subscription, {price} once, yours forever.
-This week only: code {CODE} takes 30% off → {url}
+This week only: code {CODE} takes 30% off → {email_url}
 Reply if you have questions; I read every one.
 
 ---
@@ -152,14 +176,12 @@ Reply if you have questions; I read every one.
 ## 5. X / Twitter thread (5 posts)
 
 1. Most {kw} advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Step 1: [specific, useful tip from the product]
-3. Step 2: [specific, useful tip]
-4. Step 3–4: [specific, useful tips]
-5. If you want it done-for-you (templates + every step), I packaged it as "{short}": {url} — code {CODE} = 30% off this week.
+{thread_tips}
+5. If you want the full setup and troubleshooting workflow, I packaged it as "{short}": {x_url} — code {CODE} = 30% off this week.
 
 ---
 
-*Generated by scripts/launch_kit.py — fill the [bracketed] spots with 1–2 real, specific tips from the product before posting. Specificity is what converts.*
+*Generated by scripts/launch_kit.py — verify community rules and adapt the wording to the conversation before posting.*
 """
 
 

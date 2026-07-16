@@ -234,6 +234,13 @@
         linear-gradient(45deg, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 70%);
       border-bottom: 1px solid var(--line);
     }
+    .product-image {
+      width: calc(100% + 32px);
+      height: 184px;
+      margin: -16px;
+      object-fit: cover;
+      display: block;
+    }
     .initials {
       width: 54px;
       height: 54px;
@@ -247,6 +254,7 @@
     .price { font-weight: 900; padding: 6px 9px; border-radius: 999px; background: var(--ink); color: var(--bg); white-space: nowrap; font-size: .9rem; }
     .product-body { padding: 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
     .product h3 { margin: 0; font-size: 1.1rem; line-height: 1.25; }
+    .product-price { color: var(--accent); font-weight: 900; }
     .product p { margin: 0; color: var(--muted); line-height: 1.48; font-size: .96rem; }
     .product a { margin-top: auto; align-self: flex-start; font-weight: 800; }
     .trust {
@@ -313,12 +321,12 @@
   <main id="top">
     <section class="wrap hero" aria-labelledby="hero-title">
       <div>
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> AI tools, templates, prompts, and practical creator systems</p>
-        <h1 id="hero-title"><span data-gumroad-field="name">Schep Digital</span></h1>
-        <p class="bio" data-gumroad-field="bio">Helping creators, freelancers and small businesses work smarter with AI-powered tools, templates and content. Instant digital downloads - ready to use.</p>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Private AI and repeatable creator systems</p>
+        <h1 id="hero-title">Use AI. Keep control.</h1>
+        <p class="bio">Practical guides for running AI locally, building reliable content workflows, and turning useful prompts into repeatable work. Clear deliverables, immediate downloads, no software subscription.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#catalog">Explore the catalog</a>
-          <a class="btn secondary" href="#support">Contact and policies</a>
+          <a class="btn primary" href="https://schephenk.gumroad.com/l/local-llm-guide?utm_source=profile&amp;utm_medium=hero&amp;utm_campaign=local_llm_focus">Run AI locally</a>
+          <a class="btn secondary" href="https://schephenk.gumroad.com/l/rohes?utm_source=profile&amp;utm_medium=hero&amp;utm_campaign=free_pack">Start free</a>
         </div>
       </div>
 
@@ -326,16 +334,16 @@
         <div class="grid-art" aria-hidden="true"></div>
         <div class="stack">
           <div class="signal">
-            <strong id="product-count">Live systems</strong>
-            <span>Digital products update from Gumroad data as the catalog changes.</span>
+            <strong id="product-count">4 focused systems</strong>
+            <span>A short path from free prompts to private AI and complete creator operations.</span>
           </div>
           <div class="signal">
-            <strong>Pay once</strong>
-            <span>Most products are one-time purchases designed to be reused, adapted, and kept.</span>
+            <strong>Buy once</strong>
+            <span>Reusable PDFs and working checklists. No recurring software charge.</span>
           </div>
           <div class="signal">
-            <strong>No blank pages</strong>
-            <span>Prompt packs, launch kits, creative systems, and productivity templates.</span>
+            <strong>See before buying</strong>
+            <span>Priority products include real covers, previews, exact file counts, and compatibility notes.</span>
           </div>
         </div>
       </aside>
@@ -343,21 +351,21 @@
 
     <section class="wrap" id="systems" aria-labelledby="systems-title">
       <div class="section-head">
-        <h2 id="systems-title">Built for repeatable output.</h2>
-        <p>Every product is designed as a working system: clear instructions, reusable templates, copy-paste prompts, and practical workflows for shipping faster.</p>
+        <h2 id="systems-title">Begin with one real task.</h2>
+        <p>The store is organized around four entry points instead of an overwhelming wall of near-identical downloads.</p>
       </div>
       <div class="trust" role="list">
         <article role="listitem">
-          <h3>Creator workflows</h3>
-          <p>Content calendars, hooks, social systems, and AI-assisted workflows for publishing without starting from a blank page.</p>
+          <h3>Start free</h3>
+          <p>Use twelve structured prompts on writing, planning, research, and decisions before spending anything.</p>
         </article>
         <article role="listitem">
-          <h3>Business templates</h3>
-          <p>Resume, proposal, naming, SEO, and freelancer kits that turn fuzzy tasks into repeatable checklists.</p>
+          <h3>Run private AI</h3>
+          <p>Choose a model by available RAM, install a local workflow, and keep confidential work on your machine.</p>
         </article>
         <article role="listitem">
-          <h3>AI production systems</h3>
-          <p>Prompt packs, local LLM guides, Midjourney character systems, and Blender workflows for practical AI output.</p>
+          <h3>Build a content engine</h3>
+          <p>Plan a month of LinkedIn posts or download the ten-system library for broader creator work.</p>
         </article>
       </div>
     </section>
@@ -365,7 +373,7 @@
     <section class="wrap" id="catalog" aria-labelledby="catalog-title">
       <div class="section-head">
         <div>
-          <h2 id="catalog-title">Live catalog</h2>
+          <h2 id="catalog-title">Four ways in.</h2>
           <div class="pill-row" aria-label="Catalog filters">
             <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
             <button class="filter" type="button" data-filter="prompt" aria-pressed="false">Prompts</button>
@@ -374,7 +382,7 @@
             <button class="filter" type="button" data-filter="business" aria-pressed="false">Business</button>
           </div>
         </div>
-        <p>Products are rendered from Gumroad's server-injected catalog data, so this page stays current as products are added, removed, or updated.</p>
+        <p>The wider catalog remains available through direct links. These are the four products with the clearest path from first result to complete system.</p>
       </div>
       <div class="products" id="product-grid" aria-live="polite"></div>
       <div class="empty" id="empty-state" hidden>No matching products found.</div>
@@ -418,6 +426,19 @@
       }
 
       var products = Array.isArray(data.products) ? data.products.slice() : [];
+      var featured = ["/l/rohes", "/l/local-llm-guide", "/l/sstsmp", "/l/usfdum"];
+      var imageByPath = {
+        "/l/rohes": "https://public-files.gumroad.com/ptgpprmo2kmpxgjh1z5sjvj0penv",
+        "/l/local-llm-guide": "https://public-files.gumroad.com/ueq79yodzjchqsa9wgb76jdlz6fv",
+        "/l/sstsmp": "https://public-files.gumroad.com/kgbnhrv2dj3aqky3nstb7iwimew4",
+        "/l/usfdum": "https://public-files.gumroad.com/g7tf69uolwp3c0wygfm09u354rrl"
+      };
+      function productPath(product) {
+        try { return new URL(text(product.url), window.location.href).pathname; }
+        catch (error) { return ""; }
+      }
+      products = products.filter(function (product) { return featured.indexOf(productPath(product)) !== -1; });
+      products.sort(function (a, b) { return featured.indexOf(productPath(a)) - featured.indexOf(productPath(b)); });
       var grid = document.getElementById("product-grid");
       var empty = document.getElementById("empty-state");
       var count = document.getElementById("product-count");
@@ -449,19 +470,31 @@
 
         var top = document.createElement("div");
         top.className = "product-top";
-        var badge = document.createElement("span");
-        badge.className = "initials";
-        badge.textContent = initials(product.name);
+        var path = productPath(product);
+        var badge;
+        if (imageByPath[path]) {
+          badge = document.createElement("img");
+          badge.className = "product-image";
+          badge.src = imageByPath[path];
+          badge.alt = "Cover for " + text(product.name, "Schep Digital product");
+        } else {
+          badge = document.createElement("span");
+          badge.className = "initials";
+          badge.textContent = initials(product.name);
+        }
         var price = document.createElement("span");
         price.className = "price";
         price.textContent = text(product.price, "View");
         top.appendChild(badge);
-        top.appendChild(price);
+        if (!imageByPath[path]) top.appendChild(price);
 
         var body = document.createElement("div");
         body.className = "product-body";
         var h3 = document.createElement("h3");
         h3.textContent = text(product.name, "Schep Digital product");
+        var bodyPrice = document.createElement("span");
+        bodyPrice.className = "product-price";
+        bodyPrice.textContent = text(product.price, "View product");
         var p = document.createElement("p");
         p.textContent = shortDescription(product.description);
         var a = document.createElement("a");
@@ -469,6 +502,7 @@
         a.textContent = "View product page";
         a.setAttribute("aria-label", "View product page for " + h3.textContent);
         body.appendChild(h3);
+        body.appendChild(bodyPrice);
         body.appendChild(p);
         body.appendChild(a);
 
@@ -484,7 +518,7 @@
         });
         visible.forEach(function (product) { grid.appendChild(productCard(product)); });
         if (empty) empty.hidden = visible.length !== 0;
-        if (count) count.textContent = products.length || "Live";
+        if (count) count.textContent = (products.length || 4) + " focused systems";
       }
       Array.prototype.forEach.call(document.querySelectorAll(".filter"), function (button) {
         button.addEventListener("click", function () {

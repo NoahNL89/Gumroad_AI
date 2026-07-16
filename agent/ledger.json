@@ -1333,21 +1333,56 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Live distribution succeeded after correcting PATH and using the authenticated CLI environment. No product/pricing changes were warranted; reach remains the binding constraint."
+    },
+    {
+      "date": "2026-07-16",
+      "agent": "Codex (GPT-5)",
+      "actions": [
+        "Completed a full conversion and distribution repair after the store remained at 0 sales: verified live authentication, synced all products, and confirmed reach remains the binding constraint.",
+        "Fixed flagship delivery by attaching all 10 specifically promised PDF files to The Complete AI Creator Toolkit and verified the live product exposes 10 downloadable files.",
+        "Unpublished five duplicate or mispriced Free AI Quick-Start listings and retained one canonical free lead magnet. Also unpublished the unsupported EUR 0.99/month Consistent Character Genesis membership, leaving 29 live and 6 draft products.",
+        "Rebuilt the canonical free pack, Private AI guide, Complete Creator Toolkit, and LinkedIn Content OS listings with clearer names, descriptions, taxonomy, tags, receipts, thumbnails, covers, and preview media.",
+        "Published custom responsive landing pages for the free pack, Private AI guide, and complete toolkit, and redesigned the live profile around four intentional entry points instead of a wall of near-identical products.",
+        "Corrected the actual product ladder to EUR 0 free pack, EUR 7 Private AI guide, and EUR 24 complete toolkit; verified live rendered prices and purchase buttons in headless Chrome.",
+        "Activated a live 30% cross-sell from the free pack to the Private AI guide and updated the store bio to the focused private-AI and repeatable-systems positioning.",
+        "Replaced random social-product rotation with a seven-day Private AI campaign: five educational lessons per direct offer, stable campaign attribution, platform-specific UTM links, and measured variant rotation.",
+        "Published one new tracked Private AI post to Mastodon and one to Bluesky, reaching the three-post-per-24-hour safety cap on both platforms. Campaign log now contains two tracked launch posts.",
+        "Added a campaign report command, a channel-attributed launch kit with concrete local-AI teaching steps, and a partner kit with review-copy outreach, 50% recommended commission, disclosures, and reusable creative assets.",
+        "Fixed db/sync.py so stale list results can no longer overwrite fresh live product edits: every discovered product is refreshed through the authoritative product view, including prior draft IDs.",
+        "Corrected underpricing reports and bulk repricing so intentional EUR 0+ lead magnets are exempt and unpublished drafts do not generate false alarms. All 21 smoke tests passed."
+      ],
+      "new_product_created": null,
+      "distribution_assets": [
+        "agent/launch_kits/private-ai-on-your-computer-local-llm-setup-guide-.md",
+        "agent/affiliate/local-llm-partner-kit.md",
+        "agent/storefront/local-llm.html",
+        "agent/storefront/free-quickstart.html",
+        "agent/storefront/creator-toolkit.html"
+      ],
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "live_upsell_id": "ikVf1G25RFGdQcYKudUVHQ==",
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "The store now has a coherent free-to-paid funnel, safe delivery, focused acquisition, and campaign attribution. Revenue is still EUR 0 at handoff because the first tracked campaign posts were just published; next decision should use seven days of UTM views and sales rather than creating another product."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
   "last_updated": "2026-07-16",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target; bottleneck = reach/distribution. 2026-07-16 live session: published two Mastodon and two Bluesky posts including FLASH50 urgency, completed 36 community interactions, prepared a Pinterest review draft, and completed a local-LLM launch kit.",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target; funnel repaired and bottleneck remains reach/distribution. 2026-07-16: canonical free-to-EUR 7-to-EUR 24 path live, flagship delivery fixed, duplicate listings unpublished, tracked Private AI campaign launched on Mastodon and Bluesky.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
-      "price_eur": 29.99,
+      "price_eur": 24,
       "url": "https://schephenk.gumroad.com/l/usfdum"
     },
     "local_llm_guide": {
       "id": "gIXM0JN3NDuI1-2BadEVNg==",
-      "price_eur": 14.99
+      "price_eur": 7
     },
     "blender_mastery": {
       "id": "KA9cbFaDhhCoh94TTuZ4pA==",

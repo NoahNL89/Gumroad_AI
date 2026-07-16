@@ -57,7 +57,7 @@ SELL_TEMPLATES = [
 ]
 
 BUNDLE_TEMPLATES = [
-    "The Complete AI Creator Toolkit bundles 10 AI systems into one download. €29.99 once, code {code} takes 30% off.",
+    "The Complete AI Creator Toolkit bundles 10 practical AI systems into one download. Code {code} takes 30% off.",
     "10 AI creator systems in one bundle: prompts, workflows, templates, and productivity assets. Code {code} saves 30%.",
 ]
 

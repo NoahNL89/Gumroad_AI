@@ -6,7 +6,7 @@ Quick queries for agents and humans.
 Usage:
     python3 db/query.py                  # Show full snapshot
     python3 db/query.py products         # List all products
-    python3 db/query.py underpriced      # Products still at ≤€0.99
+    python3 db/query.py underpriced      # Live paid offers still at ≤€0.99
     python3 db/query.py sales            # Recent sales
     python3 db/query.py revenue          # Revenue summary
     python3 db/query.py survival         # Survival dashboard
@@ -43,18 +43,19 @@ def cmd_products(con):
 def cmd_underpriced(con):
     rows = con.execute("""
         SELECT id, name, formatted_price, published
-        FROM products WHERE price_cents <= 99
-        ORDER BY published DESC, name
+        FROM products WHERE published=1 AND price_cents <= 99
+          AND formatted_price NOT LIKE '%0+%'
+        ORDER BY name
     """).fetchall()
     if not rows:
-        print("\n✅ No underpriced products (all >€0.99)")
+        print("\n✅ No underpriced live paid offers (free lead magnets are exempt)")
         return
-    print(f"\n⚠️  {len(rows)} products still at ≤€0.99:\n")
+    print(f"\n⚠️  {len(rows)} live paid offers still at ≤€0.99:\n")
     for r in rows:
         live = "live" if r["published"] else "draft"
         print(f"  [{live}] {r['name'][:60]}  → {r['formatted_price']}")
         print(f"         ID: {r['id']}")
-    print(f"\nFix with: python3 db/sync.py --reprice-zero 7.99   (matches GO.md ROUTINE 3; skip €0 subscriptions — they are exempt)")
+    print("\nFix with: python3 db/sync.py --reprice-zero 7.99")
 
 def cmd_sales(con):
     rows = con.execute("""

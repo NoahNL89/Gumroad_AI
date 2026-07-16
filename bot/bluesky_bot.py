@@ -12,6 +12,11 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 try:
+    from campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+except ImportError:  # package import in tests/tools
+    from .campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+
+try:
     from atproto import Client, models
     from atproto_client.utils import TextBuilder
 except ImportError:
@@ -22,7 +27,6 @@ DB_PATH   = Path(__file__).parent.parent / "db" / "store.db"
 
 MAX_POSTS_PER_DAY = 3
 BLUESKY_LIMIT     = 300
-DISCOUNT_CODE     = "LAUNCH30"
 
 # Hashtags by category (5-6 per post for Bluesky discovery)
 HASHTAGS = {
@@ -90,9 +94,18 @@ SELL_TEMPLATES = [
 ]
 
 BUNDLE_TEMPLATES = [
-    "10 AI systems. One bundle. €29.99.\n\nLess than one month of ChatGPT Plus.\n\nThe Complete AI Creator Toolkit:\n{url}\nCode {code} = 30% off → €21 total",
+    "10 practical AI systems. One bundle. {price}.\n\nThe Complete AI Creator Toolkit:\n{url}\nCode {code} = 30% off",
 
-    "Instead of 10 separate tools:\n\nComplete AI Creator Toolkit bundles all of them.\n€29.99 (code {code} → €21)\n{url}",
+    "Instead of 10 separate tools:\n\nThe Complete AI Creator Toolkit bundles all of them.\n{price} (code {code} = 30% off)\n{url}",
+]
+
+FOCUS_TEMPLATES = [
+    "Start local AI small: test one 8B model in Ollama first. Judge speed and output on your own task.\n\nGuide: {url}\n{code}: 30% off",
+    "Local AI privacy check: avoid cloud-synced folders, check interface analytics, then test offline after setup.\n\nFull checklist: {url}",
+    "Choose a local model by the job, not hype: drafting or code? Short chat or long docs? Speed or quality? Decide before downloading.\n\nGuide: {url}",
+    "First local-AI test: ask a fact, summarize supplied text, rewrite a paragraph, then repeat offline.\n\nSetup + troubleshooting: {url}",
+    "No server rack needed. Start with your computer, one modest model and one task. Upgrade after finding the real bottleneck.\n\nGuide: {url}",
+    "Run AI on your computer without a subscription. Install, model choice, privacy and troubleshooting. {price} once.\n\n{url}\n{code}: 30% off",
 ]
 
 
@@ -186,49 +199,34 @@ def post_message(text: str, tags: list = None, product_id=None, url=None):
     return True
 
 
-def promote_random_product():
+def promote_focus_product():
     if not DB_PATH.exists():
         sys.exit("DB not found. Run: python3 db/sync.py")
 
     with sqlite3.connect(str(DB_PATH)) as con:
-        con.row_factory = sqlite3.Row
-        products = con.execute(
-            "SELECT id, name, formatted_price, short_url FROM products WHERE published=1 AND price_cents > 99"
-        ).fetchall()
-        last = con.execute(
-            "SELECT product_id FROM promotions WHERE platform='bluesky' ORDER BY posted_at DESC LIMIT 3"
-        ).fetchall()
+        p = focus_product(con)
+        if not p:
+            sys.exit("Focused Local LLM product not found. Run: python3 db/sync.py")
+        variant = next_variant(con, "bluesky", p["id"], len(FOCUS_TEMPLATES))
 
-    if not products:
-        sys.exit("No products found.")
+    url = tracked_url(
+        p["short_url"] or "https://schephenk.gumroad.com/l/local-llm-guide",
+        "bluesky",
+        f"l{variant + 1}",
+    )
+    tags = ["LocalAI", "Privacy", "Ollama"]
 
-    recent_ids = {r["product_id"] for r in last}
-    bundle = next((p for p in products if "toolkit" in p["name"].lower() or "bundle" in p["name"].lower()), None)
-
-    if bundle and random.random() < 0.20:
-        p = bundle
-        tmpl = random.choice(BUNDLE_TEMPLATES)
-    else:
-        pool = [p for p in products if p["id"] not in recent_ids] or list(products)
-        p = random.choice(pool)
-        if random.random() < 0.70:
-            value_pool = GENERIC_VALUE_TEMPLATES + (
-                PROMPT_VALUE_TEMPLATES if is_prompt_product(p["name"]) else []
-            )
-            tmpl = random.choice(value_pool)
-        else:
-            tmpl = random.choice(SELL_TEMPLATES)
-
-    url = p["short_url"] or "https://schephenk.gumroad.com"
-    tags = get_tag_list(p["name"])
-
-    body = tmpl.format(
+    body = FOCUS_TEMPLATES[variant].format(
         name=p["name"],
         price=p["formatted_price"],
         url=url,
         code=DISCOUNT_CODE,
     )
     post_message(body, tags=tags, product_id=p["id"], url=url)
+
+
+# Keep the historical function name for cron jobs and external callers.
+promote_random_product = promote_focus_product
 
 
 def engage_community():
@@ -279,7 +277,7 @@ if __name__ == "__main__":
         sys.exit(1)
     cmd = sys.argv[1]
     if cmd == "promote":
-        promote_random_product()
+        promote_focus_product()
     elif cmd == "engage":
         engage_community()
     elif cmd == "post":
