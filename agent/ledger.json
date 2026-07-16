@@ -23,6 +23,34 @@
   },
   "sessions": [
     {
+      "date": "2026-07-16",
+      "agent": "Codex",
+      "actions": [
+        "Deep-audited the live Gumroad funnel, daily GO automation, social bots, buyer delivery, email eligibility, Discover eligibility, public catalog route, pricing, offer codes, and distribution constraints.",
+        "Rebuilt Private AI on Your Computer as a verified July 2026 17-page guide using current Ollama and Open WebUI primary documentation, replacing stale model rankings and unsupported privacy/compliance claims.",
+        "Uploaded the corrected PDF and reduced the live buyer content page to the single current file, removing unrelated and duplicate files from the customer-visible flow.",
+        "Rewrote and republished the Local LLM landing page, product summary, description, and receipt; verified responsive desktop and mobile rendering.",
+        "Activated a 20% replacement upsell from the €7 Local LLM guide to the €24 Complete AI Creator Toolkit; confirmed the existing free-pack to Local LLM upsell remains active.",
+        "Replaced the old blanket-publishing and blanket-discount GO routine with a guarded seven-day campaign experiment and evidence-based evaluation rules.",
+        "Added free-download, core-sale, bundle-sale, revenue, campaign-variant, and social-audience measurement; captured baselines of 10 Mastodon and 24 Bluesky followers.",
+        "Added one-engagement-batch-per-24h guards and stopped Pinterest from piling up drafts while manual approvals are pending.",
+        "Corrected the lifecycle plan for Gumroad's pre-$100 email/workflow gate and removed false evergreen urgency from distribution materials.",
+        "Prepared a researched, personalized affiliate prospect review queue and corrected partner creative asset paths without sending unsolicited outreach.",
+        "Verified 35 products, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, both active upsells, and the current buyer file; completed 23 smoke tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "offer_codes_created": [],
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "experiment": "private_ai_2026_07 running through 2026-07-23",
+      "notes": "The verified bottleneck is qualified reach: the campaign currently has 2 tracked posts, 0 free downloads, 0 paid sales, and €0 revenue. Profit is not guaranteed; the next evaluation must use Gumroad UTM page views plus the local funnel report and change only one major variable. Gumroad refund-policy activation was unavailable at the account level, so no refund-policy claim was added."
+    },
+    {
       "date": "2026-07-15",
       "agent": "Antigravity",
       "actions": [

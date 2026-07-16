@@ -1,0 +1,349 @@
+{
+  "slug": "05_local_llm_guide",
+  "title": "Private AI on Your Computer",
+  "subtitle": "A current, beginner-safe setup guide for Ollama and Open WebUI — with privacy checks, model-fit tests, exact commands, and honest limits.",
+  "eyebrow": "Schep Digital · Verified July 2026",
+  "meta": [
+    ["Format", "PDF + commands"],
+    ["Systems", "Windows · macOS · Linux"],
+    ["Time to first test", "About 30 minutes"],
+    ["Level", "Beginner → useful" ]
+  ],
+  "intro_callout": {
+    "title": "The outcome",
+    "body": "Install one local model, prove where it runs, complete one useful task, and know exactly what is — and is not — private. This guide avoids benchmark hype and model-of-the-week recommendations. It gives you a repeatable way to choose, test, secure, and maintain a local AI workflow as tools change.",
+    "variant": "green"
+  },
+  "chapters": [
+    {
+      "num": "Start here",
+      "title": "The 30-minute first run",
+      "sub": "One model, one task, one verification loop.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Local AI is useful when you want prompts and supplied files processed on hardware you control, need an offline option, or want to experiment without metered API calls. It is not automatically cheaper, faster, more accurate, or compliant. Hardware, electricity, maintenance, model licenses, tool settings, and your own data-handling rules still matter. Start with a narrow test instead of building an elaborate stack."
+        },
+        {
+          "type": "h3",
+          "text": "Choose the first task before the first model"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Pick one real but non-sensitive task: summarize text you provide, rewrite a paragraph, extract fields, or explain a code sample.",
+            "Write a pass condition: for example, five accurate bullets with no invented facts and under 200 words.",
+            "Keep the source material small for the first run. Large files and long context consume substantially more memory.",
+            "Do not begin with medical, legal, financial, HR, or client-confidential data. Prove the setup first.",
+            "Create a folder outside Dropbox, Google Drive, OneDrive, iCloud Drive, or another sync service for private test files."
+          ]
+        },
+        {
+          "type": "h3",
+          "text": "Install Ollama"
+        },
+        {
+          "type": "item",
+          "h4": "Windows and macOS",
+          "body": "Download the current installer from https://ollama.com/download. Open the installed Ollama application, then run `ollama` in a terminal to use the interactive model menu. Using the official download page avoids stale third-party packages."
+        },
+        {
+          "type": "prompt",
+          "label": "Linux — official installer",
+          "text": "curl -fsSL https://ollama.com/install.sh | sh\n\n# Confirm the command is available\nollama --version\n\n# Open the interactive menu\nollama"
+        },
+        {
+          "type": "p",
+          "text": "In the interactive menu, choose a modest text model that fits the available disk and memory shown in the official library. Model names and recommended families change quickly, so this edition deliberately does not pretend that one named model will remain best all year. The official library is https://ollama.com/library. Start with a smaller instruct model; increase size only after it fails a measured requirement."
+        },
+        {
+          "type": "prompt",
+          "label": "Verify the first run",
+          "text": "# See downloaded models\nollama list\n\n# After sending a prompt, inspect where the model is loaded\nollama ps\n\n# Stop a model and release memory\nollama stop <model-name>"
+        },
+        {
+          "type": "callout",
+          "title": "Your first success condition",
+          "body": "The model completes your chosen task, `ollama ps` shows how it is split across CPU and GPU, and you can repeat the result after disconnecting the network. That proves a useful local path. It does not yet prove every connected interface, plugin, web-search feature, or synced folder is private.",
+          "variant": "amber"
+        }
+      ]
+    },
+    {
+      "num": "Decision system",
+      "title": "Match the model to the machine",
+      "sub": "Use observed fit, not parameter-count bravado.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "A model needs memory for its weights and additional memory for context and runtime overhead. Quantization reduces the weight footprint, usually with some quality tradeoff. Longer context, parallel requests, vision inputs, and multiple loaded models increase memory use. This is why a table that says a certain parameter count always fits a certain computer is unreliable. Treat the model download size as a lower-bound signal, leave headroom, then verify the real allocation with `ollama ps`."
+        },
+        {
+          "type": "table",
+          "headers": ["Constraint", "Start here", "Measure"],
+          "rows": [
+            ["8–16 GB system memory, no dedicated GPU", "Small quantized text model, short prompts", "Time to first token; CPU load; swapping"],
+            ["16–32 GB unified memory or system memory", "Small-to-mid model, one request at a time", "Processor split in `ollama ps`; usable context"],
+            ["Dedicated GPU", "Model that fits in VRAM with headroom", "Aim to avoid unexpected CPU offload when speed matters"],
+            ["Long documents or coding agents", "Begin with short context, then raise it deliberately", "Memory growth, latency, retrieval accuracy"],
+            ["Several simultaneous users", "One model and conservative concurrency", "Queue errors, memory per parallel request, response time"]
+          ]
+        },
+        {
+          "type": "h3",
+          "text": "The five-minute fit test"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Close memory-heavy applications before testing so the baseline is repeatable.",
+            "Run the same 150–300 word prompt three times and note response time and usable output quality.",
+            "Run `ollama ps` while the model is loaded; record the CPU/GPU split and allocated context.",
+            "Increase context only when the real task requires it. Larger context increases memory consumption.",
+            "Reject a model if it forces constant swapping, overheats the machine, or makes the workflow too slow to repeat.",
+            "Keep the smallest model that passes the task. A larger model that never gets used has zero practical quality."
+          ]
+        },
+        {
+          "type": "prompt",
+          "label": "Reusable model acceptance prompt",
+          "text": "TASK\nSummarize the SOURCE in exactly five bullets.\n\nRULES\n- Use only facts present in SOURCE.\n- If a requested fact is absent, write: Not provided.\n- Each bullet must be under 25 words.\n- After the bullets, list any ambiguous claims.\n\nSOURCE\n[paste 300–800 words of non-sensitive test text]"
+        },
+        {
+          "type": "callout",
+          "title": "Context is a budget",
+          "body": "Ollama adjusts default context by available VRAM in current releases, and a larger context window increases memory use. Check the current official context-length documentation before copying an old environment-variable recommendation. For a new setup, prove quality at a short context first.",
+          "variant": "amber"
+        }
+      ]
+    },
+    {
+      "num": "Verification",
+      "title": "Know what is actually local",
+      "sub": "Separate the model runner from every connected feature.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "According to Ollama's current documentation, prompts and responses are not sent to ollama.com when a model runs locally. Cloud-hosted models are different: their requests are processed remotely. Interfaces can also add web search, analytics, remote tools, external embeddings, or cloud model providers. Therefore, privacy is a property of the entire data path, not a sticker attached to the word local."
+        },
+        {
+          "type": "table",
+          "headers": ["Layer", "Question to answer", "Safe first default"],
+          "rows": [
+            ["Model", "Is the selected model local or cloud-hosted?", "Use a downloaded local model for the privacy test"],
+            ["Runner", "Where is the API listening?", "Keep Ollama on its default loopback address"],
+            ["Interface", "Does it connect to remote providers or telemetry?", "Disable unneeded connections and integrations"],
+            ["Files", "Is the source folder cloud-synced or backed up externally?", "Use a deliberate non-synced test folder"],
+            ["Tools", "Can the model call web search, plugins, code, or URLs?", "Begin with tools disabled"],
+            ["Output", "Does generated content contain confidential source data?", "Store and share it under the same rules as the source"]
+          ]
+        },
+        {
+          "type": "h3",
+          "text": "Enable local-only mode when that is the requirement"
+        },
+        {
+          "type": "prompt",
+          "label": "Ollama server configuration",
+          "text": "# Option A: environment variable before starting the server\nOLLAMA_NO_CLOUD=1 ollama serve\n\n# Option B: ~/.ollama/server.json\n{\n  \"disable_ollama_cloud\": true\n}\n\n# Restart Ollama after changing configuration.\n# Check logs for confirmation that cloud is disabled."
+        },
+        {
+          "type": "callout",
+          "title": "Do not expose port 11434 casually",
+          "body": "The local Ollama API does not require authentication on localhost. Ollama binds to 127.0.0.1 by default. Changing `OLLAMA_HOST` to `0.0.0.0` exposes it to other interfaces; do that only with a deliberate firewall, authenticated proxy, trusted network design, and a reason. Never forward the port directly to the public internet.",
+          "variant": "amber"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Disconnect the network after downloading the model and repeat your acceptance test.",
+            "Confirm the chosen interface still works and no cloud-only model was silently selected.",
+            "Review running processes and network connections if the data is sensitive enough to justify it.",
+            "Document the model name, interface version, enabled tools, storage folder, and date of the test.",
+            "Ask your security, privacy, or legal owner before treating the setup as compliant for regulated data."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "A local setup can reduce third-party exposure, but it does not remove malware risk, weak account security, disk theft, unsafe plugins, accidental sharing, licensing restrictions, retention obligations, or the need to validate generated output. This guide is an operational starting point, not a compliance certification."
+        }
+      ]
+    },
+    {
+      "num": "Optional interface",
+      "title": "Add Open WebUI without losing the plot",
+      "sub": "Use a friendly interface after the core runner works.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Open WebUI provides a browser interface, model management, document features, and connections to Ollama and other providers. Add it only after Ollama passes the terminal test. That sequence gives you a known-good backend and makes connection problems much easier to isolate. Open WebUI changes quickly, so use its current official quick-start documentation and keep the application data volume persistent."
+        },
+        {
+          "type": "prompt",
+          "label": "Open WebUI connected to host Ollama",
+          "text": "docker run -d \\\n  -p 3000:8080 \\\n  --add-host=host.docker.internal:host-gateway \\\n  -e OLLAMA_BASE_URL=http://host.docker.internal:11434 \\\n  -v open-webui:/app/backend/data \\\n  --name open-webui \\\n  --restart always \\\n  ghcr.io/open-webui/open-webui:main\n\n# Open http://localhost:3000"
+        },
+        {
+          "type": "p",
+          "text": "On some Linux installations, host networking or a different reachable host address may be required. The essential rule is that `localhost` inside a container refers to the container itself, not automatically to the host running Ollama. The official Open WebUI connection guide recommends `http://host.docker.internal:11434` for common Docker host setups."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Open Admin Settings → Connections → Ollama and confirm the configured base URL.",
+            "Create a local user account with a strong password even if the interface is only on your machine.",
+            "Keep the `/app/backend/data` volume; it contains application state that would otherwise disappear with the container.",
+            "Do not add OpenAI-compatible cloud providers during the offline verification test.",
+            "Treat document upload and RAG as a second project: test retrieval accuracy with non-sensitive files before trusting answers.",
+            "Back up configuration before upgrading and read current release notes for breaking changes."
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "RAG is not automatic truth",
+          "body": "Uploading a document does not guarantee the model retrieves the right passage or cites it faithfully. Create questions with known answers, require the answer to quote or identify the supporting section, and record failures before using document chat for consequential work.",
+          "variant": "amber"
+        }
+      ]
+    },
+    {
+      "num": "Useful work",
+      "title": "Three workflows worth keeping",
+      "sub": "Move from chat demo to repeatable output.",
+      "blocks": [
+        {
+          "type": "h3",
+          "text": "1. Source-grounded summary"
+        },
+        {
+          "type": "prompt",
+          "label": "Summary prompt",
+          "text": "You are a careful analyst. Use only the supplied SOURCE.\n\nReturn:\n1. A 100-word summary\n2. Five key facts, each with the source phrase that supports it\n3. Missing information\n4. Claims that require verification\n\nSOURCE:\n[paste source]"
+        },
+        {
+          "type": "h3",
+          "text": "2. Private first draft"
+        },
+        {
+          "type": "prompt",
+          "label": "Drafting prompt",
+          "text": "Draft a [document type] for [audience].\nObjective: [one measurable outcome]\nSource facts: [facts that must be preserved]\nConstraints: [length, tone, forbidden claims]\nOutput format: [headings, bullets, table, JSON]\n\nBefore drafting, list any missing input. Do not invent names, figures, dates, quotations, or results."
+        },
+        {
+          "type": "h3",
+          "text": "3. Structured extraction through the local API"
+        },
+        {
+          "type": "prompt",
+          "label": "Python example — official Ollama library",
+          "text": "# Install once: pip install ollama\nfrom ollama import chat\n\nsource = open('input.txt', encoding='utf-8').read()\nresponse = chat(\n    model='<your-local-model>',\n    messages=[{\n        'role': 'user',\n        'content': (\n            'Extract names, dates, and action items. '\n            'Return valid JSON. Use null when absent.\\n\\n' + source\n        )\n    }]\n)\nprint(response.message.content)"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Validate JSON or other structured output before passing it to another program.",
+            "Keep the original source and generated result together for review.",
+            "Sample at least ten real inputs before calling a workflow reliable.",
+            "Track factual errors, missing fields, latency, and manual correction time.",
+            "Never let generated output trigger payments, deletion, publication, or external messages without review."
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "The productivity test",
+          "body": "A workflow is valuable only if total time decreases after setup, review, and correction. Compare ten local runs with your current method. Keep the workflow if it saves time at an acceptable error rate; discard it if review costs erase the gain.",
+          "variant": "green"
+        }
+      ]
+    },
+    {
+      "num": "Recovery",
+      "title": "Troubleshoot in the right order",
+      "sub": "Logs first, random reinstalling last.",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": ["Symptom", "First check", "Next move"],
+          "rows": [
+            ["Ollama command missing", "Installer completed and terminal restarted", "Use the current official OS installation page"],
+            ["Model is unexpectedly slow", "Run `ollama ps` and inspect CPU/GPU split", "Try a smaller model or shorter context; update GPU drivers"],
+            ["Out of memory or system swapping", "Model size, context, and other applications", "Stop other models; reduce context; choose a smaller quantization"],
+            ["Open WebUI cannot connect", "Container can reach the Ollama base URL", "Use host.docker.internal, host networking, or the correct internal address"],
+            ["GPU not detected", "Latest supported driver and Ollama logs", "Follow official NVIDIA/AMD troubleshooting; verify container runtime separately"],
+            ["503 / server overloaded", "Concurrent requests and queue", "Reduce parallelism or adjust queue settings only after measuring memory"],
+            ["Weak or invented answers", "Task-model fit and source grounding", "Tighten the prompt, lower task complexity, compare another model, require citations"]
+          ]
+        },
+        {
+          "type": "prompt",
+          "label": "Find the logs",
+          "text": "# macOS\ncat ~/.ollama/logs/server.log\n\n# Linux service\njournalctl -u ollama --no-pager --follow --pager-end\n\n# Docker\ndocker logs <container-name>\n\n# Windows\n# Win+R → explorer %LOCALAPPDATA%\\Ollama\n# Open the newest server.log"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Record the operating system, Ollama version, exact model tag, available memory, and error text.",
+            "Reproduce the failure with the smallest possible prompt and no optional interface.",
+            "Check disk space before blaming memory; model downloads can consume tens or hundreds of gigabytes.",
+            "Change one variable at a time and keep a note of the result.",
+            "Use current official troubleshooting pages; copied fixes for old ROCm, CUDA, or container versions can make the problem worse."
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Avoid the reinstall loop",
+          "body": "A reinstall does not fix an unsuitable model, insufficient memory, an unreachable container address, or an exposed network binding. Identify which layer failed — install, model fit, runtime, network, interface, or prompt — before changing the system.",
+          "variant": "amber"
+        }
+      ]
+    },
+    {
+      "num": "Keep it useful",
+      "title": "Maintenance and the monthly check",
+      "sub": "A small system you can trust beats a sprawling lab.",
+      "blocks": [
+        {
+          "type": "checklist",
+          "items": [
+            "Update Ollama from the official app or rerun the Linux installer, then repeat the acceptance prompt.",
+            "Review `ollama list`; remove models you do not use after confirming nothing depends on them.",
+            "Check the selected model's license before using outputs commercially or distributing a derived model.",
+            "Review interfaces, tools, remote providers, web search, and cloud features for configuration drift.",
+            "Confirm Ollama still binds only where intended and that firewall rules have not changed.",
+            "Test restoration of Open WebUI data or other configuration backups before relying on them.",
+            "Retest ten representative inputs when changing the model, quantization, context, or prompt template."
+          ]
+        },
+        {
+          "type": "h3",
+          "text": "Current primary references"
+        },
+        {
+          "type": "table",
+          "headers": ["Need", "Official reference"],
+          "rows": [
+            ["Install and first run", "https://docs.ollama.com/quickstart"],
+            ["Model catalog", "https://ollama.com/library"],
+            ["Hardware support", "https://docs.ollama.com/gpu"],
+            ["Context and memory", "https://docs.ollama.com/context-length"],
+            ["Privacy, cloud mode, network binding", "https://docs.ollama.com/faq"],
+            ["Local API", "https://docs.ollama.com/api/introduction"],
+            ["Troubleshooting and logs", "https://docs.ollama.com/troubleshooting"],
+            ["Open WebUI quick start", "https://docs.openwebui.com/getting-started/quick-start/"],
+            ["Open WebUI ↔ Ollama connection", "https://docs.openwebui.com/getting-started/quick-start/connect-a-provider/starting-with-ollama/"]
+          ]
+        },
+        {
+          "type": "callout",
+          "title": "Version promise",
+          "body": "This edition was checked against primary documentation in July 2026. The decision system and verification steps are designed to survive model churn, but commands and interfaces still change. Use the linked primary references when your installed version differs from a screenshot or label.",
+          "variant": "green"
+        }
+      ]
+    }
+  ],
+  "closing": {
+    "line": "Private AI on Your Computer — Schep Digital",
+    "url": "schephenk.gumroad.com/l/local-llm-guide"
+  }
+}

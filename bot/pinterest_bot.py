@@ -9,6 +9,7 @@ Usage:
     python3 bot/pinterest_bot.py refresh
     python3 bot/pinterest_bot.py boards
     python3 bot/pinterest_bot.py draft [product_id]
+    python3 bot/pinterest_bot.py pending
     python3 bot/pinterest_bot.py review <draft.json>
     python3 bot/pinterest_bot.py publish <draft.json>
     python3 bot/pinterest_bot.py sandbox-promote
@@ -467,6 +468,34 @@ def write_draft(product_id=None):
     return path
 
 
+def pending_drafts(max_age_days=7):
+    """Return recent drafts that still need the owner's per-Pin approval."""
+    cutoff = datetime.now(timezone.utc) - timedelta(days=max_age_days)
+    pending = []
+    if not DRAFT_DIR.exists():
+        return pending
+    for path in sorted(DRAFT_DIR.glob("*.json"), reverse=True):
+        try:
+            data = json.loads(path.read_text())
+            created = datetime.fromisoformat(data.get("created_at", "").replace("Z", "+00:00"))
+        except (OSError, ValueError, TypeError, json.JSONDecodeError):
+            continue
+        if data.get("status") == "needs_manual_approval" and created >= cutoff:
+            pending.append(path)
+    return pending
+
+
+def promote_once(max_age_days=7):
+    """Create one review draft only when the recent approval queue is empty."""
+    pending = pending_drafts(max_age_days)
+    if pending:
+        print(f"Pinterest draft skipped: {len(pending)} recent draft(s) await manual approval:")
+        for path in pending:
+            print(path)
+        return None
+    return write_draft()
+
+
 def read_draft(path):
     data = json.loads(Path(path).read_text())
     if data.get("platform") != "pinterest":
@@ -559,7 +588,7 @@ Production behavior:
 
 
 def usage():
-    print("Usage: pinterest [login | auth-url | exchange <code> [--print-only] | refresh [--print-only] | status | boards | create-board [name] | draft [product_id] | review <draft.json> | publish <draft.json> | approve <draft.json> | promote | post <product_id> | sandbox-boards | sandbox-promote | standard-brief]")
+    print("Usage: pinterest [login | auth-url | exchange <code> [--print-only] | refresh [--print-only] | status | boards | create-board [name] | draft [product_id] | pending | review <draft.json> | publish <draft.json> | approve <draft.json> | promote | post <product_id> | sandbox-boards | sandbox-promote | standard-brief]")
 
 
 if __name__ == "__main__":
@@ -590,6 +619,11 @@ if __name__ == "__main__":
             create_board(" ".join(sys.argv[2:]) or env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME))
         elif cmd == "draft":
             write_draft(sys.argv[2] if len(sys.argv) >= 3 else None)
+        elif cmd == "pending":
+            paths = pending_drafts()
+            print(f"{len(paths)} recent Pinterest draft(s) await manual approval")
+            for path in paths:
+                print(path)
         elif cmd == "review":
             if len(sys.argv) < 3:
                 sys.exit("Provide a Pinterest draft JSON path.")
@@ -599,7 +633,7 @@ if __name__ == "__main__":
                 sys.exit("Provide a Pinterest draft JSON path.")
             publish_draft(sys.argv[2])
         elif cmd == "promote":
-            write_draft()
+            promote_once()
         elif cmd == "sandbox-promote":
             use_sandbox_api()
             post_product()

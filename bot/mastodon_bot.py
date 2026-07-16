@@ -160,6 +160,23 @@ def check_rate_limit():
     return True
 
 
+def engagement_due():
+    """Allow at most one automated engagement batch per rolling 24 hours."""
+    if not DB_PATH.exists():
+        print("DB not found — fail-closed on engagement")
+        return False
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+    with sqlite3.connect(str(DB_PATH)) as con:
+        count = con.execute(
+            "SELECT COUNT(*) FROM promotions WHERE platform='mastodon_engage' AND posted_at >= ?",
+            (cutoff,),
+        ).fetchone()[0]
+    if count:
+        print("Engagement skipped: Mastodon batch already ran in the last 24h")
+        return False
+    return True
+
+
 def post_message(text, product_id=None, url=None):
     if not check_rate_limit():
         return False
@@ -204,6 +221,8 @@ promote_random_product = promote_focus_product
 
 
 def engage_community():
+    if not engagement_due():
+        return False
     client = get_client()
     tags = ["AItools", "Productivity", "Solopreneur", "PromptEngineering", "CreatorEconomy",
             "SideHustle", "ContentCreator", "DigitalMarketing"]
@@ -244,7 +263,10 @@ def engage_community():
         except Exception as e:
             print(f"  Skip {status.id}: {e}")
 
-    print(f"Done. {interactions} interactions on #{tag}")
+    summary = f"{interactions} interactions on #{tag}"
+    log_promotion("mastodon_engage", None, None, summary)
+    print(f"Done. {summary}")
+    return True
 
 
 if __name__ == "__main__":

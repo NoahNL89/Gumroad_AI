@@ -3,6 +3,10 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 FOCUS_PRODUCT_ID = "gIXM0JN3NDuI1-2BadEVNg=="
 FOCUS_PRODUCT_NAME = "Private AI on Your Computer: Local LLM Setup Guide (2026)"
+LEAD_PRODUCT_ID = "GusEpfVyj3ByGk34VFgYZA=="
+LEAD_PRODUCT_NAME = "Free AI Quick-Start Pack: 12 Prompts That Work"
+BUNDLE_PRODUCT_ID = "ws-l3GFbvznUmNYUgBwUGA=="
+BUNDLE_PRODUCT_NAME = "The Complete AI Creator Toolkit — 10 Practical Systems"
 CAMPAIGN = "private_ai_2026_07"
 DISCOUNT_CODE = "LAUNCH30"
 

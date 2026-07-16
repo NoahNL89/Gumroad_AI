@@ -1,0 +1,30 @@
+[
+  {
+    "id": "urWy0KepPmck88j9b2g2YQ==",
+    "page_id": "urWy0KepPmck88j9b2g2YQ==",
+    "title": "Start here",
+    "variant_id": null,
+    "description": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "fileEmbed",
+          "attrs": {
+            "id": "w_kLrG3pOkAZ2ybRykMU2A==",
+            "uid": "4b4c68e2-8490-4b16-90e9-0d988aff1851",
+            "collapsed": false
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Download the verified guide below. Begin with The 30-minute first run, then use the privacy verification checklist before introducing sensitive material."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -18,6 +18,7 @@ import sqlite3
 import sys
 import tempfile
 from contextlib import redirect_stdout
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -211,6 +212,26 @@ def test_bot_rate_limit_blocks_at_three():
             assert mods["pinterest_bot"].check_rate_limit() is False, "should block Pinterest sandbox at 3 posts"
 
 
+def test_engagement_batches_run_at_most_once_per_day():
+    mods = _bots()
+    with tempfile.TemporaryDirectory() as d:
+        dbp = Path(d) / "store.db"
+        _make_promotions_db(str(dbp))
+        con = sqlite3.connect(dbp)
+        con.execute(
+            "INSERT INTO promotions VALUES (?,?,?,?,datetime('now'))",
+            ("mastodon_engage", None, None, "batch"),
+        )
+        con.commit()
+        con.close()
+        if "mastodon_bot" in mods:
+            mods["mastodon_bot"].DB_PATH = dbp
+            assert mods["mastodon_bot"].engagement_due() is False
+        if "bluesky_bot" in mods:
+            mods["bluesky_bot"].DB_PATH = dbp
+            assert mods["bluesky_bot"].engagement_due() is True
+
+
 def test_pinterest_draft_requires_manual_approval():
     mods = _bots()
     if "pinterest_bot" not in mods:
@@ -230,6 +251,28 @@ def test_pinterest_draft_requires_manual_approval():
     assert data["approval_required"] is True
     assert data["product"]["id"] == "prod_1"
     assert data["pin"]["link"] == "https://schephenk.gumroad.com/l/demo"
+
+
+def test_pinterest_promote_does_not_pile_up_review_drafts():
+    mods = _bots()
+    if "pinterest_bot" not in mods:
+        return
+    pinterest = mods["pinterest_bot"]
+    with tempfile.TemporaryDirectory() as d:
+        queue = Path(d)
+        pending = queue / "pending.json"
+        pending.write_text(json.dumps({
+            "status": "needs_manual_approval",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }))
+        old_dir = pinterest.DRAFT_DIR
+        try:
+            pinterest.DRAFT_DIR = queue
+            with patch.object(pinterest, "write_draft", side_effect=AssertionError("must skip")):
+                assert pinterest.promote_once() is None
+            assert pinterest.pending_drafts() == [pending]
+        finally:
+            pinterest.DRAFT_DIR = old_dir
 
 
 def test_pinterest_save_env_values_updates_tokens():

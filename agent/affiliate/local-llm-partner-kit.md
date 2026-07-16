@@ -47,9 +47,10 @@ Would a review copy be useful?
 
 ## Creative assets
 
-- Cover: `codex_images/05-local-llm-guide/hero.png`
-- Feature preview: `codex_images/05-local-llm-guide/feature_1.png`
-- Workflow preview: `codex_images/05-local-llm-guide/feature_2.png`
+- Cover: `codex_images/05-local-llm-guide/key-art.jpg`
+- Hardware preview: `codex_images/05-local-llm-guide/interior-01-hardware-tiers.jpg`
+- Privacy preview: `codex_images/05-local-llm-guide/interior-02-private-setup.jpg`
+- Workflow preview: `codex_images/05-local-llm-guide/interior-03-offline-workflow.jpg`
 - Gumroad CDN cover: https://public-files.gumroad.com/o1jni903g0sq5p2u0rq0kli27xvl
 - Gumroad CDN preview: https://public-files.gumroad.com/glrhrvzl60wcqbqk0ckhsx5e8gwt
 

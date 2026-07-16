@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "active": {
+    "id": "private_ai_2026_07",
+    "status": "running",
+    "started_at": "2026-07-16T00:00:00+00:00",
+    "evaluate_on": "2026-07-23",
+    "hypothesis": "Specific privacy, model-choice, and troubleshooting lessons will generate qualified traffic for a low-risk €7 local-AI guide, then the replacement upsell will lift order value with the complete toolkit.",
+    "funnel": {
+      "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
+      "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
+      "upgrade_product_id": "ws-l3GFbvznUmNYUgBwUGA=="
+    },
+    "offer": {
+      "core_price_eur": 7.0,
+      "campaign_code": "LAUNCH30",
+      "upgrade_discount_percent": 20
+    },
+    "channels": [
+      "mastodon",
+      "bluesky",
+      "pinterest_manual_review"
+    ],
+    "success_signals": {
+      "tracked_social_posts_min": 6,
+      "free_downloads_min": 3,
+      "paid_sales_min": 1,
+      "revenue_eur_min": 7.0
+    },
+    "manual_analytics": {
+      "gumroad_utm_page_views": null,
+      "gumroad_utm_visitors": null,
+      "recorded_at": null,
+      "note": "Fill from Gumroad Analytics on the evaluation date; the CLI does not expose page views."
+    },
+    "guardrails": [
+      "Keep the focus product and €7 base price stable until evaluation.",
+      "Do not create a new SKU during this experiment.",
+      "Do not publish intentional duplicate drafts.",
+      "Do not invent scarcity or guarantee privacy, performance, or income.",
+      "Repair delivery defects and false claims immediately."
+    ],
+    "decision": null
+  },
+  "history": []
+}

@@ -137,6 +137,15 @@ def init_db(con):
         posted_at       TEXT
     );
 
+    CREATE TABLE IF NOT EXISTS audience_snapshots (
+        id              INTEGER PRIMARY KEY AUTOINCREMENT,
+        platform        TEXT NOT NULL,
+        followers       INTEGER,
+        following       INTEGER,
+        posts           INTEGER,
+        captured_at     TEXT NOT NULL
+    );
+
     CREATE TABLE IF NOT EXISTS sync_log (
         id              INTEGER PRIMARY KEY AUTOINCREMENT,
         synced_at       TEXT,
@@ -165,6 +174,7 @@ def init_db(con):
     CREATE INDEX IF NOT EXISTS idx_sales_timestamp ON sales(sale_timestamp);
     CREATE INDEX IF NOT EXISTS idx_products_published ON products(published);
     CREATE INDEX IF NOT EXISTS idx_promotions_platform ON promotions(platform, posted_at);
+    CREATE INDEX IF NOT EXISTS idx_audience_platform ON audience_snapshots(platform, captured_at);
     CREATE INDEX IF NOT EXISTS idx_snapshots_product ON product_snapshots(product_id, snapshot_at);
     """)
     con.commit()

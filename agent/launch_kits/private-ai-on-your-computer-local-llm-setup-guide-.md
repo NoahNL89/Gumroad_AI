@@ -1,84 +1,73 @@
-# Launch Kit — Private AI on Your Computer: Local LLM Setup Guide (2026)
+# Distribution kit — Private AI on Your Computer
 
-**Product:** Private AI on Your Computer: Local LLM Setup Guide (2026)  ·  **Price:** €7  ·  **URL:** https://schephenk.gumroad.com/l/local-llm-guide  ·  **Code:** LAUNCH30 (30% off)
-**Campaign:** `private_ai_2026_07` — every channel link below has its own UTM source.
-Lifetime sales so far: 0
+**Offer:** July 2026-verified 17-page setup guide · **Price:** €7 once
 
-> Goal: get this in front of real buyers. The social bots reach almost no one —
-> these channels are where purchases actually come from. Post value first; the
-> link is the P.S., not the pitch.
+**Page:** https://schephenk.gumroad.com/l/local-llm-guide
 
----
+**Campaign:** `private_ai_2026_07` · **Code:** `LAUNCH30` (30% off; no stated expiry)
 
-## 1. Reddit (highest-intent free traffic)
+Use one useful lesson per post. Never describe the guide as software, promise total
+privacy, claim every model fits every computer, or invent an offer deadline.
 
-**Where:** r/ChatGPT, r/PromptEngineering, r/artificial  ·  *(read each sub's self-promo rules first; lead with value, comment for a week before posting a link)*
+## Educational post 1 — choose by the job
 
-**Title options:**
-- I spent way too long figuring out AI prompt engineering; here's the system that finally worked
-- After 50+ attempts at AI prompt engineering, these are the only steps that mattered
-- A no-fluff AI prompt engineering checklist (what I wish I'd had on day one)
+Before downloading a local AI model, write down the job:
 
-**Body (paste, then trim to your voice):**
-Most advice on AI prompt engineering is either vague or trying to sell you something. So here's the actual workflow I use, free:
+- drafting, extraction, or code?
+- short chat or long documents?
+- speed or best available output?
+- CPU-only or dedicated GPU?
 
-1. Install Ollama from its official installer and begin with one modest 7B–8B model.
-2. Test the model on one real job—summarizing supplied text, drafting, or coding—not a synthetic benchmark.
-3. Check your interface settings for analytics and keep sensitive source files outside cloud-synced folders.
-4. Disconnect the network after the model is downloaded and repeat the task to verify the workflow is actually local.
-5. Upgrade hardware or model size only after speed, context length, or output quality becomes a measured bottleneck.
+Then start with one modest quantized model and test that exact task. A leaderboard
+cannot tell you whether the model is useful on your machine.
 
-This took months to refine. I packaged the full version (templates + every step done-for-you) as "Private AI on Your Computer" if you want the shortcut instead of rebuilding it — link in a comment so I'm not breaking the spirit of the sub. Happy to answer anything in the thread.
+The full fit-test and setup guide:
+https://schephenk.gumroad.com/l/local-llm-guide?utm_source=partner&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=job_fit
 
-*(First comment:)* For anyone who asked — it's here: https://schephenk.gumroad.com/l/local-llm-guide?utm_source=reddit&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=value_post (code LAUNCH30 = 30% off this week). But the steps above are the core; you can do this without buying anything.
+## Educational post 2 — verify the privacy boundary
 
----
+A downloaded model does not make the whole workflow private. Check the runner,
+browser interface, optional tools, cloud-synced folders, and network binding. After
+setup, disconnect the network and repeat a non-sensitive test before introducing
+private material.
 
-## 2. Product Hunt
+The full local-only checklist:
+https://schephenk.gumroad.com/l/local-llm-guide?utm_source=partner&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=privacy_path
 
-**Tagline (≤60 chars):** Private AI on Your Computer — AI prompt engineering without the guesswork
-**Description:** Private AI on Your Computer is a done-for-you AI prompt engineering kit: everything you need, ready to use, €7 once (no subscription). Built for makers who'd rather ship than research.
-**Topics:** Artificial Intelligence, Productivity, Marketing
-**First maker comment:** I kept rebuilding the same AI prompt engineering workflow from scratch, so I packaged it once and for all. Launch code LAUNCH30 takes 30% off today. Feedback very welcome — what would make it a no-brainer for you?
-**Tracked launch URL:** https://schephenk.gumroad.com/l/local-llm-guide?utm_source=product_hunt&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=launch
+## Educational post 3 — diagnose before upgrading
 
----
+If local AI feels slow, inspect first:
 
-## 3. SEO article (compounding free traffic)
+1. Run `ollama ps` and note the CPU/GPU split.
+2. Check whether the machine is swapping memory.
+3. Reduce context length if the task does not require it.
+4. Try a smaller quantization or model.
+5. Upgrade only after identifying the actual constraint.
 
-**Target keyword:** AI prompt engineering
-**Title tag (≤60 chars):** Ai Prompt Engineering: A Practical 2026 Guide
-**Meta description (≤155 chars):** A step-by-step AI prompt engineering guide for 2026 — the exact workflow, templates, and a shortcut kit if you want it done for you.
-**H2 outline:**
-- What most people get wrong about AI prompt engineering
-- The AI prompt engineering workflow, step by step
-- Templates & tools that save the most time
-- Common mistakes (and how to avoid them)
-- FAQ
-**Soft CTA (end of article):** If you'd rather not build this from scratch, "Private AI on Your Computer" packages the whole system: https://schephenk.gumroad.com/l/local-llm-guide?utm_source=seo&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=guide_cta
+Setup and troubleshooting map:
+https://schephenk.gumroad.com/l/local-llm-guide?utm_source=partner&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=diagnose_first
 
----
+## Partner pitch
 
-## 4. Email to your list (the asset that compounds)
+Use `agent/affiliate/local-llm-partner-kit.md`. Offer a no-obligation review copy
+first. If the resource is a genuine fit, create a 50% Gumroad affiliate relationship
+and require a clear commission disclosure.
 
-**Subject A:** the AI prompt engineering shortcut I promised
-**Subject B:** done-for-you: Private AI on Your Computer
-**Body:**
-Quick one. I just released "Private AI on Your Computer" — the full AI prompt engineering system, ready to use.
-No subscription, €7 once, yours forever.
-This week only: code LAUNCH30 takes 30% off → https://schephenk.gumroad.com/l/local-llm-guide?utm_source=email&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=launch
-Reply if you have questions; I read every one.
+## Community sharing rule
 
----
+Do not paste promotional copy into Reddit, Product Hunt, forums, or newsletters by
+default. Read the current rules, participate usefully, and share the lesson without
+a link when self-promotion is prohibited. The campaign is meant to learn from
+qualified traffic, not manufacture low-quality impressions.
 
-## 5. X / Twitter thread (5 posts)
+## SEO brief for a publisher or owned site
 
-1. Most AI prompt engineering advice is vague. Here's the exact system I use, in 4 steps. 🧵
-2. Start with a 7B–8B model. A small useful model beats a huge download your machine struggles to run.
-3. Test your real task: summarize text you supply, rewrite a paragraph, or explain a code block.
-4. For privacy, check analytics settings, avoid cloud-sync folders, and repeat the test offline.
-5. If you want the full setup and troubleshooting workflow, I packaged it as "Private AI on Your Computer": https://schephenk.gumroad.com/l/local-llm-guide?utm_source=x&utm_medium=social&utm_campaign=private_ai_2026_07&utm_content=thread — code LAUNCH30 = 30% off this week.
+- Search intent: beginner wants to run AI locally and verify privacy.
+- Suggested title: **How to Run AI Locally—and Check What Actually Stays Private**
+- Sections: first Ollama run; model fit by observed constraints; local-data-path
+  audit; Open WebUI container connection; troubleshooting; official references.
+- Cite current Ollama and Open WebUI documentation directly.
+- CTA only after the article solves a useful part of the problem.
 
----
-
-*Generated by scripts/launch_kit.py — verify community rules and adapt the wording to the conversation before posting.*
+There is currently no verified public route for the repository's standalone SEO
+articles. Do not call a local Markdown file “published” or count it as distribution.

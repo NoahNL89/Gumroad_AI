@@ -153,6 +153,23 @@ def check_rate_limit():
     return True
 
 
+def engagement_due():
+    """Allow at most one automated engagement batch per rolling 24 hours."""
+    if not DB_PATH.exists():
+        print("DB not found — fail-closed on engagement")
+        return False
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+    with sqlite3.connect(str(DB_PATH)) as con:
+        count = con.execute(
+            "SELECT COUNT(*) FROM promotions WHERE platform='bluesky_engage' AND posted_at >= ?",
+            (cutoff,),
+        ).fetchone()[0]
+    if count:
+        print("Engagement skipped: Bluesky batch already ran in the last 24h")
+        return False
+    return True
+
+
 def build_post_with_facets(body: str, tags: list[str]) -> tuple[str, list]:
     """
     Build text + facets list for Bluesky.
@@ -231,6 +248,8 @@ promote_random_product = promote_focus_product
 
 def engage_community():
     """Like and optionally follow posts under AI/productivity hashtags."""
+    if not engagement_due():
+        return False
     client = get_client()
     search_tags = ["AItools", "Productivity", "Solopreneur", "PromptEngineering", "SideHustle"]
     tag = random.choice(search_tags)
@@ -268,7 +287,10 @@ def engage_community():
         except Exception as e:
             print(f"  Skip: {e}")
 
-    print(f"Done. {interactions} interactions on #{tag}")
+    summary = f"{interactions} interactions on #{tag}"
+    log_promotion("bluesky_engage", None, None, summary)
+    print(f"Done. {summary}")
+    return True
 
 
 if __name__ == "__main__":

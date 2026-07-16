@@ -1,54 +1,53 @@
-# Email Flow — turn free downloads into paying customers
+# Lifecycle Flow — free download to paid customer
 
-The email list is the only asset that compounds. Every other channel (social, SEO,
-Reddit) is rented; the list is owned. This is how we build and use it.
+The current customer path is:
 
-## How capture works on Gumroad
+`Free AI Quick-Start Pack → Private AI on Your Computer (€7) → Complete Toolkit (€24)`
 
-1. The **free lead magnet** ("The AI Quick-Start Pack (Free)") is published via
-   `bash scripts/create_lead_magnet.sh`. Anyone who "buys" it at €0 gives us their email.
-2. Gumroad stores those emails as **customers / followers**. Export anytime:
-   ```bash
-   ./scripts/export-buyers.sh        # CSV of buyer emails
-   ```
-3. Email them from **Gumroad → Audience → Email** (free, no extra tool), or export
-   and send via any provider.
+## Stage 0: current account, before Gumroad's email gate
 
-## The nurture sequence (send to anyone who grabs the free pack)
+Gumroad Emails and automated Workflows are unavailable until the account has earned
+at least $100 after fees and received a payout. Until that condition is verified,
+do not claim that a sequence was scheduled or sent and do not export buyers into an
+unapproved bulk-mail system.
 
-Keep it short and useful. The goal of each email is one click, not a hard sell.
+Use the conversion surfaces that are available now:
 
-**Email 1 — Deliver + set expectations (immediately / Gumroad receipt)**
-Subject: Your AI Quick-Start Pack is inside
-Body: Here's your pack. Start with prompt #1 on a real task today — it pays off in
-about 10 minutes. I'll send two more short notes this week with the prompts I use
-most. Reply any time; I read everything.
+1. The free product receipt delivers the promised asset and offers one relevant
+   next step: the €7 Private AI guide.
+2. The free-product upsell offers that same guide. Keep message-match tight; do not
+   send a local-AI lead to a generic prompt-vault pitch.
+3. The paid guide's content page tells the buyer where to start, gives support
+   contact details, and asks for an honest review when Gumroad prompts them.
+4. The paid-guide upsell replaces the guide with the complete toolkit at a 20%
+   upgrade discount, avoiding a duplicate charge for the guide.
+5. Gumroad automatically requests a rating after purchase; never ask for a positive
+   rating or offer compensation for one.
 
-**Email 2 — Pure value, no pitch (day 2)**
-Subject: the prompt I use more than any other
-Body: One prompt, fully worked, with a before/after. No link to buy. This builds
-trust and open rates for email 3.
+Measure free downloads, paid-guide sales, toolkit sales, and revenue with
+`python3 scripts/campaign_report.py`. Page views and UTM breakdowns must be read in
+Gumroad Analytics and recorded in `agent/growth_experiments.json`.
 
-**Email 3 — Soft bridge to paid (day 4)**
-Subject: want the other 200?
-Body: If the free 12 helped, the full library ("The AI Prompt Vault" / "75 Power
-Prompts") is the same idea at scale. This week, code **LAUNCH30** = 30% off:
-https://schephenk.gumroad.com  (one-time, no subscription).
+## Stage 1: after $100 and a payout are verified
 
-**Email 4 — Scarcity close (day 7)**
-Subject: LAUNCH30 ends tonight
-Body: Last call on 30% off. If now's not the time, no worries — keep the free pack,
-it's yours. Link + code, one more time.
+Create one Gumroad Workflow for free-pack customers, then test it with an internal
+address before activation:
 
-## Rules
+- Immediately — delivery/orientation: one concrete way to use the free pack today.
+- Day 2 — pure value: a worked local-AI privacy or model-choice lesson, no pitch.
+- Day 4 — relevant bridge: explain who benefits from running AI locally and link to
+  the €7 guide with the normal offer.
+- Day 7 — objection handling: hardware, privacy, and setup expectations; no invented
+  scarcity. Mention a discount only when its end date is truly configured.
 
-- Max one email per 2 days during the sequence; then ~weekly value emails.
-- Always lead with something useful; the offer is the P.S.
-- Track which subject lines get opens; reuse winners (we literally sell an email
-  subject-line product — use it on ourselves).
-- Never buy lists or import emails that didn't opt in.
+After the sequence, send at most one useful update per week. Honor unsubscribes,
+never buy lists, and do not email people who did not consent.
 
-## Cadence after the sequence
+## Promotion rules
 
-Weekly: one genuinely useful tip + one soft product mention. The list only stays
-valuable if people keep opening it, which means value has to outweigh pitches ~4:1.
+- One primary click per message.
+- Specific teaching before a product mention.
+- No evergreen “ends tonight” language.
+- No claims of total privacy, zero compliance risk, guaranteed income, or model
+  performance without observed evidence.
+- Compare opens/clicks only after the workflow is actually unlocked and active.
