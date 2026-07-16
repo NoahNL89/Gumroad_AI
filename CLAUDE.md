@@ -73,8 +73,8 @@ python3 bot/mastodon_bot.py promote   # Post product promotion (max 3x/day)
 python3 bot/bluesky_bot.py promote    # Post to Bluesky
 scripts/pinterest promote  # Draft a Pinterest product Pin for manual review
 scripts/pinterest publish agent/pinterest_queue/<draft>.json  # Publish one approved draft
-PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev python3 scripts/build_pinterest_catalog.py
-docker compose -f compose.catalog.yml up -d --build  # Serve feed on 127.0.0.1:9000 for Cloudflare Tunnel
+python3 scripts/build_pinterest_catalog.py  # Updates tracked catalog/pinterest_catalog.csv
+# Public feed: https://raw.githubusercontent.com/NoahNL89/GumRoad_AI/main/catalog/pinterest_catalog.csv
 
 # CLI compatibility wrappers
 source .env && ./scripts/api/list-products.sh
@@ -111,6 +111,7 @@ Credentials live in `.env` (gitignored). Copy `.env.example` to get started.
 | `MASTODON_ACCESS_TOKEN` / `MASTODON_INSTANCE` | `bot/mastodon_bot.py` |
 | `BLUESKY_USERNAME` / `BLUESKY_PASSWORD` | `bot/bluesky_bot.py` |
 | `PINTEREST_APP_ID` / `PINTEREST_APP_SECRET` / `PINTEREST_ACCESS_TOKEN` / `PINTEREST_REFRESH_TOKEN` | `bot/pinterest_bot.py` |
+| `PUSHOVER_USERKEY` / `PUSHOVER_APPKEY` | GO, experiment, Pinterest-draft, failure, and month-end alerts |
 | `AGENT_MONTHLY_TARGET_EUR` | `db/query.py` survival check (default: 58) |
 
 For now all Pinterest API calls must stay on the sandbox API. Production Pin creation requires Pinterest Standard access, `PINTEREST_ALLOW_PRODUCTION=1`, and the explicit draft review/publish flow.
@@ -121,10 +122,10 @@ For now all Pinterest API calls must stay on the sandbox API. Production Pin cre
 
 Each session, after startup checks:
 
-1. **If behind revenue target** → create a new product or run a 50% launch discount
-2. **If on target** → improve existing products, create a bundle, add variants
-3. **If above target** → plan recurring memberships or high-ticket courses
-4. After any store change: `python3 db/sync.py` to update the local DB
+1. Read `agent/growth_experiments.json` and preserve the active experiment until its evaluation date.
+2. If behind target, improve qualified distribution and the measured funnel; do not default to another product or blanket discount.
+3. Change one major variable per seven-day experiment.
+4. After any store change, sync the DB and rebuild `catalog/pinterest_catalog.csv`.
 
 Store context: ~29 products (run `python3 db/query.py products` for the live count — do not trust this number, it drifts as products are added), focus on AI tools / templates / productivity, currency EUR, paid price range €5.99–€29.99 (one €0 subscription is exempt from repricing).
 

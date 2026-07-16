@@ -1,33 +1,68 @@
-# Pinterest Standard Access Brief
+# Pinterest Standard Access Demo Brief
 
-## App Positioning
+Research verified: 2026-07-16 against Pinterest's official access-tier,
+authentication, Pin-creation, rate-limit, and developer-policy documentation.
 
-Describe the app as:
+## Accurate app positioning
 
-> A private single-user Pinterest content scheduler for Schep Digital's own Gumroad products. It prepares product Pin drafts from my store catalog, lets me review the Pin title, description, destination link, image URL, and board, and publishes only the specific Pin I approve.
+> A private, single-user Pinterest content assistant for Schep Digital's own
+> Gumroad products. It creates a product-specific Pin draft, shows the title,
+> description, destination, image, and board, and publishes only the individual Pin
+> I choose. It uses Pinterest OAuth and does not collect Pinterest passwords,
+> cookies, or data from other accounts.
 
-Avoid describing it as an autonomous promotion bot.
+Do not describe it as an autonomous bot. Pinterest requires the user to choose each
+Pin that is scheduled or published.
 
-## Production Behavior
+## What Trial access can demonstrate
 
-- OAuth only; no password, cookie, or session scraping.
-- Minimal scopes: `user_accounts:read`, `boards:read`, `boards:write`, `pins:read`, `pins:write`.
-- `promote` and `post` create local draft JSON files only.
-- `publish <draft.json>` / `approve <draft.json>` publishes one reviewed draft.
-- Current API base: `https://api-sandbox.pinterest.com/v5`.
-- Future production API base, only after Standard access and `PINTEREST_ALLOW_PRODUCTION=1`: `https://api.pinterest.com/v5`.
+- Read your own account, boards, and Pins.
+- Create boards and Pins that are visible only to the creator as sandbox entities.
+- Demonstrate a complete OAuth and Create Pin flow.
+- Trial Pin creation cannot produce public reach or sales.
 
-## Demo Recording Checklist
+## Video recording script
 
-1. Run `scripts/pinterest login`.
-2. Open the OAuth URL in a browser and show Pinterest consent.
-3. Approve the scopes and copy the redirect `code`.
-4. Run `scripts/pinterest exchange "<code>"` and show token presence only, not token values.
-5. Run `scripts/pinterest draft` and show the review fields.
-6. Run `scripts/pinterest sandbox-promote`.
-7. Show the created sandbox Pin or board in Pinterest.
-8. Explain that production posting uses `approve <draft.json>` after reviewing each Pin.
+Pinterest explicitly accepts a terminal recording for a single-user app, but the
+video must show OAuth and a live Pinterest integration.
 
-## Current Status
+1. Start the screen recording with the Pinterest app page showing Trial access.
+2. In the terminal, run `scripts/pinterest login`.
+3. Open the generated OAuth URL, show the requested minimal scopes, and approve it.
+4. Copy only the returned `code`; do not show the app secret or tokens.
+5. Run `scripts/pinterest exchange "<code>"`. The command prints token presence,
+   not token values.
+6. Run `scripts/pinterest draft` and show the individual title, description, link,
+   image, product, and approval status.
+7. Run `scripts/pinterest sandbox-promote` to execute a live sandbox Create Pin API
+   request.
+8. Open Pinterest and show the creator-only sandbox Pin or board.
+9. Return to the terminal and explain that production uses
+   `scripts/pinterest publish <draft.json>` only after choosing that specific Pin.
 
-Production Pin creation is disabled in this workspace while the app has Trial access. Sandbox Pin creation works and is suitable for the Standard access demo.
+Keep the recording short and readable. Hide `.env` and all secret values.
+
+## Standard access submission
+
+1. Confirm the privacy policy URL is public and associated with Schep Digital.
+2. In **My apps**, choose **Upgrade** on the eligible app.
+3. Use the app positioning above and upload the demo video.
+4. After approval, create a fresh OAuth token with:
+   `user_accounts:read,boards:read,boards:write,pins:read,pins:write`.
+5. Only then set `PINTEREST_ALLOW_PRODUCTION=1` and use
+   `https://api.pinterest.com/v5`.
+
+## Approved automation boundary
+
+The workspace may automatically:
+
+- refresh the retail catalog;
+- select a non-duplicate product and prepare unique copy;
+- enforce rate and duplicate limits;
+- create a review draft;
+- send a Pushover message that a draft is ready;
+- publish the one draft you explicitly choose.
+
+It must not publish public Pins unattended, auto-follow accounts, scrape Pinterest,
+or create repetitive Pins. This boundary protects the account and is part of the
+Standard access story.

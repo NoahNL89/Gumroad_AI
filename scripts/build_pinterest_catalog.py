@@ -5,6 +5,9 @@ Build a Pinterest retail catalog CSV from the local Gumroad SQLite snapshot.
 Usage:
     python3 scripts/build_pinterest_catalog.py --store-url https://store.schep.dev
     PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev python3 scripts/build_pinterest_catalog.py
+
+Public feed URL:
+    https://raw.githubusercontent.com/NoahNL89/GumRoad_AI/main/catalog/pinterest_catalog.csv
 """
 import argparse
 import csv
@@ -18,7 +21,7 @@ from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "db" / "store.db"
-OUT_PATH = ROOT / "output" / "pinterest_catalog.csv"
+OUT_PATH = ROOT / "catalog" / "pinterest_catalog.csv"
 
 FIELDS = [
     "id",

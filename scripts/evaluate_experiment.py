@@ -12,6 +12,7 @@ EXPERIMENT_PATH = ROOT / "agent" / "growth_experiments.json"
 DB_PATH = ROOT / "db" / "store.db"
 sys.path.insert(0, str(ROOT / "scripts"))
 from campaign_report import collect  # noqa: E402
+from pushover_notify import send_once  # noqa: E402
 
 
 def load_experiments():
@@ -109,6 +110,18 @@ def evaluate(today=None, force=False):
     tmp = EXPERIMENT_PATH.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
     tmp.replace(EXPERIMENT_PATH)
+    decision = active["decision"]
+    try:
+        send_once(
+            f"experiment_evaluated:{active['id']}",
+            f"Growth experiment evaluated · {active['id']}",
+            f"{decision['outcome']}: {decision['rationale']}\nNext: {decision['next_action']}",
+            priority=1 if actuals["paid_sales"] == 0 else 0,
+            url="https://schephenk.gumroad.com",
+            url_title="Open store",
+        )
+    except RuntimeError as exc:
+        print(f"Warning: experiment Pushover notification failed: {exc}", file=sys.stderr)
     return {
         **status,
         "state": "evaluated",

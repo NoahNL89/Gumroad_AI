@@ -2,11 +2,11 @@ FROM python:3.12-slim
 
 WORKDIR /app
 COPY scripts/catalog_server.py /app/scripts/catalog_server.py
-RUN mkdir -p /app/output
+RUN mkdir -p /app/catalog
 
 ENV CATALOG_HOST=0.0.0.0
 ENV CATALOG_PORT=9000
-ENV CATALOG_FILE=/app/output/pinterest_catalog.csv
+ENV CATALOG_FILE=/app/catalog/pinterest_catalog.csv
 
 EXPOSE 9000
 CMD ["python3", "/app/scripts/catalog_server.py"]

@@ -14,6 +14,17 @@
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+BEFORE_HEAD=$(git rev-parse HEAD 2>/dev/null || echo unknown)
+
+notify_failure() {
+    local code=$?
+    local line=${1:-unknown}
+    trap - ERR
+    python3 scripts/ops_notify.py failure \
+        --message "GO failed on line ${line} with exit code ${code}. Check /tmp/schep_go.log." || true
+    exit "$code"
+}
+trap 'notify_failure $LINENO' ERR
 
 ROTATION_FILE=".agent_rotation"
 AGENTS=("claude" "agy" "codex")
@@ -101,5 +112,6 @@ esac
 # Deterministic fallback: if the agent did not close a due experiment, snapshot
 # the measurable funnel and save a decision. Before the due date this is a no-op.
 python3 scripts/evaluate_experiment.py
+python3 scripts/ops_notify.py go-summary --before-head "$BEFORE_HEAD" || true
 
 echo "=== [$TS] GO session complete ==="

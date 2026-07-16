@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CATALOG_PATH = Path(os.environ.get("CATALOG_FILE", ROOT / "output" / "pinterest_catalog.csv"))
+CATALOG_PATH = Path(os.environ.get("CATALOG_FILE", ROOT / "catalog" / "pinterest_catalog.csv"))
 USERNAME = os.environ.get("CATALOG_BASIC_USER", "")
 PASSWORD = os.environ.get("CATALOG_BASIC_PASSWORD", "")
 HOST = os.environ.get("CATALOG_HOST", "0.0.0.0")

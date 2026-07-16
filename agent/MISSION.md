@@ -98,9 +98,10 @@ Every time you are invoked, do this:
    - Run: scripts/pinterest promote (Draft a Pinterest product Pin for manual review; production posting requires publish <draft>)
 
 3. DECIDE & ACT (Product & Strategy)
-   - If behind target: Create a new product OR run a 50% discount launch promo.
-   - If on target: Improve existing products, create a bundle, add variants.
-   - If above target: Plan growth (recurring memberships, high-ticket courses).
+   - Read `agent/growth_experiments.json` and keep the active offer stable until evaluation.
+   - If behind target: improve qualified reach and the narrowest measured funnel step.
+   - Create a product only when traffic or customer evidence reveals a distinct unmet need.
+   - Change one major variable per experiment; do not blanket-discount the catalog.
 
 4. EXECUTE
    - Create products using the Gumroad CLI or its compatibility scripts.
@@ -108,6 +109,7 @@ Every time you are invoked, do this:
    - Document what you did in agent/ledger.json.
 
 5. COMMIT
+   - Rebuild `catalog/pinterest_catalog.csv` after product changes.
    - git add -A && git commit -m "agent: <what you did>"
    - This creates a paper trail of every decision.
 ```
@@ -149,7 +151,7 @@ endpoints directly from workspace code.
 1. **Always use `--json --no-input --no-color`** in CLI commands (machine-safe output)
 2. **Use `--dry-run`** before destructive operations (deletes, bulk refunds)
 3. **Never delete published products** without checking for recent sales
-4. **Always publish products** — drafts earn nothing
+4. **Publish newly approved products** — preserve intentional cleanup drafts and never bulk-publish them
 5. **Log everything** to `agent/ledger.json`
 6. **Git commit** after every significant action
 7. **Be creative** — the more unique and useful the product, the better it sells

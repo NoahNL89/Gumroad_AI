@@ -282,6 +282,23 @@ def test_pinterest_draft_requires_manual_approval():
     assert data["pin"]["link"] == "https://schephenk.gumroad.com/l/demo"
 
 
+def test_pinterest_focus_pin_is_educational_and_tracked():
+    mods = _bots()
+    if "pinterest_bot" not in mods:
+        return
+    pinterest = mods["pinterest_bot"]
+    pin = pinterest.build_pin({
+        "id": pinterest.FOCUS_PRODUCT_ID,
+        "name": "Private AI on Your Computer",
+        "formatted_price": "€7",
+        "short_url": "https://schephenk.gumroad.com/l/local-llm-guide",
+        "thumbnail_url": "https://example.com/private-ai.jpg",
+    })
+    assert "utm_source=pinterest" in pin["link"]
+    assert "utm_campaign=private_ai_2026_07" in pin["link"]
+    assert any(word in pin["description"].lower() for word in ("local", "model", "ollama"))
+
+
 def test_pinterest_promote_does_not_pile_up_review_drafts():
     mods = _bots()
     if "pinterest_bot" not in mods:
@@ -325,6 +342,20 @@ def test_pinterest_save_env_values_updates_tokens():
     assert "PINTEREST_ACCESS_TOKEN=new-access" in text
     assert "PINTEREST_REFRESH_TOKEN=new-refresh" in text
     assert "PINTEREST_BOARD_NAME=Board" in text
+
+
+def test_pushover_dry_run_never_exposes_credentials():
+    pushover = _load(ROOT / "scripts/pushover_notify.py", "pushover_notify_test")
+    result = pushover.send_message("Title", "Message", dry_run=True)
+    assert result["status"] == 1
+    assert "token" not in result["payload"]
+    assert "user" not in result["payload"]
+
+
+def test_month_end_gate_uses_utc_calendar_boundary():
+    ops = _load(ROOT / "scripts/ops_notify.py", "ops_notify_test")
+    assert ops.is_last_day(datetime(2026, 7, 31).date()) is True
+    assert ops.is_last_day(datetime(2026, 7, 30).date()) is False
 
 
 def test_pinterest_api_base_forces_sandbox_by_default():

@@ -146,6 +146,14 @@ def init_db(con):
         captured_at     TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS notification_events (
+        event_key          TEXT PRIMARY KEY,
+        title              TEXT,
+        sent_at            TEXT,
+        provider           TEXT,
+        provider_request_id TEXT
+    );
+
     CREATE TABLE IF NOT EXISTS sync_log (
         id              INTEGER PRIMARY KEY AUTOINCREMENT,
         synced_at       TEXT,

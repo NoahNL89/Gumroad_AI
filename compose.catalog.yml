@@ -10,9 +10,9 @@ services:
     environment:
       CATALOG_BASIC_USER: ${CATALOG_BASIC_USER:-}
       CATALOG_BASIC_PASSWORD: ${CATALOG_BASIC_PASSWORD:-}
-      CATALOG_FILE: /app/output/pinterest_catalog.csv
+      CATALOG_FILE: /app/catalog/pinterest_catalog.csv
     volumes:
-      - ./output:/app/output:ro
+      - ./catalog:/app/catalog:ro
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9000/healthz', timeout=3).read()"]
       interval: 30s

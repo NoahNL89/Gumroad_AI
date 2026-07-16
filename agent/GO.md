@@ -109,4 +109,7 @@ unmet need that the current catalog cannot satisfy.
 
 Run tests relevant to any change. Append an evidence-based session to
 `agent/ledger.json`, including actions, posts, current revenue, experiment status,
-and failures. Commit and push only the workspace changes from this session.
+and failures. Rebuild `catalog/pinterest_catalog.csv`; if the product data changed,
+include the updated public feed in the commit. Commit and push only the workspace
+changes from this session. The runner sends a Pushover summary only when the run
+produced a commit or measurable sales movement.

@@ -269,8 +269,9 @@ GumRoad_AI/
 │   ├── sync.py                # Gumroad → SQLite sync (products, sales, subs)
 │   ├── query.py               # CLI for querying store data + survival status
 │   └── store.db               # SQLite database (gitignored, generated)
+├── catalog/pinterest_catalog.csv       # Public tracked Pinterest retail feed
 ├── scripts/build_pinterest_catalog.py  # Pinterest retail catalog CSV feed builder
-├── compose.catalog.yml       # Local Basic Auth CSV server for Cloudflare Tunnel
+├── compose.catalog.yml       # Optional local validation server for tracked catalog feed
 ├── scripts/
 │   ├── auth-check.sh          # Quick auth status check
 │   ├── oauth-exchange.sh      # Compatibility alias for CLI auth login

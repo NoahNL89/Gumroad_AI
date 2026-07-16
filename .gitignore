@@ -6,6 +6,8 @@ output/*.json
 *.csv
 *.tsv
 output/
+!catalog/
+!catalog/pinterest_catalog.csv
 
 # OS
 .DS_Store

@@ -27,6 +27,16 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+SCRIPTS_DIR = Path(__file__).parent.parent / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+from pushover_notify import send_once  # noqa: E402
+
+try:
+    from campaign import FOCUS_PRODUCT_ID, tracked_url
+except ImportError:
+    from .campaign import FOCUS_PRODUCT_ID, tracked_url
+
 ENV_PATH = Path(__file__).parent.parent / ".env"
 DB_PATH = Path(__file__).parent.parent / "db" / "store.db"
 DRAFT_DIR = Path(__file__).parent.parent / "agent" / "pinterest_queue"
@@ -60,6 +70,14 @@ SELL_TEMPLATES = [
 BUNDLE_TEMPLATES = [
     "The Complete AI Creator Toolkit bundles 10 practical AI systems into one download. Code {code} takes 30% off.",
     "10 AI creator systems in one bundle: prompts, workflows, templates, and productivity assets. Code {code} saves 30%.",
+]
+
+FOCUS_PIN_TEMPLATES = [
+    "Start local AI with one modest model and one real task. Measure speed and output on your own computer before downloading anything larger. This July 2026-verified guide covers the exact first run, fit test, and troubleshooting path.",
+    "A local model does not automatically make the whole workflow private. Check the runner, interface, optional tools, synced folders, and network binding—then repeat a non-sensitive task offline. Get the full verification checklist.",
+    "Choose a local AI model by the job, not the leaderboard: drafting or coding, short chat or long documents, speed or output quality. Use this practical decision guide before spending hours on the wrong download.",
+    "Diagnose slow local AI before buying hardware: inspect the CPU/GPU split with ollama ps, check memory pressure, reduce unnecessary context, then test a smaller quantization. The guide includes the complete troubleshooting map.",
+    "Run useful AI on your own computer without another subscription. This beginner-safe guide covers Ollama, Open WebUI, model fit, local-only checks, three real workflows, and common setup failures.",
 ]
 
 
@@ -410,10 +428,16 @@ def build_pin(product):
     name = product["name"]
     url = product["short_url"]
     price = product["formatted_price"]
-    is_bundle = "toolkit" in name.lower() or "bundle" in name.lower()
-    template = random.choice(BUNDLE_TEMPLATES if is_bundle else VALUE_TEMPLATES)
-    description = template.format(name=name, price=price, url=url, code=DISCOUNT_CODE)
-    description += f" Learn more: {url}"
+    if product["id"] == FOCUS_PRODUCT_ID:
+        variant = datetime.now(timezone.utc).date().toordinal() % len(FOCUS_PIN_TEMPLATES)
+        url = tracked_url(url, "pinterest", f"p{variant + 1}")
+        description = FOCUS_PIN_TEMPLATES[variant]
+        description += f" €7 once; code {DISCOUNT_CODE} saves 30%. Learn more: {url}"
+    else:
+        is_bundle = "toolkit" in name.lower() or "bundle" in name.lower()
+        template = random.choice(BUNDLE_TEMPLATES if is_bundle else VALUE_TEMPLATES)
+        description = template.format(name=name, price=price, url=url, code=DISCOUNT_CODE)
+        description += f" Learn more: {url}"
     return {
         "title": truncate(name, TITLE_LIMIT),
         "description": truncate(description, DESCRIPTION_LIMIT),
@@ -436,7 +460,7 @@ def draft_path(product):
     return DRAFT_DIR / f"{stamp}-{safe}.json"
 
 
-def write_draft(product_id=None):
+def write_draft(product_id=None, notify=False):
     product = choose_product(product_id)
     payload = build_pin(product)
     draft = {
@@ -465,6 +489,17 @@ def write_draft(product_id=None):
     print_review(draft)
     print("\nPublish only after review:")
     print(f"scripts/pinterest publish {path}")
+    if notify:
+        try:
+            send_once(
+                f"pinterest_draft:{path.name}",
+                "Pinterest Pin ready for approval",
+                f"{product['name']}\nReview and publish this specific draft:\n{path}",
+                url=product["short_url"],
+                url_title="Open product",
+            )
+        except RuntimeError as exc:
+            print(f"Warning: Pinterest Pushover notification failed: {exc}")
     return path
 
 
@@ -493,7 +528,7 @@ def promote_once(max_age_days=7):
         for path in pending:
             print(path)
         return None
-    return write_draft()
+    return write_draft(FOCUS_PRODUCT_ID, notify=True)
 
 
 def read_draft(path):
@@ -533,9 +568,14 @@ def post_payload(payload, product_id=None, product_url=None, content=None):
     payload["board_id"] = board_id
     print(f"Posting Pinterest pin: {payload.get('title')}")
     data = api_request("POST", "/pins", payload, token=access_token())
-    pin_url = data.get("link") or data.get("url") or f"https://www.pinterest.com/pin/{data.get('id')}/"
+    pin_url = data.get("url") or f"https://www.pinterest.com/pin/{data.get('id')}/"
     log_promotion(platform_name(), product_id, product_url, content or payload.get("description", ""))
-    print(json.dumps({"pin_id": data.get("id"), "pin_url": pin_url}, indent=2))
+    print(json.dumps({
+        "pin_id": data.get("id"),
+        "pin_url": pin_url,
+        "destination_url": payload.get("link"),
+        "platform": platform_name(),
+    }, indent=2))
     return True
 
 
@@ -572,7 +612,7 @@ def standard_access_brief():
     print("""Pinterest Standard access positioning
 
 Use case:
-Private single-user Pinterest content scheduler for Schep Digital's own Gumroad products. The tool drafts product Pins, lets the owner review title/description/link/image/board, and publishes only a specifically approved Pin.
+Private single-user Pinterest content assistant for Schep Digital's own Gumroad products. The tool drafts product Pins, lets the owner choose and review title/description/link/image/board, and publishes only a specifically approved Pin.
 
 Demo recording checklist:
 1. Run `scripts/pinterest login` and open the OAuth URL.
@@ -581,9 +621,11 @@ Demo recording checklist:
 4. Run `scripts/pinterest draft` to show the manual review draft.
 5. Run `scripts/pinterest sandbox-promote` to show a live sandbox Pin create API call.
 6. Open Pinterest and show the sandbox-created Pin or board visible to the creator.
+Pinterest accepts a terminal recording for a single-user app, but OAuth and the live Pinterest integration must both appear.
 
 Production behavior:
 `promote` and `draft` create review drafts only. `publish <draft.json>` / `approve <draft.json>` is the explicit per-Pin approval command.
+Trial Pins are creator-only sandbox entities. Public Pins require Standard access.
 """)
 
 
@@ -618,7 +660,7 @@ if __name__ == "__main__":
         elif cmd == "create-board":
             create_board(" ".join(sys.argv[2:]) or env("PINTEREST_BOARD_NAME", DEFAULT_BOARD_NAME))
         elif cmd == "draft":
-            write_draft(sys.argv[2] if len(sys.argv) >= 3 else None)
+            write_draft(sys.argv[2] if len(sys.argv) >= 3 else None, notify=True)
         elif cmd == "pending":
             paths = pending_drafts()
             print(f"{len(paths)} recent Pinterest draft(s) await manual approval")
@@ -636,11 +678,11 @@ if __name__ == "__main__":
             promote_once()
         elif cmd == "sandbox-promote":
             use_sandbox_api()
-            post_product()
+            post_product(FOCUS_PRODUCT_ID)
         elif cmd == "post":
             if len(sys.argv) < 3:
                 sys.exit("Provide a Gumroad product id.")
-            write_draft(sys.argv[2])
+            write_draft(sys.argv[2], notify=True)
         elif cmd == "standard-brief":
             standard_access_brief()
         else:

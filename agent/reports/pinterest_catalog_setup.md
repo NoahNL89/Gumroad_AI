@@ -1,112 +1,47 @@
 # Pinterest Retail Catalog Setup
 
-## Recommended Option
+## Current public feed URL
 
-Use **Add a retail catalog data source -> Provide a URL link**.
-
-The workspace can generate the feed file:
-
-```bash
-python3 db/sync.py
-PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev \
-  python3 scripts/build_pinterest_catalog.py
-```
-
-Output:
+Use this URL in Pinterest's **Catalogs → Data sources → Add data source → URL**:
 
 ```text
-output/pinterest_catalog.csv
+https://raw.githubusercontent.com/NoahNL89/GumRoad_AI/main/catalog/pinterest_catalog.csv
 ```
 
-## Feed Hosting
+The feed is now committed in the repository, so it has a stable, public HTTPS URL
+without a paid server, Docker container, Cloudflare Tunnel, or Basic Auth.
 
-Pinterest needs a public HTTPS URL for that CSV. The easiest self-hosted option
-for this workspace is the Docker catalog server plus a Cloudflare Tunnel public
-hostname.
-
-Run locally:
+## Refresh workflow
 
 ```bash
 source .env
-python3 scripts/build_pinterest_catalog.py
-docker compose -f compose.catalog.yml up -d --build
-curl -u "$CATALOG_BASIC_USER:$CATALOG_BASIC_PASSWORD" \
-  http://127.0.0.1:9000/pinterest_catalog.csv
-```
-
-Cloudflare Zero Trust setup:
-
-1. Go to **Zero Trust -> Networks -> Tunnels**.
-2. Use an existing tunnel on this machine, or create one.
-3. Add a **Public Hostname**:
-   - Subdomain: `catalog` (not `catelog`)
-   - Domain: `schep.dev`
-   - Service type: `HTTP`
-   - URL: `localhost:9000` if the tunnel connector runs on this machine, or `192.168.1.11:9000` if the connector runs elsewhere on the LAN.
-   - Do not use `HTTPS` for the origin service; the container serves plain HTTP and Cloudflare provides public HTTPS.
-4. Do not enable Cloudflare Access for this hostname unless Pinterest can pass
-   that Access policy. Use the container Basic Auth credentials instead.
-
-Final URL:
-
-```text
-https://catalog.schep.dev/pinterest_catalog.csv
-```
-
-In Pinterest, paste that URL into **Provide a URL link**, enter the feed username
-and password from `CATALOG_BASIC_USER` / `CATALOG_BASIC_PASSWORD`, and choose the
-6-hour ingestion schedule.
-
-For the current Schep Digital store, use:
-
-```text
-https://catalog.schep.dev/pinterest_catalog.csv
-```
-
-To refresh the file manually:
-
-```bash
 scripts/update_pinterest_catalog.sh
+git add catalog/pinterest_catalog.csv
+git commit -m "agent: refresh Pinterest catalog"
+git push
 ```
 
-The container bind-mounts `output/` read-only, so every regenerated
-`output/pinterest_catalog.csv` is served on the next Pinterest fetch without a
-container restart.
+The normal GO workflow commits meaningful repository changes, so catalog changes
+become visible at the same raw GitHub URL after the push. Pinterest can fetch it on
+its configured schedule.
 
-The compose service publishes port `9000` on all host interfaces, so local LAN
-checks can use:
+The feed generator reads `PINTEREST_CLAIMED_STORE_URL=https://store.schep.dev` and
+uses that claimed Gumroad custom domain for each product destination. It excludes
+free products and subscriptions, and includes Pinterest's required retail fields.
+
+## Pinterest UI change
+
+Replacing the URL in this repository does not modify an existing Pinterest data
+source. In Pinterest, replace any old `catalog.schep.dev` or `store.schep.dev`
+catalog-file URL with the raw GitHub URL above. No username or password is required.
+
+## Legacy local server
+
+`compose.catalog.yml` remains available for local feed validation, now serving the
+same tracked `catalog/pinterest_catalog.csv` file at:
 
 ```text
-http://192.168.1.11:9000/pinterest_catalog.csv
+http://127.0.0.1:9000/pinterest_catalog.csv
 ```
 
-Cloudflare Tunnel can still point to `http://localhost:9000`.
-
-## Product Link Requirement
-
-Product `link` values should use the claimed domain, not the raw Gumroad subdomain:
-
-```text
-https://store.schep.dev/l/product-slug
-```
-
-Set `PINTEREST_CLAIMED_STORE_URL` in `.env` so the generator rewrites Gumroad links automatically.
-
-## Included Fields
-
-The generated CSV includes:
-
-- `id`
-- `title`
-- `description`
-- `link`
-- `image_link`
-- `price`
-- `availability`
-- `brand`
-- `condition`
-- `product_type`
-- `google_product_category`
-- `custom_label_0`
-
-The generator skips free products and monthly subscription products because Pinterest retail feeds expect concrete product prices, not zero-price lead magnets or subscription cadence text.
+It is not the production feed source.
