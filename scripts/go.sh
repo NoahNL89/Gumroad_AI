@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # go.sh — Autonomous store session launcher with automatic agent rotation.
 # User-authorized: runs with --dangerously-skip-permissions for unattended cron.
 # Scope is bounded by agent/GO.md — only store management actions are defined there.
@@ -12,7 +12,7 @@
 # Crontab (runs every day at 8:07am — agent rotates automatically):
 #   7 8 * * * cd /home/administrator/NewGitHub/GumRoad_AI && bash scripts/go.sh >> /tmp/schep_go.log 2>&1
 
-set -e
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ROTATION_FILE=".agent_rotation"
@@ -55,7 +55,13 @@ if [ ! -f "$PROMPT_FILE" ]; then
     exit 1
 fi
 
-PROMPT=$(cat "$PROMPT_FILE")
+EVALUATION_CONTEXT=$(python3 scripts/evaluate_experiment.py --status)
+PROMPT="$(cat "$PROMPT_FILE")
+
+AUTOMATIC EXPERIMENT DATE GATE
+${EVALUATION_CONTEXT}
+Use this machine-generated gate. If due=true, perform the evaluation now without
+asking the user or waiting for manual page-view data."
 TS=$(date -u '+%Y-%m-%d %H:%M UTC')
 echo "=== [$TS] GO session — agent: $AGENT ==="
 
@@ -91,5 +97,9 @@ case "$AGENT" in
         exit 1
         ;;
 esac
+
+# Deterministic fallback: if the agent did not close a due experiment, snapshot
+# the measurable funnel and save a decision. Before the due date this is a no-op.
+python3 scripts/evaluate_experiment.py
 
 echo "=== [$TS] GO session complete ==="

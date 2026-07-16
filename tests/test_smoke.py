@@ -190,6 +190,35 @@ def test_campaign_links_have_source_attribution():
     assert "utm_content=l1" in url
 
 
+def test_experiment_gate_and_decision_are_deterministic():
+    evaluator = _load(ROOT / "scripts/evaluate_experiment.py", "experiment_evaluator")
+    data = {
+        "active": {
+            "id": "test",
+            "status": "running",
+            "evaluate_on": "2026-07-23",
+        }
+    }
+    assert evaluator.gate(data, datetime(2026, 7, 22).date())["due"] is False
+    assert evaluator.gate(data, datetime(2026, 7, 23).date())["due"] is True
+    report = {
+        "tracked_posts": 6,
+        "free_downloads": 0,
+        "paid_sales": 0,
+        "bundle_sales": 0,
+        "gross_revenue_eur": 0,
+    }
+    targets = {
+        "tracked_social_posts_min": 6,
+        "free_downloads_min": 3,
+        "paid_sales_min": 1,
+        "revenue_eur_min": 7,
+    }
+    decision = evaluator.choose_decision(report, targets, {})
+    assert decision["outcome"] == "reach_or_message_problem"
+    assert decision["page_view_data_available"] is False
+
+
 def test_bot_rate_limit_blocks_at_three():
     mods = _bots()
     with tempfile.TemporaryDirectory() as d:

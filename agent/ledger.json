@@ -26,6 +26,26 @@
       "date": "2026-07-16",
       "agent": "Codex",
       "actions": [
+        "Confirmed the existing cron runs scripts/go.sh every day at 08:07 UTC, including on the 2026-07-23 experiment date.",
+        "Added a deterministic experiment date gate to the GO prompt so the rotating agent receives an explicit due/not-due signal.",
+        "Added scripts/evaluate_experiment.py as a post-GO fallback that automatically snapshots posts, leads, sales, upgrades, revenue, and audience, then saves an evidence-based decision when the experiment is due.",
+        "Made Gumroad UTM page views optional because the CLI does not expose them; missing page-view data can no longer block the scheduled evaluation.",
+        "Added deterministic gate/decision smoke coverage and completed 24 tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "No manual GO is required on July 23. Daily cron will run at 08:07 UTC; the active experiment is currently collecting and the date gate reports 7 days remaining."
+    },
+    {
+      "date": "2026-07-16",
+      "agent": "Codex",
+      "actions": [
         "Deep-audited the live Gumroad funnel, daily GO automation, social bots, buyer delivery, email eligibility, Discover eligibility, public catalog route, pricing, offer codes, and distribution constraints.",
         "Rebuilt Private AI on Your Computer as a verified July 2026 17-page guide using current Ollama and Open WebUI primary documentation, replacing stale model rankings and unsupported privacy/compliance claims.",
         "Uploaded the corrected PDF and reduced the live buyer content page to the single current file, removing unrelated and duplicate files from the customer-visible flow.",

@@ -84,8 +84,9 @@ Before `evaluate_on`, report movement and keep collecting data. On or after that
 date:
 
 1. Sync and run `scripts/campaign_report.py`.
-2. Manually record Gumroad Analytics UTM page views in the experiment file because
-   the CLI does not expose page views.
+2. If Gumroad Analytics UTM page views are already available, record them. They are
+   optional because the CLI does not expose page views; never delay evaluation or
+   ask the user to run GO manually because they are absent.
 3. Diagnose the narrowest constraint:
    - no impressions/follower growth: message/channel distribution problem;
    - impressions but no clicks: hook or audience mismatch;
@@ -94,6 +95,12 @@ date:
    - core sales but no toolkit upgrades: upsell/value ladder problem.
 4. Change one major variable for the next seven-day experiment and record the
    decision. Do not change price, page, product, and channel simultaneously.
+
+The daily runner appends a machine-generated date gate to this prompt and runs
+`scripts/evaluate_experiment.py` as a deterministic fallback. When the active
+experiment is already `evaluated`, archive it under `history`, create the next
+seven-day experiment from its `decision.next_action`, and keep only one major
+variable under test.
 
 Create a new product only when traffic and customer evidence reveal a distinct
 unmet need that the current catalog cannot satisfy.
