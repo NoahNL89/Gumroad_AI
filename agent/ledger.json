@@ -76,7 +76,7 @@
         "Rebuilt Private AI on Your Computer as a verified July 2026 17-page guide using current Ollama and Open WebUI primary documentation, replacing stale model rankings and unsupported privacy/compliance claims.",
         "Uploaded the corrected PDF and reduced the live buyer content page to the single current file, removing unrelated and duplicate files from the customer-visible flow.",
         "Rewrote and republished the Local LLM landing page, product summary, description, and receipt; verified responsive desktop and mobile rendering.",
-        "Activated a 20% replacement upsell from the €7 Local LLM guide to the €24 Complete AI Creator Toolkit; confirmed the existing free-pack to Local LLM upsell remains active.",
+        "Activated a 20% replacement upsell from the \u20ac7 Local LLM guide to the \u20ac24 Complete AI Creator Toolkit; confirmed the existing free-pack to Local LLM upsell remains active.",
         "Replaced the old blanket-publishing and blanket-discount GO routine with a guarded seven-day campaign experiment and evidence-based evaluation rules.",
         "Added free-download, core-sale, bundle-sale, revenue, campaign-variant, and social-audience measurement; captured baselines of 10 Mastodon and 24 Bluesky followers.",
         "Added one-engagement-batch-per-24h guards and stopped Pinterest from piling up drafts while manual approvals are pending.",
@@ -94,7 +94,7 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "experiment": "private_ai_2026_07 running through 2026-07-23",
-      "notes": "The verified bottleneck is qualified reach: the campaign currently has 2 tracked posts, 0 free downloads, 0 paid sales, and €0 revenue. Profit is not guaranteed; the next evaluation must use Gumroad UTM page views plus the local funnel report and change only one major variable. Gumroad refund-policy activation was unavailable at the account level, so no refund-policy claim was added."
+      "notes": "The verified bottleneck is qualified reach: the campaign currently has 2 tracked posts, 0 free downloads, 0 paid sales, and \u20ac0 revenue. Profit is not guaranteed; the next evaluation must use Gumroad UTM page views plus the local funnel report and change only one major variable. Gumroad refund-policy activation was unavailable at the account level, so no refund-policy claim was added."
     },
     {
       "date": "2026-07-15",
@@ -1355,7 +1355,7 @@
         "Routine 1: read MISSION.md and CLAUDE.md, sourced .env, checked auth, attempted live sync, and queried the local snapshot. Gumroad CLI auth was unavailable and sandbox DNS blocked api.gumroad.com. Local state: 35 live products, 0 drafts, 0 sales, EUR 0.00 July revenue; survival AT RISK, EUR 58 short. Funnel verdict: bottleneck = REACH, so distribution remained the priority.",
         "Routine 2: no promotions were logged in the prior 24 hours, so attempted Mastodon promote+engage and Bluesky promote+engage. All four were blocked by sandbox DNS; no posts or engagements were falsely logged. Pinterest promote succeeded locally and created a manual-review draft for Consistent Character Genesis: Midjourney Mastery - 2026 Edition.",
         "Routine 3: found no drafts. Underpriced results were only the exempt EUR 0.99/month subscription and the intentional EUR 0 lead magnet, so no repricing was attempted. Exact duplicate-name audit found six products named 'The AI Quick-Start Pack (Free)'; logged only, with no deletion.",
-        "Routine 4: generated a fresh launch kit for flagship 'The Complete AI Creator Toolkit 2026 — All 10 Products Bundle' and replaced all bracketed placeholders with specific value-first tactics from the included content systems: three authority pillars, the content-atom repurposing model, a 90-minute weekly batch, and a daily five-minute engagement loop.",
+        "Routine 4: generated a fresh launch kit for flagship 'The Complete AI Creator Toolkit 2026 \u2014 All 10 Products Bundle' and replaced all bracketed placeholders with specific value-first tactics from the included content systems: three authority pillars, the content-atom repurposing model, a 90-minute weekly batch, and a daily five-minute engagement loop.",
         "Routine 4 distribution execution: prepared completed Reddit, Product Hunt, SEO, email, and thread copy in the launch-kit asset. Direct Reddit/Product Hunt/social publication was not possible because outbound DNS is blocked and no connector is configured; no external publication was claimed.",
         "Routine 4c: lead magnet is already live, so did not rerun create_lead_magnet.sh and worsen duplication. There are zero sales/subscribers in the snapshot, so there is no opted-in audience to receive the nurture sequence.",
         "Routine 4d: skipped new-product creation because the funnel explicitly shows no traffic/sales evidence and the 35-product catalog is duplicate-heavy; the evidence gate was not met.",
@@ -1467,12 +1467,41 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "GO behaved idempotently: live state was preserved, rate limits and duplicate protections fired, no unnecessary catalog or campaign mutations occurred, and all automated checks passed."
+    },
+    {
+      "date": "2026-07-17",
+      "agent": "Claude Code (Opus 4.8)",
+      "actions": [
+        "GO session: sourced env, confirmed live Gumroad auth (Schep Digital), ran a full authoritative sync. State stable at 35 catalog records, 29 live products, 0 sales, 0 subscribers, EUR 0.00 revenue this month.",
+        "Respected the active experiment private_ai_2026_07 (evaluate_on 2026-07-23, date gate due=false, 6 days out, state=collecting). Made no price/page/product/channel changes and did not evaluate early.",
+        "Verified the live funnel is healthy: Free AI Quick-Start Pack (EUR 0) published; Private AI local-LLM guide (EUR 7, core) published with all 9 files attached; Complete AI Creator Toolkit (EUR 24, upgrade) published. LAUNCH30 (30%) offer code confirmed active on the core guide. No defect found, so nothing repaired.",
+        "Distribution self-guarded: Mastodon and Bluesky promote both correctly refused (3/3 posts already in the last 24h), preventing duplicate campaign posts. Ran engagement instead: 15 Mastodon interactions (#ContentCreator) and 17 Bluesky interactions (#Solopreneur) to grow qualified reach.",
+        "Pinterest promote correctly skipped draft creation (6 drafts already awaiting manual review); never auto-published.",
+        "Rebuilt catalog/pinterest_catalog.csv (28 rows, no change) and ran the smoke suite: 27 passed, 0 failed.",
+        "Measured baseline: campaign private_ai_2026_07 has 2 tracked posts (mastodon l1, bluesky l4), 0 free downloads, 0 core/bundle sales. Audience: Mastodon 10 followers, Bluesky 25 followers (+1 since baseline). Bottleneck remains REACH/distribution."
+      ],
+      "new_product_created": null,
+      "distribution_assets": [],
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 15,
+        "bluesky": 17
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 6,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Idempotent collecting-phase GO run: experiment held stable, promote guards blocked duplicate posts, engagement extended reach, funnel verified defect-free, no early evaluation (6 days to evaluate_on). Bottleneck stays reach/distribution with 0 downloads recorded."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-16",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target; funnel repaired and bottleneck remains reach/distribution. 2026-07-16 GO validation passed idempotently: state persisted, social caps blocked duplicate posts, upsell stayed active, and 21 tests passed.",
+  "last_updated": "2026-07-17",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target; bottleneck remains reach/distribution. 2026-07-17 GO ran idempotently in the collecting phase of experiment private_ai_2026_07 (evaluate_on 2026-07-23): funnel verified healthy, social caps blocked duplicate promotes, engagement added 32 interactions, 27 tests passed. No early evaluation.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
