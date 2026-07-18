@@ -1496,12 +1496,39 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Idempotent collecting-phase GO run: experiment held stable, promote guards blocked duplicate posts, engagement extended reach, funnel verified defect-free, no early evaluation (6 days to evaluate_on). Bottleneck stays reach/distribution with 0 downloads recorded."
+    },
+    {
+      "date": "2026-07-18",
+      "agent": "Antigravity",
+      "actions": [
+        "Verified and measured store state: DB sync partially succeeded, sales/subscribers 0.",
+        "Respected active experiment private_ai_2026_07. In collecting phase (due=false).",
+        "Ran bots for social distribution: Posted on Mastodon and Bluesky. Engagement skipped (run in last 24h).",
+        "Pinterest promote skipped draft creation as 6 drafts await approval.",
+        "Verified live funnel health: 3 products published, guide has buyer file, upsells active."
+      ],
+      "new_product_created": null,
+      "distribution_assets": [],
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 6,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "Bottleneck remains REACH."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-17",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target; bottleneck remains reach/distribution. 2026-07-17 GO ran idempotently in the collecting phase of experiment private_ai_2026_07 (evaluate_on 2026-07-23): funnel verified healthy, social caps blocked duplicate promotes, engagement added 32 interactions, 27 tests passed. No early evaluation.",
+  "last_updated": "2026-07-18",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target; bottleneck remains reach/distribution. 2026-07-18 GO ran idempotently in the collecting phase of experiment private_ai_2026_07. Funnel verified healthy.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
