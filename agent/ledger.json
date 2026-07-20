@@ -1553,12 +1553,41 @@
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
       "notes": "Collecting-phase session completed idempotently. The experiment reached 6 tracked social posts, while downloads and sales remain absent in synchronized Gumroad data. Continue collecting through 2026-07-23; do not infer clicks or page views because the CLI does not expose them."
+    },
+    {
+      "date": "2026-07-20",
+      "agent": "Codex",
+      "actions": [
+        "Handled a manual GO as an idempotent verification because the scheduled daily automation had already run and recent focused posts remained inside the rolling 24-hour window.",
+        "Confirmed authenticated Gumroad access and completed a full live sync: 35 products, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and EUR 0.00 revenue.",
+        "Measured the active experiment at its configured 6 tracked-post sample with all six message variants represented; recorded 0 free downloads, 0 core sales, 0 bundle sales, and EUR 0.00 campaign revenue.",
+        "Captured audience movement from baseline: Mastodon 11 followers (+1) and Bluesky 27 followers (+3).",
+        "Preserved the Private AI offer, EUR 7 price, funnel, and channels because the 2026-07-23 evaluation gate remains due=false; no early interpretation of unavailable Gumroad page views.",
+        "Skipped new social posts and engagements through the existing 24-hour guards, preventing duplicate activity; left three recent Pinterest drafts awaiting individual approval and published none.",
+        "Rebuilt the 28-product Pinterest catalog with no content change and completed all 27 smoke tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 3,
+      "campaign_tracked_posts_after": 6,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "notes": "No additional distribution was warranted during this manual verification pass. The experiment is fully sampled for tracked posts and should remain stable until its automatic evaluation."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-19",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target; active experiment private_ai_2026_07 remains in collection through 2026-07-23. Six tracked posts are live, audience is +1 Mastodon and +2 Bluesky followers from baseline, the funnel is healthy, and Gumroad currently records 0 downloads and 0 sales.",
+  "last_updated": "2026-07-20",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target; active experiment private_ai_2026_07 remains in collection through 2026-07-23. Six tracked posts are live, audience is +1 Mastodon and +3 Bluesky followers from baseline, and Gumroad currently records 0 downloads and 0 sales.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
