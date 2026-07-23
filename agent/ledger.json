@@ -1786,6 +1786,51 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "GO now runs twice daily at 08:07 and 18:07 UTC. Both executions are Codex-only."
+    },
+    {
+      "date": "2026-07-23",
+      "agent": "Codex",
+      "actions": [
+        "Completed authenticated Gumroad synchronization and measured the active local_ai_readiness_2026_07 campaign without changing its fixed offer, price, products, or destination.",
+        "Confirmed 0 July sales and EUR 0.00 revenue; the campaign currently has 2 owned-account posts, 1 fully tracked post, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue.",
+        "Captured current audience metrics: Mastodon 10 followers and Bluesky 29 followers, with no follower movement from the experiment baseline yet.",
+        "Skipped Mastodon and Bluesky promotion because each channel already had a focused campaign post inside the rolling 24-hour guardrail.",
+        "Skipped Pinterest draft creation because the focused readiness-kit draft from 2026-07-23 is still awaiting manual approval; no Pin was published.",
+        "Verified the free readiness kit, EUR 7 Private AI guide, and EUR 24 toolkit are all published; the guide contains the current July 2026 verified buyer PDF.",
+        "Verified both relevant cross-sells remain active: readiness kit to guide at 30% off and guide to toolkit at 20% off.",
+        "Rebuilt the 28-row Pinterest catalog; product data was unchanged."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 2,
+      "campaign_tracked_posts_after": 1,
+      "audience": {
+        "mastodon_followers": 10,
+        "bluesky_followers": 29
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [
+        "The first audience_metrics.py run overlapped the still-running Gumroad database sync and failed with sqlite3.OperationalError: database is locked. After sync completed, the command was rerun successfully; no data was treated as zero because of the transient failure."
+      ],
+      "notes": "No funnel defect was found and the experiment is seven days from evaluation, so this session kept collecting data and made no major-variable change."
     }
   ],
   "current_month_revenue_eur": 0,
