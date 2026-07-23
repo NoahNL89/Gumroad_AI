@@ -2,7 +2,7 @@
 
 ## Installed schedule
 
-- Daily at **08:07 UTC**: `scripts/go.sh`
+- Every morning at **08:07 UTC** and evening at **18:07 UTC**: `scripts/go.sh`
 - Daily at **20:15 UTC**: `scripts/month_end.sh`
 
 The month-end launcher exits immediately on every day except the final UTC day of

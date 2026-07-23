@@ -6,8 +6,9 @@
 #   bash scripts/go.sh
 #   bash scripts/go.sh --agent codex    # accepted for backwards compatibility
 #
-# Crontab (runs Codex every day at 8:07am):
+# Crontab (runs Codex every morning and evening, UTC):
 #   7 8 * * * cd /home/administrator/NewGitHub/GumRoad_AI && bash scripts/go.sh >> /tmp/schep_go.log 2>&1
+#   7 18 * * * cd /home/administrator/NewGitHub/GumRoad_AI && bash scripts/go.sh >> /tmp/schep_go.log 2>&1
 
 set -euo pipefail
 cd "$(dirname "$0")/.."

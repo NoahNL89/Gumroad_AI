@@ -1760,6 +1760,32 @@
         "The first Bluesky post shortened its UTM query to fit 300 characters. The product path remains reachable, but the post was marked untracked; fit_post_text now preserves destination URLs atomically and has a regression test."
       ],
       "notes": "No honest system can guarantee a sale. This session replaced activity-only automation with a coherent, measurable free-to-paid acquisition loop. The next deterministic evaluation is 2026-07-30."
+    },
+    {
+      "date": "2026-07-23",
+      "agent": "Codex",
+      "actions": [
+        "Added and verified a second daily Codex GO cron at 18:07 UTC while preserving the 08:07 UTC run.",
+        "Kept the evening GO separated from the existing 20:15 UTC month-end report and retained the one-owned-social-post-per-24-hours guard.",
+        "Updated repository schedule documentation to match the installed crontab."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "GO now runs twice daily at 08:07 and 18:07 UTC. Both executions are Codex-only."
     }
   ],
   "current_month_revenue_eur": 0,
