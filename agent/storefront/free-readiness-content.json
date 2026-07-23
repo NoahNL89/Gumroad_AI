@@ -1,0 +1,39 @@
+[
+  {
+    "id": "g1RzbFRbE5MrvCTOcihZEQ==",
+    "page_id": "g1RzbFRbE5MrvCTOcihZEQ==",
+    "title": "Start here",
+    "variant_id": null,
+    "description": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Download the Private AI Readiness Kit below. Begin with Decision 01 and test with non-sensitive material."
+            }
+          ]
+        },
+        {
+          "type": "fileEmbed",
+          "attrs": {
+            "id": "YSkZpgIC2ZVnCvhHX3c5lA==",
+            "uid": "b4854981-1539-4e11-9305-91b380a32d53",
+            "collapsed": false
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Ready to install? LAUNCH30 automatically saves 30% on the full guide: https://schephenk.gumroad.com/l/local-llm-guide/LAUNCH30"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

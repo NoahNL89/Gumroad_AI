@@ -13,8 +13,8 @@ cd "$(dirname "$0")/.."
 
 SLUG="free-ai-quickstart"
 SPEC="agent/specs/${SLUG}.spec.json"
-NAME="The AI Quick-Start Pack (Free)"
-DESC="12 copy-paste AI prompts and a one-page system that make AI useful in your day. Free starter from Schep Digital — upgrade anytime with code LAUNCH30 for 30% off the full kits."
+NAME="Can My Computer Run Private AI? Free Readiness Kit"
+DESC="A free five-minute hardware audit, privacy boundary, and model-fit test for running AI locally on the computer you already own."
 
 echo "==> Building PDF from spec via the data-driven engine"
 python3 scripts/product_builder.py "$SPEC" --pdf
@@ -38,7 +38,7 @@ ID=$(printf '%s' "$RESP" | python3 -c "import sys,json; d=json.load(sys.stdin); 
 [ -n "$ID" ] || { echo "ERROR: could not parse product id from response"; exit 1; }
 
 echo "==> Attaching PDF and publishing (id: $ID)"
-gumroad products update "$ID" --file "$PDF" --file-name "AI Quick-Start Pack (Schep Digital).pdf" --json --no-input --yes
+gumroad products update "$ID" --file "$PDF" --file-name "Private AI Readiness Kit (Schep Digital).pdf" --json --no-input --yes
 gumroad products publish "$ID" --json --no-input
 
 echo ""

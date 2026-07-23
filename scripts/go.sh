@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
-# go.sh — Autonomous store session launcher with automatic agent rotation.
-# User-authorized: runs with --dangerously-skip-permissions for unattended cron.
+# go.sh — Autonomous Codex store session launcher.
 # Scope is bounded by agent/GO.md — only store management actions are defined there.
 #
 # Usage:
-#   bash scripts/go.sh                  # auto-rotate between agents (claude → agy → codex → ...)
-#   bash scripts/go.sh --agent claude   # force a specific agent
-#   bash scripts/go.sh --agent agy
-#   bash scripts/go.sh --agent codex
+#   bash scripts/go.sh
+#   bash scripts/go.sh --agent codex    # accepted for backwards compatibility
 #
-# Crontab (runs every day at 8:07am — agent rotates automatically):
+# Crontab (runs Codex every day at 8:07am):
 #   7 8 * * * cd /home/administrator/NewGitHub/GumRoad_AI && bash scripts/go.sh >> /tmp/schep_go.log 2>&1
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+export PATH="$HOME/.local/bin:$PATH"
 BEFORE_HEAD=$(git rev-parse HEAD 2>/dev/null || echo unknown)
 
 notify_failure() {
@@ -26,39 +24,21 @@ notify_failure() {
 }
 trap 'notify_failure $LINENO' ERR
 
-ROTATION_FILE=".agent_rotation"
-AGENTS=("claude" "agy" "codex")
-
-# Parse --agent override
-AGENT=""
+# Codex is the only permitted unattended agent. Keep the old --agent codex
+# spelling working so existing service definitions do not need a coordinated
+# migration, but reject every other agent explicitly.
+AGENT="codex"
 while [[ "$#" -gt 0 ]]; do
     case $1 in
-        --agent) AGENT="$2"; shift ;;
+        --agent)
+            [[ "$#" -ge 2 ]] || { echo "ERROR: --agent requires codex"; exit 1; }
+            [[ "$2" == "codex" ]] || { echo "ERROR: only Codex is permitted for GO runs"; exit 1; }
+            shift
+            ;;
         *) echo "Unknown arg: $1"; exit 1 ;;
     esac
     shift
 done
-
-# Auto-rotate if no agent specified
-if [[ -z "$AGENT" ]]; then
-    # Read last used agent
-    LAST_AGENT=""
-    if [[ -f "$ROTATION_FILE" ]]; then
-        LAST_AGENT=$(cat "$ROTATION_FILE")
-    fi
-
-    # Find the next agent in the rotation
-    NEXT_INDEX=0
-    for i in "${!AGENTS[@]}"; do
-        if [[ "${AGENTS[$i]}" == "$LAST_AGENT" ]]; then
-            NEXT_INDEX=$(( (i + 1) % ${#AGENTS[@]} ))
-            break
-        fi
-    done
-
-    AGENT="${AGENTS[$NEXT_INDEX]}"
-    echo "$AGENT" > "$ROTATION_FILE"
-fi
 
 PROMPT_FILE="agent/GO.md"
 if [ ! -f "$PROMPT_FILE" ]; then
@@ -84,30 +64,12 @@ if [[ -z "$CODEX" && -x "/home/administrator/.local/bin/codex" ]]; then
     CODEX="/home/administrator/.local/bin/codex"
 fi
 
-case "$AGENT" in
-    claude)
-        /home/administrator/.local/bin/claude \
-            --dangerously-skip-permissions \
-            -p "$PROMPT"
-        ;;
-    agy)
-        /home/administrator/.local/bin/agy \
-            --dangerously-skip-permissions \
-            -p "$PROMPT"
-        ;;
-    codex)
-        if [[ -z "$CODEX" || ! -x "$CODEX" ]]; then
-            echo "ERROR: Codex CLI not found. Install it on PATH or set CODEX_BIN to its executable path."
-            exit 1
-        fi
-        echo "Using Codex CLI: $CODEX ($("$CODEX" --version 2>/dev/null || echo "version unknown"))"
-        "$CODEX" exec "$PROMPT"
-        ;;
-    *)
-        echo "Unknown agent: $AGENT. Use: claude | agy | codex"
-        exit 1
-        ;;
-esac
+if [[ -z "$CODEX" || ! -x "$CODEX" ]]; then
+    echo "ERROR: Codex CLI not found. Install it on PATH or set CODEX_BIN to its executable path."
+    exit 1
+fi
+echo "Using Codex CLI: $CODEX ($("$CODEX" --version 2>/dev/null || echo "version unknown"))"
+"$CODEX" exec "$PROMPT"
 
 # Deterministic fallback: if the agent did not close a due experiment, snapshot
 # the measurable funnel and save a decision. Before the due date this is a no-op.

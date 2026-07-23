@@ -190,6 +190,22 @@ def test_campaign_links_have_source_attribution():
     assert "utm_content=l1" in url
 
 
+def test_bluesky_fitter_never_slices_campaign_url():
+    mods = _bots()
+    if "bluesky_bot" not in mods:
+        return
+    bluesky = mods["bluesky_bot"]
+    url = (
+        "https://schephenk.gumroad.com/l/rohes?utm_source=bluesky"
+        "&utm_medium=social&utm_campaign=local_ai_readiness_2026_07&utm_content=l1"
+    )
+    tags = ["LocalAI", "Privacy", "Ollama"]
+    fitted = bluesky.fit_post_text("A" * 260 + "\n" + url, tags, url)
+    full = fitted + "\n\n" + " ".join(f"#{tag}" for tag in tags)
+    assert url in fitted
+    assert len(full) <= bluesky.BLUESKY_LIMIT
+
+
 def test_experiment_gate_and_decision_are_deterministic():
     evaluator = _load(ROOT / "scripts/evaluate_experiment.py", "experiment_evaluator")
     data = {
@@ -219,14 +235,14 @@ def test_experiment_gate_and_decision_are_deterministic():
     assert decision["page_view_data_available"] is False
 
 
-def test_bot_rate_limit_blocks_at_three():
+def test_owned_social_rate_limit_blocks_at_one():
     mods = _bots()
     with tempfile.TemporaryDirectory() as d:
         dbp = Path(d) / "store.db"
-        _make_promotions_db(str(dbp), mastodon_posts=3, bluesky_posts=0)
+        _make_promotions_db(str(dbp), mastodon_posts=1, bluesky_posts=0)
         if "mastodon_bot" in mods:
             mods["mastodon_bot"].DB_PATH = dbp
-            assert mods["mastodon_bot"].check_rate_limit() is False, "should block at 3 posts"
+            assert mods["mastodon_bot"].check_rate_limit() is False, "should block at 1 post"
         if "bluesky_bot" in mods:
             mods["bluesky_bot"].DB_PATH = dbp
             assert mods["bluesky_bot"].check_rate_limit() is True, "should allow at 0 posts"
@@ -295,8 +311,9 @@ def test_pinterest_focus_pin_is_educational_and_tracked():
         "thumbnail_url": "https://example.com/private-ai.jpg",
     })
     assert "utm_source=pinterest" in pin["link"]
-    assert "utm_campaign=private_ai_2026_07" in pin["link"]
+    assert "utm_campaign=local_ai_readiness_2026_07" in pin["link"]
     assert any(word in pin["description"].lower() for word in ("local", "model", "ollama"))
+    assert "free" in pin["description"].lower()
 
 
 def test_pinterest_promote_does_not_pile_up_review_drafts():
@@ -556,7 +573,14 @@ def test_builder_builds_real_lead_magnet_spec():
     spec = json.loads((ROOT / "agent/specs/free-ai-quickstart.spec.json").read_text())
     assert pb.validate_spec(spec) == [], "shipped lead-magnet spec must be valid"
     html = pb.build_html(spec)
-    assert "AI Quick-Start Pack" in html and "Chapter 04" in html
+    assert "Private AI Readiness Kit" in html and "Decision 04" in html
+
+
+def test_go_runner_is_codex_only():
+    runner = (ROOT / "scripts/go.sh").read_text()
+    assert 'AGENT="codex"' in runner
+    assert "/claude" not in runner and "/agy" not in runner
+    assert "only Codex is permitted" in runner
 
 
 # ── runner ──────────────────────────────────────────────────────────────────

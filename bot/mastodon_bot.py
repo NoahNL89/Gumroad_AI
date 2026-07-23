@@ -3,8 +3,7 @@
 Mastodon bot for Schep Digital — promotes products and builds audience.
 
 Usage:
-    python3 bot/mastodon_bot.py promote   # Post a product promotion (max 3/day)
-    python3 bot/mastodon_bot.py engage    # Like/boost/follow relevant hashtag posts
+    python3 bot/mastodon_bot.py promote   # Post one useful campaign item per 24h
     python3 bot/mastodon_bot.py post "text"  # Post arbitrary text
 """
 import os, sys, sqlite3, random, time
@@ -12,9 +11,9 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 try:
-    from campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+    from campaign import DISCOUNT_CODE, campaign_product, next_variant, tracked_url
 except ImportError:  # package import in tests/tools
-    from .campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+    from .campaign import DISCOUNT_CODE, campaign_product, next_variant, tracked_url
 
 try:
     from mastodon import Mastodon
@@ -24,7 +23,7 @@ except ImportError:
 ENV_PATH  = Path(__file__).parent.parent / ".env"
 DB_PATH   = Path(__file__).parent.parent / "db" / "store.db"
 
-MAX_POSTS_PER_DAY = 3
+MAX_POSTS_PER_DAY = 1
 MASTODON_LIMIT    = 500
 
 # Hashtag sets by product category
@@ -108,12 +107,12 @@ BUNDLE_TEMPLATES = [
 # A focused seven-day campaign: five useful lessons for every direct offer.
 # Specific teaching earns more attention than rotating generic product pitches.
 FOCUS_TEMPLATES = [
-    "Want to run AI locally? Start smaller than you think.\n\nAn 8B model is a practical first test: install Ollama, run one model, then judge speed and output before downloading anything larger.\n\nMy step-by-step setup guide: {url}\nCode {code} = 30% off\n\n{hashtags}",
-    "Local AI privacy rule: downloading a model is not enough.\n\nKeep sensitive files out of cloud-synced folders, check whether your interface has analytics enabled, and test offline after setup.\n\nThe full private-AI checklist: {url}\n\n{hashtags}",
-    "Before choosing a local AI model, write down the job:\n\n• drafting or coding?\n• short chat or long documents?\n• speed or best output?\n\nThat decision matters more than chasing the biggest model. My setup guide: {url}\n\n{hashtags}",
-    "A useful first local-AI test:\n\n1. Ask a factual question\n2. Summarize a page you provide\n3. Rewrite a paragraph in your voice\n4. Repeat after disconnecting the network\n\nSetup workflow + troubleshooting: {url}\n\n{hashtags}",
-    "You do not need a server rack to learn local AI. Start with the computer you own, one modest model, and one repeatable task. Upgrade only after you find the actual bottleneck.\n\nPrivate AI setup guide: {url}\n\n{hashtags}",
-    "Run useful AI on your own computer—without another monthly subscription.\n\nPrivate AI on Your Computer is the practical install, model-choice, privacy and troubleshooting guide. {price} once.\n\n{url}\nCode {code} = 30% off\n\n{hashtags}",
+    "Before installing local AI, check three things: available memory, free storage, and the one real task you need it to do. Bigger is not automatically better.\n\nI made a free 5-minute readiness kit with the exact audit: {url}\n\n{hashtags}",
+    "“Local” is not automatically private. Check the whole path: model runner, browser UI, tools, cloud-synced folders, and network binding.\n\nFree private-AI boundary checklist: {url}\n\n{hashtags}",
+    "For a first local-AI fit test: close heavy apps, use one small model, repeat the same prompt three times, and inspect where it runs. Keep the smallest setup that passes your task.\n\nFree checklist: {url}\n\n{hashtags}",
+    "Choose a local model by the job, not hype:\n\n• drafting or code?\n• short chat or long documents?\n• speed or best output?\n\nDecide before downloading. Free readiness kit: {url}\n\n{hashtags}",
+    "A useful local-AI test has four steps: inspect hardware, choose one task, measure the run, then repeat offline. That reveals more than a model leaderboard.\n\nGet the free test sheet: {url}\n\n{hashtags}",
+    "Not sure whether your computer is ready for private AI? This free kit gives you a hardware audit, privacy boundary, model-fit test, and a clear next-step decision.\n\n{url}\n\n{hashtags}",
 ]
 
 
@@ -195,13 +194,13 @@ def promote_focus_product():
         sys.exit("DB not found. Run: python3 db/sync.py")
 
     with sqlite3.connect(str(DB_PATH)) as con:
-        p = focus_product(con)
+        p = campaign_product(con)
         if not p:
-            sys.exit("Focused Local LLM product not found. Run: python3 db/sync.py")
+            sys.exit("Free Private AI readiness product not found. Run: python3 db/sync.py")
         variant = next_variant(con, "mastodon", p["id"], len(FOCUS_TEMPLATES))
 
     url = tracked_url(
-        p["short_url"] or "https://schephenk.gumroad.com/l/local-llm-guide",
+        p["short_url"] or "https://schephenk.gumroad.com/l/rohes",
         "mastodon",
         f"l{variant + 1}",
     )
@@ -277,7 +276,7 @@ if __name__ == "__main__":
     if cmd == "promote":
         promote_focus_product()
     elif cmd == "engage":
-        engage_community()
+        print("Automated unsolicited engagement is disabled; publish useful owned-account posts instead.")
     elif cmd == "post":
         text = " ".join(sys.argv[2:])
         if not text:

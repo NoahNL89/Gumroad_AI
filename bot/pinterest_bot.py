@@ -33,9 +33,9 @@ if str(SCRIPTS_DIR) not in sys.path:
 from pushover_notify import send_once  # noqa: E402
 
 try:
-    from campaign import FOCUS_PRODUCT_ID, tracked_url
+    from campaign import CAMPAIGN_PRODUCT_ID as FOCUS_PRODUCT_ID, tracked_url
 except ImportError:
-    from .campaign import FOCUS_PRODUCT_ID, tracked_url
+    from .campaign import CAMPAIGN_PRODUCT_ID as FOCUS_PRODUCT_ID, tracked_url
 
 ENV_PATH = Path(__file__).parent.parent / ".env"
 DB_PATH = Path(__file__).parent.parent / "db" / "store.db"
@@ -73,11 +73,11 @@ BUNDLE_TEMPLATES = [
 ]
 
 FOCUS_PIN_TEMPLATES = [
-    "Start local AI with one modest model and one real task. Measure speed and output on your own computer before downloading anything larger. This July 2026-verified guide covers the exact first run, fit test, and troubleshooting path.",
-    "A local model does not automatically make the whole workflow private. Check the runner, interface, optional tools, synced folders, and network binding—then repeat a non-sensitive task offline. Get the full verification checklist.",
-    "Choose a local AI model by the job, not the leaderboard: drafting or coding, short chat or long documents, speed or output quality. Use this practical decision guide before spending hours on the wrong download.",
-    "Diagnose slow local AI before buying hardware: inspect the CPU/GPU split with ollama ps, check memory pressure, reduce unnecessary context, then test a smaller quantization. The guide includes the complete troubleshooting map.",
-    "Run useful AI on your own computer without another subscription. This beginner-safe guide covers Ollama, Open WebUI, model fit, local-only checks, three real workflows, and common setup failures.",
+    "Start local AI with one small model and one real task. Audit memory, storage, and normal workload before downloading anything larger. Get the free five-minute Private AI readiness kit.",
+    "A local model does not automatically make the whole workflow private. Check the runner, interface, optional tools, synced folders, and network binding—then repeat a non-sensitive task offline with this free checklist.",
+    "Choose a local AI model by the job, not the leaderboard: drafting or coding, short chat or long documents, speed or output quality. Use this free decision kit before spending hours on the wrong download.",
+    "Diagnose local-AI fit before buying hardware: record memory and GPU, define one real task, repeat the same prompt, and keep the smallest model that passes. Download the free test sheet.",
+    "Can your computer run private AI? This free readiness kit covers the hardware audit, privacy boundary, repeatable acceptance test, and a clear keep, downsize, or reject decision.",
 ]
 
 
@@ -395,10 +395,11 @@ def product_rows():
             SELECT id, name, formatted_price, short_url, thumbnail_url
             FROM products
             WHERE published=1
-              AND price_cents > 99
+              AND (price_cents > 99 OR id=?)
               AND short_url IS NOT NULL
               AND thumbnail_url IS NOT NULL
-            """
+            """,
+            (FOCUS_PRODUCT_ID,),
         ).fetchall()
 
 
@@ -432,7 +433,7 @@ def build_pin(product):
         variant = datetime.now(timezone.utc).date().toordinal() % len(FOCUS_PIN_TEMPLATES)
         url = tracked_url(url, "pinterest", f"p{variant + 1}")
         description = FOCUS_PIN_TEMPLATES[variant]
-        description += f" €7 once; code {DISCOUNT_CODE} saves 30%. Learn more: {url}"
+        description += f" Free PDF; no credit card required. Get it here: {url}"
     else:
         is_bundle = "toolkit" in name.lower() or "bundle" in name.lower()
         template = random.choice(BUNDLE_TEMPLATES if is_bundle else VALUE_TEMPLATES)

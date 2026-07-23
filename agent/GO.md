@@ -47,12 +47,9 @@ python3 bot/mastodon_bot.py promote
 python3 bot/bluesky_bot.py promote
 ```
 
-Run each engagement command; its own 24-hour guard makes this safe:
-
-```bash
-python3 bot/mastodon_bot.py engage
-python3 bot/bluesky_bot.py engage
-```
+Do not automate likes, follows, boosts, reposts, replies, or direct messages.
+Bluesky explicitly treats unsolicited automated interactions as spam. Grow through
+useful posts on the store's own accounts and opt-in replies only.
 
 Pinterest is a manual review channel. `promote` creates a draft only when no recent
 draft is already awaiting approval:
@@ -70,7 +67,7 @@ that community's rules.
 
 The intended path is:
 
-`free quick-start pack → €7 Private AI guide → €24 toolkit`
+`free Private AI readiness kit → €7 Private AI guide → €24 toolkit`
 
 Verify that all three products are published, the paid guide has its current buyer
 file, and both relevant upsells remain active. Repair only a verified defect. The

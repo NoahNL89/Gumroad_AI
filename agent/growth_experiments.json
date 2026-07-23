@@ -1,46 +1,125 @@
 {
   "schema_version": 1,
   "active": {
-    "id": "private_ai_2026_07",
+    "id": "local_ai_readiness_2026_07",
     "status": "running",
-    "started_at": "2026-07-16T00:00:00+00:00",
-    "evaluate_on": "2026-07-23",
-    "hypothesis": "Specific privacy, model-choice, and troubleshooting lessons will generate qualified traffic for a low-risk €7 local-AI guide, then the replacement upsell will lift order value with the complete toolkit.",
+    "started_at": "2026-07-23T08:35:34+00:00",
+    "evaluate_on": "2026-07-30",
+    "hypothesis": "Replacing direct paid-product traffic with a tightly matched free Private AI readiness kit will convert qualified social attention into measurable downloads, while the existing checkout cross-sell creates a low-friction path to the €7 setup guide.",
+    "major_variable": "Campaign destination and hook: aligned free readiness kit instead of direct paid-guide pitch.",
     "funnel": {
       "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
       "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
       "upgrade_product_id": "ws-l3GFbvznUmNYUgBwUGA=="
     },
     "offer": {
-      "core_price_eur": 7.0,
+      "lead_price_eur": 0,
+      "core_price_eur": 7,
       "campaign_code": "LAUNCH30",
       "upgrade_discount_percent": 20
     },
     "channels": [
-      "mastodon",
-      "bluesky",
+      "mastodon_owned_posts",
+      "bluesky_owned_posts",
+      "profile",
       "pinterest_manual_review"
     ],
     "success_signals": {
-      "tracked_social_posts_min": 6,
+      "tracked_social_posts_min": 10,
       "free_downloads_min": 3,
       "paid_sales_min": 1,
-      "revenue_eur_min": 7.0
+      "revenue_eur_min": 4.9
     },
     "manual_analytics": {
       "gumroad_utm_page_views": null,
       "gumroad_utm_visitors": null,
       "recorded_at": null,
-      "note": "Fill from Gumroad Analytics on the evaluation date; the CLI does not expose page views."
+      "note": "Optional on the evaluation date; the CLI does not expose page views."
     },
     "guardrails": [
-      "Keep the focus product and €7 base price stable until evaluation.",
-      "Do not create a new SKU during this experiment.",
-      "Do not publish intentional duplicate drafts.",
-      "Do not invent scarcity or guarantee privacy, performance, or income.",
+      "Keep the aligned lead product, €7 core price, LAUNCH30 offer, and campaign destinations stable until evaluation.",
+      "Publish at most one campaign post per owned social account in a rolling 24 hours.",
+      "Do not automate unsolicited likes, follows, boosts, reposts, replies, or direct messages.",
+      "Do not create another SKU or publish intentional duplicate drafts.",
+      "Do not invent scarcity or guarantee privacy, performance, compatibility, or income.",
       "Repair delivery defects and false claims immediately."
     ],
     "decision": null
   },
-  "history": []
+  "history": [
+    {
+      "id": "private_ai_2026_07",
+      "status": "evaluated",
+      "started_at": "2026-07-16T00:00:00+00:00",
+      "evaluate_on": "2026-07-23",
+      "hypothesis": "Specific privacy, model-choice, and troubleshooting lessons will generate qualified traffic for a low-risk €7 local-AI guide, then the replacement upsell will lift order value with the complete toolkit.",
+      "funnel": {
+        "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
+        "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
+        "upgrade_product_id": "ws-l3GFbvznUmNYUgBwUGA=="
+      },
+      "offer": {
+        "core_price_eur": 7,
+        "campaign_code": "LAUNCH30",
+        "upgrade_discount_percent": 20
+      },
+      "channels": [
+        "mastodon",
+        "bluesky",
+        "pinterest_manual_review"
+      ],
+      "success_signals": {
+        "tracked_social_posts_min": 6,
+        "free_downloads_min": 3,
+        "paid_sales_min": 1,
+        "revenue_eur_min": 7
+      },
+      "manual_analytics": {
+        "gumroad_utm_page_views": null,
+        "gumroad_utm_visitors": null,
+        "recorded_at": null,
+        "note": "The CLI does not expose page views."
+      },
+      "guardrails": [
+        "Keep the focus product and €7 base price stable until evaluation.",
+        "Do not create a new SKU during this experiment.",
+        "Do not publish intentional duplicate drafts.",
+        "Do not invent scarcity or guarantee privacy, performance, or income.",
+        "Repair delivery defects and false claims immediately."
+      ],
+      "decision": {
+        "outcome": "reach_or_message_problem",
+        "rationale": "The campaign reached its posting sample but produced no measurable lead or sale.",
+        "next_action": "Test one new qualified channel or hook; do not add another product.",
+        "page_view_data_available": false
+      },
+      "actuals": {
+        "evaluated_at": "2026-07-23T08:35:34.478370+00:00",
+        "tracked_posts": 12,
+        "free_downloads": 0,
+        "core_sales": 0,
+        "bundle_sales": 0,
+        "paid_sales": 0,
+        "gross_revenue_eur": 0,
+        "audience": {
+          "mastodon": {
+            "followers": 11,
+            "follower_change": 1,
+            "following": 43,
+            "posts": 99,
+            "baseline_at": "2026-07-16T11:11:38.484555+00:00",
+            "latest_at": "2026-07-22T08:09:50.004482+00:00"
+          },
+          "bluesky": {
+            "followers": 29,
+            "follower_change": 5,
+            "following": 66,
+            "posts": 40,
+            "baseline_at": "2026-07-16T11:11:38.484555+00:00",
+            "latest_at": "2026-07-22T08:09:50.004482+00:00"
+          }
+        }
+      }
+    }
+  ]
 }

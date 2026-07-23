@@ -16,13 +16,14 @@ from campaign import (  # noqa: E402
     BUNDLE_PRODUCT_ID,
     BUNDLE_PRODUCT_NAME,
     CAMPAIGN,
+    CAMPAIGN_PRODUCT_ID,
     FOCUS_PRODUCT_ID,
     FOCUS_PRODUCT_NAME,
     LEAD_PRODUCT_ID,
     LEAD_PRODUCT_NAME,
 )
 
-DEFAULT_SINCE = "2026-07-16T00:00:00+00:00"
+DEFAULT_SINCE = "2026-07-23T08:35:34+00:00"
 
 
 def valid_sales(con, product_id, since):
@@ -70,7 +71,7 @@ def collect(con, since):
     posts = con.execute(
         "SELECT platform, url, posted_at FROM promotions "
         "WHERE product_id=? AND posted_at>=? ORDER BY posted_at",
-        (FOCUS_PRODUCT_ID, since),
+        (CAMPAIGN_PRODUCT_ID, since),
     ).fetchall()
     leads = valid_sales(con, LEAD_PRODUCT_ID, since)
     focus_sales = valid_sales(con, FOCUS_PRODUCT_ID, since)

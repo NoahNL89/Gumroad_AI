@@ -3,8 +3,7 @@
 Bluesky bot for Schep Digital — promotes products with proper hashtag facets.
 
 Usage:
-    python3 bot/bluesky_bot.py promote   # Post a product promotion (max 3/day)
-    python3 bot/bluesky_bot.py engage    # Like/follow relevant hashtag posts
+    python3 bot/bluesky_bot.py promote   # Post one useful campaign item per 24h
     python3 bot/bluesky_bot.py post "text"  # Post arbitrary text
 """
 import os, sys, sqlite3, random, re
@@ -12,9 +11,9 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 try:
-    from campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+    from campaign import DISCOUNT_CODE, campaign_product, next_variant, tracked_url
 except ImportError:  # package import in tests/tools
-    from .campaign import DISCOUNT_CODE, focus_product, next_variant, tracked_url
+    from .campaign import DISCOUNT_CODE, campaign_product, next_variant, tracked_url
 
 try:
     from atproto import Client, models
@@ -25,7 +24,7 @@ except ImportError:
 ENV_PATH  = Path(__file__).parent.parent / ".env"
 DB_PATH   = Path(__file__).parent.parent / "db" / "store.db"
 
-MAX_POSTS_PER_DAY = 3
+MAX_POSTS_PER_DAY = 1
 BLUESKY_LIMIT     = 300
 
 # Hashtags by category (5-6 per post for Bluesky discovery)
@@ -100,12 +99,12 @@ BUNDLE_TEMPLATES = [
 ]
 
 FOCUS_TEMPLATES = [
-    "Start local AI small: test one 8B model in Ollama first. Judge speed and output on your own task.\n\nGuide: {url}\n{code}: 30% off",
-    "Local AI privacy check: avoid cloud-synced folders, check interface analytics, then test offline after setup.\n\nFull checklist: {url}",
-    "Choose a local model by the job, not hype: drafting or code? Short chat or long docs? Speed or quality? Decide before downloading.\n\nGuide: {url}",
-    "First local-AI test: ask a fact, summarize supplied text, rewrite a paragraph, then repeat offline.\n\nSetup + troubleshooting: {url}",
-    "No server rack needed. Start with your computer, one modest model and one task. Upgrade after finding the real bottleneck.\n\nGuide: {url}",
-    "Run AI on your computer without a subscription. Install, model choice, privacy and troubleshooting. {price} once.\n\n{url}\n{code}: 30% off",
+    "Before installing local AI, check RAM, available storage and the one task you need it to do. Bigger is not automatically better.\n\nFree 5-minute readiness kit: {url}",
+    "“Local” is not automatically private. Check the model runner, browser UI, cloud-synced folders, tools and network binding.\n\nFree privacy checklist: {url}",
+    "For a first local-AI test, close heavy apps, use one small model and repeat the same prompt 3 times. Keep the smallest setup that passes.\n\nFree fit test: {url}",
+    "Choose a local model by the job: drafting or code? Short chat or long documents? Speed or quality? Decide before downloading.\n\nFree readiness kit: {url}",
+    "A useful local-AI test has 4 steps: inspect hardware, choose one task, measure the run, then repeat offline.\n\nGet the free checklist: {url}",
+    "Not sure whether your computer is ready for private AI? This free kit gives you a hardware audit, privacy boundary and acceptance test.\n\n{url}",
 ]
 
 
@@ -187,6 +186,22 @@ def build_post_with_facets(body: str, tags: list[str]) -> tuple[str, list]:
     return tb
 
 
+def fit_post_text(text: str, tags: list[str], url: str | None = None) -> str:
+    """Fit Bluesky's limit without ever slicing a destination URL."""
+    tag_suffix = "\n\n" + " ".join(f"#{tag}" for tag in tags) if tags else ""
+    body_limit = BLUESKY_LIMIT - len(tag_suffix)
+    if len(text) <= body_limit:
+        return text
+    if url and url in text:
+        prefix = text.split(url, 1)[0].rstrip()
+        prefix_limit = body_limit - len(url) - 1
+        if prefix_limit >= 2:
+            prefix = prefix[: prefix_limit - 1].rstrip() + "…"
+            return f"{prefix}\n{url}"
+        return url
+    return text[: body_limit - 1].rstrip() + "…"
+
+
 def post_message(text: str, tags: list = None, product_id=None, url=None):
     if not check_rate_limit():
         return False
@@ -195,18 +210,15 @@ def post_message(text: str, tags: list = None, product_id=None, url=None):
     tags = tags or []
 
     if tags:
+        text = fit_post_text(text, tags, url=url)
         tb = build_post_with_facets(text, tags)
         full_text = tb.build_text()
         if len(full_text) > BLUESKY_LIMIT:
-            overflow = len(full_text) - BLUESKY_LIMIT
-            text = text[:len(text) - overflow - 3] + "..."
-            tb = build_post_with_facets(text, tags)
-            full_text = tb.build_text()
+            raise RuntimeError("Bluesky post fitter exceeded the platform limit")
         print(f"Posting to Bluesky:\n{full_text}\n")
         post = client.send_post(tb)
     else:
-        if len(text) > BLUESKY_LIMIT:
-            text = text[:BLUESKY_LIMIT - 3] + "..."
+        text = fit_post_text(text, tags, url=url)
         full_text = text
         print(f"Posting to Bluesky:\n{full_text}\n")
         post = client.send_post(text)
@@ -221,13 +233,13 @@ def promote_focus_product():
         sys.exit("DB not found. Run: python3 db/sync.py")
 
     with sqlite3.connect(str(DB_PATH)) as con:
-        p = focus_product(con)
+        p = campaign_product(con)
         if not p:
-            sys.exit("Focused Local LLM product not found. Run: python3 db/sync.py")
+            sys.exit("Free Private AI readiness product not found. Run: python3 db/sync.py")
         variant = next_variant(con, "bluesky", p["id"], len(FOCUS_TEMPLATES))
 
     url = tracked_url(
-        p["short_url"] or "https://schephenk.gumroad.com/l/local-llm-guide",
+        p["short_url"] or "https://schephenk.gumroad.com/l/rohes",
         "bluesky",
         f"l{variant + 1}",
     )
@@ -301,7 +313,7 @@ if __name__ == "__main__":
     if cmd == "promote":
         promote_focus_product()
     elif cmd == "engage":
-        engage_community()
+        print("Automated unsolicited engagement is disabled; publish useful owned-account posts instead.")
     elif cmd == "post":
         text = " ".join(sys.argv[2:])
         if not text:

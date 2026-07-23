@@ -2,7 +2,7 @@
 
 The current customer path is:
 
-`Free AI Quick-Start Pack → Private AI on Your Computer (€7) → Complete Toolkit (€24)`
+`Free Private AI Readiness Kit → Private AI on Your Computer (€7) → Complete Toolkit (€24)`
 
 ## Stage 0: current account, before Gumroad's email gate
 

@@ -1701,12 +1701,71 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "Collection-phase GO. Distribution and follower counts moved, but Gumroad still records 0 downloads and 0 paid sales. The offer remains stable for deterministic evaluation on 2026-07-23."
+    },
+    {
+      "date": "2026-07-23",
+      "agent": "Codex",
+      "actions": [
+        "Locked scripts/go.sh to Codex only, removed agent rotation, preserved the --agent codex compatibility form, and verified that --agent claude exits before execution while the installed 08:07 UTC cron still calls the runner.",
+        "Completed authenticated live measurement: 35 products, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and EUR 0.00 revenue; no paid live product is underpriced.",
+        "Evaluated and archived private_ai_2026_07: 12 tracked posts produced modest follower movement but 0 free downloads, 0 paid sales, and EUR 0 revenue, confirming a reach/message problem.",
+        "Identified the funnel mismatch: every campaign post linked directly to the paid guide while the experiment measured an unrelated generic free prompt pack that was never promoted.",
+        "Repositioned the existing zero-download free SKU without creating another product: published the Private AI Readiness Kit with a new five-minute hardware audit, privacy boundary, model-fit test PDF, focused landing page, Hardware category, specific tags, matching thumbnail/covers, Start here content, receipt copy, and profile placement.",
+        "Verified the active 30% checkout cross-sell from the free readiness kit to the EUR 7 Private AI guide and preserved the EUR 7 core price plus EUR 24 toolkit upgrade.",
+        "Started local_ai_readiness_2026_07 through 2026-07-30. Its single major variable is the destination/hook: all acquisition traffic now goes to the aligned free readiness kit before the paid cross-sell.",
+        "Disabled unsolicited automated engagement in the unattended workflow and set owned-account promotion to one post per platform per rolling 24 hours.",
+        "Published one free-readiness post on Mastodon and one on Bluesky. Mastodon is fully UTM-tracked; the first Bluesky fitter shortened its UTM query, so that row was honestly excluded from tracked totals and the fitter was repaired with URL-preservation coverage for future posts.",
+        "Created one compliant Pinterest review draft for the free readiness kit and sent its approval notification; Trial access remains production-publish disabled.",
+        "Rebuilt the 28-row Pinterest catalog and passed all 29 smoke tests."
+      ],
+      "new_product_created": null,
+      "product_repositioned": {
+        "id": "GusEpfVyj3ByGk34VFgYZA==",
+        "name": "Can My Computer Run Private AI? Free Readiness Kit",
+        "price_eur": 0,
+        "url": "https://schephenk.gumroad.com/l/rohes"
+      },
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "social_post_urls": {
+        "mastodon": "https://mastodon.social/@schep_digital/116968411197085012",
+        "bluesky": "at://did:plc:7jsxwkrxeerwhhgii5x2q2ww/app.bsky.feed.post/3mrch5fgnzy2u"
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 1,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 2,
+      "campaign_tracked_posts_after": 1,
+      "audience": {
+        "mastodon_followers": 10,
+        "bluesky_followers": 29
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [
+        "The first combined Gumroad update partially succeeded but rejected a portrait thumbnail; recovered by attaching a square thumbnail, setting the matching cover order, removing stale prompt-pack covers, and verifying every live field.",
+        "The first Bluesky post shortened its UTM query to fit 300 characters. The product path remains reachable, but the post was marked untracked; fit_post_text now preserves destination URLs atomically and has a regression test."
+      ],
+      "notes": "No honest system can guarantee a sale. This session replaced activity-only automation with a coherent, measurable free-to-paid acquisition loop. The next deterministic evaluation is 2026-07-30."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-22",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target; active experiment private_ai_2026_07 remains collecting until 2026-07-23 (due=false). Distribution reached 12 tracked posts (6 Mastodon / 6 Bluesky); audience is +1 Mastodon and +5 Bluesky from baseline; Gumroad still records 0 downloads and 0 sales. Funnel verified healthy and unchanged.",
+  "last_updated": "2026-07-23",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target. The failed direct-to-paid experiment is archived. Active experiment local_ai_readiness_2026_07 now drives owned social and reviewed Pinterest traffic to a tightly aligned free readiness kit with a verified 30% cross-sell to the EUR 7 guide; evaluate 2026-07-30.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
