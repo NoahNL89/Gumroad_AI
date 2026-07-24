@@ -1876,6 +1876,53 @@
         "python3 -m pytest -q could not run because pytest is not installed in the environment; the framework-free smoke runner passed all 29 tests instead."
       ],
       "notes": "No verified funnel defect was found. With evaluation six days away, this session kept the single major variable stable and continued collecting data."
+    },
+    {
+      "date": "2026-07-24",
+      "agent": "Codex",
+      "actions": [
+        "Completed authenticated Gumroad synchronization and measured the active local_ai_readiness_2026_07 experiment without changing its fixed offer, core price, products, or campaign destination.",
+        "Confirmed 0 July sales and EUR 0.00 revenue; before distribution the campaign had 2 owned-account posts, 1 fully tracked post, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue.",
+        "Captured current audience metrics: Mastodon 10 followers and Bluesky 29 followers, with no movement from the experiment baseline.",
+        "Published one value-first l2 readiness-kit post on each eligible owned account after the prior focused posts aged beyond the rolling 24-hour guardrail.",
+        "Skipped Pinterest draft creation because one focused readiness-kit draft is still awaiting manual approval; no Pin was published.",
+        "Verified the free readiness kit, EUR 7 Private AI guide, and EUR 24 toolkit are published; the guide Start here page embeds the current verified buyer PDF.",
+        "Verified both relevant cross-sells remain active and unpaused: readiness kit to guide at 30% off and guide to toolkit at 20% off.",
+        "Rebuilt the 28-row Pinterest catalog; product data was unchanged, and all 29 smoke tests passed."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "social_post_urls": {
+        "mastodon": "https://mastodon.social/@schep_digital/116976293236996952",
+        "bluesky": "at://did:plc:7jsxwkrxeerwhhgii5x2q2ww/app.bsky.feed.post/3mrfx5prdj62k"
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 4,
+      "campaign_tracked_posts_after": 3,
+      "audience": {
+        "mastodon_followers": 10,
+        "bluesky_followers": 29
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "No verified funnel defect was found. The experiment remains six days from evaluation, so this session kept the single major variable stable and added only the next eligible owned-channel message variant."
     }
   ],
   "current_month_revenue_eur": 0,
