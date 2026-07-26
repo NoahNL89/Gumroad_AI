@@ -2054,6 +2054,52 @@
         "python3 -m pytest -q tests/test_smoke.py could not run because pytest is not installed; the repository's framework-free test runner completed successfully with 29 passed and 0 failed."
       ],
       "notes": "No verified funnel defect was found. With evaluation four days away and both social channels inside their one-post-per-24-hours limits, this idempotent session preserved the experiment and continued collecting data."
+    },
+    {
+      "date": "2026-07-26",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated and completed a fresh Gumroad synchronization: 35 products discovered, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and 60 offer codes.",
+        "Measured the running local_ai_readiness_2026_07 experiment before its 2026-07-30 evaluation date and held the free lead, EUR 7 core price, LAUNCH30 offer, EUR 24 upgrade, and campaign destination stable.",
+        "Recorded an initial audience-metrics SQLite lock as unavailable rather than zero, then reran serially and captured Mastodon 9 followers and Bluesky 29 followers.",
+        "Published one guarded value-first l4 readiness-kit post on Mastodon and one on Bluesky after the previous focused posts aged beyond the rolling 24-hour window.",
+        "Skipped Pinterest draft creation because one readiness-kit draft remains pending manual approval; no Pinterest draft was published.",
+        "Verified all three funnel products are published at EUR 0, EUR 7, and EUR 24; the paid guide has a current file embed, LAUNCH30 remains 30% with no false deadline, and both relevant cross-sells are active at 30% and 20%.",
+        "After distribution, the campaign has 8 owned posts, 7 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue; Gumroad UTM page-view data remains unavailable and was not interpreted as zero.",
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff and passed all 29 framework-free smoke tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 8,
+      "campaign_tracked_posts_after": 7,
+      "audience": {
+        "mastodon_followers": 9,
+        "bluesky_followers": 29
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [
+        "The first audience_metrics.py capture failed with sqlite3.OperationalError: database is locked because it overlapped the initial sync; the serial retry succeeded.",
+        "The first background sync attempt did not return a usable completion status; a direct serial retry completed successfully."
+      ],
+      "notes": "Collection-phase GO. The funnel is healthy but buyer acquisition remains unproven. Evaluation is four days away, so no experiment variable was changed beyond advancing to the next message variant on the same owned channels."
     }
   ],
   "current_month_revenue_eur": 0,
