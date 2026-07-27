@@ -1699,9 +1699,7 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "failures": [
-        "The workspace-relative scripts/send-pushover.sh path was absent; the retry used the send-pushover skill's installed script and Pushover accepted the completion notification."
-      ],
+      "failures": [],
       "notes": "Collection-phase GO. Distribution and follower counts moved, but Gumroad still records 0 downloads and 0 paid sales. The offer remains stable for deterministic evaluation on 2026-07-23."
     },
     {
@@ -2143,7 +2141,9 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "failures": [],
+      "failures": [
+        "The workspace-relative scripts/send-pushover.sh path was absent; the retry used the send-pushover skill's installed script and Pushover accepted the completion notification."
+      ],
       "notes": "Idempotent collection-phase GO. No verified funnel defect was found, no store or experiment variable was changed, and no owned channel was spammed. Buyer acquisition remains unproven with three days of collection remaining."
     }
   ],
