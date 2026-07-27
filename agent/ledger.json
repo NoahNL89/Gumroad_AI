@@ -2145,6 +2145,47 @@
         "The workspace-relative scripts/send-pushover.sh path was absent; the retry used the send-pushover skill's installed script and Pushover accepted the completion notification."
       ],
       "notes": "Idempotent collection-phase GO. No verified funnel defect was found, no store or experiment variable was changed, and no owned channel was spammed. Buyer acquisition remains unproven with three days of collection remaining."
+    },
+    {
+      "date": "2026-07-27",
+      "agent": "Codex",
+      "actions": [
+        "Repeated the authenticated measurement path safely and confirmed the synchronized store still has 0 July sales and EUR 0.00 revenue; missing Gumroad page-view data was not treated as zero.",
+        "Measured local_ai_readiness_2026_07 at 8 owned posts, 7 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue while preserving the experiment's free lead, EUR 7 core price, LAUNCH30 offer, EUR 24 upgrade, campaign destination, and message variable.",
+        "Recorded Mastodon at 9 followers and Bluesky at 28 followers; each channel still had a focused readiness-kit post inside the rolling 24-hour window at measurement time, so no duplicate owned post was made.",
+        "Kept Pinterest behind manual review: the existing readiness-kit draft remains pending, so no new draft was created and no Pin was published.",
+        "Verified the EUR 0+, EUR 7, and EUR 24 funnel products are published, the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf, and both required cross-sells remain active and unpaused at 30% and 20%.",
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff and passed all 29 framework-free smoke tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 8,
+      "campaign_tracked_posts_after": 7,
+      "audience": {
+        "mastodon_followers": 9,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "Idempotent rerun during collection. No store defect, sales movement, eligible social slot, catalog change, or experiment decision was found; only this evidence record changed."
     }
   ],
   "current_month_revenue_eur": 0,
