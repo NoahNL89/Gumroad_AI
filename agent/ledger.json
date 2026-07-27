@@ -1699,7 +1699,9 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "failures": [],
+      "failures": [
+        "The workspace-relative scripts/send-pushover.sh path was absent; the retry used the send-pushover skill's installed script and Pushover accepted the completion notification."
+      ],
       "notes": "Collection-phase GO. Distribution and follower counts moved, but Gumroad still records 0 downloads and 0 paid sales. The offer remains stable for deterministic evaluation on 2026-07-23."
     },
     {
