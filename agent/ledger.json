@@ -2227,6 +2227,49 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "Collection-phase GO. Two eligible owned-account posts were published without changing the experiment. No verified funnel defect or sales movement was found, so no store repair, product creation, discount change, evaluation, or Pinterest publication was performed."
+    },
+    {
+      "date": "2026-07-28",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated and completed a fresh Gumroad synchronization: 35 products discovered, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and 60 offer codes.",
+        "Measured local_ai_readiness_2026_07 two days before its 2026-07-30 evaluation date at 10 owned posts, 9 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue; unavailable Gumroad page-view data remains unknown rather than zero.",
+        "Preserved the experiment's free readiness-kit destination, EUR 7 guide price, LAUNCH30 offer, EUR 24 upgrade, focus products, and message variable during the collection window.",
+        "Recorded current audience metrics of 7 Mastodon followers and 28 Bluesky followers. Both channels already had focused readiness-kit posts from 2026-07-28T08:10Z inside the rolling 24-hour guardrail, so no duplicate owned post or automated engagement was made.",
+        "Kept Pinterest behind manual review: one recent readiness-kit draft remains pending approval, so the idempotent promoter created no new draft and no Pin was published.",
+        "Verified the EUR 0+, EUR 7, and EUR 24 funnel products are published and their public product and LAUNCH30 URLs return HTTP 200; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf.",
+        "Verified LAUNCH30 remains configured at 30% with no configured or claimed deadline and both required cross-sells remain active and unpaused: readiness kit to guide at 30% off and guide to toolkit at 20% off.",
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 10,
+      "campaign_tracked_posts_after": 9,
+      "audience": {
+        "mastodon_followers": 7,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "Idempotent collection-phase rerun. No eligible social slot, verified funnel defect, store mutation, sales movement, experiment evaluation, product creation, discount change, or Pinterest publication was found; only this evidence record changed."
     }
   ],
   "current_month_revenue_eur": 0,
