@@ -2270,11 +2270,57 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "Idempotent collection-phase rerun. No eligible social slot, verified funnel defect, store mutation, sales movement, experiment evaluation, product creation, discount change, or Pinterest publication was found; only this evidence record changed."
+    },
+    {
+      "date": "2026-07-29",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated and completed a fresh Gumroad synchronization: 35 products discovered, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and 60 offer codes.",
+        "Measured local_ai_readiness_2026_07 one day before its 2026-07-30 evaluation date. After distribution the campaign has 12 owned posts, 11 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue; unavailable Gumroad page-view data remains unknown rather than zero.",
+        "Preserved the experiment's free readiness-kit destination, EUR 7 guide price, LAUNCH30 offer, EUR 24 upgrade, focus products, and campaign hook during the collecting window; performed no early evaluation.",
+        "Recorded Mastodon at 7 followers, down 3 from the experiment baseline, and Bluesky at 28 followers, down 1. Published one guarded value-first l6 readiness-kit post to each owned account after the previous focused posts aged beyond the rolling 24-hour window; made no automated interactions.",
+        "Kept Pinterest behind manual review: one recent readiness-kit draft remains pending approval, so the idempotent promoter created no new draft and no Pin was published.",
+        "Verified the EUR 0+, EUR 7, and EUR 24 funnel products are published; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf; LAUNCH30 remains configured at 30% with no end time; and both required cross-sells remain active and unpaused at 30% and 20%.",
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff and passed all 29 framework-free smoke tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "social_post_urls": {
+        "mastodon": "https://mastodon.social/@schep_digital/117002249461709701",
+        "bluesky": "at://did:plc:7jsxwkrxeerwhhgii5x2q2ww/app.bsky.feed.post/3mrrhzaqzqa2n"
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 12,
+      "campaign_tracked_posts_after": 11,
+      "audience": {
+        "mastodon_followers": 7,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "local_ai_readiness_2026_07",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-07-30",
+        "due": false
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "Collection-phase GO completed idempotently. No store defect, product-data change, sales movement, product creation, discount change, early experiment decision, automated engagement, or Pinterest publication was warranted."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-28",
+  "last_updated": "2026-07-29",
   "status": "at_risk - EUR 0 this month vs EUR 58 target. The failed direct-to-paid experiment is archived. Active experiment local_ai_readiness_2026_07 now drives owned social and reviewed Pinterest traffic to a tightly aligned free readiness kit with a verified 30% cross-sell to the EUR 7 guide; evaluate 2026-07-30.",
   "catalog": {
     "bundle": {
