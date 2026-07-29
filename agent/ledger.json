@@ -2327,7 +2327,8 @@
         "Recorded Mastodon at 7 followers, down 3 from the experiment baseline, and Bluesky at 28 followers, down 1. Both channels already had focused readiness-kit posts from 2026-07-29T08:10Z inside the rolling 24-hour guardrail, so no duplicate owned post or automated interaction was made.",
         "Kept Pinterest behind manual review: one recent readiness-kit draft remains pending approval, so the idempotent promoter created no new draft and no Pin was published.",
         "Verified the EUR 0+, EUR 7, and EUR 24 funnel products are published; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf; LAUNCH30 remains configured at 30% with no end time; and both required cross-sells remain active and unpaused at 30% and 20%.",
-        "Rebuilt the 28-row Pinterest catalog with no product-data diff and passed all 29 framework-free smoke tests."
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff and passed all 29 framework-free smoke tests.",
+        "Sent the commit-triggered Pushover completion summary successfully after resolving the installed sender script path."
       ],
       "new_product_created": null,
       "social_posts_made": {
@@ -2356,7 +2357,9 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "failures": [],
+      "failures": [
+        "Initial Pushover attempt exited 127 with /bin/bash: scripts/send-pushover.sh: No such file or directory; retried with the installed skill script at /home/administrator/.codex/skills/send-pushover/scripts/send-pushover.sh and Pushover accepted the notification."
+      ],
       "notes": "Idempotent collection-phase GO. No eligible social slot, verified funnel defect, store mutation, sales movement, product creation, discount change, early experiment decision, automated interaction, or Pinterest publication was warranted."
     }
   ],
