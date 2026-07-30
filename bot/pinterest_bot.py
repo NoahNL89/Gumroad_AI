@@ -73,11 +73,11 @@ BUNDLE_TEMPLATES = [
 ]
 
 FOCUS_PIN_TEMPLATES = [
-    "Start local AI with one small model and one real task. Audit memory, storage, and normal workload before downloading anything larger. Get the free five-minute Private AI readiness kit.",
-    "A local model does not automatically make the whole workflow private. Check the runner, interface, optional tools, synced folders, and network binding—then repeat a non-sensitive task offline with this free checklist.",
-    "Choose a local AI model by the job, not the leaderboard: drafting or coding, short chat or long documents, speed or output quality. Use this free decision kit before spending hours on the wrong download.",
-    "Diagnose local-AI fit before buying hardware: record memory and GPU, define one real task, repeat the same prompt, and keep the smallest model that passes. Download the free test sheet.",
-    "Can your computer run private AI? This free readiness kit covers the hardware audit, privacy boundary, repeatable acceptance test, and a clear keep, downsize, or reject decision.",
+    "Freelancers handling client documents: decide what must stay off third-party servers, then test whether your current computer can handle that task locally. Get the free five-minute Private AI readiness kit.",
+    "Consultants using AI with client files: a local model does not automatically make the whole workflow private. Check the runner, interface, tools, synced folders, and network binding with this free checklist.",
+    "Freelancers do not need the biggest local model. Start with the client task—proposals, document summaries, code, or research notes—then use this free kit to choose the smallest setup that passes.",
+    "Test local-AI fit for client work with non-sensitive sample material: record memory and GPU, define one task, repeat it, and inspect offline behavior. Download the free test sheet.",
+    "Handle client documents and wondering whether your laptop can run AI locally? This free readiness kit covers hardware fit, workflow boundaries, and a repeatable acceptance test.",
 ]
 
 

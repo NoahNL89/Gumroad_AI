@@ -23,7 +23,16 @@ from campaign import (  # noqa: E402
     LEAD_PRODUCT_NAME,
 )
 
-DEFAULT_SINCE = "2026-07-23T08:35:34+00:00"
+EXPERIMENT_PATH = ROOT / "agent" / "growth_experiments.json"
+FALLBACK_SINCE = "2026-07-30T08:11:17+00:00"
+
+
+def active_since():
+    try:
+        active = json.loads(EXPERIMENT_PATH.read_text()).get("active") or {}
+        return active.get("started_at") or FALLBACK_SINCE
+    except (OSError, json.JSONDecodeError):
+        return FALLBACK_SINCE
 
 
 def valid_sales(con, product_id, since):
@@ -119,7 +128,7 @@ def collect(con, since):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--since", default=DEFAULT_SINCE, help="ISO-8601 campaign start")
+    parser.add_argument("--since", default=active_since(), help="ISO-8601 campaign start")
     parser.add_argument("--json", action="store_true", help="machine-readable output")
     args = parser.parse_args(argv)
     if not DB_PATH.exists():

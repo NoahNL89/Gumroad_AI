@@ -9,7 +9,7 @@ BUNDLE_PRODUCT_ID = "ws-l3GFbvznUmNYUgBwUGA=="
 BUNDLE_PRODUCT_NAME = "The Complete AI Creator Toolkit — 10 Practical Systems"
 CAMPAIGN_PRODUCT_ID = LEAD_PRODUCT_ID
 CAMPAIGN_PRODUCT_NAME = LEAD_PRODUCT_NAME
-CAMPAIGN = "local_ai_readiness_2026_07"
+CAMPAIGN = "private_ai_freelancer_hook_2026_08"
 DISCOUNT_CODE = "LAUNCH30"
 
 

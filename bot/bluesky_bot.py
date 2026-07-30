@@ -99,12 +99,12 @@ BUNDLE_TEMPLATES = [
 ]
 
 FOCUS_TEMPLATES = [
-    "Before installing local AI, check RAM, available storage and the one task you need it to do. Bigger is not automatically better.\n\nFree 5-minute readiness kit: {url}",
-    "“Local” is not automatically private. Check the model runner, browser UI, cloud-synced folders, tools and network binding.\n\nFree privacy checklist: {url}",
-    "For a first local-AI test, close heavy apps, use one small model and repeat the same prompt 3 times. Keep the smallest setup that passes.\n\nFree fit test: {url}",
-    "Choose a local model by the job: drafting or code? Short chat or long documents? Speed or quality? Decide before downloading.\n\nFree readiness kit: {url}",
-    "A useful local-AI test has 4 steps: inspect hardware, choose one task, measure the run, then repeat offline.\n\nGet the free checklist: {url}",
-    "Not sure whether your computer is ready for private AI? This free kit gives you a hardware audit, privacy boundary and acceptance test.\n\n{url}",
+    "Freelancers: before putting client documents into any AI workflow, decide what must stay off third-party servers. Then check whether your computer can handle the task locally.\n\nFree readiness kit: {url}",
+    "Consultants using AI with client files: “local” is not automatically private. Check the runner, browser UI, synced folders, tools and network binding.\n\nFree checklist: {url}",
+    "First client-work fit test: use non-sensitive sample text, close heavy apps, run one small local model and repeat the task 3 times.\n\nFree readiness kit: {url}",
+    "Freelancers do not need the biggest local model. Start with the job—proposals, document summaries, code or notes—then choose the smallest setup that passes.\n\nFree kit: {url}",
+    "Before using local AI for client work, test hardware fit, one real task, repeatable output and offline behavior—with non-sensitive material.\n\nFree test sheet: {url}",
+    "Handle client documents and wondering whether your laptop can run AI locally? Audit memory, storage, workflow boundaries and one real task first.\n\nFree readiness kit: {url}",
 ]
 
 

@@ -195,9 +195,10 @@ def test_bluesky_fitter_never_slices_campaign_url():
     if "bluesky_bot" not in mods:
         return
     bluesky = mods["bluesky_bot"]
+    campaign = _load(ROOT / "bot/campaign.py", "campaign")
     url = (
         "https://schephenk.gumroad.com/l/rohes?utm_source=bluesky"
-        "&utm_medium=social&utm_campaign=local_ai_readiness_2026_07&utm_content=l1"
+        f"&utm_medium=social&utm_campaign={campaign.CAMPAIGN}&utm_content=l1"
     )
     tags = ["LocalAI", "Privacy", "Ollama"]
     fitted = bluesky.fit_post_text("A" * 260 + "\n" + url, tags, url)
@@ -311,7 +312,8 @@ def test_pinterest_focus_pin_is_educational_and_tracked():
         "thumbnail_url": "https://example.com/private-ai.jpg",
     })
     assert "utm_source=pinterest" in pin["link"]
-    assert "utm_campaign=local_ai_readiness_2026_07" in pin["link"]
+    campaign = _load(ROOT / "bot/campaign.py", "campaign")
+    assert f"utm_campaign={campaign.CAMPAIGN}" in pin["link"]
     assert any(word in pin["description"].lower() for word in ("local", "model", "ollama"))
     assert "free" in pin["description"].lower()
 

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "active": {
-    "id": "local_ai_readiness_2026_07",
+    "id": "private_ai_freelancer_hook_2026_08",
     "status": "running",
-    "started_at": "2026-07-23T08:35:34+00:00",
-    "evaluate_on": "2026-07-30",
-    "hypothesis": "Replacing direct paid-product traffic with a tightly matched free Private AI readiness kit will convert qualified social attention into measurable downloads, while the existing checkout cross-sell creates a low-friction path to the €7 setup guide.",
-    "major_variable": "Campaign destination and hook: aligned free readiness kit instead of direct paid-guide pitch.",
+    "started_at": "2026-07-30T08:11:17+00:00",
+    "evaluate_on": "2026-08-06",
+    "hypothesis": "Naming freelancers and consultants who handle client documents will make the Private AI readiness problem more concrete, increasing qualified attention and free-kit downloads while the products, prices, destination, and channels remain unchanged.",
+    "major_variable": "Message hook only: freelancer and consultant client-document use case instead of general local-AI readiness education.",
     "funnel": {
       "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
       "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
@@ -44,9 +44,91 @@
       "Do not invent scarcity or guarantee privacy, performance, compatibility, or income.",
       "Repair delivery defects and false claims immediately."
     ],
+    "source_decision": {
+      "experiment_id": "local_ai_readiness_2026_07",
+      "next_action": "Test one new qualified channel or hook; do not add another product."
+    },
     "decision": null
   },
   "history": [
+    {
+      "id": "local_ai_readiness_2026_07",
+      "status": "evaluated",
+      "started_at": "2026-07-23T08:35:34+00:00",
+      "evaluate_on": "2026-07-30",
+      "hypothesis": "Replacing direct paid-product traffic with a tightly matched free Private AI readiness kit will convert qualified social attention into measurable downloads, while the existing checkout cross-sell creates a low-friction path to the €7 setup guide.",
+      "major_variable": "Campaign destination and hook: aligned free readiness kit instead of direct paid-guide pitch.",
+      "funnel": {
+        "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
+        "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
+        "upgrade_product_id": "ws-l3GFbvznUmNYUgBwUGA=="
+      },
+      "offer": {
+        "lead_price_eur": 0,
+        "core_price_eur": 7,
+        "campaign_code": "LAUNCH30",
+        "upgrade_discount_percent": 20
+      },
+      "channels": [
+        "mastodon_owned_posts",
+        "bluesky_owned_posts",
+        "profile",
+        "pinterest_manual_review"
+      ],
+      "success_signals": {
+        "tracked_social_posts_min": 10,
+        "free_downloads_min": 3,
+        "paid_sales_min": 1,
+        "revenue_eur_min": 4.9
+      },
+      "manual_analytics": {
+        "gumroad_utm_page_views": null,
+        "gumroad_utm_visitors": null,
+        "recorded_at": null,
+        "note": "Optional on the evaluation date; the CLI does not expose page views."
+      },
+      "guardrails": [
+        "Keep the aligned lead product, €7 core price, LAUNCH30 offer, and campaign destinations stable until evaluation.",
+        "Publish at most one campaign post per owned social account in a rolling 24 hours.",
+        "Do not automate unsolicited likes, follows, boosts, reposts, replies, or direct messages.",
+        "Do not create another SKU or publish intentional duplicate drafts.",
+        "Do not invent scarcity or guarantee privacy, performance, compatibility, or income.",
+        "Repair delivery defects and false claims immediately."
+      ],
+      "decision": {
+        "outcome": "reach_or_message_problem",
+        "rationale": "The campaign reached its posting sample but produced no measurable lead or sale.",
+        "next_action": "Test one new qualified channel or hook; do not add another product.",
+        "page_view_data_available": false
+      },
+      "actuals": {
+        "evaluated_at": "2026-07-30T08:09:04.579640+00:00",
+        "tracked_posts": 11,
+        "free_downloads": 0,
+        "core_sales": 0,
+        "bundle_sales": 0,
+        "paid_sales": 0,
+        "gross_revenue_eur": 0.0,
+        "audience": {
+          "mastodon": {
+            "followers": 7,
+            "follower_change": -3,
+            "following": 46,
+            "posts": 110,
+            "baseline_at": "2026-07-23T08:44:48.779684+00:00",
+            "latest_at": "2026-07-30T08:08:34.068084+00:00"
+          },
+          "bluesky": {
+            "followers": 28,
+            "follower_change": -1,
+            "following": 68,
+            "posts": 47,
+            "baseline_at": "2026-07-23T08:44:48.779684+00:00",
+            "latest_at": "2026-07-30T08:08:34.068084+00:00"
+          }
+        }
+      }
+    },
     {
       "id": "private_ai_2026_07",
       "status": "evaluated",

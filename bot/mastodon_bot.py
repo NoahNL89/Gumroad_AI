@@ -107,12 +107,12 @@ BUNDLE_TEMPLATES = [
 # A focused seven-day campaign: five useful lessons for every direct offer.
 # Specific teaching earns more attention than rotating generic product pitches.
 FOCUS_TEMPLATES = [
-    "Before installing local AI, check three things: available memory, free storage, and the one real task you need it to do. Bigger is not automatically better.\n\nI made a free 5-minute readiness kit with the exact audit: {url}\n\n{hashtags}",
-    "“Local” is not automatically private. Check the whole path: model runner, browser UI, tools, cloud-synced folders, and network binding.\n\nFree private-AI boundary checklist: {url}\n\n{hashtags}",
-    "For a first local-AI fit test: close heavy apps, use one small model, repeat the same prompt three times, and inspect where it runs. Keep the smallest setup that passes your task.\n\nFree checklist: {url}\n\n{hashtags}",
-    "Choose a local model by the job, not hype:\n\n• drafting or code?\n• short chat or long documents?\n• speed or best output?\n\nDecide before downloading. Free readiness kit: {url}\n\n{hashtags}",
-    "A useful local-AI test has four steps: inspect hardware, choose one task, measure the run, then repeat offline. That reveals more than a model leaderboard.\n\nGet the free test sheet: {url}\n\n{hashtags}",
-    "Not sure whether your computer is ready for private AI? This free kit gives you a hardware audit, privacy boundary, model-fit test, and a clear next-step decision.\n\n{url}\n\n{hashtags}",
+    "Freelancers: before putting client documents into any AI workflow, decide what must stay off third-party servers. Then check whether your current computer can handle the task locally.\n\nFree 5-minute readiness kit: {url}\n\n{hashtags}",
+    "Consultants using AI with client files: “local” is not automatically private. Check the runner, browser UI, cloud-synced folders, tools, and network binding.\n\nFree boundary checklist: {url}\n\n{hashtags}",
+    "A first fit test for client work uses non-sensitive sample text: close heavy apps, run one small local model, repeat the task three times, and inspect where it runs.\n\nFree readiness kit: {url}\n\n{hashtags}",
+    "Freelancers do not need the biggest local model. Start with the job: proposal drafting, document summaries, code, or research notes. Then choose the smallest setup that passes.\n\nFree decision kit: {url}\n\n{hashtags}",
+    "Before using local AI for client work, test four things with non-sensitive material: hardware fit, one real task, repeatable output, and offline behavior.\n\nFree test sheet: {url}\n\n{hashtags}",
+    "Handle client documents and wondering whether your laptop can run AI locally? Audit memory, storage, workflow boundaries, and one real task before downloading a model.\n\nFree readiness kit: {url}\n\n{hashtags}",
 ]
 
 
