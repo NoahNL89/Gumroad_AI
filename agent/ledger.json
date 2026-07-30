@@ -2421,6 +2421,49 @@
         "During the catalog helper's redundant follow-up sync, the Gumroad CLI returned the exact error `Access denied.` for sales, every subscriber lookup, and payouts. The earlier authenticated primary sync succeeded, so its complete measurements were retained and the later missing responses were not interpreted as zero."
       ],
       "notes": "Evaluation-date GO completed. No product, price, discount, landing page, file, upsell, draft-product, automated-interaction, or Pinterest-publication change was warranted; the next experiment changes only the campaign hook."
+    },
+    {
+      "date": "2026-07-30",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated and completed a fresh Gumroad synchronization: 35 products discovered, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and 60 offer codes.",
+        "Measured private_ai_freelancer_hook_2026_08 on its first collection day at 2 tracked owned-account posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue. Current audience remains 7 Mastodon followers and 28 Bluesky followers; unavailable Gumroad page-view data remains unknown rather than zero.",
+        "Applied the machine-generated date gate: evaluation is not due until 2026-08-06, so the free readiness-kit destination, EUR 7 guide price, LAUNCH30 offer, EUR 24 upgrade, channels, products, landing pages, and both upsells were kept stable.",
+        "Found one focused freelancer-hook readiness-kit post per owned social channel from 2026-07-30T08:14Z inside the rolling 24-hour window, so no duplicate Mastodon or Bluesky post and no automated interaction was made.",
+        "Created one focused Pinterest readiness-kit draft because no recent draft remained inside the seven-day pending window. The draft uses the freelancer/client-document hook with campaign UTM attribution, remains in needs_manual_approval state, and was not published.",
+        "Verified the EUR 0+, EUR 7, and EUR 24 funnel products are published; the core Start here page embeds Private AI on Your Computer — Verified July 2026.pdf; LAUNCH30 is configured at 30% with no end-time claim; and the free-to-core 30% and core-to-toolkit 20% cross-sells are active and unpaused.",
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff and passed all 29 framework-free smoke tests."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 1,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 2,
+      "campaign_tracked_posts_after": 2,
+      "audience": {
+        "mastodon_followers": 7,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "private_ai_freelancer_hook_2026_08",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-08-06",
+        "due": false,
+        "major_variable": "freelancer and consultant client-document hook"
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "Idempotent collection-phase GO. No store defect, sales movement, eligible owned-social slot, product creation, discount change, early experiment evaluation, automated interaction, or Pinterest publication was warranted."
     }
   ],
   "current_month_revenue_eur": 0,
