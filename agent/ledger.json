@@ -2555,11 +2555,56 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "Idempotent collection-phase GO. Two eligible owned-social slots were used once each; the active offer and funnel stayed unchanged, and Pinterest remained manual-review-only."
+    },
+    {
+      "date": "2026-08-01",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated and completed a fresh Gumroad synchronization: 35 products discovered, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and 60 offer codes; current August net revenue is EUR 0.00 against the EUR 58 survival target.",
+        "Applied the machine-generated date gate for private_ai_freelancer_hook_2026_08: evaluation is not due until 2026-08-06, so the freelancer/client-document hook, free readiness-kit destination, EUR 7 guide price, LAUNCH30 offer, EUR 24 upgrade, channels, products, pages, files, and upsells remained stable.",
+        "Measured the collecting experiment at 4 tracked posts (2 Mastodon and 2 Bluesky; l1 and l2), 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue. Mastodon is at 8 followers, up 1 from the campaign baseline, while Bluesky remains at 28; unavailable Gumroad page-view data remains unknown rather than zero.",
+        "Found focused readiness-kit posts on Mastodon at 2026-07-31T18:10:12Z and Bluesky at 2026-07-31T18:10:19Z inside the rolling 24-hour guardrail, so no duplicate owned post and no automated interaction was made.",
+        "Kept Pinterest behind manual review: one focused readiness-kit draft from 2026-07-30 remains pending, so the idempotent promoter created no duplicate draft and no Pin was published.",
+        "Verified the live EUR 0+ -> EUR 7 -> EUR 24 funnel: all three products are published; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf; LAUNCH30 remains 30% with no configured expiry; and the free-to-core 30% and core-to-toolkit 20% cross-sells are active and unpaused.",
+        "Preserved the pre-EUR 100 lifecycle through the existing receipt copy, content-page guidance, Gumroad review prompt, and upsells; no unavailable Gumroad workflow or audience email was claimed or sent.",
+        "Rebuilt the 28-row Pinterest catalog with no product-data diff; all 29 smoke tests and targeted Python compilation passed."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_post_urls": {},
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 4,
+      "campaign_tracked_posts_after": 4,
+      "audience": {
+        "mastodon_followers": 8,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "private_ai_freelancer_hook_2026_08",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-08-06",
+        "due": false,
+        "major_variable": "freelancer and consultant client-document hook"
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "Idempotent collection-phase GO. No sales movement, store defect, eligible owned-social slot, product-data change, product creation, price or discount change, early evaluation, automated interaction, duplicate Pinterest draft, or Pinterest publication was warranted."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-07-31",
+  "last_updated": "2026-08-01",
   "status": "at_risk - EUR 0 this month vs EUR 58 target. The failed generic-readiness hook experiment is archived. Active experiment private_ai_freelancer_hook_2026_08 keeps the funnel and channels stable while testing a freelancer and consultant client-document hook; evaluate 2026-08-06.",
   "catalog": {
     "bundle": {
