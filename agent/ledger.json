@@ -2698,6 +2698,51 @@
         "The optional pytest executable was unavailable (pytest: command not found); the repository's documented framework-free smoke runner then passed all 29 tests."
       ],
       "notes": "Idempotent collection-phase GO. No sales movement, verified store defect, eligible owned-social slot, product-data change, product creation, price or discount change, early evaluation, automated interaction, duplicate Pinterest draft, or Pinterest publication was warranted."
+    },
+    {
+      "date": "2026-08-02",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated through the workspace check and completed a fresh Gumroad CLI synchronization: 35 products discovered, 29 live, 6 intentional drafts, 0 sales, 0 subscribers, and 60 offer codes; August net revenue remains EUR 0.00 against the EUR 58 survival target.",
+        "Applied the machine-generated collection gate for private_ai_freelancer_hook_2026_08 four days before its 2026-08-06 evaluation date; kept the freelancer/client-document hook, free readiness-kit destination, EUR 7 guide price, LAUNCH30 offer, EUR 24 upgrade, products, pages, and channels stable.",
+        "Measured 6 tracked campaign posts (3 Mastodon and 3 Bluesky), 0 free downloads, 0 core sales, 0 toolkit sales, and EUR 0.00 campaign revenue. Mastodon remains at 7 followers and Bluesky at 28, both unchanged from baseline; Gumroad UTM page views remain unavailable rather than being treated as zero.",
+        "Checked per-channel promotion history: the focused Mastodon post at 2026-08-01T18:12:44Z and Bluesky post at 2026-08-01T18:12:55Z were still inside the rolling 24-hour guardrail, so no duplicate owned post and no automated interaction was made.",
+        "Ran Pinterest's idempotent promoter and pending check. The existing focused readiness-kit draft from 2026-07-30 remains awaiting manual approval, so no duplicate draft was created and no Pin was published.",
+        "Verified the live EUR 0+ -> EUR 7 -> EUR 24 funnel through the authenticated CLI: all three products are published; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf, whose 2,024,921-byte live file metadata matches the current local PDF size; LAUNCH30 remains 30% with no configured expiry; and the free-to-core 30% and core-to-toolkit 20% cross-sells are active and unpaused.",
+        "Confirmed receipt and content-page guidance remains present, including the paid-guide honest-review prompt; no unavailable Gumroad Email or Workflow was claimed or sent.",
+        "Rebuilt the 28-row Pinterest catalog from the fresh product snapshot; product data was unchanged, so the public feed had no diff. JSON validation, targeted Python compilation, and all 29 framework-free smoke tests passed."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_post_urls": {},
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 6,
+      "campaign_tracked_posts_after": 6,
+      "audience": {
+        "mastodon_followers": 7,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "private_ai_freelancer_hook_2026_08",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-08-06",
+        "due": false,
+        "major_variable": "freelancer and consultant client-document hook"
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "Unattended GO remained idempotent: no sales movement, verified funnel defect, eligible social slot, product-data change, early evaluation, product creation, discount mutation, automated interaction, duplicate Pinterest draft, or Pinterest publication was warranted."
     }
   ],
   "current_month_revenue_eur": 0,
