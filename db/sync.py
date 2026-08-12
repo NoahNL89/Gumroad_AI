@@ -331,7 +331,30 @@ def sync_sales(con):
         return []
     all_sales = data.get("sales", [])
 
-    for s in all_sales:
+    for listed_sale in all_sales:
+        # `sales list` is intentionally compact and can omit product_id and
+        # normalized price fields. Hydrate incomplete rows through the CLI so
+        # campaign reports do not silently lose otherwise valid conversions.
+        s = dict(listed_sale)
+        if not s.get("product_id") and s.get("id"):
+            detail = cli_json("sales", "view", s["id"])
+            if detail.get("success") and detail.get("sale"):
+                s.update(detail["sale"])
+            else:
+                print(
+                    f"   ⚠️  CLI error hydrating sale {s['id']}: "
+                    f"{detail.get('error', 'unknown')}"
+                )
+            time.sleep(0.15)
+
+        price_cents = s.get("price_cents")
+        if price_cents is None:
+            price_cents = s.get("price")
+        if price_cents is None:
+            price_cents = s.get("total_cents")
+        formatted_price = (
+            s.get("formatted_display_price") or s.get("formatted_total_price")
+        )
         con.execute("""
             INSERT INTO sales
               (id, product_id, product_name, email, full_name,
@@ -339,8 +362,16 @@ def sync_sales(con):
                refunded, disputed, sale_timestamp, synced_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(id) DO UPDATE SET
+              product_id=COALESCE(excluded.product_id, sales.product_id),
+              product_name=COALESCE(excluded.product_name, sales.product_name),
+              email=COALESCE(excluded.email, sales.email),
+              full_name=COALESCE(excluded.full_name, sales.full_name),
+              price_cents=COALESCE(excluded.price_cents, sales.price_cents),
+              currency=COALESCE(excluded.currency, sales.currency),
+              formatted_price=COALESCE(excluded.formatted_price, sales.formatted_price),
               refunded=excluded.refunded,
               disputed=excluded.disputed,
+              sale_timestamp=COALESCE(excluded.sale_timestamp, sales.sale_timestamp),
               synced_at=excluded.synced_at
         """, (
             s.get("id"),
@@ -348,9 +379,9 @@ def sync_sales(con):
             s.get("product_name"),
             s.get("email"),
             s.get("full_name"),
-            s.get("price_cents"),
+            price_cents,
             s.get("currency"),
-            s.get("formatted_display_price"),
+            formatted_price,
             1 if s.get("refunded") else 0,
             1 if s.get("disputed") else 0,
             s.get("created_at"),

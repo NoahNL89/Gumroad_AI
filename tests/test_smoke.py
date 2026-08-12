@@ -236,6 +236,50 @@ def test_experiment_gate_and_decision_are_deterministic():
     assert decision["page_view_data_available"] is False
 
 
+def test_sales_sync_hydrates_compact_cli_rows():
+    sync = _load(ROOT / "db" / "sync.py", "store_sync")
+    with tempfile.TemporaryDirectory() as d:
+        con = sqlite3.connect(Path(d) / "store.db")
+        con.row_factory = sqlite3.Row
+        sync.init_db(con)
+
+        def fake_cli(*args):
+            if args[:3] == ("sales", "list", "--all"):
+                return {
+                    "success": True,
+                    "sales": [{
+                        "id": "sale_1",
+                        "product_name": "Free Readiness Kit",
+                        "price": 0,
+                        "formatted_total_price": "€0",
+                        "created_at": "2026-08-10T00:59:17Z",
+                        "refunded": False,
+                    }],
+                }
+            if args == ("sales", "view", "sale_1"):
+                return {
+                    "success": True,
+                    "sale": {
+                        "id": "sale_1",
+                        "product_id": "lead_1",
+                        "product_name": "Free Readiness Kit",
+                        "price": 0,
+                        "formatted_display_price": "€0",
+                        "created_at": "2026-08-10T00:59:17Z",
+                    },
+                }
+            raise AssertionError(f"unexpected CLI call: {args}")
+
+        with patch.object(sync, "cli_json", side_effect=fake_cli), patch.object(sync.time, "sleep"):
+            sync.sync_sales(con)
+        row = con.execute("SELECT * FROM sales WHERE id='sale_1'").fetchone()
+        con.close()
+
+    assert row["product_id"] == "lead_1"
+    assert row["price_cents"] == 0
+    assert row["formatted_price"] == "€0"
+
+
 def test_owned_social_rate_limit_blocks_at_one():
     mods = _bots()
     with tempfile.TemporaryDirectory() as d:

@@ -2792,12 +2792,64 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "Collection-phase GO used one newly eligible owned-post slot per channel and otherwise remained idempotent. No sales movement, verified funnel defect, product or offer mutation, early evaluation, automated interaction, duplicate Pinterest draft, or Pinterest publication was warranted."
+    },
+    {
+      "date": "2026-08-12",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated through the workspace check and completed successful beginning and ending Gumroad CLI synchronizations: 35 products discovered, 29 live, 6 intentional drafts, 1 valid August free-kit checkout, 0 subscribers, 0 payouts, and 60 offer codes. Net revenue remains EUR 0.00 against the EUR 58 survival target; missing values were not interpreted as zero.",
+        "Evaluated the overdue private_ai_freelancer_hook_2026_08 experiment. After repairing sale attribution, its evidence is 8 tracked posts (4 Mastodon and 4 Bluesky), 1 free-kit download, 0 core or toolkit sales, and EUR 0.00 revenue. Mastodon finished at 7 followers (flat) and Bluesky at 27 (down 1); optional Gumroad UTM page views remain unavailable.",
+        "Found and fixed a local measurement defect: Gumroad's compact sales-list response omitted product_id, so db/sync.py now hydrates incomplete sales with gumroad sales view and updates previously incomplete database rows. The August 10 free-kit checkout is now attributed to the correct product instead of being silently omitted from campaign reporting.",
+        "Corrected the archived experiment outcome to bridge_problem and created private_ai_free_to_paid_bridge_2026_08 for seven days through 2026-08-19. Its only major variable is the free product receipt bridge; products, EUR 0/EUR 7/EUR 24 prices, LAUNCH30, landing pages, social hook, destinations, channels, and upsells remain stable.",
+        "Dry-ran and then published stronger free-kit receipt guidance that explains the EUR 7 guide's concrete next-step value and preserves the real non-expiring LAUNCH30 link. No product page, file, price, discount, or SKU was changed.",
+        "Before the attribution defect was discovered, checked the rolling 24-hour promotion history and published one value-first l5 post to Mastodon and Bluesky under private_ai_distribution_cadence_2026_08. No likes, follows, boosts, reposts, replies, or direct messages were automated. The corrected bridge experiment begins after those posts and currently has a clean zero-event baseline.",
+        "Created one Pinterest readiness-kit draft, updated its UTM campaign to the corrected bridge experiment, and left it awaiting manual approval; no Pinterest Pin was published.",
+        "Verified the live EUR 0 -> EUR 7 -> EUR 24 funnel through the authenticated CLI: all products are published; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf matching the current 2,024,921-byte buyer file; and the free-to-core 30% and core-to-toolkit 20% cross-sells are active and unpaused.",
+        "Rebuilt the 28-row Pinterest catalog after the receipt update; feed-visible product fields were unchanged, so the public CSV had no diff. Python compilation, JSON validation, diff checks, and all 30 framework-free smoke tests passed."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 1,
+        "bluesky": 1,
+        "pinterest": 0
+      },
+      "social_post_urls": {
+        "mastodon": "https://mastodon.social/@schep_digital/117083882283282628",
+        "bluesky": "at://did:plc:7jsxwkrxeerwhhgii5x2q2ww/app.bsky.feed.post/3msvq3nfnxw2k"
+      },
+      "social_post_campaign": "private_ai_distribution_cadence_2026_08",
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 1,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "audience": {
+        "mastodon_followers": 7,
+        "bluesky_followers": 27
+      },
+      "experiment": {
+        "id": "private_ai_free_to_paid_bridge_2026_08",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-08-19",
+        "due": false,
+        "major_variable": "free-kit buyer receipt bridge copy only"
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [
+        "One intermediate catalog-rebuild sync returned 'Access denied.' for sales, payouts, and subscriber calls. gumroad auth status remained authenticated; direct sales/payout retries and two subsequent full syncs succeeded, so no data was replaced with a false zero."
+      ],
+      "notes": "The session acquired no paid sale, but it recovered one real lead, corrected the experiment diagnosis, repaired future attribution, and began a single-variable free-to-paid bridge test. No draft product was published, no SKU or discount family was created, and no unavailable Gumroad Email or Workflow was claimed or sent."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-08-03",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target. Active experiment private_ai_freelancer_hook_2026_08 has 8 tracked posts and 1 net-new Bluesky follower but no leads or sales; keep the funnel stable and evaluate 2026-08-06.",
+  "last_updated": "2026-08-12",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target. One free-kit lead was recovered and the active private_ai_free_to_paid_bridge_2026_08 experiment is testing receipt guidance only through 2026-08-19.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
