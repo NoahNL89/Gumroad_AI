@@ -2903,7 +2903,8 @@
         "Ran Pinterest's idempotent promoter and pending check. The focused readiness-kit draft at agent/pinterest_queue/20260812T181117Z-can-my-computer-run-private-ai-free-readiness-kit.json remains awaiting manual approval, so no duplicate draft was created and no Pin was published.",
         "Verified the live EUR 0+ -> EUR 7 -> EUR 24 funnel through the authenticated CLI: all three products are published at the guarded prices; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf with the expected file ID and 2,024,921-byte metadata; LAUNCH30 remains 30% with no configured expiry; and the free-to-core 30% and core-to-toolkit 20% cross-sells are active and unpaused.",
         "Confirmed the stronger free-kit receipt bridge, buyer content-page instructions, and paid-guide honest-review guidance remain live. No unavailable Gumroad Email or Workflow was claimed or sent.",
-        "Rebuilt the 28-row Pinterest catalog from the fresh product snapshot; product data was unchanged, so the public feed had no diff. JSON validation, targeted Python compilation, and all 30 framework-free smoke tests passed."
+        "Rebuilt the 28-row Pinterest catalog from the fresh product snapshot; product data was unchanged, so the public feed had no diff. JSON validation, targeted Python compilation, and all 30 framework-free smoke tests passed.",
+        "Sent the conditional Pushover completion summary after the session produced and pushed a commit; the API accepted the retried notification."
       ],
       "new_product_created": null,
       "social_posts_made": {
@@ -2934,7 +2935,9 @@
       },
       "revenue_before_eur": 0,
       "revenue_after_eur": 0,
-      "failures": [],
+      "failures": [
+        "The first Pushover helper invocation failed with '/bin/bash: line 1: scripts/send-pushover.sh: No such file or directory'. Retrying with the skill-local helper path succeeded and Pushover accepted the notification."
+      ],
       "notes": "This unattended collection snapshot remained idempotent. There was no sales movement, verified funnel defect, eligible social slot, product-data change, early evaluation, product or discount mutation, automated interaction, duplicate Pinterest draft, or Pinterest publication."
     }
   ],
