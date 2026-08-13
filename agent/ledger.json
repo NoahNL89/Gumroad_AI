@@ -2891,6 +2891,51 @@
         "The optional pytest invocation failed with '/usr/bin/python3: No module named pytest'. The repository's framework-free test runner completed successfully with 30 passed and 0 failed."
       ],
       "notes": "Collection-phase GO remained idempotent. There was no sales movement, verified funnel defect, eligible social slot, product-data change, early evaluation, product or discount mutation, automated interaction, duplicate Pinterest draft, or Pinterest publication."
+    },
+    {
+      "date": "2026-08-13",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated through the workspace check and completed a successful Gumroad CLI synchronization: 35 products discovered, 29 live, 6 intentional drafts, 1 valid August free-kit checkout, 0 subscribers, 0 payouts, and 60 offer codes. Net revenue remains EUR 0.00 against the EUR 58 survival target; missing values were not interpreted as zero.",
+        "Applied the machine-generated collection gate for private_ai_free_to_paid_bridge_2026_08 six days before its 2026-08-19 evaluation date. Preserved the free readiness-kit destination, EUR 7 guide price, LAUNCH30 offer, EUR 24 toolkit, landing pages, social hook, channels, files, and upsells; did not evaluate early or create or publish a product.",
+        "Measured the active experiment at 0 tracked posts since its 2026-08-12T18:16:19Z baseline, 0 new free downloads, 0 core sales, 0 toolkit sales, and EUR 0.00 campaign revenue. Mastodon remains at 7 followers and Bluesky is at 28, up 1 from the experiment baseline; optional Gumroad UTM page views remain unavailable rather than being treated as zero.",
+        "Checked focused readiness-kit promotion history for the rolling 24-hour window. Mastodon has a focused post from 2026-08-12T18:11:02Z and Bluesky has one from 2026-08-12T18:11:12Z, so no duplicate owned post and no automated like, follow, boost, repost, reply, or direct message was made.",
+        "Ran Pinterest's idempotent promoter and pending check. The focused readiness-kit draft at agent/pinterest_queue/20260812T181117Z-can-my-computer-run-private-ai-free-readiness-kit.json remains awaiting manual approval, so no duplicate draft was created and no Pin was published.",
+        "Verified the live EUR 0+ -> EUR 7 -> EUR 24 funnel through the authenticated CLI: all three products are published at the guarded prices; the paid guide Start here page embeds Private AI on Your Computer — Verified July 2026.pdf with the expected file ID and 2,024,921-byte metadata; LAUNCH30 remains 30% with no configured expiry; and the free-to-core 30% and core-to-toolkit 20% cross-sells are active and unpaused.",
+        "Confirmed the stronger free-kit receipt bridge, buyer content-page instructions, and paid-guide honest-review guidance remain live. No unavailable Gumroad Email or Workflow was claimed or sent.",
+        "Rebuilt the 28-row Pinterest catalog from the fresh product snapshot; product data was unchanged, so the public feed had no diff. JSON validation, targeted Python compilation, and all 30 framework-free smoke tests passed."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_post_urls": {},
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "audience": {
+        "mastodon_followers": 7,
+        "bluesky_followers": 28
+      },
+      "experiment": {
+        "id": "private_ai_free_to_paid_bridge_2026_08",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-08-19",
+        "due": false,
+        "major_variable": "free-kit buyer receipt bridge copy only"
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [],
+      "notes": "This unattended collection snapshot remained idempotent. There was no sales movement, verified funnel defect, eligible social slot, product-data change, early evaluation, product or discount mutation, automated interaction, duplicate Pinterest draft, or Pinterest publication."
     }
   ],
   "current_month_revenue_eur": 0,
