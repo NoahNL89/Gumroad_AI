@@ -109,13 +109,14 @@
       },
       "actuals": {
         "evaluated_at": "2026-08-29T17:11:50.310546+00:00",
-        "tracked_posts": 0,
+        "tracked_posts": 2,
         "free_downloads": 0,
         "core_sales": 0,
         "bundle_sales": 0,
         "paid_sales": 0,
         "gross_revenue_eur": 0.0,
-        "audience": {}
+        "audience": {},
+        "measurement_note": "Reconciled on 2026-08-29 from the committed 2026-08-14 ledger after the ignored local database was lost: exactly two attributed posts were recorded during the experiment. The only free checkout was created on 2026-08-10, before this experiment began. Audience and optional page-view history were unavailable."
       }
     },
     {

@@ -236,6 +236,28 @@ def test_experiment_gate_and_decision_are_deterministic():
     assert decision["page_view_data_available"] is False
 
 
+def test_experiment_evaluation_rejects_database_that_postdates_experiment():
+    evaluator = _load(ROOT / "scripts/evaluate_experiment.py", "experiment_coverage")
+    with tempfile.TemporaryDirectory() as d:
+        con = sqlite3.connect(Path(d) / "store.db")
+        con.execute(
+            "CREATE TABLE sync_log (id INTEGER PRIMARY KEY, synced_at TEXT, "
+            "entity TEXT, count INTEGER, notes TEXT)"
+        )
+        con.execute(
+            "INSERT INTO sync_log (synced_at, entity, count) VALUES (?, ?, ?)",
+            ("2026-08-29T17:09:27+00:00", "products", 32),
+        )
+        try:
+            evaluator.ensure_measurement_coverage(con, "2026-08-12T18:16:19+00:00")
+        except RuntimeError as exc:
+            assert "coverage begins after the experiment started" in str(exc)
+        else:
+            raise AssertionError("expected incomplete historical coverage to be rejected")
+
+        evaluator.ensure_measurement_coverage(con, "2026-08-29T17:11:50+00:00")
+
+
 def test_sales_sync_hydrates_compact_cli_rows():
     sync = _load(ROOT / "db" / "sync.py", "store_sync")
     with tempfile.TemporaryDirectory() as d:

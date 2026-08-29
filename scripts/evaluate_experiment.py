@@ -77,6 +77,32 @@ def choose_decision(report, targets, manual_analytics):
     }
 
 
+def ensure_measurement_coverage(con, started_at):
+    """Refuse to evaluate when this local database post-dates the experiment.
+
+    Store entities can be backfilled from Gumroad, but owned-social promotions are
+    local-only evidence.  Evaluating an older experiment against a newly-created
+    database would therefore turn missing post history into a false zero.
+    """
+    table = con.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='sync_log'"
+    ).fetchone()
+    if not table:
+        raise RuntimeError("sync_log missing; run python3 db/sync.py before evaluation")
+    row = con.execute("SELECT MIN(synced_at) FROM sync_log").fetchone()
+    coverage_started_at = row[0] if row else None
+    if not coverage_started_at:
+        raise RuntimeError("database coverage is unknown; run python3 db/sync.py before evaluation")
+    experiment_start = datetime.fromisoformat(started_at.replace("Z", "+00:00"))
+    coverage_start = datetime.fromisoformat(coverage_started_at.replace("Z", "+00:00"))
+    if experiment_start < coverage_start:
+        raise RuntimeError(
+            "database measurement coverage begins after the experiment started "
+            f"({coverage_started_at} > {started_at}); reconcile local promotion "
+            "history before evaluation"
+        )
+
+
 def evaluate(today=None, force=False):
     data = load_experiments()
     status = gate(data, today=today)
@@ -91,6 +117,7 @@ def evaluate(today=None, force=False):
         raise RuntimeError("db/store.db missing; run python3 db/sync.py first")
 
     with sqlite3.connect(DB_PATH) as con:
+        ensure_measurement_coverage(con, active["started_at"])
         report = collect(con, active["started_at"])
     actuals = {
         "evaluated_at": datetime.now(timezone.utc).isoformat(),
