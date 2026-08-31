@@ -26,6 +26,30 @@
       "date": "2026-08-31",
       "agent": "Codex",
       "actions": [
+        "Authenticated successfully and completed the required live sync: 32 products discovered, 27 live, 5 drafts, 1 valid free-kit checkout, €0.00 net revenue, 0 active subscribers, 0 payouts, and 55 offer-code records.",
+        "Measured survival, underpriced, funnel, audience, and campaign status. August remains at risk with €0.00 against the €58.00 target; missing audience credentials/data were not interpreted as zero.",
+        "Applied the date gate: private_ai_pinterest_distribution_2026_08 is still collecting through 2026-09-05. Preserved the €0 lead kit, €7 guide, €24 toolkit, LAUNCH30 offer, landing pages, receipt, buyer file, and upsells; made no early evaluation, product, price, offer, or page change.",
+        "Checked focused promotion history and attempted eligible owned-channel distribution. Mastodon and Bluesky were blocked by missing credentials. Pinterest found the existing focused draft awaiting manual approval; no duplicate draft, Pin publication, engagement, or spam action was made.",
+        "Verified all three funnel products are published at guarded prices, both relevant upsells are active and unpaused at 30% and 20%, and the core guide retains its single Start here buyer-content page. Rebuilt catalog/pinterest_catalog.csv with 26 eligible rows."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {"mastodon": 0, "bluesky": 0, "pinterest": 0},
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "revenue_before_eur": 0.0,
+      "revenue_after_eur": 0.0,
+      "experiment": "private_ai_pinterest_distribution_2026_08 collecting through 2026-09-05",
+      "failures": [
+        "Audience metrics and Mastodon promotion failed with the exact error: MASTODON_ACCESS_TOKEN not set in .env.",
+        "Bluesky promotion failed with the exact error: BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env.",
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+      ],
+      "notes": "Final campaign report: 0 posts, 0 tracked posts, 0 free downloads, 0 paid sales, and €0.00 campaign revenue since the active experiment baseline."
+    },
+    {
+      "date": "2026-08-31",
+      "agent": "Codex",
+      "actions": [
         "Authenticated successfully and completed the required live sync: 32 products discovered, 27 live, 5 intentional drafts, 1 valid free-kit checkout, €0.00 net revenue, 0 active subscribers, 0 payouts, and 55 offer-code records.",
         "Ran survival, underpriced, funnel, audience, and campaign measurements. August remains at risk with €0.00 net revenue against the €58.00 target; no live paid offer is stuck at or below €0.99. Missing audience data was not interpreted as zero.",
         "Applied the machine-generated gate: private_ai_pinterest_distribution_2026_08 remains running and collecting through 2026-09-05, five days away. Kept the €0 readiness kit, €7 guide, €24 toolkit, LAUNCH30 offer, landing pages, receipt, buyer file, and upsells stable; did not evaluate early, change the major variable, create a product, create a discount family, or publish a draft.",
