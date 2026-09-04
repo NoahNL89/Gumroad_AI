@@ -3251,12 +3251,51 @@
       "revenue_after_eur": 0,
       "failures": [],
       "notes": "This unattended rerun remained idempotent. The two focused owned posts were still inside the rolling 24-hour window, the Pinterest review draft was already pending, and the funnel was healthy. There was no sales movement, store mutation, early evaluation, new SKU or discount, automated interaction, duplicate draft, or Pinterest publication."
+    },
+    {
+      "date": "2026-09-04",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully through ./scripts/auth-check.sh. The required combined measurement command exceeded its 30-second window during db/sync.py; the sync process then completed without an observed error, and the exact timeout is retained as an operational failure rather than treated as missing data.",
+        "Measured local survival and funnel state: September net revenue is EUR 0.00 against the EUR 58.00 target; the catalog has 32 products, 1 product with a recorded sale, 1 lifetime unit, and EUR 0.00 lifetime revenue. No sales movement was observed.",
+        "Campaign report for private_ai_pinterest_distribution_2026_08 records 0 posts, 0 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 campaign revenue since the 2026-08-29 baseline. Optional Gumroad UTM page views remain unavailable and were not interpreted as zero. Audience metrics could not run because MASTODON_ACCESS_TOKEN is not set in .env.",
+        "Attempted the eligible focused owned-channel promotions. Mastodon stopped with 'MASTODON_ACCESS_TOKEN not set in .env' and Bluesky stopped with 'BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env'; therefore no social post was published and no automated engagement was performed.",
+        "Ran the Pinterest promoter and pending check. No duplicate draft was created because agent/pinterest_queue/20260829T171158Z-can-my-computer-run-private-ai-free-readiness-kit.json is already awaiting manual approval; no Pin was published.",
+        "Verified the live EUR 0+ -> EUR 7 -> EUR 24 funnel through the authenticated Gumroad CLI: all three focused products are published at the guarded prices, the paid guide has the Start here page with its file embed and current buyer guidance, LAUNCH30 is 30%, and both relevant upsells are active and unpaused at 30% and 20%.",
+        "Kept the active experiment stable because the machine date gate is collecting with evaluation due on 2026-09-05. No product, price, offer, landing-page, receipt, SKU, or experiment mutation was made. Rebuilt catalog/pinterest_catalog.csv with 26 rows; the generator warned that PINTEREST_CLAIMED_STORE_URL is unset and used Gumroad short URLs."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {"mastodon": 0, "bluesky": 0, "pinterest": 0},
+      "social_post_urls": {},
+      "social_engagements": {"mastodon": 0, "bluesky": 0},
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "audience": {},
+      "experiment": {
+        "id": "private_ai_pinterest_distribution_2026_08",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-09-05",
+        "due": false,
+        "major_variable": "Qualified channel only: Pinterest manual-review distribution for the existing free readiness kit."
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [
+        "Initial combined measurement command exceeded the 30-second execution window while db/sync.py continued and later completed.",
+        "MASTODON_ACCESS_TOKEN not set in .env",
+        "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
+        "MASTODON_ACCESS_TOKEN not set in .env (audience_metrics.py)"
+      ],
+      "notes": "Collection remains active until 2026-09-05. The store funnel is healthy but distribution is credential-gated; missing audience and page-view data were left unavailable rather than converted to zero."
     }
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-09-03",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target. One free-kit lead is recorded; the active private_ai_pinterest_distribution_2026_08 experiment has 0 tracked posts and remains in collection through 2026-09-05.",
+  "last_updated": "2026-09-04",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target. The active private_ai_pinterest_distribution_2026_08 experiment remains in collection through 2026-09-05; owned social distribution is blocked by missing credentials and Pinterest has one pending manual-review draft.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
