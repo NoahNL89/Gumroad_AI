@@ -23,6 +23,32 @@
   },
   "sessions": [
     {
+      "date": "2026-09-04",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully and completed the required live sync; survival remains at risk for September with EUR 0.00 net revenue against the EUR 58.00 target, and missing data was not interpreted as zero.",
+        "Ran funnel, audience, and campaign measurements. Campaign report since 2026-08-29 remains at 0 posts, 0 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue.",
+        "Applied the machine-generated date gate: private_ai_pinterest_distribution_2026_08 is still running and collecting until 2026-09-05. Preserved the lead product, core price, LAUNCH30 offer, landing page, receipt, buyer delivery, and upsells; made no early evaluation, product, price, offer, page, or upsell change.",
+        "Attempted the eligible owned-channel distribution. Mastodon and Bluesky were blocked by missing credentials. Pinterest skipped creating a duplicate because the focused draft 20260829T171158Z-can-my-computer-run-private-ai-free-readiness-kit.json is awaiting manual approval; no Pin was published and no automated engagement was performed.",
+        "Verified the available live funnel records and both relevant upsells through the authenticated Gumroad CLI, then rebuilt catalog/pinterest_catalog.csv with 26 rows. No Gumroad mutation or new SKU was made."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {"mastodon": 0, "bluesky": 0, "pinterest": 0},
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "revenue_before_eur": 0.0,
+      "revenue_after_eur": 0.0,
+      "experiment": "private_ai_pinterest_distribution_2026_08 collecting through 2026-09-05",
+      "failures": [
+        "Audience metrics and Mastodon promotion failed with the exact error: MASTODON_ACCESS_TOKEN not set in .env.",
+        "Bluesky promotion failed with the exact error: BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env.",
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+      ],
+      "notes": "No measurable sales movement. The active experiment remains stable and the existing Pinterest draft awaits explicit manual approval."
+    },
+    {
       "date": "2026-09-03",
       "agent": "Codex",
       "actions": [
