@@ -3316,6 +3316,42 @@
         "MASTODON_ACCESS_TOKEN not set in .env (audience_metrics.py)"
       ],
       "notes": "Collection remains active until 2026-09-05. The store funnel is healthy but distribution is credential-gated; missing audience and page-view data were left unavailable rather than converted to zero."
+    },
+    {
+      "date": "2026-09-05",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully and completed the required live sync; September remains at risk with EUR 0.00 net revenue against the EUR 58.00 target. No underpriced live paid offers were found.",
+        "Ran funnel, audience, and campaign measurements. The active campaign reported 0 posts, 0 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue; missing audience and optional UTM page-view data were not interpreted as zero.",
+        "Evaluated the due private_ai_pinterest_distribution_2026_08 experiment as insufficient_distribution because it missed the minimum tracked-post sample. Archived it and started private_ai_owned_distribution_2026_09 for 2026-09-05 through 2026-09-12, testing only owned-account distribution cadence with the existing funnel stable.",
+        "Verified through the authenticated Gumroad CLI that the free readiness kit, EUR 7 guide, and EUR 24 toolkit are published; the guide retains its Start here buyer file; and both relevant upsells are active and unpaused at 30% and 20%.",
+        "Attempted eligible distribution and found no recent focused post eligibility blocked by credentials: Mastodon failed with MASTODON_ACCESS_TOKEN not set in .env, Bluesky failed with BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env, and Pinterest skipped a duplicate because one focused draft awaits manual approval. No Pin was published and no automated engagement was performed.",
+        "Rebuilt catalog/pinterest_catalog.csv with 26 rows."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {"mastodon": 0, "bluesky": 0, "pinterest": 0},
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "audience": {},
+      "experiment": {
+        "id": "private_ai_owned_distribution_2026_09",
+        "status": "running",
+        "state": "collecting",
+        "evaluate_on": "2026-09-12",
+        "due": false,
+        "major_variable": "Qualified distribution cadence only: owned Mastodon and Bluesky posts for the existing free readiness kit."
+      },
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "failures": [
+        "MASTODON_ACCESS_TOKEN not set in .env",
+        "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
+        "PUSHOVER_USERKEY or PUSHOVER_APPKEY is missing from .env",
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+      ],
+      "notes": "No measurable sales movement. The next experiment is collecting with the existing Pinterest manual-review draft still awaiting explicit approval."
     }
   ],
   "current_month_revenue_eur": 0,

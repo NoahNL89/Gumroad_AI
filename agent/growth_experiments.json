@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "active": {
-    "id": "private_ai_pinterest_distribution_2026_08",
+    "id": "private_ai_owned_distribution_2026_09",
     "status": "running",
-    "started_at": "2026-08-29T17:11:50.310546+00:00",
-    "evaluate_on": "2026-09-05",
-    "hypothesis": "Adding one reviewed Pinterest distribution touchpoint for the existing Private AI readiness kit will create qualified reach and at least three free-kit downloads while the product, price, offer, and landing page remain stable.",
-    "major_variable": "Qualified channel only: Pinterest manual-review distribution for the existing free readiness kit.",
+    "started_at": "2026-09-05T08:08:10.730056+00:00",
+    "evaluate_on": "2026-09-12",
+    "hypothesis": "A consistent value-first owned-account distribution cadence for the existing Private AI readiness kit will produce qualified reach and at least three free-kit downloads while the product, price, offer, and landing page remain stable.",
+    "major_variable": "Qualified distribution cadence only: owned Mastodon and Bluesky posts for the existing free readiness kit.",
     "funnel": {
       "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
       "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
@@ -18,12 +18,7 @@
       "campaign_code": "LAUNCH30",
       "upgrade_discount_percent": 20
     },
-    "channels": [
-      "mastodon_owned_posts",
-      "bluesky_owned_posts",
-      "profile",
-      "pinterest_manual_review"
-    ],
+    "channels": ["mastodon_owned_posts", "bluesky_owned_posts", "profile", "pinterest_manual_review"],
     "success_signals": {
       "tracked_social_posts_min": 10,
       "free_downloads_min": 3,
@@ -37,8 +32,8 @@
       "note": "Optional on the evaluation date; the CLI does not expose page views."
     },
     "guardrails": [
-      "Keep the aligned lead product, €7 core price, LAUNCH30 offer, landing page, and receipt stable during this test.",
-      "Change only the qualified distribution channel; do not change product, page, price, offer, or upsells.",
+      "Keep the aligned lead product, €7 core price, LAUNCH30 offer, landing page, receipt, and upsells stable during this test.",
+      "Change only owned-account distribution cadence; do not change product, page, price, offer, or upsells.",
       "Publish at most one campaign post per owned social account in a rolling 24 hours.",
       "Do not automate unsolicited likes, follows, boosts, reposts, replies, or direct messages.",
       "Do not create another SKU or publish intentional duplicate drafts.",
@@ -46,12 +41,26 @@
       "Repair delivery defects and false claims immediately."
     ],
     "source_decision": {
-      "experiment_id": "private_ai_free_to_paid_bridge_2026_08",
+      "experiment_id": "private_ai_pinterest_distribution_2026_08",
       "next_action": "Run another focused distribution experiment before changing the product or price."
-    },
-    "decision": null
+    }
   },
   "history": [
+    {
+      "id": "private_ai_pinterest_distribution_2026_08",
+      "status": "evaluated",
+      "started_at": "2026-08-29T17:11:50.310546+00:00",
+      "evaluate_on": "2026-09-05",
+      "hypothesis": "Adding one reviewed Pinterest distribution touchpoint for the existing Private AI readiness kit will create qualified reach and at least three free-kit downloads while the product, price, offer, and landing page remain stable.",
+      "major_variable": "Qualified channel only: Pinterest manual-review distribution for the existing free readiness kit.",
+      "funnel": {"lead_product_id": "GusEpfVyj3ByGk34VFgYZA==", "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==", "upgrade_product_id": "ws-l3GFbvznUmNYUgBwUGA=="},
+      "offer": {"lead_price_eur": 0, "core_price_eur": 7, "campaign_code": "LAUNCH30", "upgrade_discount_percent": 20},
+      "channels": ["mastodon_owned_posts", "bluesky_owned_posts", "profile", "pinterest_manual_review"],
+      "success_signals": {"tracked_social_posts_min": 10, "free_downloads_min": 3, "paid_sales_min": 1, "revenue_eur_min": 4.9},
+      "manual_analytics": {"gumroad_utm_page_views": null, "gumroad_utm_visitors": null, "recorded_at": null, "note": "Optional on the evaluation date; the CLI does not expose page views."},
+      "decision": {"outcome": "insufficient_distribution", "rationale": "The campaign did not reach its minimum tracked-post sample.", "next_action": "Run another focused distribution experiment before changing the product or price.", "page_view_data_available": false},
+      "actuals": {"evaluated_at": "2026-09-05T08:08:10.730056+00:00", "tracked_posts": 0, "free_downloads": 0, "core_sales": 0, "bundle_sales": 0, "paid_sales": 0, "gross_revenue_eur": 0.0, "audience": {}}
+    },
     {
       "id": "private_ai_free_to_paid_bridge_2026_08",
       "status": "evaluated",
