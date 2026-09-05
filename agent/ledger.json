@@ -23,6 +23,34 @@
   },
   "sessions": [
     {
+      "date": "2026-09-05",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully and completed the required live sync: 32 products discovered, 27 live, 5 drafts, 1 valid free-kit checkout, EUR 0.00 net revenue for September, 0 active subscribers, 0 payouts, and 55 offer-code records; missing data was not interpreted as zero.",
+        "Measured survival, underpriced, funnel, audience, and campaign status. Survival remains at risk at EUR 0.00 against the EUR 58.00 monthly target; no live paid offer is stuck at or below EUR 0.99. The campaign report recorded 0 posts, 0 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross revenue since the active experiment baseline; optional Gumroad UTM page-view data remains unavailable.",
+        "Applied the machine-generated date gate: private_ai_owned_distribution_2026_09 is running and collecting through 2026-09-12. Preserved the EUR 0 lead kit, EUR 7 core guide, EUR 24 toolkit, LAUNCH30 offer, landing pages, receipt, buyer files, and upsells; made no product, price, offer, page, or upsell change.",
+        "Verified the live funnel through the authenticated Gumroad CLI: all three focused products are published at the guarded prices, the guide has the current verified buyer PDF attached, the toolkit has ten PDF attachments, and both relevant upsells are active and unpaused at 30% and 20%.",
+        "Attempted the allowed owned-channel distribution. Mastodon and Bluesky could not post because credentials are absent. Pinterest created one review-only draft for the focused readiness kit and pending confirmed it; no Pin was published and no automated engagement was performed.",
+        "Rebuilt catalog/pinterest_catalog.csv with 26 eligible rows; product data was unchanged, so the tracked catalog had no diff. No Gumroad mutation or new SKU was made."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {"mastodon": 0, "bluesky": 0, "pinterest": 0},
+      "pinterest_drafts_created": 1,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "revenue_before_eur": 0.0,
+      "revenue_after_eur": 0.0,
+      "experiment": "private_ai_owned_distribution_2026_09 collecting through 2026-09-12",
+      "failures": [
+        "Audience metrics and Mastodon promotion failed with the exact error: MASTODON_ACCESS_TOKEN not set in .env.",
+        "Bluesky promotion failed with the exact error: BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env.",
+        "Pinterest promotion reported: PUSHOVER_USERKEY or PUSHOVER_APPKEY is missing from .env; the local Pinterest draft was still created successfully.",
+        "Campaign report labels the active period as private_ai_free_to_paid_bridge_2026_08 despite the active experiment being private_ai_owned_distribution_2026_09; metrics were retained as observed rather than relabeled."
+      ],
+      "notes": "No measurable sales movement. Active experiment remains stable; Pinterest draft awaits explicit manual approval at agent/pinterest_queue/20260905T180852Z-can-my-computer-run-private-ai-free-readiness-kit.json."
+    },
+    {
       "date": "2026-09-04",
       "agent": "Codex",
       "actions": [
