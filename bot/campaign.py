@@ -1,4 +1,6 @@
 """Shared campaign settings and tracking helpers for Schep Digital bots."""
+import json
+from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 LEAD_PRODUCT_ID = "GusEpfVyj3ByGk34VFgYZA=="
@@ -9,7 +11,19 @@ BUNDLE_PRODUCT_ID = "ws-l3GFbvznUmNYUgBwUGA=="
 BUNDLE_PRODUCT_NAME = "The Complete AI Creator Toolkit — 10 Practical Systems"
 CAMPAIGN_PRODUCT_ID = LEAD_PRODUCT_ID
 CAMPAIGN_PRODUCT_NAME = LEAD_PRODUCT_NAME
-CAMPAIGN = "private_ai_free_to_paid_bridge_2026_08"
+EXPERIMENT_PATH = Path(__file__).resolve().parent.parent / "agent" / "growth_experiments.json"
+
+
+def active_campaign_id():
+    """Use the active experiment ID for attribution, with a safe legacy fallback."""
+    try:
+        active = json.loads(EXPERIMENT_PATH.read_text()).get("active") or {}
+        return active.get("id") or "private_ai_free_to_paid_bridge_2026_08"
+    except (OSError, json.JSONDecodeError):
+        return "private_ai_free_to_paid_bridge_2026_08"
+
+
+CAMPAIGN = active_campaign_id()
 DISCOUNT_CODE = "LAUNCH30"
 
 

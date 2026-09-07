@@ -190,6 +190,12 @@ def test_campaign_links_have_source_attribution():
     assert "utm_content=l1" in url
 
 
+def test_campaign_attribution_matches_active_experiment():
+    campaign = _load(ROOT / "bot/campaign.py", "active_campaign")
+    experiments = json.loads((ROOT / "agent/growth_experiments.json").read_text())
+    assert campaign.CAMPAIGN == experiments["active"]["id"]
+
+
 def test_bluesky_fitter_never_slices_campaign_url():
     mods = _bots()
     if "bluesky_bot" not in mods:
