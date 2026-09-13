@@ -69,9 +69,10 @@
       "failures": [
         "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
         "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
+        "Pushover summary failed: Pushover credentials are missing or empty.",
         "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
       ],
-      "notes": "No measurable sales movement. The existing Pinterest readiness-kit draft awaits explicit manual approval; Gumroad Emails/Workflows were not claimed or sent. The runner may send its conditional summary because this session produces a commit.",
+      "notes": "No measurable sales movement. The existing Pinterest readiness-kit draft awaits explicit manual approval; Gumroad Emails/Workflows were not claimed or sent. The commit-qualified Pushover summary was attempted but could not be delivered because its credentials are absent.",
       "validation": "32 smoke tests passed; ledger and experiment JSON parsed successfully; the deterministic date gate confirmed private_ai_owned_distribution_2026_09_12 is collecting through 2026-09-19; the rebuilt Pinterest catalog validated with 26 in-stock rows; and git diff --check passed."
     },
     {
