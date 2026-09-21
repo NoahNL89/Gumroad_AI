@@ -69,9 +69,10 @@
       "failures": [
         "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
         "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
-        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs.",
+        "PUSHOVER_USERKEY or PUSHOVER_APPKEY is missing or empty; the commit-triggered completion notification was not sent."
       ],
-      "notes": "No measurable sales movement and no Gumroad mutation was made. The Pinterest queue is intentionally gitignored and remains a manual-review artifact. No new SKU, draft publication, discount family, launch-kit regeneration, lead-magnet rerun, automated interaction, Pinterest publication, or Gumroad Email/Workflow claim occurred. The runner may send its conditional Pushover summary because this session produces a commit.",
+      "notes": "No measurable sales movement and no Gumroad mutation was made. The Pinterest queue is intentionally gitignored and remains a manual-review artifact. No new SKU, draft publication, discount family, launch-kit regeneration, lead-magnet rerun, automated interaction, Pinterest publication, or Gumroad Email/Workflow claim occurred. The commit-triggered Pushover summary was attempted but credentials were unavailable.",
       "validation": "All 32 zero-fixture smoke tests passed; relevant Python modules compiled; ledger and experiment JSON parsed successfully; the campaign report and deterministic date gate confirmed collection through 2026-09-26; the rebuilt Pinterest catalog validated with 26 in-stock rows and an unchanged checksum; and git diff --check passed."
     },
     {
