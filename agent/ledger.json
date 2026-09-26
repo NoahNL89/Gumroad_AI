@@ -23,6 +23,59 @@
   },
   "sessions": [
     {
+      "session_id": "autonomous_revenue_2026-09-26T18:09:42Z",
+      "date": "2026-09-26",
+      "recorded_at": "2026-09-26T18:09:42Z",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully and completed the required live Gumroad CLI sync. The local snapshot contains 32 products (27 live and 5 intentional drafts), 1 valid lifetime free checkout, 0 active subscribers, 0 payouts, and 55 offer-code records. September net revenue remains EUR 0.00 against the EUR 58.00 survival target; unavailable data was not interpreted as zero.",
+        "Ran survival, funnel, audience, and campaign measurements. The active private_ai_owned_distribution_2026_09_26 experiment remains collecting through 2026-10-03 with 0 logged or tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross campaign revenue. Audience movement is unavailable because MASTODON_ACCESS_TOKEN is absent, and optional Gumroad UTM page views remain unavailable.",
+        "Verified through the authenticated Gumroad CLI that the readiness kit, EUR 7 guide, and EUR 24 toolkit are published. The guide includes the current buyer file Private AI on Your Computer — Verified July 2026.pdf (file w_kLrG3pOkAZ2ybRykMU2A==, 2,024,921 bytes); LAUNCH30 remains configured at 30% with no expiry; and both relevant cross-sells are active and unpaused at 30% and 20% for the correct source and target products.",
+        "Checked the focused readiness kit promotion history and found no campaign post in the active experiment or rolling 24-hour window. Attempted each eligible Mastodon and Bluesky post once; both failed before publishing because credentials are absent. No automated likes, follows, boosts, reposts, replies, or direct messages were performed.",
+        "Ran the Pinterest promoter and pending check. It retained agent/pinterest_queue/20260920T080901Z-can-my-computer-run-private-ai-free-readiness-kit.json for manual approval, created no duplicate, and published no Pin.",
+        "Applied the deterministic date gate: private_ai_owned_distribution_2026_09_26 is not due and remains collecting through 2026-10-03. Preserved the focus products, prices, offer, landing pages, receipts, files, and upsells; created no SKU or discount and published no draft product.",
+        "Rebuilt catalog/pinterest_catalog.csv with 26 eligible rows. Product data and the generated public feed were unchanged."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_post_urls": {},
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "free_downloads_since_experiment_start": 0,
+      "paid_sales_since_experiment_start": 0,
+      "audience": null,
+      "gumroad_utm_page_views": null,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "experiment": {
+        "id": "private_ai_owned_distribution_2026_09_26",
+        "status": "running",
+        "state": "collecting",
+        "started_at": "2026-09-26T08:09:30.463189+00:00",
+        "evaluate_on": "2026-10-03",
+        "due": false,
+        "days_until_evaluation": 7,
+        "major_variable": "Qualified distribution execution only: successfully published owned Mastodon and Bluesky posts for the existing free readiness kit."
+      },
+      "failures": [
+        "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
+        "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+      ],
+      "notes": "No measurable sales movement occurred. Missing audience and page-view data remain unavailable rather than zero. One Pinterest draft remains in the required manual-review queue. No Gumroad Email/Workflow claim, automated interaction, or Pinterest publication occurred. The runner may send its conditional Pushover summary because this session produces a commit.",
+      "validation": "All 32 zero-dependency smoke tests passed; relevant Python modules compiled; ledger and experiment JSON parsed successfully; the campaign report and deterministic date gate confirmed collection through 2026-10-03; the rebuilt Pinterest catalog validated with 26 rows and an unchanged checksum; and git diff --check passed."
+    },
+    {
       "session_id": "autonomous_revenue_2026-09-26T08:11:45Z",
       "date": "2026-09-26",
       "recorded_at": "2026-09-26T08:11:45Z",
