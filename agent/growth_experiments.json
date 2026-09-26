@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "active": {
-    "id": "private_ai_owned_distribution_2026_09_19",
+    "id": "private_ai_owned_distribution_2026_09_26",
     "status": "running",
-    "started_at": "2026-09-19T08:09:25.182529+00:00",
-    "evaluate_on": "2026-09-26",
+    "started_at": "2026-09-26T08:09:30.463189+00:00",
+    "evaluate_on": "2026-10-03",
     "hypothesis": "Completing a consistent value-first owned-account distribution cadence for the existing Private AI readiness kit will produce qualified reach and at least three free-kit downloads while the product, price, offer, and landing page remain stable.",
     "major_variable": "Qualified distribution execution only: successfully published owned Mastodon and Bluesky posts for the existing free readiness kit.",
     "funnel": {
@@ -47,11 +47,78 @@
       "Repair delivery defects and false claims immediately."
     ],
     "source_decision": {
-      "experiment_id": "private_ai_owned_distribution_2026_09_12",
+      "experiment_id": "private_ai_owned_distribution_2026_09_19",
       "next_action": "Run another focused distribution experiment before changing the product or price."
     }
   },
   "history": [
+    {
+      "id": "private_ai_owned_distribution_2026_09_19",
+      "status": "evaluated",
+      "started_at": "2026-09-19T08:09:25.182529+00:00",
+      "evaluate_on": "2026-09-26",
+      "hypothesis": "Completing a consistent value-first owned-account distribution cadence for the existing Private AI readiness kit will produce qualified reach and at least three free-kit downloads while the product, price, offer, and landing page remain stable.",
+      "major_variable": "Qualified distribution execution only: successfully published owned Mastodon and Bluesky posts for the existing free readiness kit.",
+      "funnel": {
+        "lead_product_id": "GusEpfVyj3ByGk34VFgYZA==",
+        "core_product_id": "gIXM0JN3NDuI1-2BadEVNg==",
+        "upgrade_product_id": "ws-l3GFbvznUmNYUgBwUGA=="
+      },
+      "offer": {
+        "lead_price_eur": 0,
+        "core_price_eur": 7,
+        "campaign_code": "LAUNCH30",
+        "upgrade_discount_percent": 20
+      },
+      "channels": [
+        "mastodon_owned_posts",
+        "bluesky_owned_posts",
+        "profile",
+        "pinterest_manual_review"
+      ],
+      "success_signals": {
+        "tracked_social_posts_min": 10,
+        "free_downloads_min": 3,
+        "paid_sales_min": 1,
+        "revenue_eur_min": 4.9
+      },
+      "manual_analytics": {
+        "gumroad_utm_page_views": null,
+        "gumroad_utm_visitors": null,
+        "recorded_at": null,
+        "note": "Optional on the evaluation date; the CLI does not expose page views."
+      },
+      "guardrails": [
+        "Keep the aligned lead product, €7 core price, LAUNCH30 offer, landing page, receipt, and upsells stable during this test.",
+        "Change only owned-account distribution execution; do not change product, page, price, offer, or upsells.",
+        "Publish at most one campaign post per owned social account in a rolling 24 hours.",
+        "Count only successfully published posts; record credential or network failures without treating them as distribution.",
+        "Do not automate unsolicited likes, follows, boosts, reposts, replies, or direct messages.",
+        "Do not create another SKU or publish intentional duplicate drafts.",
+        "Do not invent scarcity or guarantee privacy, performance, compatibility, or income.",
+        "Repair delivery defects and false claims immediately."
+      ],
+      "source_decision": {
+        "experiment_id": "private_ai_owned_distribution_2026_09_12",
+        "next_action": "Run another focused distribution experiment before changing the product or price."
+      },
+      "actuals": {
+        "evaluated_at": "2026-09-26T08:09:30.463189+00:00",
+        "tracked_posts": 0,
+        "free_downloads": 0,
+        "core_sales": 0,
+        "bundle_sales": 0,
+        "paid_sales": 0,
+        "gross_revenue_eur": 0.0,
+        "audience": {}
+      },
+      "decision": {
+        "outcome": "insufficient_distribution",
+        "rationale": "The campaign did not reach its minimum tracked-post sample.",
+        "next_action": "Run another focused distribution experiment before changing the product or price.",
+        "page_view_data_available": false
+      }
+    },
     {
       "id": "private_ai_owned_distribution_2026_09_12",
       "status": "evaluated",
