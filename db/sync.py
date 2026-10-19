@@ -194,7 +194,7 @@ def sync_products(con):
     print("\n📦 Syncing products...")
 
     # Step 1: Get known products from the CLI products endpoint.
-    data = cli_json("products", "list")
+    data = cli_json("products", "list", "--all")
     if data.get("success") is False:
         print(f"   ⚠️  CLI error fetching products: {data.get('error', 'unknown')}")
         return []

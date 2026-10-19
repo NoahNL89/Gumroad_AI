@@ -308,6 +308,43 @@ def test_sales_sync_hydrates_compact_cli_rows():
     assert row["formatted_price"] == "€0"
 
 
+def test_product_sync_fetches_every_cli_page():
+    sync = _load(ROOT / "db" / "sync.py", "product_store_sync")
+    product = {
+        "id": "core_1",
+        "name": "Private AI Guide",
+        "price": 700,
+        "currency": "eur",
+        "formatted_price": "€7",
+        "published": True,
+        "short_url": "https://schephenk.gumroad.com/l/private-ai",
+    }
+    calls = []
+
+    def fake_cli(*args):
+        calls.append(args)
+        if args == ("products", "list", "--all"):
+            return {"success": True, "products": [product]}
+        if args == ("user",):
+            return {"success": True, "user": {"links": []}}
+        if args == ("products", "view", "core_1"):
+            return {"success": True, "product": product}
+        raise AssertionError(f"unexpected CLI call: {args}")
+
+    with tempfile.TemporaryDirectory() as d:
+        con = sqlite3.connect(Path(d) / "store.db")
+        con.row_factory = sqlite3.Row
+        sync.init_db(con)
+        with patch.object(sync, "cli_json", side_effect=fake_cli), patch.object(sync.time, "sleep"):
+            synced = sync.sync_products(con)
+        row = con.execute("SELECT * FROM products WHERE id='core_1'").fetchone()
+        con.close()
+
+    assert calls[0] == ("products", "list", "--all")
+    assert len(synced) == 1
+    assert row["published"] == 1
+
+
 def test_owned_social_rate_limit_blocks_at_one():
     mods = _bots()
     with tempfile.TemporaryDirectory() as d:
@@ -488,6 +525,7 @@ def test_pinterest_catalog_feed_rewrites_claimed_domain_and_skips_subscriptions(
     assert rows[0]["availability"] == "in stock"
     assert rows[0]["google_product_category"] == "8022"
     assert "Monthly Vault" in skipped[0][0]
+    assert "\r" not in text
     assert '"id","title","description","link","image_link","price","availability"' in text
 
 

@@ -180,7 +180,9 @@ def rows_from_db(db_path, store_url):
 def write_csv(rows, out_path):
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS, quoting=csv.QUOTE_ALL)
+        writer = csv.DictWriter(
+            f, fieldnames=FIELDS, quoting=csv.QUOTE_ALL, lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
 

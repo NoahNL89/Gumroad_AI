@@ -23,6 +23,61 @@
   },
   "sessions": [
     {
+      "session_id": "autonomous_revenue_2026-10-19T18:12:18Z",
+      "date": "2026-10-19",
+      "recorded_at": "2026-10-19T18:12:18Z",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully and completed the required live Gumroad CLI sync. The initial first-page sync reported 32 products, but direct comparison with gumroad products list --all proved that six products were omitted, including the active EUR 7 guide. Repaired db/sync.py to fetch every CLI page, added a regression test, and confirmed the corrected snapshot contains 38 products (29 live and 9 intentional drafts), 1 valid lifetime free checkout, 0 active subscribers, 0 payouts, and 60 offer-code records.",
+        "Ran survival, underpriced, funnel, audience, and campaign measurements. October net revenue remains EUR 0.00 against the EUR 58.00 survival target; no live paid offer is underpriced. Since private_ai_owned_distribution_2026_10_17 began there are 0 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross campaign revenue. Audience movement is unavailable because MASTODON_ACCESS_TOKEN is absent; optional Gumroad UTM page views remain unavailable and were not interpreted as zero.",
+        "Checked the focused readiness kit's rolling 24-hour promotion history and found no Mastodon or Bluesky campaign post. Attempted each eligible owned-channel post exactly once; both failed before publishing because credentials are absent. No automated likes, follows, boosts, reposts, replies, or direct messages were performed.",
+        "Ran the Pinterest promoter and pending check. It retained agent/pinterest_queue/20261018T180934Z-can-my-computer-run-private-ai-free-readiness-kit.json for manual approval, created no duplicate, and published no Pin.",
+        "Verified through the authenticated Gumroad CLI that the free readiness kit, EUR 7 guide, and EUR 24 toolkit are published. The guide's Start here page uses the committed current buyer-file embed w_kLrG3pOkAZ2ybRykMU2A==; LAUNCH30 remains configured at 30% without a deadline; and both intended cross-sells are active and unpaused at 30% and 20% for the correct source and target products.",
+        "Applied the machine-generated date gate: private_ai_owned_distribution_2026_10_17 is not due and remains collecting through 2026-10-24 with five days remaining. Preserved the experiment's focus products, prices, offer, landing pages, receipt, files, and upsells; created no SKU or discount and published no draft product.",
+        "The corrected catalog surfaced a verified false-delivery claim on published product I9qlMBYv_lfoN4eDQskBcg==: a one-time EUR 12.99 product promised expiring access, weekly reports, live sessions, and a private community despite having no subscription or configured deadline. Kept its price and eight buyer files unchanged, renamed it AI Side Hustle Starter Vault — 8 Practical Resources, replaced the page and receipt with accurate one-time-delivery copy, and explicitly removed the scarcity, subscription, community, live-session, guaranteed-income, and weekly-delivery claims.",
+        "Re-synced the changed product and rebuilt catalog/pinterest_catalog.csv with 28 eligible in-stock rows, including the restored EUR 7 guide and EUR 14.99 AI-to-Blender product plus the corrected Starter Vault listing."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_post_urls": {},
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "free_downloads_since_experiment_start": 0,
+      "paid_sales_since_experiment_start": 0,
+      "audience": null,
+      "gumroad_utm_page_views": null,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "experiment": {
+        "id": "private_ai_owned_distribution_2026_10_17",
+        "status": "running",
+        "state": "collecting",
+        "started_at": "2026-10-17T08:09:05.496960+00:00",
+        "evaluate_on": "2026-10-24",
+        "due": false,
+        "days_until_evaluation": 5,
+        "major_variable": "Qualified distribution execution only: successfully published owned Mastodon and Bluesky posts for the existing free readiness kit."
+      },
+      "failures": [
+        "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
+        "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
+        "python3 -m pytest failed because pytest is not installed; the zero-dependency test runner completed successfully instead.",
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+      ],
+      "notes": "No measurable sales movement occurred. Missing audience and optional page-view data remain unavailable rather than zero. The existing Pinterest draft remains in the required manual-review queue. One measurement defect and one verified false-delivery claim were repaired without changing the active experiment. No new SKU, draft publication, discount family, automated interaction, Pinterest publication, or Email/Workflow claim occurred.",
+      "validation": "All 33 zero-dependency smoke tests passed; the corrected live sync returned 38 products and included the active EUR 7 guide; the corrected Starter Vault remained published at EUR 12.99 with all eight file embeds intact; ledger and experiment JSON parsed successfully; the final campaign report remained at zero tracked activity; the date gate remained collecting with five days left; the rebuilt Pinterest catalog contains 28 rows with checksum bab637ee4b6404183348a6068bb018a3242aa92c1ad6f955ecb40443d4896880; and git diff --check passed."
+    },
+    {
       "session_id": "autonomous_revenue_2026-10-19T08:12:27Z",
       "date": "2026-10-19",
       "recorded_at": "2026-10-19T08:12:27Z",
