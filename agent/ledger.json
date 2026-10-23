@@ -70,10 +70,12 @@
       "failures": [
         "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
         "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
-        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs.",
+        "The Pushover skill's documented workspace-relative scripts/send-pushover.sh path was absent, so the initial completion-notification attempt failed before any API call.",
+        "Completion Pushover notification failed after commit 476cff9: PUSHOVER_USERKEY or PUSHOVER_APPKEY is missing or empty in .env."
       ],
-      "notes": "No measurable sales movement occurred. Missing audience and optional page-view data remain unavailable rather than zero. The existing Pinterest draft remains in the required manual-review queue. No Gumroad mutation, new SKU, draft product publication, discount family, automated interaction, Pinterest publication, or Email/Workflow claim occurred.",
-      "validation": "All 33 zero-dependency smoke tests passed; relevant Python modules compiled; ledger and experiment JSON parsed successfully; git diff --check passed; the live sync returned 38 products; the final campaign report remained at zero tracked activity; the deterministic gate confirmed one collection day remains and made no update; and the rebuilt Pinterest catalog retained 28 in-stock rows with checksum bab637ee4b6404183348a6068bb018a3242aa92c1ad6f955ecb40443d4896880."
+      "notes": "No measurable sales movement occurred. Missing audience and optional page-view data remain unavailable rather than zero. The existing Pinterest draft remains in the required manual-review queue. No Gumroad mutation, new SKU, draft product publication, discount family, automated interaction, Pinterest publication, or Email/Workflow claim occurred. The required post-commit Pushover summary was attempted and could not be delivered because its credentials are unavailable.",
+      "validation": "All 33 zero-dependency smoke tests passed; relevant Python modules compiled; ledger and experiment JSON parsed successfully; git diff --check passed; the live sync returned 38 products; the final campaign report remained at zero tracked activity; the deterministic gate confirmed one collection day remains and made no update; the rebuilt Pinterest catalog retained 28 in-stock rows with checksum bab637ee4b6404183348a6068bb018a3242aa92c1ad6f955ecb40443d4896880; and the required completion notification was attempted without exposing credentials."
     },
     {
       "session_id": "autonomous_revenue_2026-10-22T18:09:02Z",
