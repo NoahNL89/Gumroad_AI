@@ -23,6 +23,63 @@
   },
   "sessions": [
     {
+      "session_id": "autonomous_revenue_2026-10-24T08:10:07Z",
+      "date": "2026-10-24",
+      "recorded_at": "2026-10-24T08:10:07Z",
+      "agent": "Codex",
+      "actions": [
+        "Authenticated successfully and completed the required live Gumroad CLI sync. The refreshed snapshot contains 38 products (29 live and 9 intentional drafts), 1 valid lifetime free checkout, 0 active subscribers, 0 payouts, and 60 offer-code records. October and lifetime net revenue remain EUR 0.00 against the EUR 58.00 monthly survival target; unavailable evidence was not interpreted as zero.",
+        "Ran survival, underpriced, funnel, audience, and campaign measurements. No live paid offer is underpriced. During private_ai_owned_distribution_2026_10_17 there were 0 tracked posts, 0 free downloads, 0 paid sales, and EUR 0.00 gross campaign revenue. Audience movement is unavailable because MASTODON_ACCESS_TOKEN is absent, and optional Gumroad UTM page views remain unavailable.",
+        "Checked the focused readiness kit's rolling 24-hour promotion history and found no Mastodon or Bluesky campaign post. Attempted each eligible owned-channel post exactly once; both failed before publishing because credentials are absent. No automated likes, follows, boosts, reposts, replies, or direct messages were performed.",
+        "Ran the Pinterest promoter and pending check. It retained agent/pinterest_queue/20261018T180934Z-can-my-computer-run-private-ai-free-readiness-kit.json for manual approval, created no duplicate, and published no Pin.",
+        "Verified through the authenticated Gumroad CLI that the free readiness kit, EUR 7 guide, and EUR 24 toolkit are published. The guide's Start here page embeds the current buyer file Private AI on Your Computer — Verified July 2026.pdf (file w_kLrG3pOkAZ2ybRykMU2A==, 2,024,921 bytes); LAUNCH30 remains configured at 30% without a configured deadline; and both intended cross-sells are active and unpaused at 30% and 20% for the correct source and target products.",
+        "Evaluated private_ai_owned_distribution_2026_10_17 on its configured date. The deterministic result was insufficient_distribution because the experiment recorded no tracked posts and therefore never reached its minimum distribution sample; it also recorded no downloads, paid sales, or revenue. Missing audience and optional page-view evidence was preserved as unavailable rather than zero.",
+        "Archived the evaluated experiment under history and opened private_ai_owned_distribution_2026_10_24 for the seven days ending 2026-10-31 from the prior decision.next_action. Qualified owned-account distribution execution remains the single major variable; products, prices, offer, landing pages, receipt, files, and upsells remain stable.",
+        "Rebuilt catalog/pinterest_catalog.csv with 28 eligible in-stock rows. Product data and the generated public feed were unchanged."
+      ],
+      "new_product_created": null,
+      "social_posts_made": {
+        "mastodon": 0,
+        "bluesky": 0,
+        "pinterest": 0
+      },
+      "social_post_urls": {},
+      "social_engagements": {
+        "mastodon": 0,
+        "bluesky": 0
+      },
+      "pinterest_drafts_created": 0,
+      "pinterest_drafts_pending": 1,
+      "campaign_posts_after": 0,
+      "campaign_tracked_posts_after": 0,
+      "free_downloads_since_experiment_start": 0,
+      "paid_sales_since_experiment_start": 0,
+      "audience": null,
+      "gumroad_utm_page_views": null,
+      "revenue_before_eur": 0,
+      "revenue_after_eur": 0,
+      "experiment": {
+        "evaluated_id": "private_ai_owned_distribution_2026_10_17",
+        "evaluated_outcome": "insufficient_distribution",
+        "id": "private_ai_owned_distribution_2026_10_24",
+        "status": "running",
+        "state": "collecting",
+        "started_at": "2026-10-24T08:09:08.351620+00:00",
+        "evaluate_on": "2026-10-31",
+        "due": false,
+        "days_until_evaluation": 7,
+        "major_variable": "Qualified distribution execution only: successfully published owned Mastodon and Bluesky posts for the existing free readiness kit."
+      },
+      "failures": [
+        "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
+        "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
+        "Experiment-evaluation Pushover notification failed: PUSHOVER_USERKEY or PUSHOVER_APPKEY is missing from .env.",
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+      ],
+      "notes": "No measurable sales movement occurred. The dated test established an execution failure, not a valid message or conversion result: no owned-channel campaign post was successfully published. The existing Pinterest draft remains in the required manual-review queue. No Gumroad mutation, new SKU, draft product publication, discount family, automated interaction, Pinterest publication, or Email/Workflow claim occurred.",
+      "validation": "All 33 zero-dependency smoke tests passed; relevant Python modules compiled; ledger and experiment JSON parsed successfully; the prior experiment was archived with its deterministic decision; the new experiment date gate reports seven collection days remaining; the final campaign report for the new experiment remains at zero tracked activity; the rebuilt Pinterest catalog retained 28 in-stock rows with checksum bab637ee4b6404183348a6068bb018a3242aa92c1ad6f955ecb40443d4896880; and git diff --check passed."
+    },
+    {
       "session_id": "autonomous_revenue_2026-10-23T18:10:39Z",
       "date": "2026-10-23",
       "recorded_at": "2026-10-23T18:10:39Z",
@@ -8307,8 +8364,8 @@
   ],
   "current_month_revenue_eur": 0,
   "lifetime_revenue_eur": 0,
-  "last_updated": "2026-10-22",
-  "status": "at_risk - EUR 0 this month vs EUR 58 target. private_ai_owned_distribution_2026_10_17 is collecting through 2026-10-24, owned social distribution is blocked by missing credentials, and Pinterest has one pending manual-review draft.",
+  "last_updated": "2026-10-24",
+  "status": "at_risk - EUR 0 this month vs EUR 58 target. private_ai_owned_distribution_2026_10_17 was evaluated as insufficient distribution; private_ai_owned_distribution_2026_10_24 is collecting through 2026-10-31, owned social distribution is blocked by missing credentials, and Pinterest has one pending manual-review draft.",
   "catalog": {
     "bundle": {
       "id": "ws-l3GFbvznUmNYUgBwUGA==",
