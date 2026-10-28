@@ -8815,7 +8815,8 @@
         "Ran the Pinterest promoter and pending check. It retained agent/pinterest_queue/20261026T081004Z-can-my-computer-run-private-ai-free-readiness-kit.json for manual approval, created no duplicate, and published no Pin.",
         "Verified through the authenticated Gumroad CLI that the free readiness kit, EUR 7 guide, and EUR 24 toolkit are published. The guide's Start here page embeds the current buyer file Private AI on Your Computer \u2014 Verified July 2026.pdf (file w_kLrG3pOkAZ2ybRykMU2A==, 2,024,921 bytes); LAUNCH30 remains configured at 30% without a configured deadline; and both intended cross-sells are active and unpaused at 30% and 20% for the correct source and target products.",
         "Applied the machine-generated and deterministic date gates: private_ai_owned_distribution_2026_10_24 is not due and remains collecting through 2026-10-31 with three days remaining. Preserved the focus products, prices, offer, landing pages, receipt, files, and upsells; created no SKU or discount and published no draft product.",
-        "Rebuilt catalog/pinterest_catalog.csv with 28 eligible in-stock rows. The generated public feed matched the committed file and required no update."
+        "Rebuilt catalog/pinterest_catalog.csv with 28 eligible in-stock rows. The generated public feed matched the committed file and required no update.",
+        "Attempted the authorized post-commit Pushover summary after commit 19e64d5 was pushed; delivery failed because Pushover credentials are missing or empty."
       ],
       "new_product_created": null,
       "social_posts_made": {
@@ -8851,9 +8852,10 @@
       "failures": [
         "MASTODON_ACCESS_TOKEN not set in .env (audience measurement and promotion)",
         "BLUESKY_USERNAME or BLUESKY_PASSWORD not set in .env",
-        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs."
+        "Pinterest catalog rebuild warned: no --store-url/PINTEREST_CLAIMED_STORE_URL set; using Gumroad short URLs.",
+        "Completion Pushover notification failed: Pushover credentials are missing or empty."
       ],
-      "notes": "No measurable sales movement occurred. The experiment is collecting, so no evaluation or major-variable change was made. Missing audience and optional page-view data remain unavailable rather than zero. The existing Pinterest draft remains in the required manual-review queue. No Gumroad mutation, new SKU, draft product publication, discount family, automated interaction, Pinterest publication, or Email/Workflow claim occurred.",
+      "notes": "No measurable sales movement occurred. The experiment is collecting, so no evaluation or major-variable change was made. Missing audience and optional page-view data remain unavailable rather than zero. The existing Pinterest draft remains in the required manual-review queue. No Gumroad mutation, new SKU, draft product publication, discount family, automated interaction, Pinterest publication, or Email/Workflow claim occurred. A completion notification was attempted only after the revenue-session commit existed, but credentials were unavailable.",
       "validation": "All 33 zero-dependency smoke tests passed; relevant Python modules compiled; ledger and experiment JSON parsed successfully; the final campaign report remained at zero tracked activity; the deterministic gate confirmed three collection days remain and made no update; the rebuilt Pinterest catalog retained 28 in-stock rows with checksum bab637ee4b6404183348a6068bb018a3242aa92c1ad6f955ecb40443d4896880; and git diff --check passed."
     }
   ],
